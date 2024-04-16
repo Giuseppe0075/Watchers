@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: giuse
   Date: 28/02/2024
@@ -11,8 +11,11 @@
     <title>Login</title>
 </head>
 <body>
+
+        <%@include file="navbar.html"%>
         <div id="mainBox">
             <div id="username">
+                <h1>Time <%= new Date()%></h1>
                 username
                 <input type="text" id="inputUser" name="username"><br>
             </div>
