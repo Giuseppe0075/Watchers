@@ -19,19 +19,11 @@ public class LoginServlet extends HttpServlet {
 
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
-        request.isRequestedSessionIdValid();
-
-        if(session == null) {
-            System.out.println("NO SESSIONE");
-        }
-        else{
-            System.out.println("Loggato");
-            System.out.println("sessione creata: " + session.getCreationTime());
-        }
-        session.setAttribute("username", "marco");
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        String psw = req.getParameter("password");
+        System.out.println("email: " + email + "\n password: " +  psw + "\n");
     }
 
     public void destroy() {

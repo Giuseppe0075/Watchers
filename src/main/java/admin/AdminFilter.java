@@ -18,7 +18,7 @@ public class AdminFilter implements Filter {
 
         }catch (Exception e){}
         System.out.println("not authenticated");
-        servletRequest.getRequestDispatcher("/login").forward(servletRequest, servletResponse);
+        servletRequest.getRequestDispatcher("/admin-login-servlet").forward(servletRequest, servletResponse);
 
     }
 }

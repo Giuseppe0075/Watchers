@@ -9,20 +9,19 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="homepage/style.css">
 </head>
 <body>
 
         <%@include file="navbar.html"%>
-        <div id="mainBox">
-            <div id="username">
-                <h1>Time <%= new Date()%></h1>
-                username
-                <input type="text" id="inputUser" name="username"><br>
-            </div>
-            <div id="password">
-                password
-                <input type="text" id="inputPassword" name="password"><br>
-            </div>
-        </div>
+
+        <form action="${pageContext.request.contextPath}/login-servlet" method="post">
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password"><br>
+            <input type="submit"><br>
+        </form>
+
 </body>
 </html>
