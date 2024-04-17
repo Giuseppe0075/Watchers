@@ -3,14 +3,11 @@ package storage;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public interface WatchDao<T> {
-    public T doRetriveByKey(int code) throws SQLException;
-
-    public Collection<T> doRetrieveAll() throws SQLException;
-
-    public void doSave(T object) throws SQLException;
-
-    public void doUpdate(T object) throws SQLException;
-
-    public void doDelete(T object) throws SQLException;
+public interface WatchDao {
+    public void addWatch(WatchBeen watch) throws SQLException;
+    public void updateWatch(WatchBeen watch) throws SQLException;
+    public WatchBeen getWatchById(Integer id) throws SQLException;
+    public Collection<WatchBeen> getAllWatches() throws SQLException;
+    public void deleteWatch(WatchBeen watch) throws SQLException;
+    public void deleteAllWatches() throws SQLException;
 }

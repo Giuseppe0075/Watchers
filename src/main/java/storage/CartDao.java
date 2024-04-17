@@ -3,14 +3,11 @@ package storage;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public interface CartDao<T> {
-    public T doRetriveByKey(int code) throws SQLException;
-
-    public Collection<T> doRetrieveAll() throws SQLException;
-
-    public void doSave(T object) throws SQLException;
-
-    public void doUpdate(T object) throws SQLException;
-
-    public void doDelete(T object) throws SQLException;
+public interface CartDao {
+    public void addCart(CartBeen cart) throws SQLException;
+    public void updateCart(CartBeen cart) throws SQLException;
+    public CartBeen getCartById(Integer id) throws SQLException;
+    public Collection<CartBeen> getAllCarts() throws SQLException;
+    public void deleteCart(CartBeen cart) throws SQLException;
+    public void deleteAllCarts() throws SQLException;
 }

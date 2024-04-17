@@ -3,16 +3,12 @@ package storage;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public interface AdminDao<T> {
-
-    public T doRetriveByKey(int code) throws SQLException;
-
-    public Collection<T> doRetrieveAll() throws SQLException;
-
-    public void doSave(T object) throws SQLException;
-
-    public void doUpdate(T object) throws SQLException;
-
-    public void doDelete(T object) throws SQLException;
+public interface AdminDao{
+    public void addAdmin(AdminBeen admin) throws SQLException;
+    public void updateAdmin(AdminBeen admin) throws SQLException;
+    public AdminBeen getAdminById(Integer id) throws SQLException;
+    public Collection<AdminBeen> getAllAdmins() throws SQLException;
+    public void deleteAdmin(AdminBeen admin) throws SQLException;
+    public void deleteAllAdmins() throws SQLException;
 
 }
