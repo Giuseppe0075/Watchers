@@ -14,12 +14,13 @@ CREATE TABLE `Image`(
 public class ImageBeen {
     private Integer id;
     private Integer watch;
-    private Blob image;
+    private byte[] image;
+
 
     private ImageBeen() {
     }
 
-    public ImageBeen(Integer id, Integer watch, Blob image) {
+    public ImageBeen(Integer id, Integer watch, byte[] image) {
         this.id = id;
         this.watch = watch;
         this.image = image;
@@ -41,11 +42,11 @@ public class ImageBeen {
         this.watch = watch;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -54,7 +55,6 @@ public class ImageBeen {
         return "ImageBeen{" +
                 "id=" + id +
                 ", watch=" + watch +
-                ", image=" + image +
                 '}';
     }
 
@@ -66,15 +66,14 @@ public class ImageBeen {
         ImageBeen imageBeen = (ImageBeen) o;
 
         if (!id.equals(imageBeen.id)) return false;
-        if (!watch.equals(imageBeen.watch)) return false;
-        return image.equals(imageBeen.image);
+        return  watch.equals(imageBeen.watch);
+
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + watch.hashCode();
-        result = 31 * result + image.hashCode();
         return result;
     }
 }
