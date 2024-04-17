@@ -1,4 +1,4 @@
-package watch;
+package storage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DriverManagerConnectionPool {
-    private static List<Connection> freeDbConnections;
+    private static final List<Connection> freeDbConnections;
 
     static {
-        freeDbConnections = new LinkedList<Connection>();
+        freeDbConnections = new LinkedList<>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -19,10 +19,10 @@ public class DriverManagerConnectionPool {
     }
 
     private static Connection createDBConnection() throws SQLException {
-        Connection newConnection = null;
-        String db = "mioDb";
-        String username = "login";
-        String password = "password";
+        Connection newConnection;
+        String db = "watchers";
+        String username = "root";
+        String password = "root";
         newConnection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/"+db, username, password);
         newConnection.setAutoCommit(false);
@@ -31,7 +31,7 @@ public class DriverManagerConnectionPool {
     public static synchronized Connection getConnection() throws SQLException {
         Connection connection;
         if (! freeDbConnections.isEmpty()) {
-            connection = (Connection) freeDbConnections.get(0);
+            connection = freeDbConnections.get(0);
             DriverManagerConnectionPool.freeDbConnections.remove(0);
             try {
                 if (connection.isClosed())

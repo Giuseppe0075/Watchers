@@ -1,5 +1,7 @@
+<%@ page import="storage.WatchDao" %>
+<%@ page import="java.util.List" %>
 <%@ page import="watch.Watch" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.Collection" %><%--
   Created by IntelliJ IDEA.
   User: aless
   Date: 17/04/2024
@@ -14,7 +16,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<%!List<Watch> watchList = Watch.getAllWatches()%>
+<%!Collection<Watch> watchList = %>
 
 
 <%@include file="../navbar.html"%> <!-- Navabar -->
