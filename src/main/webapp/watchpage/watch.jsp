@@ -1,5 +1,3 @@
-<%@ page import="watch.Watch" %>
-<%@ page import="watch.WatchManager" %>
 <%@ page import="storage.WatchModel" %>
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="java.sql.SQLException" %>
@@ -21,7 +19,7 @@
             WatchBeen watch = null;
             try {
                 watch = model.getWatchById(Integer.parseInt(id));
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 response.sendError(404);
             }
         %>

@@ -29,7 +29,7 @@ public class WatchBeen {
     private Double dimension;
     private Integer IVA;
     private String sex;
-    private  Integer visible;
+    private Integer visible;
 
     public WatchBeen() {
     }

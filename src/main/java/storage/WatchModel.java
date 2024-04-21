@@ -1,5 +1,7 @@
 package storage;
 
+import database.DatabaseConnectionPool;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,9 +32,9 @@ public class WatchModel implements WatchDao{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManagerConnectionPool.getConnection();
+            connection = DatabaseConnectionPool.getInstance().getConnection();
 
-            preparedStatement =  connection.prepareStatement("INSERT INTO watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement =  connection.prepareStatement("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)");
 
             preparedStatement.setString(1, watch.getName());
             preparedStatement.setString(2, watch.getBrand());
@@ -55,16 +57,15 @@ public class WatchModel implements WatchDao{
                 preparedStatement.close();
             }
 
-            DriverManagerConnectionPool.releaseConnection(connection);
+            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
     }
 
     @Override
     public void updateWatch(WatchBeen watch) throws SQLException {
-        Connection connection = null;
+
         PreparedStatement preparedStatement = null;
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
 
             preparedStatement = connection.prepareStatement("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?");
 
@@ -86,11 +87,6 @@ public class WatchModel implements WatchDao{
             if(rs == 0){
                 throw new SQLException("Watch | Aggiornamento non eseguito | 0 righe modificate | Watch: "+ watch.toString());
             }
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            DriverManagerConnectionPool.releaseConnection(connection);
         }
     }
 
@@ -103,8 +99,7 @@ public class WatchModel implements WatchDao{
         WatchBeen watch = new WatchBeen();
 
         try {
-            connection = DriverManagerConnectionPool.getConnection();
-            System.out.println("Connessione aperta");
+            connection = DatabaseConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM Watch WHERE id = ?");
             preparedStatement.setInt(1, id);
 
@@ -133,7 +128,7 @@ public class WatchModel implements WatchDao{
                     preparedStatement.close();
                 }
             } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
             }
         }
 
@@ -149,7 +144,7 @@ public class WatchModel implements WatchDao{
         Connection connection = null;
 
         try {
-            connection = DriverManagerConnectionPool.getConnection();
+            connection = DatabaseConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM watch");
 
             java.sql.ResultSet rs = preparedStatement.executeQuery();
@@ -179,7 +174,7 @@ public class WatchModel implements WatchDao{
                     preparedStatement.close();
                 }
             } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
             }
         }
         return watches;
@@ -190,7 +185,7 @@ public class WatchModel implements WatchDao{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManagerConnectionPool.getConnection();
+            connection = DatabaseConnectionPool.getInstance().getConnection();
 
             preparedStatement = connection.prepareStatement("DELETE FROM watch WHERE id = ?");
             preparedStatement.setInt(1, watch.getId());
@@ -203,7 +198,7 @@ public class WatchModel implements WatchDao{
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
-            DriverManagerConnectionPool.releaseConnection(connection);
+            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
 
     }
@@ -213,9 +208,9 @@ public class WatchModel implements WatchDao{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManagerConnectionPool.getConnection();
+            connection = DatabaseConnectionPool.getInstance().getConnection();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM watch where id > 0");
+            preparedStatement = connection.prepareStatement("DELETE FROM Watch where id > 0");
 
             int rs = preparedStatement.executeUpdate();
             if (rs == 0) {
@@ -225,7 +220,7 @@ public class WatchModel implements WatchDao{
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
-            DriverManagerConnectionPool.releaseConnection(connection);
+            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
     }
 }

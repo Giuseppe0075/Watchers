@@ -17,7 +17,7 @@ public class AdminFilter implements Filter {
         try{
             HttpSession session = request.getSession(false);
 
-            if(session != null && (Boolean) session.getAttribute("admin")){
+            if(session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true)){
                 System.out.println("authenticated");
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;

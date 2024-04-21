@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="homepage/style.css">
 </head>
 <body>
+<%
+
+    if(session.getAttribute("admin") == null || session.getAttribute("admin").equals(false)){
+        response.sendRedirect(request.getContextPath() + "admin/adminPage.jsp");
+    }
+%>
 
         <%@include file="navbar.html"%>
 

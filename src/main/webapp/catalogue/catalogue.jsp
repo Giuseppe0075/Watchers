@@ -28,13 +28,15 @@
         <th>Description</th>
     </tr>
     <% for (Watch watch : watchList) { %>
-        <tr >
+        <tr>
             <td><%=watch.getNome()%></td>
             <td><%=watch.getBrand()%></td>
             <td><%=watch.getDescrizione()%></td>
         </tr>
 
     <%}%>
+
+
 
 </table>
 

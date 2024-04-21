@@ -1,5 +1,7 @@
 package storage;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Blob;
 
 /*
@@ -41,6 +43,7 @@ public class ImageBeen {
     public void setWatch(Integer watch) {
         this.watch = watch;
     }
+
 
     public byte[] getImage() {
         return image;
