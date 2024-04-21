@@ -1,5 +1,8 @@
 <%@ page import="watch.Watch" %>
 <%@ page import="watch.WatchManager" %>
+<%@ page import="storage.WatchModel" %>
+<%@ page import="storage.WatchBeen" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -12,13 +15,14 @@
     </head>
     <body>
         <%
-            Watch watch;
+            WatchModel model = new WatchModel();
             String id = request.getParameter("id");
-            if(id == null || (watch = WatchManager.retriveWatchbyID(id)) == null){
-                //response.sendRedirect("../error.jsp");
-                response.sendError(404);
 
-                return;
+            WatchBeen watch = null;
+            try {
+                watch = model.getWatchById(Integer.parseInt(id));
+            } catch (SQLException e) {
+                response.sendError(404);
             }
         %>
         <%@include file="../navbar.html"%>
@@ -29,10 +33,10 @@
                 <img class = "photo" src= <%="watchpic/" + id + "/pic3.png"%> >
             </div>
             <aside class = "infobar">
-                <h1><%=watch.getNome()%></h1>
-                <h3><%="price: " + watch.getPrezzo()%></h3>
+                <h1><%=watch.getName()%></h1>
+                <h3><%="price: " + watch.getPrice()%></h3>
                 <p><%="id: " +watch.getId() %></p>
-                <p><%=watch.getDescrizione()%></p>
+                <p><%=watch.getDescription()%></p>
             </aside>
         </div>
 

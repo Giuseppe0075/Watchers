@@ -1,9 +1,13 @@
 package storage;
 
+import java.util.Collection;
+
 public interface ReviewDao {
-    public void doSave(int userCode, int watchCode, String review);
-    public void doDelete(int userCode, int watchCode);
-    public String doRetrieveByKey(int userCode, int watchCode);
-    public void doDeleteAll(int userCode);
-    public void doDeleteAll();
+    public void addReview(ReviewBeen review);
+    public void updateReview(ReviewBeen review);
+    public ReviewBeen getReviewById(Integer id);
+    public Collection<ReviewBeen> getAllReviews();
+    public void deleteReview(ReviewBeen review);
+    public void deleteAllReviews();
+
 }

@@ -9,6 +9,4 @@ public interface AdminDao{
     public AdminBeen getAdminById(Integer id) throws SQLException;
     public Collection<AdminBeen> getAllAdmins() throws SQLException;
     public void deleteAdmin(AdminBeen admin) throws SQLException;
-    public void deleteAllAdmins() throws SQLException;
-
 }

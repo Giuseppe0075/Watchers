@@ -1,9 +1,11 @@
 package storage;
 
+import java.util.Collection;
+
 public interface ImageDao {
-    public void doSave(int watchCode, String path);
-    public void doDelete(int watchCode);
-    public String doRetrieveByKey(int watchCode);
-    public void doDeleteAll(int watchCode);
-    public void doDeleteAll();
+    public void addImage(ImageBeen image);
+    public void updateImage(ImageBeen image);
+    public ImageBeen getImageById(Integer id);
+    public Collection<ImageBeen> getAllImages();
+    public void deleteImage(ImageBeen image);
 }

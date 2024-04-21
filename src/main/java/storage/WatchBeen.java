@@ -31,7 +31,7 @@ public class WatchBeen {
     private String sex;
     private  Integer visible;
 
-    private WatchBeen() {
+    public WatchBeen() {
     }
 
     public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible) {

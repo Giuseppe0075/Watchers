@@ -9,7 +9,6 @@
 
 </head>
 <body>
-
 <%@include file="navbar.html"%> <!-- Navabar -->
 <div id="frontPage">
     <video id="mainVideo" autoplay muted loop>

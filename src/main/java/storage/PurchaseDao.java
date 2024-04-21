@@ -9,5 +9,4 @@ public interface PurchaseDao {
     public PurchaseBeen getPurchaseById(Integer id) throws SQLException;
     public Collection<PurchaseBeen> getAllPurchases() throws SQLException;
     public void deletePurchase(PurchaseBeen purchase) throws SQLException;
-    public void deleteAllPurchases() throws SQLException;
 }

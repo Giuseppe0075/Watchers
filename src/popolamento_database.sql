@@ -1,6 +1,6 @@
 -- Inserimento di dati nella tabella Brand
-INSERT INTO admin (email, psw) VALUES
-('admin1@root.com', 'root');
+INSERT INTO Admin (email, psw) VALUES
+('admin@admin.com', 'admin');
 -- Inserimento di dati nella tabella Brand
 INSERT INTO Brand (business_name, name, description) VALUES
 ('brand1', 'Brand 1', 'Description of Brand 1'),

@@ -9,5 +9,4 @@ public interface BrandDao{
     public BrandBeen getBrandById(Integer id) throws SQLException;
     public Collection<BrandBeen> getAllBrands() throws SQLException;
     public void deleteBrand(BrandBeen brand) throws SQLException;
-    public void deleteAllBrands() throws SQLException;
 }

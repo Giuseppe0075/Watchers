@@ -12,7 +12,7 @@ public class DriverManagerConnectionPool {
     static {
         freeDbConnections = new LinkedList<>();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println("DB driver not found!");
         }
@@ -20,11 +20,11 @@ public class DriverManagerConnectionPool {
 
     private static Connection createDBConnection() throws SQLException {
         Connection newConnection;
-        String db = "watchers";
-        String username = "root";
-        String password = "root";
+        String db = "bcvrujqustmrsee1qise";
+        String username = "uvkau7wy98snlgqm";
+        String password = "oSLixuDHYthrPI6ZHPer";
         newConnection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/"+db, username, password);
+                "jdbc:mysql://uvkau7wy98snlgqm:oSLixuDHYthrPI6ZHPer@bcvrujqustmrsee1qise-mysql.services.clever-cloud.com:3306/bcvrujqustmrsee1qise", username, password);
         newConnection.setAutoCommit(false);
         return newConnection;
     }
@@ -39,7 +39,8 @@ public class DriverManagerConnectionPool {
             } catch (SQLException e) {
                 connection = DriverManagerConnectionPool.getConnection();
             }
-        } else connection = DriverManagerConnectionPool.createDBConnection();
+        } else
+            connection = DriverManagerConnectionPool.createDBConnection();
         return connection;
     }
     public static synchronized void releaseConnection(Connection connection) {

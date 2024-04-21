@@ -1,9 +1,12 @@
 package storage;
 
+import java.util.Collection;
+
 public interface FavouriteDao {
-    public void doSave(int userCode, int watchCode);
-    public void doDelete(int userCode, int watchCode);
-    public boolean doRetrieveByKey(int userCode, int watchCode);
-    public void doDeleteAll(int userCode);
-    public void doDeleteAll();
+    public void addFavourite(FavouriteBeen favourite);
+    public void updateFavourite(FavouriteBeen favourite);
+    public FavouriteBeen getFavouriteById(Integer id);
+    public Collection<FavouriteBeen> getAllFavourites();
+    public void deleteFavourite(FavouriteBeen favourite);
+    
 }

@@ -10,5 +10,4 @@ public interface UserDao {
     public UserBeen getUserById(Integer id) throws SQLException;
     public Collection<UserBeen> getAllUsers() throws SQLException;
     public void deleteUser(UserBeen user) throws SQLException;
-    public void deleteAllUsers() throws SQLException;
 }

@@ -1,6 +1,6 @@
-DROP SCHEMA watchers;
-CREATE DATABASE watchers;
-USE watchers;
+#DROP SCHEMA watchers;
+#CREATE DATABASE watchers;
+#USE watchers;
 CREATE TABLE `Admin`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `email` VARCHAR(255) NOT NULL UNIQUE,
@@ -96,7 +96,7 @@ CREATE TABLE `Review`(
 CREATE TABLE `Image`(
     `id` BIGINT UNSIGNED NOT NULL,
     `watch` BIGINT UNSIGNED NOT NULL,
-    `image` BLOB NOT NULL,
+    `image` longblob NOT NULL,
     PRIMARY KEY(`id`, `watch`),
     CONSTRAINT `image_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
