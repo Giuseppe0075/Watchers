@@ -1,5 +1,7 @@
 package storage;
 
+import java.awt.image.BufferedImage;
+
 /*
 CREATE TABLE `Watch`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -31,10 +33,12 @@ public class WatchBeen {
     private String sex;
     private Integer visible;
 
+    private BufferedImage image;
+
     public WatchBeen() {
     }
 
-    public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible) {
+    public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible, BufferedImage image) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -47,6 +51,7 @@ public class WatchBeen {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -145,6 +150,10 @@ public class WatchBeen {
         this.visible = visible;
     }
 
+    public BufferedImage getImage() { return image; }
+
+    public void setImage(BufferedImage image) { this.image = image; }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -163,6 +172,7 @@ public class WatchBeen {
         if (!getDimension().equals(watchBeen.getDimension())) return false;
         if (!getIVA().equals(watchBeen.getIVA())) return false;
         if (!getSex().equals(watchBeen.getSex())) return false;
+        if(!getImage().equals(watchBeen.getImage())) return false;
         return getVisible().equals(watchBeen.getVisible());
     }
 
@@ -180,6 +190,7 @@ public class WatchBeen {
                 ", dimension=" + dimension +
                 ", IVA=" + IVA +
                 ", Sex='"+ sex + '\'' +
+                ", Image=" + image +
                 ", Visible='"+ visible + '\'' +
                 '}';
     }
