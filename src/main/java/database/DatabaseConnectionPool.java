@@ -2,7 +2,6 @@ package database;
 
 import org.tinylog.Logger;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -28,7 +27,7 @@ public class DatabaseConnectionPool {
 
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
-                pool.add(DriverManager.getConnection(uri, username, password));
+                pool.add(new Connection(DriverManager.getConnection(uri, username, password)));
             }catch (Exception e){
                 Logger.error("failed to create the connection to the database", e);
             }
@@ -37,11 +36,13 @@ public class DatabaseConnectionPool {
 
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(() -> {
-            for (Connection connection : pool){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    Logger.warn("Failed to close connection in the pool", e);
+            synchronized (pool) {
+                for (Connection connection : pool) {
+                    try {
+                        connection.close();
+                    } catch (Exception e) {
+                        Logger.warn("Failed to close connection in the pool", e);
+                    }
                 }
             }
             Logger.info("Db connection pool closed");
@@ -71,11 +72,19 @@ public class DatabaseConnectionPool {
      * Get a connection if avaiable, non blockin
      * @return a valid connection
      */
-    public synchronized Connection getConnection(){
+    public synchronized Connection getConnection2(){
         return pool.remove();
+    }
+
+    public synchronized java.sql.Connection getConnection(){
+        return pool.remove().connection;
     }
 
     public synchronized void releaseConnection(Connection connection) {
         pool.add(connection);
+    }
+
+    public synchronized void releaseConnection(java.sql.Connection connection) {
+        pool.add(new Connection(connection));
     }
 }

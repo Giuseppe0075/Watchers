@@ -1,5 +1,10 @@
 package storage;
 
+import storage.model.DatabaseObject;
+import storage.model.DatabaseTable;
+
+import java.math.BigInteger;
+
 /*
 CREATE TABLE `Watch`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -17,8 +22,9 @@ CREATE TABLE `Watch`(
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
-public class WatchBeen {
-    private Integer id;
+@DatabaseTable(tableName = "Watch")
+public class WatchBeen extends DatabaseObject {
+    private BigInteger id;
     private String name;
     private String brand;
     private String description;
@@ -29,12 +35,12 @@ public class WatchBeen {
     private Double dimension;
     private Integer IVA;
     private String sex;
-    private Integer visible;
+    private Boolean visible;
 
     public WatchBeen() {
     }
 
-    public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible) {
+    public WatchBeen(BigInteger id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -49,11 +55,11 @@ public class WatchBeen {
         this.visible = visible;
     }
 
-    public Integer getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -137,11 +143,11 @@ public class WatchBeen {
         this.sex = sex;
     }
 
-    public Integer getVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(Integer visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 

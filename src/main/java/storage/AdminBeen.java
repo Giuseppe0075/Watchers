@@ -1,43 +1,50 @@
 package storage;
 
-public class AdminBeen {
+import storage.model.DatabaseKey;
+import storage.model.DatabaseObject;
+import storage.model.DatabaseTable;
 
-    private Integer id;
+import java.math.BigInteger;
+
+@DatabaseTable(tableName = "Admin")
+public class AdminBeen extends DatabaseObject {
+    @DatabaseKey(keyName = "id")
+    private BigInteger id;
     private String email;
-    private String password;
+    private String psw;
 
-    private AdminBeen() {
+    public AdminBeen() {
     }
 
-    public AdminBeen(Integer id, String email, String password) {
+    public AdminBeen(BigInteger id, String email, String password) {
         this.id = id;
         this.email = email;
-        this.password = password;
+        this.psw = password;
     }
 
-    public Integer getId() {
+    public BigInteger getId() {
         return id;
     }
     public String getEmail() {
         return email;
     }
     public String getPassword() {
-        return password;
+        return psw;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
     public void setEmail(String email) {
         this.email = email;
     }
     public void setPassword(String password) {
-        this.password = password;
+        this.psw = password;
     }
 
     @Override
     public String toString() {
-        return "AdminBeen{" + "id=" + id + ", email=" + email + ", password=" + password + '}';
+        return "AdminBeen{" + "id=" + id + ", email=" + email + ", password=" + psw + '}';
     }
 
     @Override
