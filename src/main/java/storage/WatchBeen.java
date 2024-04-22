@@ -1,6 +1,11 @@
 package storage;
 
+import storage.model.DatabaseKey;
+import storage.model.DatabaseObject;
+import storage.model.DatabaseTable;
+
 import java.awt.image.BufferedImage;
+import java.math.BigInteger;
 
 /*
 CREATE TABLE `Watch`(
@@ -19,8 +24,10 @@ CREATE TABLE `Watch`(
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
-public class WatchBeen {
-    private Integer id;
+@DatabaseTable(tableName = "Watch")
+public class WatchBeen extends DatabaseObject {
+    @DatabaseKey(keyName = "id")
+    private BigInteger id;
     private String name;
     private String brand;
     private String description;
@@ -31,14 +38,12 @@ public class WatchBeen {
     private Double dimension;
     private Integer IVA;
     private String sex;
-    private Integer visible;
-
-    private BufferedImage image;
+    private Boolean visible;
 
     public WatchBeen() {
     }
 
-    public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible, BufferedImage image) {
+    public WatchBeen(BigInteger id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA, String sex, Boolean visible) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -51,14 +56,13 @@ public class WatchBeen {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
-        this.image = image;
     }
 
-    public Integer getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -142,17 +146,14 @@ public class WatchBeen {
         this.sex = sex;
     }
 
-    public Integer getVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(Integer visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
-    public BufferedImage getImage() { return image; }
-
-    public void setImage(BufferedImage image) { this.image = image; }
 
     @Override
     public boolean equals(Object obj) {
@@ -172,7 +173,6 @@ public class WatchBeen {
         if (!getDimension().equals(watchBeen.getDimension())) return false;
         if (!getIVA().equals(watchBeen.getIVA())) return false;
         if (!getSex().equals(watchBeen.getSex())) return false;
-        if(!getImage().equals(watchBeen.getImage())) return false;
         return getVisible().equals(watchBeen.getVisible());
     }
 
@@ -190,7 +190,6 @@ public class WatchBeen {
                 ", dimension=" + dimension +
                 ", IVA=" + IVA +
                 ", Sex='"+ sex + '\'' +
-                ", Image=" + image +
                 ", Visible='"+ visible + '\'' +
                 '}';
     }
