@@ -40,6 +40,7 @@ public class WatchBeen extends DatabaseObject {
     private String sex;
     private Boolean visible;
 
+
     public WatchBeen() {
     }
 
@@ -153,6 +154,7 @@ public class WatchBeen extends DatabaseObject {
     public void setVisible(Boolean visible) {
         this.visible = visible;
     }
+
 
 
     @Override

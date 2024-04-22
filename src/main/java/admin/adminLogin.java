@@ -13,13 +13,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+import static utils.Sanitazer.sanitizeInput;
+
 @WebServlet(name = "adminLoginServlet", value = "/admin-login-servlet")
 public class adminLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
+        String email = sanitizeInput(req.getParameter("email"));
+        String password = sanitizeInput(req.getParameter("password"));
 
         HttpSession session1 = req.getSession(false);
         if( session1 != null && session1.getAttribute("admin") != null && session1.getAttribute("admin").equals(true)){
