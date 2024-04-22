@@ -1,7 +1,8 @@
 <%@ page import="storage.WatchDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="watch.Watch" %>
-<%@ page import="java.util.Collection" %><%--
+<%@ page import="storage.WatchBeen" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="storage.WatchBeen" %><%--
   Created by IntelliJ IDEA.
   User: aless
   Date: 17/04/2024
@@ -16,7 +17,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<%!Collection<Watch> watchList = %>
+<%!Collection<WatchBeen> watchList = %>
 
 
 <%@include file="../navbar.html"%> <!-- Navabar -->
@@ -27,12 +28,12 @@
         <th>Brand: </th>
         <th>Description</th>
     </tr>
-    <% for (Watch watch : watchList) { %>
+    <% for (WatchBeen watch : watchList) { %>
         <tr>
-            <td><%=watch.getNome()%></td>
+            <td><%=watch.getName()%></td>
             <td><%=watch.getBrand()%></td>
-            <td><%=watch.getDescrizione()%></td>
-            <td><img src="<%= watch.getImages()%>" alt="Immagine Prodotto"></td>
+            <td><%=watch.getDescription()%></td>
+            <td><img src="<%= watch.getImage()%>" alt="Immagine Prodotto"></td>
             <td><input type="hidden" name="productID" value="<%= watch.getId()%>"></td>
         </tr>
 

@@ -1,9 +1,6 @@
 package storage;
 
-import storage.model.DatabaseObject;
-import storage.model.DatabaseTable;
-
-import java.math.BigInteger;
+import java.awt.image.BufferedImage;
 
 /*
 CREATE TABLE `Watch`(
@@ -22,9 +19,8 @@ CREATE TABLE `Watch`(
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
-@DatabaseTable(tableName = "Watch")
-public class WatchBeen extends DatabaseObject {
-    private BigInteger id;
+public class WatchBeen {
+    private Integer id;
     private String name;
     private String brand;
     private String description;
@@ -35,12 +31,14 @@ public class WatchBeen extends DatabaseObject {
     private Double dimension;
     private Integer IVA;
     private String sex;
-    private Boolean visible;
+    private Integer visible;
+
+    private BufferedImage image;
 
     public WatchBeen() {
     }
 
-    public WatchBeen(BigInteger id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
+    public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible, BufferedImage image) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -53,13 +51,14 @@ public class WatchBeen extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
+        this.image = image;
     }
 
-    public BigInteger getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -143,13 +142,17 @@ public class WatchBeen extends DatabaseObject {
         this.sex = sex;
     }
 
-    public Boolean getVisible() {
+    public Integer getVisible() {
         return visible;
     }
 
-    public void setVisible(Boolean visible) {
+    public void setVisible(Integer visible) {
         this.visible = visible;
     }
+
+    public BufferedImage getImage() { return image; }
+
+    public void setImage(BufferedImage image) { this.image = image; }
 
     @Override
     public boolean equals(Object obj) {
@@ -169,6 +172,7 @@ public class WatchBeen extends DatabaseObject {
         if (!getDimension().equals(watchBeen.getDimension())) return false;
         if (!getIVA().equals(watchBeen.getIVA())) return false;
         if (!getSex().equals(watchBeen.getSex())) return false;
+        if(!getImage().equals(watchBeen.getImage())) return false;
         return getVisible().equals(watchBeen.getVisible());
     }
 
@@ -186,6 +190,7 @@ public class WatchBeen extends DatabaseObject {
                 ", dimension=" + dimension +
                 ", IVA=" + IVA +
                 ", Sex='"+ sex + '\'' +
+                ", Image=" + image +
                 ", Visible='"+ visible + '\'' +
                 '}';
     }
