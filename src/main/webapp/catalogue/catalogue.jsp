@@ -2,7 +2,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.WatchBeen" %><%--
+<%@ page import="storage.WatchBeen" %>
+<%@ page import="storage.WatchModel" %>
+<%@ page import="java.sql.SQLException" %><%--
   Created by IntelliJ IDEA.
   User: aless
   Date: 17/04/2024
@@ -17,7 +19,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<%!Collection<WatchBeen> watchList = %>
+<%
+    WatchModel watchModel = new WatchModel();
+    Collection<WatchBeen> watchList = null;
+
+    try {
+        watchList = watchModel.getAllWatches();
+    } catch (SQLException ex) {
+        response.sendError(404);
+    }
+%>
 
 
 <%@include file="../navbar.html"%> <!-- Navabar -->
@@ -33,7 +44,7 @@
             <td><%=watch.getName()%></td>
             <td><%=watch.getBrand()%></td>
             <td><%=watch.getDescription()%></td>
-            <td><img src="<%= watch.getImage()%>" alt="Immagine Prodotto"></td>
+            <!--<td><img src="" alt="Immagine Prodotto"></td>-->
             <td><input type="hidden" name="productID" value="<%= watch.getId()%>"></td>
         </tr>
 

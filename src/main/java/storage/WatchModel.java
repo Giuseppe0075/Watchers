@@ -1,8 +1,8 @@
 package storage;
 
 import database.DatabaseConnectionPool;
+import org.tinylog.Logger;
 
-import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -106,7 +106,7 @@ public class WatchModel implements WatchDao{
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
-                watch.setId(BigInteger.valueOf(rs.getLong("id")));
+                watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
                 watch.setDescription(rs.getString("description"));
@@ -138,19 +138,19 @@ public class WatchModel implements WatchDao{
 
     @Override
     public Collection<WatchBeen> getAllWatches() throws SQLException {
-        List<WatchBeen> watches = new ArrayList<WatchBeen>();
+        List<WatchBeen> watches = new ArrayList<>();
 
         PreparedStatement preparedStatement = null;
         Connection connection = null;
 
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM watch");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Watch");
 
             java.sql.ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 WatchBeen watch = new WatchBeen();
-                watch.setId(BigInteger.valueOf(rs.getLong("id")));
+                watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
                 watch.setDescription(rs.getString("description"));
@@ -164,6 +164,7 @@ public class WatchModel implements WatchDao{
                 watch.setVisible(rs.getBoolean("visible"));
                 watches.add(watch);
             }
+
 
             if(watches.isEmpty() ){
                 throw new SQLException("Watch | Nessun elemento trovato");
@@ -187,8 +188,8 @@ public class WatchModel implements WatchDao{
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM watch WHERE id = ?");
-            preparedStatement.setLong(1, watch.getId().longValue());
+            preparedStatement = connection.prepareStatement("DELETE FROM Watch WHERE id = ?");
+            preparedStatement.setLong(1, watch.getId());
 
             int rs = preparedStatement.executeUpdate();
             if(rs == 0){
