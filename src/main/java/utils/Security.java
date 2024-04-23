@@ -4,6 +4,7 @@ import org.tinylog.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -30,16 +31,20 @@ public class Security {
     /**
      * Genearate a random token
      * @return a random token
-     * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm
      */
-    public static String getCSRFToken() throws NoSuchAlgorithmException {
+    public static String getCSRFToken(){
         // generate random data
-        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-        byte[] data = new byte[16];
-        secureRandom.nextBytes(data);
+        try {
+            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG", "SUN");
+            byte[] data = new byte[16];
+            secureRandom.nextBytes(data);
 
-        // convert to Base64 string
-        return Base64.getEncoder().encodeToString(data);
+            // convert to Base64 string
+            return Base64.getEncoder().encodeToString(data);
+        }catch (Exception e){
+            Logger.error("Failed to generate CSRF TOKEN", e);
+            return null;
+        }
     }
 
 

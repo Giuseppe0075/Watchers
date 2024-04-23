@@ -1,5 +1,9 @@
 package storage;
 
+import storage.model.DatabaseKey;
+import storage.model.DatabaseObject;
+import storage.model.DatabaseTable;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Blob;
@@ -13,13 +17,15 @@ CREATE TABLE `Image`(
     CONSTRAINT `image_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class ImageBeen {
+@DatabaseTable(tableName = "Image")
+public class ImageBeen extends DatabaseObject {
+    @DatabaseKey(keyName = "id")
     private Integer id;
     private Integer watch;
     private byte[] image;
 
 
-    private ImageBeen() {
+    public ImageBeen() {
     }
 
     public ImageBeen(Integer id, Integer watch, byte[] image) {

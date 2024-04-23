@@ -34,11 +34,11 @@
             <tr>
                 <td>
                     <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
-                    <input <%=!admin ? "readonly" : ""%> type="text"   value="<%=watch.getName()%>">
+                    <input style="width: 100%" <%=!admin ? "readonly" : ""%> type="text"   value="<%=watch.getName()%>">
                     </a>
                 </td>
-                <td> <input  <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
-                <td><input <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
+                <td> <input style="width: 100%" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
+                <td><input style="width: 100%" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
                 <td><input name ="<%=watch.getId()%>" type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%=watch.toJson()%>"></td>
             </tr>
 
