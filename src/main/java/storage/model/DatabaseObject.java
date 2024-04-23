@@ -77,4 +77,26 @@ public abstract class DatabaseObject {
         return null;
     }
 
+    public static <T> T deleteById(Class<T> targetClass,Object id) throws Exception{
+        DatabaseTable table = targetClass.getAnnotation(DatabaseTable.class);
+        //take the annotation if present or the class Name
+        String tableName = table != null ? table.tableName() : targetClass.getSimpleName();
+        Optional<Field> optIdName = Arrays.stream(targetClass.getDeclaredFields()).filter(f -> f.getAnnotation(DatabaseKey.class) != null).findFirst();
+        if(optIdName.isEmpty()){
+            throw new Exception("No database key found");
+        }
+        String idName = optIdName.get().getName();
+        String query = "DELETE FROM " + tableName + " WHERE " + idName + "= ?";
+        try(Connection connection = DatabaseConnectionPool.getInstance().getConnection2()){
+            try(ResultSet resultSet = connection.executeQuery(query, Collections.singletonList(id))){
+                resultSet.next();
+                return buildObject(resultSet, targetClass);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Logger.error("Failed to get Element", e);
+        }
+        return null;
+    }
+
 }

@@ -5,11 +5,10 @@ import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
 
 import java.awt.image.BufferedImage;
-import java.math.BigInteger;
 
 /*
 CREATE TABLE `Watch`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `brand` VARCHAR(255) NOT NULL,
     `description` VARCHAR(255) NOT NULL,
@@ -20,7 +19,7 @@ CREATE TABLE `Watch`(
     `dimension` DOUBLE(8, 2) NOT NULL COMMENT 'in mm',
     `IVA` SMALLINT NOT NULL,
     `sex` ENUM('MAN', 'WOMEN', 'UNISEX') NOT NULL DEFAULT 'UNISEX',
-    `visible` TINYINT(1) NOT NULL DEFAULT '1',
+    `visible` BOOLEAN DEFAULT TRUE,
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
@@ -44,7 +43,7 @@ public class WatchBeen extends DatabaseObject {
     public WatchBeen() {
     }
 
-    public WatchBeen(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA, String sex, Boolean visible) {
+    public WatchBeen(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -155,6 +154,9 @@ public class WatchBeen extends DatabaseObject {
         this.visible = visible;
     }
 
+/*    public BufferedImage getImage() { return image; }
+
+    public void setImage(BufferedImage image) { this.image = image; }*/
 
 
     @Override
