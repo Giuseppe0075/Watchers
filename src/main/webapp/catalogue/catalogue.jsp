@@ -1,16 +1,8 @@
-<%@ page import="storage.WatchDao" %>
-<%@ page import="java.util.List" %>
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="storage.WatchBeen" %>
-<%@ page import="storage.AdminBeen" %>
-<%@ page import="utils.Security" %><%--
-  Created by IntelliJ IDEA.
-  User: aless
-  Date: 17/04/2024
-  Time: 15:33
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="utils.Security" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

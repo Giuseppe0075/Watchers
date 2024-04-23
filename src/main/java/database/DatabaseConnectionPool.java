@@ -1,14 +1,9 @@
 package database;
 
 import org.tinylog.Logger;
-
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.TimeUnit;
-
 public class DatabaseConnectionPool {
     //TODO: Put username and password into a config file, Test the Pool
 

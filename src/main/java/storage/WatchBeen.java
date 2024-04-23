@@ -5,8 +5,6 @@ import storage.model.DatabaseKey;
 import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
 
-import java.awt.image.BufferedImage;
-
 /*
 CREATE TABLE `Watch`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
