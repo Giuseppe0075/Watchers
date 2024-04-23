@@ -20,7 +20,7 @@ class DatabaseObjectTest {
     void retriveAll() throws Exception {
         List<WatchBeen> watches = WatchBeen.retriveAll(WatchBeen.class);
         System.out.println("Watches: ");
-        watches.forEach(System.out::println);
+        watches.stream().map(WatchBeen::toJson).forEach(System.out::println);
 
         AdminBeen admin = AdminBeen.retriveById(AdminBeen.class, 1L);
         System.out.println("Admin: ");

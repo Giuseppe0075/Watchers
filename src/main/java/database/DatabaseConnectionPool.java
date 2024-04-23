@@ -18,7 +18,7 @@ public class DatabaseConnectionPool {
     private static final String username = "uvkau7wy98snlgqm";
     private static final String password = "oSLixuDHYthrPI6ZHPer";
 
-    private static final int POOL_SIZE = 3;
+    private static final int POOL_SIZE = 1;
     private final Queue<Connection> pool = new LinkedList<>();
 
 
@@ -62,7 +62,7 @@ public class DatabaseConnectionPool {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             Logger.error("JDBC DRIVER NOT FOUND", e);
         }

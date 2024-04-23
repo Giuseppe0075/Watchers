@@ -3,7 +3,8 @@
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="storage.WatchBeen" %>
-<%@ page import="storage.AdminBeen" %><%--
+<%@ page import="storage.AdminBeen" %>
+<%@ page import="utils.Security" %><%--
   Created by IntelliJ IDEA.
   User: aless
   Date: 17/04/2024
@@ -18,12 +19,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<%!Collection<WatchBeen> watchList = WatchBeen.retriveAll(WatchBeen.class);%>
-<%Boolean admin = session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true);%>
+<%!
+    Collection<WatchBeen> watchList = WatchBeen.retriveAll(WatchBeen.class);
+    String csrfToken = Security.getCSRFToken();
+%>
+<%
+    boolean admin = session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true);
+    request.getSession().setAttribute("csrfToken", csrfToken);
+%>
 
 
 <%@include file="../navbar.html"%> <!-- Navabar -->
-<form method="post" action="/admin-login-servlet">
+<form method="post" action="${pageContext.request.contextPath}/hello-servlet">
+    <input name = "csrfToken" type="hidden" value="<%=csrfToken%>">
     <table style="width: 100%">
         <tr>
             <th>Name: </th>
@@ -34,12 +42,12 @@
             <tr>
                 <td>
                     <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
-                    <input name="name_<%=watch.getId()%>" <%=!admin ? "readonly" : ""%> type="text"   value="<%=watch.getName()%>">
+                    <input <%=!admin ? "readonly" : ""%> type="text"   value="<%=watch.getName()%>">
                     </a>
                 </td>
-                <td> <input name="brand_<%=watch.getId()%>" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
-                <td><input name="price_<%=watch.getId()%>" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
-                <td><input type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%= watch.getId()%>"></td>
+                <td> <input  <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
+                <td><input <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
+                <td><input name ="<%=watch.getId()%>" type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%=watch.toJson()%>"></td>
             </tr>
 
         <%}%>

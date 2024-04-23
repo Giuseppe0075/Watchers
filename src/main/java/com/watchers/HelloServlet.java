@@ -26,7 +26,22 @@ public class HelloServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
         out.println("</body></html>");
+        request.getParameterMap().forEach((k,v) -> System.out.println(k+ " : " + Arrays.toString(v)));
+        response.setHeader("test","ciao");
 
+        System.out.println(response.getHeader("test"));
+
+        request.authenticate(response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        ServletOutputStream out = response.getOutputStream();
+        out.println("<html><body>");
+        out.println("<h1>" + message + "</h1>");
+        out.println("</body></html>");
+        request.getParameterMap().forEach((k,v) -> System.out.println(k+ " : " + Arrays.toString(v)));
         response.setHeader("test","ciao");
 
         System.out.println(response.getHeader("test"));
