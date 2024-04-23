@@ -10,13 +10,12 @@ import org.tinylog.Logger;
 import storage.AdminBeen;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Optional;
-
-import static utils.Sanitazer.sanitizeInput;
+import static utils.Security.sanitizeInput;
 
 @WebServlet(name = "adminLoginServlet", value = "/admin-login-servlet")
 public class adminLogin extends HttpServlet {
+    //TODO Add pasword hashing
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
