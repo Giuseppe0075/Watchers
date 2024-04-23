@@ -9,20 +9,20 @@ import java.math.BigInteger;
 @DatabaseTable(tableName = "Admin")
 public class AdminBeen extends DatabaseObject {
     @DatabaseKey(keyName = "id")
-    private BigInteger id;
+    private Long id;
     private String email;
     private String psw;
 
     public AdminBeen() {
     }
 
-    public AdminBeen(BigInteger id, String email, String password) {
+    public AdminBeen(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.psw = password;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
     public String getEmail() {
@@ -32,7 +32,7 @@ public class AdminBeen extends DatabaseObject {
         return psw;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public void setEmail(String email) {

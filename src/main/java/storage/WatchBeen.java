@@ -27,7 +27,7 @@ CREATE TABLE `Watch`(
 @DatabaseTable(tableName = "Watch")
 public class WatchBeen extends DatabaseObject {
     @DatabaseKey(keyName = "id")
-    private BigInteger id;
+    private Long id;
     private String name;
     private String brand;
     private String description;
@@ -44,7 +44,7 @@ public class WatchBeen extends DatabaseObject {
     public WatchBeen() {
     }
 
-    public WatchBeen(BigInteger id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA, String sex, Boolean visible) {
+    public WatchBeen(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA, String sex, Boolean visible) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -59,11 +59,11 @@ public class WatchBeen extends DatabaseObject {
         this.visible = visible;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -2,7 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.WatchBeen" %><%--
+<%@ page import="storage.WatchBeen" %>
+<%@ page import="storage.AdminBeen" %><%--
   Created by IntelliJ IDEA.
   User: aless
   Date: 17/04/2024
@@ -17,31 +18,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<%!Collection<WatchBeen> watchList = %>
+<%!Collection<WatchBeen> watchList = WatchBeen.retriveAll(WatchBeen.class);%>
+<%Boolean admin = session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true);%>
 
 
 <%@include file="../navbar.html"%> <!-- Navabar -->
-
-<table style="width: 100%">
-    <tr>
-        <th>Name: </th>
-        <th>Brand: </th>
-        <th>Description</th>
-    </tr>
-    <% for (WatchBeen watch : watchList) { %>
+<form method="post" action="/admin-login-servlet">
+    <table style="width: 100%">
         <tr>
-            <td><%=watch.getName()%></td>
-            <td><%=watch.getBrand()%></td>
-            <td><%=watch.getDescription()%></td>
-            <td><img src="<%= watch.getImage()%>" alt="Immagine Prodotto"></td>
-            <td><input type="hidden" name="productID" value="<%= watch.getId()%>"></td>
+            <th>Name: </th>
+            <th>Brand: </th>
+            <th>Description</th>
         </tr>
+        <% for (WatchBeen watch : watchList) { %>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
+                    <input name="name_<%=watch.getId()%>" <%=!admin ? "readonly" : ""%> type="text"   value="<%=watch.getName()%>">
+                    </a>
+                </td>
+                <td> <input name="brand_<%=watch.getId()%>" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
+                <td><input name="price_<%=watch.getId()%>" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
+                <td><input type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%= watch.getId()%>"></td>
+            </tr>
 
-    <%}%>
-
-
-
-</table>
+        <%}%>
+    </table>
+    <input type="submit" value="Salva">
+</form>
 
 
 

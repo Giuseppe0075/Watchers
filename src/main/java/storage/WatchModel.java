@@ -2,7 +2,6 @@ package storage;
 
 import database.DatabaseConnectionPool;
 
-import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,7 +68,7 @@ public class WatchModel implements WatchDao{
 
             preparedStatement = connection.prepareStatement("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?");
 
-            preparedStatement.setLong(12, watch.getId().longValue());
+            preparedStatement.setLong(12, watch.getId());
 
             preparedStatement.setString(1, watch.getName());
             preparedStatement.setString(2, watch.getBrand());
@@ -106,7 +105,7 @@ public class WatchModel implements WatchDao{
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
-                watch.setId(BigInteger.valueOf(rs.getLong("id")));
+                watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
                 watch.setDescription(rs.getString("description"));
@@ -150,7 +149,7 @@ public class WatchModel implements WatchDao{
             java.sql.ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 WatchBeen watch = new WatchBeen();
-                watch.setId(BigInteger.valueOf(rs.getLong("id")));
+                watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
                 watch.setDescription(rs.getString("description"));

@@ -22,7 +22,7 @@ class DatabaseObjectTest {
         System.out.println("Watches: ");
         watches.forEach(System.out::println);
 
-        AdminBeen admin = AdminBeen.retriveById(AdminBeen.class, BigInteger.valueOf(1));
+        AdminBeen admin = AdminBeen.retriveById(AdminBeen.class, 1L);
         System.out.println("Admin: ");
         System.out.println(admin);
         Thread.sleep(1000);
