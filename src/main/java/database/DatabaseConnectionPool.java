@@ -1,19 +1,25 @@
 package database;
 
 import org.tinylog.Logger;
+import utils.ConfigurationProperties;
+
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
+
 public class DatabaseConnectionPool {
     //TODO: Put username and password into a config file, Test the Pool
 
     private static DatabaseConnectionPool instance = null;
     private static final String db = "bcvrujqustmrsee1qise";
-    private static final String uri = "jdbc:mysql://uvkau7wy98snlgqm:oSLixuDHYthrPI6ZHPer@bcvrujqustmrsee1qise-mysql.services.clever-cloud.com:3306/" +db;
-    private static final String username = "uvkau7wy98snlgqm";
-    private static final String password = "oSLixuDHYthrPI6ZHPer";
+    private static final String uri = ConfigurationProperties.getUrl();
+    private static final String username = ConfigurationProperties.getUsername();
+    private static final String password = ConfigurationProperties.getPassword();
 
-    private static final int POOL_SIZE = 1;
+    private static final int POOL_SIZE = 3;
     private final Queue<Connection> pool = new LinkedList<>();
 
 
@@ -31,15 +37,15 @@ public class DatabaseConnectionPool {
 
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(() -> {
-            Logger.info("Closing pool");
-            for (Connection connection : pool) {
-                try {
-                    connection.connection.close();
-                } catch (Exception e) {
-                    Logger.warn("Failed to close connection in the pool", e);
+            synchronized (pool) {
+                for (Connection connection : pool) {
+                    try {
+                        connection.close();
+                    } catch (Exception e) {
+                        Logger.warn("Failed to close connection in the pool", e);
+                    }
                 }
             }
-
             Logger.info("Db connection pool closed");
         }));
     }
@@ -57,7 +63,7 @@ public class DatabaseConnectionPool {
 
     static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             Logger.error("JDBC DRIVER NOT FOUND", e);
         }
@@ -68,11 +74,11 @@ public class DatabaseConnectionPool {
      * @return a valid connection
      */
     public synchronized Connection getConnection2(){
-        Logger.debug("Getting connection");
         return pool.remove();
     }
 
     public synchronized java.sql.Connection getConnection(){
+        Logger.info("Connection Pool added connection "+ pool.size() + "/" + POOL_SIZE );
         return pool.remove().connection;
     }
 
