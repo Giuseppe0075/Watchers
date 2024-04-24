@@ -4,8 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.AdminBeen;
 import storage.WatchBeen;
+
+import java.math.BigInteger;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseObjectTest {
 
@@ -15,7 +18,7 @@ class DatabaseObjectTest {
 
     @Test
     void retriveAll() throws Exception {
-        List<WatchBeen> watches = WatchBeen.retriveAll(WatchBeen.class);
+        List<WatchBean> watches = WatchBean.retriveAll(WatchBean.class);
         System.out.println("Watches: ");
         watches.stream().map(WatchBeen::toJson).forEach(System.out::println);
 

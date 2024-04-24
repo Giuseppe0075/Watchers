@@ -38,7 +38,7 @@ public class ImageModel implements DAO<ImageBeen> {
     }
 
     @Override
-    public ImageBeen doRetrieveByKey(String... key) throws SQLException, Exception {
+    public ImageBeen doRetrieveByKey(Object... key) throws SQLException, Exception {
         //* Checks if the params are 2 ids: image.id and watch.id
         if(key.length != 2) throw new Exception("ImageBean::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
 
@@ -51,8 +51,8 @@ public class ImageModel implements DAO<ImageBeen> {
             connection = DatabaseConnectionPool.getInstance().getConnection();
             preparedStatement =  connection.prepareStatement("SELECT * FROM image WHERE id = ? AND watch = ?");
 
-            preparedStatement.setInt(1, Integer.parseInt(key[0]));
-            preparedStatement.setInt(2, Integer.parseInt(key[1]));
+            preparedStatement.setInt(1, (Integer)key[0]);
+            preparedStatement.setInt(2, (Integer)key[1]);
 
             ResultSet rs = preparedStatement.executeQuery();
             if(rs == null){
@@ -72,7 +72,7 @@ public class ImageModel implements DAO<ImageBeen> {
     }
 
     @Override
-    public Collection<ImageBeen> doRetrieveAll(String order) throws SQLException, Exception {
+    public Collection<ImageBeen> doRetrieveAll() throws SQLException, Exception {
         return null;
     }
 
@@ -82,7 +82,7 @@ public class ImageModel implements DAO<ImageBeen> {
     }
 
     @Override
-    public Collection<ImageBeen> doRetriveByCond(String cond) throws SQLException, Exception {
+    public Collection<ImageBeen> doRetrieveByCond(String cond) throws SQLException, Exception {
         return null;
     }
 

@@ -1,7 +1,6 @@
 package storage;
 
 import database.DatabaseConnectionPool;
-import org.tinylog.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,12 +23,12 @@ CREATE TABLE `Watch`(
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
-public class WatchModel implements WatchDao{
-    List<WatchBeen> watches;
+public class WatchModel implements DAO<WatchBean>{
+    List<WatchBean> watches;
     private static final String TABLE = "watch";
 
     @Override
-    public void addWatch(WatchBeen watch) throws SQLException {
+    public void doSave(WatchBean watch) throws SQLException, Exception {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -62,7 +61,7 @@ public class WatchModel implements WatchDao{
     }
 
     @Override
-    public void updateWatch(WatchBeen watch) throws SQLException {
+    public void doSaveOrUpdate(WatchBean watch) throws SQLException, Exception {
 
         PreparedStatement preparedStatement = null;
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
@@ -91,17 +90,17 @@ public class WatchModel implements WatchDao{
     }
 
     @Override
-    public WatchBeen getWatchById(int id) throws SQLException {
-
+    public WatchBean doRetrieveByKey(Object... key) throws SQLException, Exception {
+        //TODO: check sulle chiavi
         PreparedStatement preparedStatement = null;
         Connection connection = null;
 
-        WatchBeen watch = new WatchBeen();
+        WatchBean watch = new WatchBean();
 
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM Watch WHERE id = ?");
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, (Integer)key[0]);
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -137,8 +136,13 @@ public class WatchModel implements WatchDao{
     }
 
     @Override
-    public Collection<WatchBeen> getAllWatches() throws SQLException {
-        List<WatchBeen> watches = new ArrayList<>();
+    public Collection<WatchBean> doRetrieveByCond(String cond) throws SQLException, Exception {
+        return null;
+    }
+
+    @Override
+    public Collection<WatchBean> doRetrieveAll() throws SQLException, Exception {
+        List<WatchBean> watches = new ArrayList<>();
 
         PreparedStatement preparedStatement = null;
         Connection connection = null;
@@ -149,7 +153,7 @@ public class WatchModel implements WatchDao{
 
             java.sql.ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
-                WatchBeen watch = new WatchBeen();
+                WatchBean watch = new WatchBean();
                 watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
@@ -182,7 +186,7 @@ public class WatchModel implements WatchDao{
     }
 
     @Override
-    public void deleteWatch(WatchBeen watch) throws SQLException {
+    public void doDelete(WatchBean watch) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -202,26 +206,5 @@ public class WatchModel implements WatchDao{
             DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
 
-    }
-
-    @Override
-    public void deleteAllWatches() throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-
-            preparedStatement = connection.prepareStatement("DELETE FROM Watch where id > 0");
-
-            int rs = preparedStatement.executeUpdate();
-            if (rs == 0) {
-                throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate");
-            }
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
-        }
     }
 }

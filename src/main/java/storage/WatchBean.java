@@ -23,7 +23,7 @@ CREATE TABLE `Watch`(
 );
  */
 @DatabaseTable(tableName = "Watch")
-public class WatchBeen extends DatabaseObject {
+public class WatchBean extends DatabaseObject {
     @DatabaseKey(keyName = "id")
     private Long id;
     private String name;
@@ -39,10 +39,10 @@ public class WatchBeen extends DatabaseObject {
     private Boolean visible;
 
 
-    public WatchBeen() {
+    public WatchBean() {
     }
 
-    public WatchBeen(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
+    public WatchBean(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA, String sex, Boolean visible) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -161,22 +161,22 @@ public class WatchBeen extends DatabaseObject {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof WatchBeen)) return false;
+        if (!(obj instanceof WatchBean)) return false;
 
-        WatchBeen watchBeen = (WatchBeen) obj;
+        WatchBean watchBean = (WatchBean) obj;
 
-        if (!getId().equals(watchBeen.getId())) return false;
-        if (!getName().equals(watchBeen.getName())) return false;
-        if (!getBrand().equals(watchBeen.getBrand())) return false;
-        if (!getDescription().equals(watchBeen.getDescription())) return false;
-        if (!getReviews_avg().equals(watchBeen.getReviews_avg())) return false;
-        if (!getPrice().equals(watchBeen.getPrice())) return false;
-        if (!getMaterial().equals(watchBeen.getMaterial())) return false;
-        if (!getStock().equals(watchBeen.getStock())) return false;
-        if (!getDimension().equals(watchBeen.getDimension())) return false;
-        if (!getIVA().equals(watchBeen.getIVA())) return false;
-        if (!getSex().equals(watchBeen.getSex())) return false;
-        return getVisible().equals(watchBeen.getVisible());
+        if (!getId().equals(watchBean.getId())) return false;
+        if (!getName().equals(watchBean.getName())) return false;
+        if (!getBrand().equals(watchBean.getBrand())) return false;
+        if (!getDescription().equals(watchBean.getDescription())) return false;
+        if (!getReviews_avg().equals(watchBean.getReviews_avg())) return false;
+        if (!getPrice().equals(watchBean.getPrice())) return false;
+        if (!getMaterial().equals(watchBean.getMaterial())) return false;
+        if (!getStock().equals(watchBean.getStock())) return false;
+        if (!getDimension().equals(watchBean.getDimension())) return false;
+        if (!getIVA().equals(watchBean.getIVA())) return false;
+        if (!getSex().equals(watchBean.getSex())) return false;
+        return getVisible().equals(watchBean.getVisible());
     }
 
     public String toJson(){

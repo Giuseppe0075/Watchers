@@ -4,10 +4,15 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public interface DAO<T> {
-    public void doSave(T entity) throws SQLException, Exception;
-    public void doDelete(T entity) throws SQLException, Exception;
-    public T doRetrieveByKey(String... key) throws SQLException, Exception;
-    public Collection<T> doRetrieveAll(String order) throws SQLException, Exception;
-    public void doSaveOrUpdate(T entity) throws SQLException, Exception;
-    public Collection<T> doRetriveByCond(String cond) throws SQLException, Exception;
+    void doSave(T entity) throws SQLException, Exception;
+
+    void doDelete(T entity) throws SQLException, Exception;
+
+    T doRetrieveByKey(Object... key) throws SQLException, Exception;
+
+    Collection<T> doRetrieveByCond(String cond) throws SQLException, Exception;
+
+    Collection<T> doRetrieveAll() throws SQLException, Exception;
+
+    void doSaveOrUpdate(T entity) throws SQLException, Exception;
 }

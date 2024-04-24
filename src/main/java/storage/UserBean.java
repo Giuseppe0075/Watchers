@@ -15,7 +15,7 @@ CREATE TABLE `User`(
     `CAP` CHAR(5) NOT NULL
 );
  */
-public class UserBeen {
+public class UserBean {
     private Integer id;
     private String email;
     private String psw;
@@ -27,10 +27,10 @@ public class UserBeen {
     private String city;
     private String CAP;
 
-    private UserBeen() {
+    private UserBean() {
     }
 
-    public UserBeen(Integer id, String email, String psw, String name, String surname, String birthday, String road, String civic_number, String city, String CAP) {
+    public UserBean(Integer id, String email, String psw, String name, String surname, String birthday, String road, String civic_number, String city, String CAP) {
         this.id = id;
         this.email = email;
         this.psw = psw;
@@ -126,20 +126,20 @@ public class UserBeen {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof UserBeen)) return false;
+        if (!(obj instanceof UserBean)) return false;
 
-        UserBeen userBeen = (UserBeen) obj;
+        UserBean userBean = (UserBean) obj;
 
-        if (!getId().equals(userBeen.getId())) return false;
-        if (!getEmail().equals(userBeen.getEmail())) return false;
-        if (!getPsw().equals(userBeen.getPsw())) return false;
-        if (!getName().equals(userBeen.getName())) return false;
-        if (!getSurname().equals(userBeen.getSurname())) return false;
-        if (!getBirthday().equals(userBeen.getBirthday())) return false;
-        if (!getRoad().equals(userBeen.getRoad())) return false;
-        if (!getCivic_number().equals(userBeen.getCivic_number())) return false;
-        if (!getCity().equals(userBeen.getCity())) return false;
-        return getCAP().equals(userBeen.getCAP());
+        if (!getId().equals(userBean.getId())) return false;
+        if (!getEmail().equals(userBean.getEmail())) return false;
+        if (!getPsw().equals(userBean.getPsw())) return false;
+        if (!getName().equals(userBean.getName())) return false;
+        if (!getSurname().equals(userBean.getSurname())) return false;
+        if (!getBirthday().equals(userBean.getBirthday())) return false;
+        if (!getRoad().equals(userBean.getRoad())) return false;
+        if (!getCivic_number().equals(userBean.getCivic_number())) return false;
+        if (!getCity().equals(userBean.getCity())) return false;
+        return getCAP().equals(userBean.getCAP());
     }
 
     @Override
