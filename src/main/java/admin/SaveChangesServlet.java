@@ -1,9 +1,15 @@
 package admin;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.tinylog.Logger;
 import storage.WatchBeen;
 import storage.WatchModel;
 
@@ -13,41 +19,37 @@ import java.sql.SQLException;
 
 public class SaveChangesServlet extends HttpServlet {
 
+    /*
+    Input json example:
+    [
+    {
+        id : 1,
+        name: "orologip",
+
+    }
+    ]
+     */
+
+    /**
+     *
+     * @param req an HTTP request with a jsonArray of modified watches
+     * @param resp null, or an error if failed
+     * @throws IOException if failed to update the watch
+     */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // converting the array of watch in a JsonArray
+        JsonArray watches = new Gson().toJsonTree(req.getParameter("watchesJson")).getAsJsonArray();
 
-        String newName = req.getParameter("newName");
-        String newBrand = req.getParameter("newName");
-        String newDescription = req.getParameter("newName");
-        Double newPrice = Double.parseDouble(req.getParameter("newPrice"));
-        String newMaterial = req.getParameter("newName");
-        Integer newStock = Integer.parseInt(req.getParameter("newStock"));
-        Double newDimension = Double.parseDouble(req.getParameter("newDimension"));;
-        Integer newIVA = Integer.parseInt(req.getParameter("newIVA"));;
-        String newSex = req.getParameter("newSex");
-        Integer newVisible = Integer.parseInt(req.getParameter("newVisible"));;
-        //BufferedImage image;
-
-        WatchBeen modifiedWatch = new WatchBeen();
-        modifiedWatch.setName(newName);
-        modifiedWatch.setBrand(newBrand);
-        modifiedWatch.setDescription(newDescription);
-        modifiedWatch.setPrice(newPrice);
-        modifiedWatch.setMaterial(newMaterial);
-        modifiedWatch.setStock(newStock);
-        modifiedWatch.setDimension(newDimension);
-        modifiedWatch.setIVA(newIVA);
-        modifiedWatch.setSex(newSex);
-
-        WatchModel watchModel = new WatchModel();
-        try{
-            watchModel.updateWatch(modifiedWatch);
-            // reindirizzamento ad una pagina di conferma
-
-        }catch (SQLException e){
-            //gestione errori di aggiornamento del database
-            e.printStackTrace();
-            resp.sendRedirect("error.jsp");
+        // for each watch we save them into the database
+        for(JsonElement watchElement : watches){
+            WatchBeen watchBeen = new WatchBeen(watchElement.getAsJsonObject());
+            try {
+                new WatchModel().updateWatch(watchBeen);
+            }catch (Exception e){
+                Logger.error("Failed to update watch", e);
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
         }
 
     }

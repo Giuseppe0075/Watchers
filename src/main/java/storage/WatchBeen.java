@@ -1,6 +1,7 @@
 package storage;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import storage.model.DatabaseKey;
 import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
@@ -40,6 +41,21 @@ public class WatchBeen extends DatabaseObject {
 
 
     public WatchBeen() {
+    }
+
+    public WatchBeen(JsonObject obj){
+        this.id = obj.get("id").getAsLong();
+        this.name = name;
+        this.brand = brand;
+        this.description = description;
+        this.reviews_avg = reviews_avg;
+        this.price = price;
+        this.material = material;
+        this.stock = stock;
+        this.dimension = dimension;
+        this.IVA = IVA;
+        this.sex = sex;
+        this.visible = visible;
     }
 
     public WatchBeen(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
