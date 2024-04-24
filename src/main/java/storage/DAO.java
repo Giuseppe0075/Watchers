@@ -1,12 +1,13 @@
 package storage;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 public interface DAO<T> {
-    public void doSave(T entity);
-    public void doDelete(T entity);
-    public T doRetrieveByKey(String key);
-    public Collection<T> doRetrieveAll(String order);
-    public void doSaveOrUpdate(T entity);
-    public Collection<T> doRetriveByCond(String cond);
+    public void doSave(T entity) throws SQLException, Exception;
+    public void doDelete(T entity) throws SQLException, Exception;
+    public T doRetrieveByKey(String... key) throws SQLException, Exception;
+    public Collection<T> doRetrieveAll(String order) throws SQLException, Exception;
+    public void doSaveOrUpdate(T entity) throws SQLException, Exception;
+    public Collection<T> doRetriveByCond(String cond) throws SQLException, Exception;
 }

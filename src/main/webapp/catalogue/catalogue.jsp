@@ -44,7 +44,7 @@
             <td><%=watch.getName()%></td>
             <td><%=watch.getBrand()%></td>
             <td><%=watch.getDescription()%></td>
-            <!--<td><img src="" alt="Immagine Prodotto"></td>-->
+            <td><img src="getPhoto" alt="Immagine Prodotto"></td>
             <td><input type="hidden" name="productID" value="<%= watch.getId()%>"></td>
         </tr>
 
