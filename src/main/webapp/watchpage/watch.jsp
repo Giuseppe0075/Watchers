@@ -1,5 +1,5 @@
 <%@ page import="storage.WatchModel" %>
-<%@ page import="storage.WatchBeen" %>
+<%@ page import="storage.WatchBean" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
             WatchModel model = new WatchModel();
             String id = request.getParameter("id");
 
-            WatchBeen watch = null;
+            WatchBean watch = null;
             try {
                 watch = model.getWatchById(Integer.parseInt(id));
             } catch (Exception e) {
