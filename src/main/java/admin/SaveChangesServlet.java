@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.tinylog.Logger;
-import storage.WatchBeen;
+import storage.WatchBean;
 import storage.WatchModel;
 
 import java.awt.image.BufferedImage;
@@ -43,9 +43,9 @@ public class SaveChangesServlet extends HttpServlet {
 
         // for each watch we save them into the database
         for(JsonElement watchElement : watches){
-            WatchBeen watchBeen = new WatchBeen(watchElement.getAsJsonObject());
+            WatchBean watchBeen = new WatchBean(watchElement.getAsJsonObject());
             try {
-                new WatchModel().updateWatch(watchBeen);
+                new WatchModel().doSaveOrUpdate(watchBeen);
             }catch (Exception e){
                 Logger.error("Failed to update watch", e);
                 resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

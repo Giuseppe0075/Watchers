@@ -32,14 +32,19 @@ public class Security {
      * @return a random token
      * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm
      */
-    public static String getCSRFToken() throws NoSuchAlgorithmException {
-        // generate random data
-        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-        byte[] data = new byte[16];
-        secureRandom.nextBytes(data);
+    public static String getCSRFToken() {
+        try {
+            // generate random data
+            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+            byte[] data = new byte[16];
+            secureRandom.nextBytes(data);
 
-        // convert to Base64 string
-        return Base64.getEncoder().encodeToString(data);
+            // convert to Base64 string
+            return Base64.getEncoder().encodeToString(data);
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
 
