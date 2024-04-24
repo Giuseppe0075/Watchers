@@ -7,15 +7,15 @@ CREATE TABLE `Brand`(
     PRIMARY KEY(`business_name`)
 );
  */
-public class BrandBeen {
+public class BrandBean {
     private String business_name;
     private String name;
     private String description;
 
-    private BrandBeen() {
+    private BrandBean() {
     }
 
-    public BrandBeen(String business_name, String name, String description) {
+    public BrandBean(String business_name, String name, String description) {
         this.business_name = business_name;
         this.name = name;
         this.description = description;
@@ -57,13 +57,13 @@ public class BrandBeen {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BrandBeen)) return false;
+        if (!(o instanceof BrandBean)) return false;
 
-        BrandBeen brandBeen = (BrandBeen) o;
+        BrandBean brandBean = (BrandBean) o;
 
-        if (!getBusiness_name().equals(brandBeen.getBusiness_name())) return false;
-        if (!getName().equals(brandBeen.getName())) return false;
-        return getDescription().equals(brandBeen.getDescription());
+        if (!getBusiness_name().equals(brandBean.getBusiness_name())) return false;
+        if (!getName().equals(brandBean.getName())) return false;
+        return getDescription().equals(brandBean.getDescription());
     }
 
     @Override

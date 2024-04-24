@@ -9,15 +9,15 @@ package storage;
         CONSTRAINT `cart_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
     );
  */
-public class CartElementBeen {
+public class CartElementBean {
     private  Integer user;
     private  Integer watch;
     private  Integer quantity;
 
-    private CartElementBeen() {
+    private CartElementBean() {
     }
 
-    public CartElementBeen(Integer user, Integer watch, Integer quantity) {
+    public CartElementBean(Integer user, Integer watch, Integer quantity) {
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
@@ -59,9 +59,9 @@ public class CartElementBeen {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CartElementBeen)) return false;
+        if (!(o instanceof CartElementBean)) return false;
 
-        CartElementBeen that = (CartElementBeen) o;
+        CartElementBean that = (CartElementBean) o;
 
         if (!user.equals(that.user)) return false;
         if (!watch.equals(that.watch)) return false;

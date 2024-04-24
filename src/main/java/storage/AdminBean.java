@@ -7,16 +7,16 @@ import storage.model.DatabaseTable;
 
 
 @DatabaseTable(tableName = "Admin")
-public class AdminBeen extends DatabaseObject {
+public class AdminBean extends DatabaseObject {
     @DatabaseKey(keyName = "id")
     private Long id;
     private String email;
     private String psw;
 
-    public AdminBeen() {
+    public AdminBean() {
     }
 
-    public AdminBeen(Long id, String email, String password) {
+    public AdminBean(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.psw = password;
@@ -50,13 +50,13 @@ public class AdminBeen extends DatabaseObject {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AdminBeen)) return false;
+        if (!(o instanceof AdminBean)) return false;
 
-        AdminBeen adminBeen = (AdminBeen) o;
+        AdminBean adminBean = (AdminBean) o;
 
-        if (!getId().equals(adminBeen.getId())) return false;
-        if (!getEmail().equals(adminBeen.getEmail())) return false;
-        return getPassword().equals(adminBeen.getPassword());
+        if (!getId().equals(adminBean.getId())) return false;
+        if (!getEmail().equals(adminBean.getEmail())) return false;
+        return getPassword().equals(adminBean.getPassword());
     }
 
     @Override
