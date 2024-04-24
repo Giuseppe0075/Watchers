@@ -1,10 +1,13 @@
 package storage;
 
-import java.awt.image.BufferedImage;
+import com.google.gson.Gson;
+import storage.model.DatabaseKey;
+import storage.model.DatabaseObject;
+import storage.model.DatabaseTable;
 
 /*
 CREATE TABLE `Watch`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `brand` VARCHAR(255) NOT NULL,
     `description` VARCHAR(255) NOT NULL,
@@ -15,12 +18,14 @@ CREATE TABLE `Watch`(
     `dimension` DOUBLE(8, 2) NOT NULL COMMENT 'in mm',
     `IVA` SMALLINT NOT NULL,
     `sex` ENUM('MAN', 'WOMEN', 'UNISEX') NOT NULL DEFAULT 'UNISEX',
-    `visible` TINYINT(1) NOT NULL DEFAULT '1',
+    `visible` BOOLEAN DEFAULT TRUE,
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
-public class WatchBeen {
-    private Integer id;
+@DatabaseTable(tableName = "Watch")
+public class WatchBeen extends DatabaseObject {
+    @DatabaseKey(keyName = "id")
+    private Long id;
     private String name;
     private String brand;
     private String description;
@@ -31,14 +36,13 @@ public class WatchBeen {
     private Double dimension;
     private Integer IVA;
     private String sex;
-    private Integer visible;
+    private Boolean visible;
 
-    private BufferedImage image;
 
     public WatchBeen() {
     }
 
-    public WatchBeen(Integer id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Integer visible, BufferedImage image) {
+    public WatchBeen(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -51,14 +55,13 @@ public class WatchBeen {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
-        this.image = image;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -142,17 +145,18 @@ public class WatchBeen {
         this.sex = sex;
     }
 
-    public Integer getVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(Integer visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
-    public BufferedImage getImage() { return image; }
+/*    public BufferedImage getImage() { return image; }
 
-    public void setImage(BufferedImage image) { this.image = image; }
+    public void setImage(BufferedImage image) { this.image = image; }*/
+
 
     @Override
     public boolean equals(Object obj) {
@@ -172,8 +176,11 @@ public class WatchBeen {
         if (!getDimension().equals(watchBeen.getDimension())) return false;
         if (!getIVA().equals(watchBeen.getIVA())) return false;
         if (!getSex().equals(watchBeen.getSex())) return false;
-        if(!getImage().equals(watchBeen.getImage())) return false;
         return getVisible().equals(watchBeen.getVisible());
+    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 
     @Override
@@ -190,7 +197,6 @@ public class WatchBeen {
                 ", dimension=" + dimension +
                 ", IVA=" + IVA +
                 ", Sex='"+ sex + '\'' +
-                ", Image=" + image +
                 ", Visible='"+ visible + '\'' +
                 '}';
     }

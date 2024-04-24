@@ -11,31 +11,30 @@ CREATE TABLE `Favourite`(
 
  */
 public class FavouriteBeen {
-
-    private Integer watch;
-    private Integer user;
+    private Long watch;
+    private Long user;
 
     private FavouriteBeen() {
     }
 
-    public FavouriteBeen(Integer watch, Integer user) {
+    public FavouriteBeen(Long watch, Long user) {
         this.watch = watch;
         this.user = user;
     }
 
-    public Integer getWatch() {
+    public Long getWatch() {
         return watch;
     }
 
-    public void setWatch(Integer watch) {
+    public void setWatch(Long watch) {
         this.watch = watch;
     }
 
-    public Integer getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(Integer user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 

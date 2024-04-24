@@ -1,6 +1,7 @@
 package storage;
 
 import database.DatabaseConnectionPool;
+import org.tinylog.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class WatchModel implements WatchDao{
         PreparedStatement preparedStatement = null;
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
-
             preparedStatement =  connection.prepareStatement("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)");
 
             preparedStatement.setString(1, watch.getName());
@@ -46,7 +46,7 @@ public class WatchModel implements WatchDao{
             preparedStatement.setDouble(8, watch.getDimension());
             preparedStatement.setInt(9, watch.getIVA());
             preparedStatement.setString(10, watch.getSex());
-            preparedStatement.setInt(11, watch.getVisible());
+            preparedStatement.setBoolean(11, watch.getVisible());
 
             int rs = preparedStatement.executeUpdate();
             if(rs == 0){
@@ -69,7 +69,7 @@ public class WatchModel implements WatchDao{
 
             preparedStatement = connection.prepareStatement("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?");
 
-            preparedStatement.setInt(12, watch.getId());
+            preparedStatement.setLong(12, watch.getId());
 
             preparedStatement.setString(1, watch.getName());
             preparedStatement.setString(2, watch.getBrand());
@@ -81,7 +81,7 @@ public class WatchModel implements WatchDao{
             preparedStatement.setDouble(8, watch.getDimension());
             preparedStatement.setInt(9, watch.getIVA());
             preparedStatement.setString(10, watch.getSex());
-            preparedStatement.setInt(11, watch.getVisible());
+            preparedStatement.setBoolean(11, watch.getVisible());
 
             int rs = preparedStatement.executeUpdate();
             if(rs == 0){
@@ -106,7 +106,7 @@ public class WatchModel implements WatchDao{
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
-                watch.setId(rs.getInt("id"));
+                watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
                 watch.setDescription(rs.getString("description"));
@@ -117,7 +117,7 @@ public class WatchModel implements WatchDao{
                 watch.setDimension(rs.getDouble("dimension"));
                 watch.setIVA(rs.getInt("IVA"));
                 watch.setSex(rs.getString("sex"));
-                watch.setVisible(rs.getInt("visible"));
+                watch.setVisible(rs.getBoolean("visible"));
             }
 
         }catch (SQLException e){
@@ -138,19 +138,19 @@ public class WatchModel implements WatchDao{
 
     @Override
     public Collection<WatchBeen> getAllWatches() throws SQLException {
-        List<WatchBeen> watches = new ArrayList<WatchBeen>();
+        List<WatchBeen> watches = new ArrayList<>();
 
         PreparedStatement preparedStatement = null;
         Connection connection = null;
 
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM watch");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Watch");
 
             java.sql.ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 WatchBeen watch = new WatchBeen();
-                watch.setId(rs.getInt("id"));
+                watch.setId(rs.getLong("id"));
                 watch.setName(rs.getString("name"));
                 watch.setBrand(rs.getString("brand"));
                 watch.setDescription(rs.getString("description"));
@@ -161,9 +161,10 @@ public class WatchModel implements WatchDao{
                 watch.setDimension(rs.getDouble("dimension"));
                 watch.setIVA(rs.getInt("IVA"));
                 watch.setSex(rs.getString("sex"));
-                watch.setVisible(rs.getInt("visible"));
+                watch.setVisible(rs.getBoolean("visible"));
                 watches.add(watch);
             }
+
 
             if(watches.isEmpty() ){
                 throw new SQLException("Watch | Nessun elemento trovato");
@@ -187,8 +188,8 @@ public class WatchModel implements WatchDao{
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM watch WHERE id = ?");
-            preparedStatement.setInt(1, watch.getId());
+            preparedStatement = connection.prepareStatement("DELETE FROM Watch WHERE id = ?");
+            preparedStatement.setLong(1, watch.getId());
 
             int rs = preparedStatement.executeUpdate();
             if(rs == 0){

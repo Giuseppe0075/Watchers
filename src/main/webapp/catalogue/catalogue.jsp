@@ -1,14 +1,8 @@
-<%@ page import="storage.WatchDao" %>
-<%@ page import="java.util.List" %>
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.WatchBeen" %><%--
-  Created by IntelliJ IDEA.
-  User: aless
-  Date: 17/04/2024
-  Time: 15:33
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="storage.WatchBeen" %>
+<%@ page import="utils.Security" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,31 +11,41 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<%!Collection<WatchBeen> watchList = %>
+<%!
+    Collection<WatchBeen> watchList = WatchBeen.retriveAll(WatchBeen.class);
+    String csrfToken = Security.getCSRFToken();
+%>
+<%
+    boolean admin = session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true);
+    request.getSession().setAttribute("csrfToken", csrfToken);
+%>
 
 
 <%@include file="../navbar.html"%> <!-- Navabar -->
-
-<table style="width: 100%">
-    <tr>
-        <th>Name: </th>
-        <th>Brand: </th>
-        <th>Description</th>
-    </tr>
-    <% for (WatchBeen watch : watchList) { %>
+<form method="post" action="${pageContext.request.contextPath}/hello-servlet">
+    <input name = "csrfToken" type="hidden" value="<%=csrfToken%>">
+    <table style="width: 100%">
         <tr>
-            <td><%=watch.getName()%></td>
-            <td><%=watch.getBrand()%></td>
-            <td><%=watch.getDescription()%></td>
-            <td><img src="<%= watch.getImage()%>" alt="Immagine Prodotto"></td>
-            <td><input type="hidden" name="productID" value="<%= watch.getId()%>"></td>
+            <th>Name: </th>
+            <th>Brand: </th>
+            <th>Description</th>
         </tr>
+        <% for (WatchBeen watch : watchList) { %>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
+                    <input <%=!admin ? "readonly" : ""%> type="text"   value="<%=watch.getName()%>">
+                    </a>
+                </td>
+                <td> <input  <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
+                <td><input <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
+                <td><input name ="<%=watch.getId()%>" type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%=watch.toJson()%>"></td>
+            </tr>
 
-    <%}%>
-
-
-
-</table>
+        <%}%>
+    </table>
+    <input type="submit" value="Salva">
+</form>
 
 
 
