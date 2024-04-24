@@ -2,13 +2,12 @@ package storage;
 
 import database.DatabaseConnectionPool;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.Collection;
 
-public class ImageModel implements DAO<ImageBeen> {
+public class ImageModel implements DAO<ImageBean> {
     @Override
-    public void doSave(ImageBeen image) throws SQLException, Exception{
+    public void doSave(ImageBean image) throws SQLException, Exception{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -33,18 +32,18 @@ public class ImageModel implements DAO<ImageBeen> {
     }
 
     @Override
-    public void doDelete(ImageBeen image) throws SQLException, Exception {
+    public void doDelete(ImageBean image) throws SQLException, Exception {
 
     }
 
     @Override
-    public ImageBeen doRetrieveByKey(Object... key) throws SQLException, Exception {
+    public ImageBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         //* Checks if the params are 2 ids: image.id and watch.id
         if(key.length != 2) throw new Exception("ImageBean::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
 
         //Declaration
         Connection connection = null;
-        ImageBeen image = null;
+        ImageBean image = null;
         PreparedStatement preparedStatement = null;
 
         try {
@@ -59,7 +58,7 @@ public class ImageModel implements DAO<ImageBeen> {
                 throw new SQLException("Image | Query non riuscita. | id:"+ image.getId());
             }
 
-            image = new ImageBeen(rs.getInt(0), rs.getInt(1), rs.getBytes(2));
+            image = new ImageBean(rs.getInt(0), rs.getInt(1), rs.getBytes(2));
 
         } finally {
             if (preparedStatement != null) {
@@ -72,17 +71,17 @@ public class ImageModel implements DAO<ImageBeen> {
     }
 
     @Override
-    public Collection<ImageBeen> doRetrieveAll() throws SQLException, Exception {
+    public Collection<ImageBean> doRetrieveAll() throws SQLException, Exception {
         return null;
     }
 
     @Override
-    public void doSaveOrUpdate(ImageBeen entity) throws SQLException, Exception {
+    public void doSaveOrUpdate(ImageBean entity) throws SQLException, Exception {
 
     }
 
     @Override
-    public Collection<ImageBeen> doRetrieveByCond(String cond) throws SQLException, Exception {
+    public Collection<ImageBean> doRetrieveByCond(String cond) throws SQLException, Exception {
         return null;
     }
 

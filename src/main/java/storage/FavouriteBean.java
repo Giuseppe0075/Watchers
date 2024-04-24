@@ -10,14 +10,14 @@ CREATE TABLE `Favourite`(
 );
 
  */
-public class FavouriteBeen {
+public class FavouriteBean {
     private Long watch;
     private Long user;
 
-    private FavouriteBeen() {
+    private FavouriteBean() {
     }
 
-    public FavouriteBeen(Long watch, Long user) {
+    public FavouriteBean(Long watch, Long user) {
         this.watch = watch;
         this.user = user;
     }
@@ -49,9 +49,9 @@ public class FavouriteBeen {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FavouriteBeen)) return false;
+        if (!(o instanceof FavouriteBean)) return false;
 
-        FavouriteBeen that = (FavouriteBeen) o;
+        FavouriteBean that = (FavouriteBean) o;
 
         if (!watch.equals(that.watch)) return false;
         return user.equals(that.user);

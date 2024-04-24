@@ -1,9 +1,5 @@
 package storage;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.sql.Blob;
-
 /*
 CREATE TABLE `Image`(
     `id` BIGINT UNSIGNED NOT NULL,
@@ -13,16 +9,16 @@ CREATE TABLE `Image`(
     CONSTRAINT `image_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class ImageBeen {
+public class ImageBean {
     private Integer id;
     private Integer watch;
     private byte[] image;
 
 
-    private ImageBeen() {
+    private ImageBean() {
     }
 
-    public ImageBeen(Integer id, Integer watch, byte[] image) {
+    public ImageBean(Integer id, Integer watch, byte[] image) {
         this.id = id;
         this.watch = watch;
         this.image = image;
@@ -66,10 +62,10 @@ public class ImageBeen {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ImageBeen imageBeen = (ImageBeen) o;
+        ImageBean imageBean = (ImageBean) o;
 
-        if (!id.equals(imageBeen.id)) return false;
-        return  watch.equals(imageBeen.watch);
+        if (!id.equals(imageBean.id)) return false;
+        return  watch.equals(imageBean.watch);
 
     }
 

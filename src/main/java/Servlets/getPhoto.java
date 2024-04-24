@@ -1,15 +1,10 @@
 package Servlets;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import storage.ImageBeen;
+import storage.ImageBean;
 import storage.ImageModel;
 
 @WebServlet(name = "getPhoto", value="/getPhoto")
@@ -20,9 +15,9 @@ public class getPhoto extends HttpServlet{
         ImageModel im = new ImageModel();
         try {
             FileInputStream fis = new FileInputStream("Immagini/mucca blu.jpg");
-            ImageBeen img = new ImageBeen(4,1, fis.readAllBytes());
+            ImageBean img = new ImageBean(4,1, fis.readAllBytes());
             im.doSave(img);
-            ImageBeen image = im.doRetrieveByKey("4", "1");
+            ImageBean image = im.doRetrieveByKey("4", "1");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

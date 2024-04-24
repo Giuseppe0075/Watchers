@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
-import storage.AdminBeen;
+import storage.AdminBean;
 
 import java.io.IOException;
 import static utils.Security.sanitizeInput;
@@ -43,7 +43,7 @@ public class adminLogin extends HttpServlet {
 
 
     private static boolean authenticate(String email, String psw){
-        return AdminBeen.retriveAll(AdminBeen.class).stream()
-                .anyMatch(adminBeen -> adminBeen.getEmail().equals(email) && adminBeen.getPassword().equals(psw));
+        return AdminBean.retriveAll(AdminBean.class).stream()
+                .anyMatch(adminBean -> adminBean.getEmail().equals(email) && adminBean.getPassword().equals(psw));
     }
 }
