@@ -1,10 +1,9 @@
 package storage;
 
+import com.google.gson.Gson;
 import storage.model.DatabaseKey;
 import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
-
-import java.awt.image.BufferedImage;
 
 /*
 CREATE TABLE `Watch`(
@@ -178,6 +177,10 @@ public class WatchBeen extends DatabaseObject {
         if (!getIVA().equals(watchBeen.getIVA())) return false;
         if (!getSex().equals(watchBeen.getSex())) return false;
         return getVisible().equals(watchBeen.getVisible());
+    }
+
+    public String toJson(){
+        return new Gson().toJson(this);
     }
 
     @Override

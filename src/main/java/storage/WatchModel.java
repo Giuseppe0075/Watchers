@@ -69,7 +69,7 @@ public class WatchModel implements WatchDao{
 
             preparedStatement = connection.prepareStatement("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?");
 
-            preparedStatement.setLong(12, watch.getId().longValue());
+            preparedStatement.setLong(12, watch.getId());
 
             preparedStatement.setString(1, watch.getName());
             preparedStatement.setString(2, watch.getBrand());

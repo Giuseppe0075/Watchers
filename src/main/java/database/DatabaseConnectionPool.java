@@ -1,14 +1,9 @@
 package database;
 
 import org.tinylog.Logger;
-
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.TimeUnit;
-
 public class DatabaseConnectionPool {
     //TODO: Put username and password into a config file, Test the Pool
 
@@ -18,7 +13,7 @@ public class DatabaseConnectionPool {
     private static final String username = "uvkau7wy98snlgqm";
     private static final String password = "oSLixuDHYthrPI6ZHPer";
 
-    private static final int POOL_SIZE = 3;
+    private static final int POOL_SIZE = 1;
     private final Queue<Connection> pool = new LinkedList<>();
 
 
@@ -36,15 +31,15 @@ public class DatabaseConnectionPool {
 
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(() -> {
-            synchronized (pool) {
-                for (Connection connection : pool) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        Logger.warn("Failed to close connection in the pool", e);
-                    }
+            Logger.info("Closing pool");
+            for (Connection connection : pool) {
+                try {
+                    connection.connection.close();
+                } catch (Exception e) {
+                    Logger.warn("Failed to close connection in the pool", e);
                 }
             }
+
             Logger.info("Db connection pool closed");
         }));
     }
@@ -62,7 +57,7 @@ public class DatabaseConnectionPool {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             Logger.error("JDBC DRIVER NOT FOUND", e);
         }
@@ -73,6 +68,7 @@ public class DatabaseConnectionPool {
      * @return a valid connection
      */
     public synchronized Connection getConnection2(){
+        Logger.debug("Getting connection");
         return pool.remove();
     }
 
@@ -81,6 +77,7 @@ public class DatabaseConnectionPool {
     }
 
     public synchronized void releaseConnection(Connection connection) {
+        Logger.debug("releasing connection");
         pool.add(connection);
     }
 
