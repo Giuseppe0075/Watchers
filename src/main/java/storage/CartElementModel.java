@@ -3,7 +3,7 @@ package storage;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class CartElementModel implements DAO<CartElementBean>{
+public class CartElementModel implements DAO<CartElementBean> {
     @Override
     public void doSave(CartElementBean entity) throws SQLException, Exception {
 

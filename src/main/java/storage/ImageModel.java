@@ -48,14 +48,14 @@ public class ImageModel implements DAO<ImageBean> {
 
         try {
             connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement =  connection.prepareStatement("SELECT * FROM image WHERE id = ? AND watch = ?");
+            preparedStatement =  connection.prepareStatement("SELECT * FROM Image WHERE id = ? AND watch = ?");
 
             preparedStatement.setInt(1, (Integer)key[0]);
             preparedStatement.setInt(2, (Integer)key[1]);
 
             ResultSet rs = preparedStatement.executeQuery();
             if(rs == null){
-                throw new SQLException("Image | Query non riuscita. | id:"+ image.getId());
+                throw new SQLException("Image | Query non riuscita. | id:"+ image.getId());// non va bene
             }
 
             image = new ImageBean(rs.getInt(0), rs.getInt(1), rs.getBytes(2));

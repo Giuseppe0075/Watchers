@@ -1,12 +1,14 @@
 package storage;
 
+import database.Connection;
+
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
 
 public class BrandModel implements DAO<BrandBean>{
     @Override
     public void doSave(BrandBean entity) throws SQLException, Exception {
-
     }
 
     @Override

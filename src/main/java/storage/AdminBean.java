@@ -14,10 +14,16 @@ public class AdminBean extends DatabaseObject {
     private String psw;
 
     public AdminBean() {
+        this.id = 0L;
     }
 
     public AdminBean(Long id, String email, String password) {
         this.id = id;
+        this.email = email;
+        this.psw = password;
+    }
+
+    public AdminBean(String email, String password) {
         this.email = email;
         this.psw = password;
     }

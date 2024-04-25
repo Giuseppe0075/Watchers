@@ -41,6 +41,7 @@ public class WatchBean extends DatabaseObject {
 
 
     public WatchBean() {
+        this.id = 0L;
     }
 
     public WatchBean(JsonObject obj){
@@ -58,8 +59,23 @@ public class WatchBean extends DatabaseObject {
         this.visible = visible;
     }
 
-    public WatchBean(Long id, String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
-        this.id = id;
+    public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
+        //this.id = id;  // id è autoincrement - viene impostato a segiuto del salvataggio sul db
+        this.name = name;
+        this.brand = brand;
+        this.description = description;
+        this.reviews_avg = reviews_avg;
+        this.price = price;
+        this.material = material;
+        this.stock = stock;
+        this.dimension = dimension;
+        this.IVA = IVA;
+        this.sex = sex;
+        this.visible = visible;
+    }
+
+    public WatchBean(Long id,String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
+        this.id = id;  // utile per l'update
         this.name = name;
         this.brand = brand;
         this.description = description;
