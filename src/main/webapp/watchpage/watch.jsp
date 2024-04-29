@@ -1,6 +1,10 @@
 <%@ page import="storage.WatchModel" %>
 <%@ page import="storage.WatchBean" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="storage.ImageBean" %>
+<%@ page import="java.util.List" %>
+<%@ page import="storage.ImageModel" %>
+<%@ page import="java.util.Collection" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -13,23 +17,34 @@
     </head>
     <body>
         <%
-            WatchModel model = new WatchModel();
+            WatchModel watchModel = new WatchModel();
+            ImageModel imageModel = new ImageModel();
             String id = request.getParameter("id");
 
             WatchBean watch = null;
+            Collection<ImageBean> images = null;
             try {
-                watch = model.doRetrieveByKey(Integer.parseInt(id));
+                watch = watchModel.doRetrieveByKey(Integer.parseInt(id));
+                images = imageModel.doRetrieveByCond("watch="+ watch.getId());
+                assert(images != null);
             } catch (Exception e) {
                 response.sendError(404);
             }
+
         %>
         <%@include file="../navbar.html"%>
         <div class="container">
             <div class="photos"> <!-- Photos Showroom-->
-                <img class = "mainPhoto" src = "${pageContext.request.contextPath}/getPhoto?id=1&watch=1" >
-                <img class = "photo" src= "${pageContext.request.contextPath}/getPhoto?id=2&watch=2" >
-                <img class = "photo" src= "${pageContext.request.contextPath}/getPhoto?id=3&watch=3" >
+                <%
+                    // Itera attraverso la lista di immagini associate all'orologio
+                    for (ImageBean image : images) {
+                %>
+                <img class="photo" src="${pageContext.request.contextPath}/getPhoto?id=<%=image.getId() %>&watch=<%= watch.getId() %>">
+                <%
+                    }
+                %>
             </div>
+
             <aside class = "infobar">
                 <h1><%=watch.getName()%></h1>
                 <h3><%="price: " + watch.getPrice()%></h3>

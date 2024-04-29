@@ -41,7 +41,6 @@ public class WatchBean extends DatabaseObject {
     private Integer IVA;
     private String sex;
     private Boolean visible;
-    private List<ImageBean> images;
 
 
     public WatchBean() {
@@ -61,10 +60,9 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
-        this.images = images;
     }
 
-    public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible, List<ImageBean> images) {
+    public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         //this.id = id;  // id è autoincrement - viene impostato a segiuto del salvataggio sul db
         this.name = name;
         this.brand = brand;
@@ -77,10 +75,9 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
-        this.images = images;
     }
 
-    public WatchBean(Long id,String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible, List<ImageBean> images) {
+    public WatchBean(Long id,String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         this.id = id;  // utile per l'update
         this.name = name;
         this.brand = brand;
@@ -93,7 +90,6 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
-        this.images = images;
     }
 
     public Long getId() {
@@ -190,19 +186,6 @@ public class WatchBean extends DatabaseObject {
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
-    }
-
-    public List<ImageBean> getImages(){ return images;}
-
-    public void setImages(List<ImageBean> images){this.images = images;}
-
-    public ImageBean getImage(int id) {
-        Optional<ImageBean> imageOptional = images.stream()
-                .filter(image -> image.getId().equals(id))
-                .findFirst();
-
-        // Returns the ImageBean if not null, otherwise return null
-        return imageOptional.orElse(null);
     }
 
     @Override

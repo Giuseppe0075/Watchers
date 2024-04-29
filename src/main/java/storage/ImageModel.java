@@ -4,6 +4,7 @@ import database.DatabaseConnectionPool;
 import org.tinylog.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -90,7 +91,30 @@ public class ImageModel implements DAO<ImageBean> {
 
     @Override
     public Collection<ImageBean> doRetrieveByCond(String cond) throws SQLException, Exception {
-        return null;
+        //Declaration
+        database.Connection connection = null;
+        Collection<ImageBean> images = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DatabaseConnectionPool.getInstance().getConnection2();
+            ResultSet rs = connection.executeQuery("SELECT * FROM Image WHERE " + cond);
+
+            if(rs == null){
+                throw new SQLException("Image | Query non riuscita. |");// non va bene
+            }
+            while(rs.next()) {
+                ImageBean imageBean = new ImageBean(rs.getInt("id"), rs.getInt("watch"), rs.getBytes("image"));
+                images.add(imageBean);
+            }
+        }
+        catch (Exception e){
+            Logger.error(e, "Failed to do the query");
+        }
+        finally {
+            DatabaseConnectionPool.getInstance().releaseConnection(connection);
+        }
+        return images;
     }
 
 
