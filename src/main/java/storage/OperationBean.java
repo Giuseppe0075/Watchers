@@ -10,17 +10,17 @@ CREATE TABLE `Operation`(
     CONSTRAINT `operation_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class OperationBeen {
+public class OperationBean {
     private Integer id;
     private Integer admin;
     private Integer watch;
     private String operation;
     private String date;
 
-    private OperationBeen() {
+    private OperationBean() {
     }
 
-    public OperationBeen(Integer id, Integer admin, Integer watch, String operation, String date) {
+    public OperationBean(Integer id, Integer admin, Integer watch, String operation, String date) {
         this.id = id;
         this.admin = admin;
         this.watch = watch;
@@ -82,9 +82,9 @@ public class OperationBeen {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OperationBeen)) return false;
+        if (!(o instanceof OperationBean)) return false;
 
-        OperationBeen that = (OperationBeen) o;
+        OperationBean that = (OperationBean) o;
 
         if (!id.equals(that.id)) return false;
         if (!admin.equals(that.admin)) return false;

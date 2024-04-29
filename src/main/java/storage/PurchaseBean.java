@@ -12,7 +12,7 @@ CREATE TABLE `Purchase`(
     CONSTRAINT `purchase_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class PurchaseBeen {
+public class PurchaseBean {
     private  Integer id;
     private  Integer user;
     private  Integer watch;
@@ -20,10 +20,10 @@ public class PurchaseBeen {
     private  Integer IVA;
     private  Double price;
 
-    private PurchaseBeen() {
+    private PurchaseBean() {
     }
 
-    public PurchaseBeen(Integer id, Integer user, Integer watch, Integer quantity, Integer IVA, Double price) {
+    public PurchaseBean(Integer id, Integer user, Integer watch, Integer quantity, Integer IVA, Double price) {
         this.id = id;
         this.user = user;
         this.watch = watch;
@@ -95,9 +95,9 @@ public class PurchaseBeen {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PurchaseBeen)) return false;
+        if (!(o instanceof PurchaseBean)) return false;
 
-        PurchaseBeen that = (PurchaseBeen) o;
+        PurchaseBean that = (PurchaseBean) o;
 
         if (!getId().equals(that.getId())) return false;
         if (!getUser().equals(that.getUser())) return false;

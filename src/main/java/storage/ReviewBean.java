@@ -1,6 +1,5 @@
 package storage;
 
-import java.sql.ResultSet;
 import java.util.Date;
 
 /*
@@ -15,17 +14,17 @@ CREATE TABLE `Review`(
     CONSTRAINT `review_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class ReviewBeen {
+public class ReviewBean {
     private Integer watch;
     private Integer user;
     private Integer stars;
     private String description;
     private Date date;
 
-    private ReviewBeen() {
+    private ReviewBean() {
     }
 
-    public ReviewBeen(Integer watch, Integer user, Integer stars, String description, Date date) {
+    public ReviewBean(Integer watch, Integer user, Integer stars, String description, Date date) {
         this.watch = watch;
         this.user = user;
         this.stars = stars;
@@ -87,9 +86,9 @@ public class ReviewBeen {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ReviewBeen)) return false;
+        if (!(o instanceof ReviewBean)) return false;
 
-        ReviewBeen that = (ReviewBeen) o;
+        ReviewBean that = (ReviewBean) o;
 
         if (!watch.equals(that.watch)) return false;
         return user.equals(that.user);
