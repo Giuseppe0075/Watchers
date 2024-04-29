@@ -1,9 +1,11 @@
 package storage;
 
 import database.DatabaseConnectionPool;
+import org.tinylog.Logger;
 
 import java.sql.*;
 import java.util.Collection;
+import java.util.List;
 
 public class ImageModel implements DAO<ImageBean> {
     @Override
@@ -11,17 +13,19 @@ public class ImageModel implements DAO<ImageBean> {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
+            System.out.println("Creo connessione");
             connection = DatabaseConnectionPool.getInstance().getConnection();
             preparedStatement =  connection.prepareStatement("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)");
 
             preparedStatement.setInt(1, image.getId());
             preparedStatement.setInt(2, image.getWatch());
             preparedStatement.setBytes(3, image.getImage());
-
+            System.out.println("Eseguo");
             int rs = preparedStatement.executeUpdate();
             if(rs == 0){
                 throw new SQLException("Image | Inserimento non eseguito | 0 righe modificate | Image: "+ image.toString());
             }
+            System.out.printf("Inserimento avvenuto con successo!");
         } finally {
             if (preparedStatement != null) {
                 preparedStatement.close();
@@ -42,25 +46,29 @@ public class ImageModel implements DAO<ImageBean> {
         if(key.length != 2) throw new Exception("ImageBean::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
 
         //Declaration
-        Connection connection = null;
+        database.Connection connection = null;
         ImageBean image = null;
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement =  connection.prepareStatement("SELECT * FROM Image WHERE id = ? AND watch = ?");
+            connection = DatabaseConnectionPool.getInstance().getConnection2();
+            System.out.println("input: " + key[0].toString());
+            ResultSet rs = connection.executeQuery("SELECT * FROM Image WHERE id = ? AND watch = ?",
+                    List.of(Integer.parseInt((String) key[0]), Integer.parseInt((String) key[1])));
+            System.out.println("Rs: " +rs.next());
 
-            preparedStatement.setInt(1, (Integer)key[0]);
-            preparedStatement.setInt(2, (Integer)key[1]);
-
-            ResultSet rs = preparedStatement.executeQuery();
             if(rs == null){
                 throw new SQLException("Image | Query non riuscita. | id:"+ image.getId());// non va bene
             }
+            System.out.println("Prova4");
 
-            image = new ImageBean(rs.getInt(0), rs.getInt(1), rs.getBytes(2));
-
-        } finally {
+            image = new ImageBean(rs.getInt("id"), rs.getInt("watch"), rs.getBytes("image"));
+            System.out.println("Prova5");
+        }
+        catch (Exception e){
+            Logger.error(e, "Failed to do the query");
+        }
+        finally {
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
