@@ -1,6 +1,7 @@
 package storage;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -29,60 +30,30 @@ public class UserModel implements DAO<UserBean>{
 
     @Override
     public void doSave(UserBean user) throws SQLException, Exception {
-        Connection connection = null;
+
         PreparedStatement preparedStatement = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO User"+"(email, psw, name, surname, birthday, road, civic_number, city, CAP) values (?,?,?,?,?,?,?,?,?)");
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+            ResultSet rs = connection.executeQuery("INSERT INTO User"+"(email, psw, name, surname, birthday, road, civic_number, city, CAP) values (?,?,?,?,?,?,?,?,?)",
+                    List.of(user.getEmail(), user.getPsw(), user.getName(), user.getSurname(), user.getBirthday(),
+                            user.getRoad(), user.getCivic_number(), user.getCity(), user.getCAP()));
 
-            preparedStatement.setString(1,user.getEmail());
-            preparedStatement.setString(2,user.getPsw());
-            preparedStatement.setString(3,user.getName());
-            preparedStatement.setString(4,user.getSurname());
-            preparedStatement.setString(5,user.getBirthday());
-            preparedStatement.setString(6,user.getRoad());
-            preparedStatement.setString(7,user.getCivic_number());
-            preparedStatement.setString(8,user.getCity());
-            preparedStatement.setString(9,user.getCAP());
-
-            int rs = preparedStatement.executeUpdate();
-            if(rs == 0){
+            if(rs == null){
                 throw new SQLException("User | Inserimento non eseguito | 0 righe modificate | User: "+ user.toString());
             }
-        }
-        finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
 
     }
 
     @Override
     public void doDelete(UserBean user) throws SQLException, Exception {
-        PreparedStatement preparedStatement = null;
-        Connection connection = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM User WHERE id = ?");
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+            ResultSet rs = connection.executeQuery("DELETE FROM User WHERE id = ?",List.of(user.getId()));
 
-            preparedStatement.setString(1, user.getEmail());
-
-            int rs = preparedStatement.executeUpdate();
-            if(rs == 0){
+            if(rs == null){
                 throw new SQLException("User | Eliminazione non eseguita | 0 righe modificate | User: "+ user.toString());
             }
-        }
-        finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
     }
 
@@ -92,16 +63,11 @@ public class UserModel implements DAO<UserBean>{
 
 
         UserBean user = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
 
-        try{
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE email = ?");
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
 
-            preparedStatement.setString(1, (String) key[0]);
+            ResultSet rs = connection.executeQuery("SELECT * FROM User WHERE email = ?", List.of(key[0]));
 
-            var rs = preparedStatement.executeQuery();
             if(rs == null){
                 throw new SQLException("User | Query non riuscita. | id:"+ key[0]);
             }
@@ -116,11 +82,6 @@ public class UserModel implements DAO<UserBean>{
             user.setCivic_number(rs.getString("civic_number"));
             user.setCity(rs.getString("city"));
             user.setCAP(rs.getString("CAP"));
-        }finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
         return user;
     }
@@ -128,16 +89,12 @@ public class UserModel implements DAO<UserBean>{
     @Override
     public Collection<UserBean> doRetrieveByCond(String cond) throws SQLException, Exception {
         List<UserBean> users = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
         if(cond == null) throw new Exception("UserBean::doRetrieveByCond: cond non può essere null");
 
-        try{
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE"+ cond );// verificareeeee
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
 
-            var rs = preparedStatement.executeQuery();
+            ResultSet rs = connection.executeQuery("SELECT * FROM User WHERE"+ cond );// verificareeeee
+
             if(rs == null){
                 throw new SQLException("User | Query non riuscita. | id:"+ cond);
             }
@@ -157,11 +114,6 @@ public class UserModel implements DAO<UserBean>{
                 );
                 users.add(user);
             }
-        }finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
         return users;
     }
@@ -169,14 +121,10 @@ public class UserModel implements DAO<UserBean>{
     @Override
     public Collection<UserBean> doRetrieveAll() throws SQLException, Exception {
         List<UserBean> users = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM User");
+        try( database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
 
-            var rs = preparedStatement.executeQuery();
+            ResultSet rs = connection.executeQuery("SELECT * FROM User");
             if(rs == null){
                 throw new SQLException("User | doRetrieveAll | Query non riuscita.");
             }
@@ -196,45 +144,19 @@ public class UserModel implements DAO<UserBean>{
                 );
                 users.add(user);
             }
-        }finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
         return users;
     }
 
     @Override
     public void doSaveOrUpdate(UserBean user) throws SQLException, Exception {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+            ResultSet rs = connection.executeQuery("INSERT INTO User"+"(email, psw, name, surname, birthday, road, civic_number, city, CAP) values (?,?,?,?,?,?,?,?,?)",
+                    List.of(user.getEmail(),user.getPsw(),user.getName(),user.getSurname(),user.getBirthday(),user.getRoad(),user.getCivic_number(),user.getCity(),user.getCAP()));
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO User"+"(email, psw, name, surname, birthday, road, civic_number, city, CAP) values (?,?,?,?,?,?,?,?,?)");
-
-            preparedStatement.setString(1,user.getEmail());
-            preparedStatement.setString(2,user.getPsw());
-            preparedStatement.setString(3,user.getName());
-            preparedStatement.setString(4,user.getSurname());
-            preparedStatement.setString(5,user.getBirthday());
-            preparedStatement.setString(6,user.getRoad());
-            preparedStatement.setString(7,user.getCivic_number());
-            preparedStatement.setString(8,user.getCity());
-            preparedStatement.setString(9,user.getCAP());
-
-            int rs = preparedStatement.executeUpdate();
-            if(rs == 0){
+            if(rs == null){
                 throw new SQLException("User | Inserimento non eseguito | 0 righe modificate | User: "+ user.toString());
             }
-        }
-        finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
     }
 }

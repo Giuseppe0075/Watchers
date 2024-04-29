@@ -30,26 +30,13 @@ public class WatchModel implements DAO<WatchBean>{
 
     @Override
     public void doSave(WatchBean watch) throws SQLException, Exception {
-        Connection connection = new Connection(DatabaseConnectionPool.getInstance().getConnection());
-        PreparedStatement preparedStatement = null;
-        try {
+
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
 
             int result =  connection.executeUpdate("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)",
                     List.of(watch.getName(), watch.getBrand(), watch.getDescription(), watch.getReviews_avg(), watch.getPrice(), watch.getMaterial(), watch.getStock(), watch.getDimension(), watch.getIVA(), watch.getSex(), watch.getVisible()));
 
-            /*preparedStatement.setString(1, watch.getName());
-            preparedStatement.setString(2, watch.getBrand());
-            preparedStatement.setString(3, watch.getDescription());
-            preparedStatement.setDouble(4, watch.getReviews_avg());
-            preparedStatement.setDouble(5, watch.getPrice());
-            preparedStatement.setString(6, watch.getMaterial());
-            preparedStatement.setInt(7, watch.getStock());
-            preparedStatement.setDouble(8, watch.getDimension());
-            preparedStatement.setInt(9, watch.getIVA());
-            preparedStatement.setString(10, watch.getSex());
-            preparedStatement.setBoolean(11, watch.getVisible());*/
 
-            //int rs = preparedStatement.executeUpdate();
             if(result == 0){
                 throw new SQLException("Watch | Inserimento non eseguito | 0 righe modificate | Watch: "+ watch.toString());
             }
@@ -68,27 +55,12 @@ public class WatchModel implements DAO<WatchBean>{
             return;
         }
 
-
         PreparedStatement preparedStatement = null;
-        try (java.sql.Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
+            int rs = connection.executeUpdate("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?",
+                    List.of(watch.getName(), watch.getBrand(), watch.getDescription(), watch.getReviews_avg(), watch.getPrice(),
+                            watch.getMaterial(), watch.getStock(), watch.getDimension(), watch.getIVA(), watch.getVisible(), watch.getId()));
 
-            preparedStatement = connection.prepareStatement("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?");
-
-            preparedStatement.setLong(12, watch.getId());
-
-            preparedStatement.setString(1, watch.getName());
-            preparedStatement.setString(2, watch.getBrand());
-            preparedStatement.setString(3, watch.getDescription());
-            preparedStatement.setDouble(4, watch.getReviews_avg());
-            preparedStatement.setDouble(5, watch.getPrice());
-            preparedStatement.setString(6, watch.getMaterial());
-            preparedStatement.setInt(7, watch.getStock());
-            preparedStatement.setDouble(8, watch.getDimension());
-            preparedStatement.setInt(9, watch.getIVA());
-            preparedStatement.setString(10, watch.getSex());
-            preparedStatement.setBoolean(11, watch.getVisible());
-
-            int rs = preparedStatement.executeUpdate();
             if(rs == 0){
                 throw new SQLException("Watch | Aggiornamento non eseguito | 0 righe modificate | Watch: "+ watch.toString());
             }
@@ -99,17 +71,12 @@ public class WatchModel implements DAO<WatchBean>{
     public WatchBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         if(key.length != 1) throw new Exception("WatchModel::doRetrieveByKey: Il numero di chiavi deve essere 1. Numero chiavi passate: " + key.length);
 
-        PreparedStatement preparedStatement = null;
-        java.sql.Connection connection = null;
 
         WatchBean watch = new WatchBean();
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Watch WHERE id = ?");
-            preparedStatement.setInt(1, (Integer)key[0]);
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
 
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE id = ?", List.of(key[0]));
 
             while (rs.next()){
                 watch.setId(rs.getLong("id"));
@@ -128,14 +95,6 @@ public class WatchModel implements DAO<WatchBean>{
 
         }catch (SQLException e){
             System.out.println("Errore: "+ e.getMessage());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } finally {
-                DatabaseConnectionPool.getInstance().releaseConnection(connection);
-            }
         }
 
 
@@ -146,14 +105,11 @@ public class WatchModel implements DAO<WatchBean>{
     public Collection<WatchBean> doRetrieveByCond(String cond) throws SQLException, Exception {
         List<WatchBean> watches = new ArrayList<>();
 
-        PreparedStatement preparedStatement = null;
-        java.sql.Connection connection = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Watch WHERE "+ cond);
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
+           // WARNING SQL INJECTION !!!
+            ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE "+ cond);
 
-            ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 WatchBean watch = new WatchBean();
                 watch.setId(rs.getLong("id"));
@@ -173,14 +129,6 @@ public class WatchModel implements DAO<WatchBean>{
         }
         catch (SQLException e){
             System.out.println("Errore: "+ e.getMessage());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } finally {
-                DatabaseConnectionPool.getInstance().releaseConnection(connection);
-            }
         }
 
         return  watches;
@@ -190,14 +138,12 @@ public class WatchModel implements DAO<WatchBean>{
     public Collection<WatchBean> doRetrieveAll() throws SQLException, Exception {
         List<WatchBean> watches = new ArrayList<>();
 
-        PreparedStatement preparedStatement = null;
-        java.sql.Connection connection = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Watch");
 
-            java.sql.ResultSet rs = preparedStatement.executeQuery();
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection(); ){
+
+            ResultSet rs = connection.executeQuery("SELECT * FROM Watch");
+
             while(rs.next()){
                 WatchBean watch = new WatchBean();
                 watch.setId(rs.getLong("id"));
@@ -215,37 +161,20 @@ public class WatchModel implements DAO<WatchBean>{
                 watches.add(watch);
             }
 
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } finally {
-                DatabaseConnectionPool.getInstance().releaseConnection(connection);
-            }
         }
         return watches;
     }
 
     @Override
     public void doDelete(WatchBean watch) throws SQLException {
-        java.sql.Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM Watch WHERE id = ?");
-            preparedStatement.setLong(1, watch.getId());
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
 
-            int rs = preparedStatement.executeUpdate();
+            int rs = connection.executeUpdate("DELETE FROM Watch WHERE id = ?", List.of(watch.getId()));
+
             if(rs == 0){
                 throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate | Watch: "+ watch.toString());
             }
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
         }
 
     }

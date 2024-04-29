@@ -21,7 +21,7 @@ public abstract class DatabaseObject {
         String query = "SELECT * FROM " + tableName;
         List<T> objects = new ArrayList<>();
 
-        try(Connection connection = DatabaseConnectionPool.getInstance().getConnection2()){
+        try(Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             try(ResultSet resultSet = connection.executeQuery(query)){
                 while (resultSet.next()){
                     // creates an empty object
@@ -64,7 +64,7 @@ public abstract class DatabaseObject {
         }
         String idName = optIdName.get().getName();
         String query = startQuery + " FROM " + tableName + " WHERE " + idName + "= ?";
-        try(Connection connection = DatabaseConnectionPool.getInstance().getConnection2()){
+        try(Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             try(ResultSet resultSet = connection.executeQuery(query, Collections.singletonList(id))){
                 resultSet.next();
                 return buildObject(resultSet, targetClass);

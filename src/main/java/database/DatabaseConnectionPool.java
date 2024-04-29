@@ -73,14 +73,12 @@ public class DatabaseConnectionPool {
      * Get a connection if avaiable, non blockin
      * @return a valid connection
      */
-    public synchronized Connection getConnection2(){
+    public synchronized Connection getConnection(){
+        Logger.debug("Connection Pool added connection "+ pool.size() + "/" + POOL_SIZE );
         return pool.remove();
     }
 
-    public synchronized java.sql.Connection getConnection(){
-        Logger.info("Connection Pool added connection "+ pool.size() + "/" + POOL_SIZE );
-        return pool.remove().connection;
-    }
+
 
     public synchronized void releaseConnection(Connection connection) {
         Logger.debug("releasing connection");

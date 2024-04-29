@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public abstract class ConfigurationProperties {
-    private static final String CONFIG_FILE =  "C:\\Users\\giuse\\IdeaProjects\\Watchers\\config.properties";
+    private static final String CONFIG_FILE =  System.getenv().get("Project_Home") + "\\config.properties";
     private static final Properties properties;
 
     static {

@@ -1,5 +1,6 @@
 package storage;
 
+import database.Connection;
 import database.DatabaseConnectionPool;
 import org.tinylog.Logger;
 
@@ -10,29 +11,16 @@ import java.util.List;
 
 public class ImageModel implements DAO<ImageBean> {
     @Override
-    public void doSave(ImageBean image) throws SQLException, Exception{
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            System.out.println("Creo connessione");
-            connection = DatabaseConnectionPool.getInstance().getConnection();
-            preparedStatement =  connection.prepareStatement("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)");
+    public void doSave(ImageBean image) throws SQLException, Exception {
 
-            preparedStatement.setInt(1, image.getId());
-            preparedStatement.setInt(2, image.getWatch());
-            preparedStatement.setBytes(3, image.getImage());
-            System.out.println("Eseguo");
-            int rs = preparedStatement.executeUpdate();
-            if(rs == 0){
-                throw new SQLException("Image | Inserimento non eseguito | 0 righe modificate | Image: "+ image.toString());
-            }
-            System.out.printf("Inserimento avvenuto con successo!");
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
+            ResultSet rs = connection.executeQuery("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)",
+                    List.of(image.getWatch(), image.getImage()));
 
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
+            if (rs == null) {
+                throw new SQLException("Image | Inserimento non eseguito | 0 righe modificate | Image: " + image.toString());
+            }
+            Logger.debug("Inserimento avvenuto con successo!");
         }
     }
 
@@ -47,12 +35,11 @@ public class ImageModel implements DAO<ImageBean> {
         if(key.length != 2) throw new Exception("ImageBean::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
 
         //Declaration
-        database.Connection connection = null;
-        ImageBean image = null;
-        PreparedStatement preparedStatement = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection2();
+        ImageBean image = null;
+
+
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();){
             System.out.println("input: " + key[0].toString());
             ResultSet rs = connection.executeQuery("SELECT * FROM Image WHERE id = ? AND watch = ?",
                     List.of(Integer.parseInt((String) key[0]), Integer.parseInt((String) key[1])));
@@ -69,13 +56,7 @@ public class ImageModel implements DAO<ImageBean> {
         catch (Exception e){
             Logger.error(e, "Failed to do the query");
         }
-        finally {
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
 
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
-        }
         return image;
     }
 
@@ -92,12 +73,12 @@ public class ImageModel implements DAO<ImageBean> {
     @Override
     public Collection<ImageBean> doRetrieveByCond(String cond) throws SQLException, Exception {
         //Declaration
-        database.Connection connection = null;
-        Collection<ImageBean> images = new ArrayList<>();
-        PreparedStatement preparedStatement = null;
 
-        try {
-            connection = DatabaseConnectionPool.getInstance().getConnection2();
+        Collection<ImageBean> images = new ArrayList<>();
+
+
+        try(Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+
             ResultSet rs = connection.executeQuery("SELECT * FROM Image WHERE " + cond);
 
             if(rs == null){
@@ -111,9 +92,7 @@ public class ImageModel implements DAO<ImageBean> {
         catch (Exception e){
             Logger.error(e, "Failed to do the query");
         }
-        finally {
-            DatabaseConnectionPool.getInstance().releaseConnection(connection);
-        }
+
         return images;
     }
 
