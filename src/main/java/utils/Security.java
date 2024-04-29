@@ -7,9 +7,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.List;
 
 public class Security {
 
+    public static final List<String> allowedImageExt = List.of("jpg", "jpeg", "png");
+    public static final long maxFileLenght = 10 * 1024 * 1024; // 10 MB
     /**
      * Sanitize input for XSS injection
      * @param input the input string
@@ -71,8 +74,9 @@ public class Security {
         messageDigest.update(salt);
         byte[] hashedPassword = messageDigest.digest(string.getBytes());
         return Base64.getEncoder().encodeToString(hashedPassword);
-
     }
+
+
 
 
 }
