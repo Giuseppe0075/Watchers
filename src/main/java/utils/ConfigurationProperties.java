@@ -4,15 +4,18 @@ import org.tinylog.Logger;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public abstract class ConfigurationProperties {
-    private static final String CONFIG_FILE = System.getProperty("user.dir") +  "/config.properties";
+    private static final Path CONFIG_FILE =  Path.of(System.getenv().get("Project_Home") + "/config.properties");
     private static final Properties properties;
 
     static {
         properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(CONFIG_FILE)) {
+
+        try (FileInputStream fis = new FileInputStream(CONFIG_FILE.toFile())) {
             properties.load(fis);
             Logger.debug("URI: {}, USER: {}, PSW: {}", getUrl(), getUsername(), getPassword());
         } catch (IOException e) {

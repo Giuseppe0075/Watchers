@@ -1,6 +1,5 @@
-<%@ page import="storage.WatchBeen" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.WatchBeen" %>
+<%@ page import="storage.WatchBean" %>
 <%@ page import="utils.Security" %>
 <%@ page import="storage.WatchBean" %>
 

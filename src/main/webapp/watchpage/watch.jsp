@@ -18,7 +18,7 @@
 
             WatchBean watch = null;
             try {
-                watch = model.getWatchById(Integer.parseInt(id));
+                watch = model.doRetrieveByKey(Integer.parseInt(id));
             } catch (Exception e) {
                 response.sendError(404);
             }

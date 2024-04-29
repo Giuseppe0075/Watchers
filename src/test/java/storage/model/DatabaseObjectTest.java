@@ -13,7 +13,7 @@ class DatabaseObjectTest {
     @BeforeEach
     void setUp() {
         String url = ConfigurationProperties.getUrl();
-        System.out.println(url);
+        System.out.println("url: " + url);
     }
 
 
@@ -28,9 +28,5 @@ class DatabaseObjectTest {
         System.out.println("Admin: ");
         System.out.println(admin);
 
-
-
-
-        Thread.sleep(1000);
     }
 }
