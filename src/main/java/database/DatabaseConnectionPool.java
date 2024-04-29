@@ -63,7 +63,7 @@ public class DatabaseConnectionPool {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             Logger.error("JDBC DRIVER NOT FOUND", e);
         }

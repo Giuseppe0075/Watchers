@@ -6,15 +6,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ConfigurationProperties {
-    private static final String CONFIG_FILE = "C:\\Users\\Pasquale Livrieri\\Desktop\\UNI\\TSW\\progetto\\config.properties";
+public abstract class ConfigurationProperties {
+    private static final String CONFIG_FILE = System.getProperty("user.dir") +  "/config.properties";
     private static final Properties properties;
 
     static {
         properties = new Properties();
         try (FileInputStream fis = new FileInputStream(CONFIG_FILE)) {
             properties.load(fis);
-            Logger.info("Trying to connect to db with URI: {}, USER: {}, PSW: {}", getUrl(), getUsername(), getPassword());
+            Logger.debug("URI: {}, USER: {}, PSW: {}", getUrl(), getUsername(), getPassword());
         } catch (IOException e) {
             Logger.error(e, "Cannot load configuration file: {}", CONFIG_FILE);
         }

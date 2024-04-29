@@ -2,6 +2,7 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="storage.WatchBeen" %>
 <%@ page import="utils.Security" %>
+<%@ page import="storage.WatchBean" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -12,7 +13,7 @@
 </head>
 <body>
 <%!
-    Collection<WatchBeen> watchList = WatchBeen.retriveAll(WatchBeen.class);
+    Collection<WatchBean> watchList = WatchBean.retriveAll(WatchBean.class);
     String csrfToken = Security.getCSRFToken();
 %>
 <%
@@ -30,7 +31,7 @@
             <th>Brand: </th>
             <th>Description</th>
         </tr>
-        <% for (WatchBeen watch : watchList) { %>
+        <% for (WatchBean watch : watchList) { %>
             <tr>
                 <td>
                     <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
