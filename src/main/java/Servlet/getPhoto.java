@@ -14,8 +14,8 @@ public class getPhoto extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ImageModel im = new ImageModel();
         try {
-            ImageBean image = im.doRetrieveByKey("1", "1");
-            System.out.println("Immagine letta correttamente");
+
+            ImageBean image = im.doRetrieveByKey(req.getParameter("id"), req.getParameter("watch"));
             resp.setContentType("image/jpeg");
             ServletOutputStream out = resp.getOutputStream();
             out.write(image.getImage());

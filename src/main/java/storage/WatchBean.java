@@ -6,6 +6,9 @@ import storage.model.DatabaseKey;
 import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
 
+import java.util.List;
+import java.util.Optional;
+
 /*
 CREATE TABLE `Watch`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -38,6 +41,7 @@ public class WatchBean extends DatabaseObject {
     private Integer IVA;
     private String sex;
     private Boolean visible;
+    private List<ImageBean> images;
 
 
     public WatchBean() {
@@ -57,9 +61,10 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
+        this.images = images;
     }
 
-    public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
+    public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible, List<ImageBean> images) {
         //this.id = id;  // id è autoincrement - viene impostato a segiuto del salvataggio sul db
         this.name = name;
         this.brand = brand;
@@ -72,9 +77,10 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
+        this.images = images;
     }
 
-    public WatchBean(Long id,String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
+    public WatchBean(Long id,String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible, List<ImageBean> images) {
         this.id = id;  // utile per l'update
         this.name = name;
         this.brand = brand;
@@ -87,6 +93,7 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
+        this.images = images;
     }
 
     public Long getId() {
@@ -185,10 +192,18 @@ public class WatchBean extends DatabaseObject {
         this.visible = visible;
     }
 
-/*    public BufferedImage getImage() { return image; }
+    public List<ImageBean> getImages(){ return images;}
 
-    public void setImage(BufferedImage image) { this.image = image; }*/
+    public void setImages(List<ImageBean> images){this.images = images;}
 
+    public ImageBean getImage(int id) {
+        Optional<ImageBean> imageOptional = images.stream()
+                .filter(image -> image.getId().equals(id))
+                .findFirst();
+
+        // Returns the ImageBean if not null, otherwise return null
+        return imageOptional.orElse(null);
+    }
 
     @Override
     public boolean equals(Object obj) {

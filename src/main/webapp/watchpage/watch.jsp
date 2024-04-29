@@ -26,9 +26,9 @@
         <%@include file="../navbar.html"%>
         <div class="container">
             <div class="photos"> <!-- Photos Showroom-->
-                <img class = "mainPhoto" src = <%="watchpic/" + id + "/pic1.png"%> >
-                <img class = "photo" src= <%="watchpic/" + id + "/pic2.png"%> >
-                <img class = "photo" src= <%="watchpic/" + id + "/pic3.png"%> >
+                <img class = "mainPhoto" src = "${pageContext.request.contextPath}/getPhoto?id=1&watch=1" >
+                <img class = "photo" src= "${pageContext.request.contextPath}/getPhoto?id=2&watch=2" >
+                <img class = "photo" src= "${pageContext.request.contextPath}/getPhoto?id=3&watch=3" >
             </div>
             <aside class = "infobar">
                 <h1><%=watch.getName()%></h1>
