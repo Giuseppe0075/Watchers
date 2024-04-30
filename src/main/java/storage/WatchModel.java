@@ -23,7 +23,7 @@ CREATE TABLE `Watch`(
     `visible` TINYINT(1) NOT NULL DEFAULT '1',
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
- */
+*/
 public class WatchModel implements DAO<WatchBean>{
     List<WatchBean> watches;
     private static final String TABLE = "watch";
@@ -72,31 +72,38 @@ public class WatchModel implements DAO<WatchBean>{
         if(key.length != 1) throw new Exception("WatchModel::doRetrieveByKey: Il numero di chiavi deve essere 1. Numero chiavi passate: " + key.length);
 
 
-        WatchBean watch = new WatchBean();
+        WatchBean watch = null;
 
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
 
             ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE id = ?", List.of(key[0]));
 
             while (rs.next()){
-                watch.setId(rs.getLong("id"));
-                watch.setName(rs.getString("name"));
-                watch.setBrand(rs.getString("brand"));
-                watch.setDescription(rs.getString("description"));
-                watch.setReviews_avg(rs.getDouble("reviews_avg"));
-                watch.setPrice(rs.getDouble("price"));
-                watch.setMaterial(rs.getString("material"));
-                watch.setStock(rs.getInt("stock"));
-                watch.setDimension(rs.getDouble("dimension"));
-                watch.setIVA(rs.getInt("IVA"));
-                watch.setSex(rs.getString("sex"));
-                watch.setVisible(rs.getBoolean("visible"));
+                watch = createWatch(rs);
             }
 
         }catch (SQLException e){
             System.out.println("Errore: "+ e.getMessage());
         }
 
+
+        return watch;
+    }
+
+    private WatchBean createWatch(ResultSet rs) throws SQLException {
+        WatchBean watch = new WatchBean();
+        watch.setId(rs.getLong("id"));
+        watch.setName(rs.getString("name"));
+        watch.setBrand(rs.getString("brand"));
+        watch.setDescription(rs.getString("description"));
+        watch.setReviews_avg(rs.getDouble("reviews_avg"));
+        watch.setPrice(rs.getDouble("price"));
+        watch.setMaterial(rs.getString("material"));
+        watch.setStock(rs.getInt("stock"));
+        watch.setDimension(rs.getDouble("dimension"));
+        watch.setIVA(rs.getInt("IVA"));
+        watch.setSex(rs.getString("sex"));
+        watch.setVisible(rs.getBoolean("visible"));
 
         return watch;
     }
@@ -108,22 +115,11 @@ public class WatchModel implements DAO<WatchBean>{
 
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
            // WARNING SQL INJECTION !!!
-            ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE "+ cond);
+            ResultSet rs = connection.executeQuery("SELECT * FROM Watch "+ cond);
 
             while(rs.next()) {
                 WatchBean watch = new WatchBean();
-                watch.setId(rs.getLong("id"));
-                watch.setName(rs.getString("name"));
-                watch.setBrand(rs.getString("brand"));
-                watch.setDescription(rs.getString("description"));
-                watch.setReviews_avg(rs.getDouble("reviews_avg"));
-                watch.setPrice(rs.getDouble("price"));
-                watch.setMaterial(rs.getString("material"));
-                watch.setStock(rs.getInt("stock"));
-                watch.setDimension(rs.getDouble("dimension"));
-                watch.setIVA(rs.getInt("IVA"));
-                watch.setSex(rs.getString("sex"));
-                watch.setVisible(rs.getBoolean("visible"));
+                createWatch(rs);
                 watches.add(watch);
             }
         }
@@ -146,18 +142,7 @@ public class WatchModel implements DAO<WatchBean>{
 
             while(rs.next()){
                 WatchBean watch = new WatchBean();
-                watch.setId(rs.getLong("id"));
-                watch.setName(rs.getString("name"));
-                watch.setBrand(rs.getString("brand"));
-                watch.setDescription(rs.getString("description"));
-                watch.setReviews_avg(rs.getDouble("reviews_avg"));
-                watch.setPrice(rs.getDouble("price"));
-                watch.setMaterial(rs.getString("material"));
-                watch.setStock(rs.getInt("stock"));
-                watch.setDimension(rs.getDouble("dimension"));
-                watch.setIVA(rs.getInt("IVA"));
-                watch.setSex(rs.getString("sex"));
-                watch.setVisible(rs.getBoolean("visible"));
+                createWatch(rs);
                 watches.add(watch);
             }
 
