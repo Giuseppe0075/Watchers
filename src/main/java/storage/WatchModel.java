@@ -23,7 +23,7 @@ CREATE TABLE `Watch`(
     `visible` TINYINT(1) NOT NULL DEFAULT '1',
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
- */
+*/
 public class WatchModel implements DAO<WatchBean>{
     List<WatchBean> watches;
     private static final String TABLE = "watch";
@@ -108,7 +108,7 @@ public class WatchModel implements DAO<WatchBean>{
 
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
            // WARNING SQL INJECTION !!!
-            ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE "+ cond);
+            ResultSet rs = connection.executeQuery("SELECT * FROM Watch "+ cond);
 
             while(rs.next()) {
                 WatchBean watch = new WatchBean();

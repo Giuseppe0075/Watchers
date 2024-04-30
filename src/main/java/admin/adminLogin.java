@@ -14,7 +14,7 @@ import static utils.Security.sanitizeInput;
 
 @WebServlet(name = "adminLoginServlet", value = "/admin-login-servlet")
 public class adminLogin extends HttpServlet {
-    //TODO Add pasword hashing
+    //TODO Add password hashing
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
