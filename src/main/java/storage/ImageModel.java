@@ -14,10 +14,10 @@ public class ImageModel implements DAO<ImageBean> {
     public void doSave(ImageBean image) throws SQLException, Exception {
 
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
-            ResultSet rs = connection.executeQuery("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)",
-                    List.of(image.getWatch(), image.getImage()));
+            int rs = connection.executeUpdate("INSERT INTO Watch" + "(id, watch, image) values (?,?,?)",
+                    List.of(image.getId(),image.getWatch(), image.getImage()));
 
-            if (rs == null) {
+            if (rs == 0) {
                 throw new SQLException("Image | Inserimento non eseguito | 0 righe modificate | Image: " + image.toString());
             }
             Logger.debug("Inserimento avvenuto con successo!");
@@ -56,7 +56,6 @@ public class ImageModel implements DAO<ImageBean> {
             System.out.println("Prova4");
 
             image = new ImageBean(rs.getInt("id"), rs.getInt("watch"), rs.getBytes("image"));
-            System.out.println("Prova5");
         }
         catch (Exception e){
             Logger.error(e, "Failed to do the query");

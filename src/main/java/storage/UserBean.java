@@ -1,6 +1,12 @@
 package storage;
 
 
+import org.tinylog.Logger;
+
+import java.lang.reflect.Field;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /*
 CREATE TABLE `User`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -15,7 +21,7 @@ CREATE TABLE `User`(
     `CAP` CHAR(5) NOT NULL
 );
  */
-public class UserBean {
+public class UserBean extends Bean{
     private Integer id;
     private String email;
     private String psw;
@@ -27,7 +33,8 @@ public class UserBean {
     private String city;
     private String CAP;
 
-    private UserBean() {
+    UserBean(ResultSet rs) {
+        super(rs);
     }
 
     public UserBean(Integer id, String email, String psw, String name, String surname, String birthday, String road, String civic_number, String city, String CAP) {
@@ -42,6 +49,7 @@ public class UserBean {
         this.city = city;
         this.CAP = CAP;
     }
+
 
     public Integer getId() {
         return id;

@@ -24,10 +24,6 @@ CREATE TABLE `User`(
  */
 
 public class UserModel implements DAO<UserBean>{
-
-    List<UserModel> users;
-    private static final String TABLE = "User";
-
     @Override
     public void doSave(UserBean user) throws SQLException, Exception {
 
@@ -82,7 +78,7 @@ public class UserModel implements DAO<UserBean>{
                 throw new SQLException("User | Query non riuscita. | id:"+ key[0]);
             }
             rs.next();
-            user = createUser(rs);
+            user = new UserBean(rs);
         }
         return user;
     }
@@ -101,7 +97,7 @@ public class UserModel implements DAO<UserBean>{
             }
         }
         while(rs.next())
-            users.add(createUser(rs));
+            users.add(new UserBean(rs));
         return users;
     }
 
@@ -116,25 +112,12 @@ public class UserModel implements DAO<UserBean>{
                 throw new SQLException("User | doRetrieveAll | Query non riuscita.");
             }
             while(rs.next())
-                users.add(createUser(rs));
+                users.add(new UserBean(rs));
         }
         return users;
     }
 
-    private UserBean createUser(ResultSet rs) throws SQLException {
-        return new UserBean(
-                rs.getInt("id"),
-                rs.getString("email"),
-                rs.getString("psw"),
-                rs.getString("name"),
-                rs.getString("surname"),
-                rs.getString("birthday"),
-                rs.getString("road"),
-                rs.getString("civic_number"),
-                rs.getString("city"),
-                rs.getString("CAP")
-        );
-    }
+
     @Override
     public void doSaveOrUpdate(UserBean user) throws SQLException, Exception {
 
