@@ -1,6 +1,5 @@
 package storage;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,49 +24,42 @@ CREATE TABLE `User`(
 
 public class UserModel implements DAO<UserBean>{
     @Override
-    public void doSave(UserBean user) throws SQLException, Exception {
-
-        PreparedStatement preparedStatement = null;
-
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            int rs = connection.executeUpdate("INSERT INTO User"+"(email, psw, name, surname, birthday, road, civic_number, city, CAP) values (?,?,?,?,?,?,?,?,?)",
-                    List.of(user.getEmail(), user.getPsw(), user.getName(), user.getSurname(), user.getBirthday(),
-                            user.getRoad(), user.getCivic_number(), user.getCity(), user.getCAP()));
-
-            if(rs == 0){
-                throw new SQLException("User | Inserimento non eseguito | 0 righe modificate | User: "+ user.toString());
-            }
+    public void doSave(UserBean user) {
+        List<Object> values = List.of(user.getEmail(), user.getPsw(), user.getName(), user.getSurname(), user.getBirthday(),
+                user.getRoad(), user.getCivic_number(), user.getCity(), user.getCAP());
+        try {
+            Model.doSave("User",values, List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP"));
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + " | user: " + user);
         }
-
     }
 
     @Override
-    public void doDelete(UserBean user) throws SQLException, Exception {
-
+    public void doDelete(UserBean user) throws SQLException {
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             int rs = connection.executeUpdate("DELETE FROM User WHERE id = ?",List.of(user.getId()));
 
             if(rs == 0){
-                throw new SQLException("User | Eliminazione non eseguita | 0 righe modificate | User: "+ user.toString());
+                throw new SQLException("User | doDelete: Failed | user: "+ user);
             }
         }
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws SQLException, Exception {
+    public void doDeleteByCond(String cond) throws SQLException {
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             int rs = connection.executeUpdate("DELETE FROM User " + cond);
 
             if(rs == 0){
-                throw new SQLException("User | Eliminazione non eseguita | 0 righe modificate ");
+                throw new SQLException("User | doDeleteByCond: Failed | condition: " + cond);
             }
         }
     }
 
     @Override
-    public UserBean doRetrieveByKey(Object... key) throws SQLException, Exception {
+    public UserBean doRetrieveByKey(Object... key) throws SQLException {
         //Check the number of keys
-        if(key.length != 1) throw new Exception("UserBean::doRetrieveByKey: Il numero di chiavi deve essere 1. Numero chiavi passate: " + key.length);
+        if(key.length != 1) throw new SQLException("User | doRetrieveByKey: Failed | The number of keys is not 1");
         UserBean user = null;
 
         //try connection
@@ -75,7 +67,7 @@ public class UserModel implements DAO<UserBean>{
             ResultSet rs = connection.executeQuery("SELECT * FROM User WHERE id = ?", List.of(key[0]));
 
             if(rs == null){
-                throw new SQLException("User | Query non riuscita. | id:"+ key[0]);
+                throw new SQLException("User | doRetrieveByKey: Failed | Key: " + key[0]);
             }
             rs.next();
             user = new UserBean(rs);
@@ -84,16 +76,16 @@ public class UserModel implements DAO<UserBean>{
     }
 
     @Override
-    public Collection<UserBean> doRetrieveByCond(String cond) throws SQLException, Exception {
+    public Collection<UserBean> doRetrieveByCond(String cond) throws SQLException {
         List<UserBean> users = new ArrayList<>();
-        if(cond == null) throw new Exception("UserBean::doRetrieveByCond: cond non può essere null");
+        if(cond == null) throw new SQLException("User | doRetrieveByCond: Failed | condition is null");
         ResultSet rs = null;
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
 
-            rs = connection.executeQuery("SELECT * FROM User WHERE "+ cond );
+            rs = connection.executeQuery("SELECT * FROM User WHERE " + cond );
 
             if(rs == null){
-                throw new SQLException("User | Query non riuscita. | id:"+ cond);
+                throw new SQLException("User | doRetrieveByCond: Failed | condition:" + cond);
             }
         }
         while(rs.next())
@@ -102,36 +94,30 @@ public class UserModel implements DAO<UserBean>{
     }
 
     @Override
-    public Collection<UserBean> doRetrieveAll() throws SQLException, Exception {
+    public Collection<UserBean> doRetrieveAll() throws SQLException {
         List<UserBean> users = new ArrayList<>();
-
         try( database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
-
             ResultSet rs = connection.executeQuery("SELECT * FROM User");
             if(rs == null){
-                throw new SQLException("User | doRetrieveAll | Query non riuscita.");
+                throw new SQLException("User | doRetrieveAll: Failed |");
             }
             while(rs.next())
                 users.add(new UserBean(rs));
         }
         return users;
     }
-
-
     @Override
-    public void doSaveOrUpdate(UserBean user) throws SQLException, Exception {
-
+    public void doSaveOrUpdate(UserBean user) throws SQLException {
         if(user.getId() == 0){
             this.doSave(user);
             return;
         }
-
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             int rs = connection.executeUpdate("UPDATE User SET email = ?, psw = ?, name = ?, surname = ?, birthday = ?, road = ?, civic_number = ?, city = ?, CAP = ? WHERE id = ?",
                         List.of(user.getEmail(),user.getPsw(),user.getName(),user.getSurname(),user.getBirthday(),user.getRoad(),user.getCivic_number(),user.getCity(),user.getCAP(), user.getId()));
 
             if(rs == 0){
-                throw new SQLException("User | Inserimento non eseguito | 0 righe modificate | User: "+ user.toString());
+                throw new SQLException("User | doSaveOrUpdate: Failed | user: " + user);
             }
         }
     }

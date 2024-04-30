@@ -18,9 +18,9 @@ public interface DAO<T> {
      */
     void doDeleteByCond(String cond) throws SQLException, Exception;
 
-    T doRetrieveByKey(Object... key) throws SQLException, Exception;
-
     Collection<T> doRetrieveByCond(String cond) throws SQLException, Exception;
+
+    T doRetrieveByKey(Object... key) throws SQLException, Exception;
 
     Collection<T> doRetrieveAll() throws SQLException, Exception;
 

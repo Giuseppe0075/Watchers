@@ -6,6 +6,7 @@ import storage.model.DatabaseKey;
 import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
 
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ CREATE TABLE `Watch`(
 );
  */
 @DatabaseTable(tableName = "Watch")
-public class WatchBean extends DatabaseObject {
+public class WatchBean extends Bean {
     @DatabaseKey(keyName = "id")
     private Long id;
     private String name;
@@ -43,10 +44,6 @@ public class WatchBean extends DatabaseObject {
     private Boolean visible;
 
 
-    public WatchBean() {
-        this.id = 0L;
-    }
-
     public WatchBean(JsonObject obj){
         this.id = obj.get("id").getAsLong();
         this.name = name;
@@ -61,6 +58,8 @@ public class WatchBean extends DatabaseObject {
         this.sex = sex;
         this.visible = visible;
     }
+
+    public WatchBean(){}
 
     public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         //this.id = id;  // id è autoincrement - viene impostato a segiuto del salvataggio sul db
@@ -90,6 +89,10 @@ public class WatchBean extends DatabaseObject {
         this.IVA = IVA;
         this.sex = sex;
         this.visible = visible;
+    }
+
+    public WatchBean(ResultSet rs){
+        super(rs);
     }
 
     public Long getId() {

@@ -26,7 +26,7 @@ public class UserModelTest {
         try {
             userBean = model.doRetrieveByKey("1");
             userBean.setCAP("00000");
-            userBean.setId(0);
+            userBean.setId(Long.parseUnsignedLong("0"));
             userBean.setEmail("Mannagg1@laputtana.it");
             model.doSaveOrUpdate(userBean);
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package storage;
 
+import java.sql.ResultSet;
+
 /*
 CREATE TABLE `Image`(
     `id` BIGINT UNSIGNED NOT NULL,
@@ -9,7 +11,7 @@ CREATE TABLE `Image`(
     CONSTRAINT `image_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class ImageBean {
+public class ImageBean extends Bean{
     private Integer id;
     private Integer watch;
     private byte[] image;
@@ -22,6 +24,10 @@ public class ImageBean {
         this.id = id;
         this.watch = watch;
         this.image = image;
+    }
+
+    public ImageBean(ResultSet rs){
+        super(rs);
     }
 
     public Integer getId() {

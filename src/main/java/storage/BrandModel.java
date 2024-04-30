@@ -1,8 +1,5 @@
 package storage;
 
-import database.Connection;
-
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
 

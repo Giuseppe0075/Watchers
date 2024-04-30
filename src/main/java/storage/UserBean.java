@@ -4,6 +4,7 @@ package storage;
 import org.tinylog.Logger;
 
 import java.lang.reflect.Field;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,12 +23,12 @@ CREATE TABLE `User`(
 );
  */
 public class UserBean extends Bean{
-    private Integer id;
+    private Long id;
     private String email;
     private String psw;
     private String name;
     private String surname;
-    private String birthday;
+    private Date birthday;
     private String road;
     private String civic_number;
     private String city;
@@ -37,7 +38,7 @@ public class UserBean extends Bean{
         super(rs);
     }
 
-    public UserBean(Integer id, String email, String psw, String name, String surname, String birthday, String road, String civic_number, String city, String CAP) {
+    public UserBean(Long id, String email, String psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
         this.id = id;
         this.email = email;
         this.psw = psw;
@@ -51,11 +52,11 @@ public class UserBean extends Bean{
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -91,11 +92,11 @@ public class UserBean extends Bean{
         this.surname = surname;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
