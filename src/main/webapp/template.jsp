@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<jsp:include page="navbar.html">Header</jsp:include>
+<jsp:include page="navbar.jsp">Header</jsp:include>
 
 <main>
     <!-- Questo sarà il contenuto dinamico delle tue pagine -->

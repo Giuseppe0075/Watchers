@@ -15,6 +15,11 @@ public class FavouriteModel implements DAO<FavouriteBean>{
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public FavouriteBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         return null;
     }

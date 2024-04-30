@@ -178,4 +178,16 @@ public class WatchModel implements DAO<WatchBean>{
         }
 
     }
+
+    @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+
+            int rs = connection.executeUpdate("DELETE FROM Watch WHERE " + cond);
+
+            if(rs == 0){
+                throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate | Watch: ");
+            }
+        }
+    }
 }

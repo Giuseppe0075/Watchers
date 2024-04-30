@@ -19,7 +19,7 @@
     }
 %>
 
-        <%@include file="navbar.html"%>
+        <%@include file="navbar.jsp"%>
 
         <form action="${pageContext.request.contextPath}/login-servlet" method="post">
             <label for="email">Email</label><br>

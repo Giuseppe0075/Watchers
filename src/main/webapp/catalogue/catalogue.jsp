@@ -21,7 +21,7 @@
 %>
 
 
-<%@include file="../navbar.html"%> <!-- Navabar -->
+<%@include file="../navbar.jsp"%> <!-- Navabar -->
 <form method="post" action="${pageContext.request.contextPath}/hello-servlet">
     <input name = "csrfToken" type="hidden" value="<%=csrfToken%>">
     <table style="width: 100%">

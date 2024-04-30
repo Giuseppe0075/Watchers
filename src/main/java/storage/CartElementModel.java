@@ -15,6 +15,11 @@ public class CartElementModel implements DAO<CartElementBean> {
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public CartElementBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         return null;
     }

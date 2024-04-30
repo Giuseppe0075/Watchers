@@ -15,6 +15,11 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public PurchaseBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         return null;
     }

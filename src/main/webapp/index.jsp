@@ -9,9 +9,9 @@
 
 </head>
 <body>
-<%@include file="navbar.html"%> <!-- Navabar -->
+<%@include file="navbar.jsp"%> <!-- Navabar -->
 <div id="frontPage">
-    <video id="mainVideo" autoplay muted loop>
+    <<video id="mainVideo" autoplay muted loop>
         <source src="homepage/home.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
