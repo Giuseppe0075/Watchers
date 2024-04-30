@@ -17,6 +17,11 @@ public class BrandModel implements DAO<BrandBean>{
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public BrandBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         return null;
     }

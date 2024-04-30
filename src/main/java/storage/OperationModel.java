@@ -15,6 +15,11 @@ public class OperationModel implements DAO<OperationBean>{
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public OperationBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         return null;
     }

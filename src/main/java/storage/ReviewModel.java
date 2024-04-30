@@ -15,6 +15,11 @@ public class ReviewModel implements DAO<ReviewModel> {
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public ReviewModel doRetrieveByKey(Object... key) throws SQLException, Exception {
         return null;
     }

@@ -29,10 +29,11 @@
                 assert(images != null);
             } catch (Exception e) {
                 response.sendError(404);
+                return;
             }
 
         %>
-        <%@include file="../navbar.html"%>
+        <%@include file="../navbar.jsp"%>
         <div class="container">
             <div class="photos"> <!-- Photos Showroom-->
                 <%

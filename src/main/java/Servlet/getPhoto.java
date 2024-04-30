@@ -16,12 +16,12 @@ public class getPhoto extends HttpServlet{
         try {
 
             ImageBean image = im.doRetrieveByKey(req.getParameter("id"), req.getParameter("watch"));
-            resp.setContentType("image/jpeg");
+            resp.setContentType("image/*");
             ServletOutputStream out = resp.getOutputStream();
             out.write(image.getImage());
             out.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
 
     }

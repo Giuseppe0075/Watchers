@@ -30,6 +30,11 @@ public class ImageModel implements DAO<ImageBean> {
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public ImageBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         //* Checks if the params are 2 ids: image.id and watch.id
         if(key.length != 2) throw new Exception("ImageBean::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);

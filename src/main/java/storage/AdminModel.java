@@ -39,6 +39,11 @@ public class AdminModel implements DAO<AdminBean>{
     }
 
     @Override
+    public void doDeleteByCond(String cond) throws SQLException, Exception {
+
+    }
+
+    @Override
     public AdminBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         if(key.length != 2) throw new Exception("WatchModel::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
 

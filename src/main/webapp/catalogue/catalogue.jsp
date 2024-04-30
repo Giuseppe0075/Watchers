@@ -63,6 +63,7 @@
                 </td>
                 <% } %>
             </tr>
+
         <%}%>
     </table>
     <input type="submit" value="Salva">
