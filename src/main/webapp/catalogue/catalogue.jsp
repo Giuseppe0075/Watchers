@@ -13,16 +13,17 @@
 </head>
 <body>
 <%!
-    List<WatchBean> watchList;
+    Collection<WatchBean> watchList;
 %>
 <%
     String sort = request.getParameter("sort");
     try {
+        WatchModel model = new WatchModel();
         if(sort == null) {
-                watchList = (List<WatchBean>) new WatchModel().doRetrieveAll();
+                watchList = model.doRetrieveAll();
         }
         else {
-                watchList = (List<WatchBean>) new WatchModel().doRetrieveByCond("order by " + sort);
+                watchList = model.doRetrieveByCond(sort);
         }
     } catch (Exception e) {
         throw new RuntimeException(e);
@@ -68,8 +69,5 @@
     </table>
     <input type="submit" value="Salva">
 </form>
-
-
-
 </body>
 </html>
