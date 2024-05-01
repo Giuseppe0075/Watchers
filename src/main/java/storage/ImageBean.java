@@ -12,11 +12,11 @@ CREATE TABLE `Image`(
 );
  */
 public class ImageBean extends Bean{
-    private Integer id;
-    private Integer watch;
+    private Long id;
+    private Long watch;
     private byte[] image;
 
-    public ImageBean(Integer id, Integer watch, byte[] image) {
+    public ImageBean(Long id, Long watch, byte[] image) {
         this.id = id;
         this.watch = watch;
         this.image = image;
@@ -26,19 +26,19 @@ public class ImageBean extends Bean{
         super(rs);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getWatch() {
+    public Long getWatch() {
         return watch;
     }
 
-    public void setWatch(Integer watch) {
+    public void setWatch(Long watch) {
         this.watch = watch;
     }
 

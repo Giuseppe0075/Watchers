@@ -22,7 +22,7 @@ public class ReviewBean extends Bean{
     private String description;
     private Date date;
 
-    private ReviewBean(ResultSet rs) {
+    public ReviewBean(ResultSet rs) {
         super(rs);
     }
 

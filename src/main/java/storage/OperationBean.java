@@ -1,5 +1,7 @@
 package storage;
-/*
+
+import java.sql.Date;
+import java.sql.ResultSet;/*
 CREATE TABLE `Operation`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `admin` BIGINT UNSIGNED NOT NULL,
@@ -10,17 +12,21 @@ CREATE TABLE `Operation`(
     CONSTRAINT `operation_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class OperationBean {
-    private Integer id;
-    private Integer admin;
-    private Integer watch;
+public class OperationBean extends Bean{
+    private Long id;
+    private Long admin;
+    private Long watch;
     private String operation;
-    private String date;
+    private Date date;
 
     private OperationBean() {
     }
 
-    public OperationBean(Integer id, Integer admin, Integer watch, String operation, String date) {
+    public OperationBean(ResultSet rs) {
+        super(rs);
+    }
+
+    public OperationBean(Long id,Long admin,Long watch, String operation,Date date) {
         this.id = id;
         this.admin = admin;
         this.watch = watch;
@@ -28,27 +34,27 @@ public class OperationBean {
         this.date = date;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getAdmin() {
+    public Long getAdmin() {
         return admin;
     }
 
-    public void setAdmin(Integer admin) {
+    public void setAdmin(Long admin) {
         this.admin = admin;
     }
 
-    public Integer getWatch() {
+    public Long getWatch() {
         return watch;
     }
 
-    public void setWatch(Integer watch) {
+    public void setWatch(Long watch) {
         this.watch = watch;
     }
 
@@ -60,11 +66,11 @@ public class OperationBean {
         this.operation = operation;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

@@ -16,15 +16,15 @@ CREATE TABLE `Purchase`(
 );
  */
 public class PurchaseBean extends Bean{
-    private  Integer id;
-    private  Integer user;
-    private  Integer watch;
+    private  Long id_order;
+    private  Long user;
+    private  Long watch;
     private  Integer quantity;
     private  Integer IVA;
     private  Double price;
 
-    public PurchaseBean(Integer id, Integer user, Integer watch, Integer quantity, Integer IVA, Double price) {
-        this.id = id;
+    public PurchaseBean(Long id_order, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
+        this.id_order = id_order;
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
@@ -36,15 +36,15 @@ public class PurchaseBean extends Bean{
         super(rs);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId_order(Long id_order) {
+        this.id_order = id_order;
     }
 
-    public void setUser(Integer user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
-    public void setWatch(Integer watch) {
+    public void setWatch(Long watch) {
         this.watch = watch;
     }
 
@@ -60,15 +60,15 @@ public class PurchaseBean extends Bean{
         this.price = price;
     }
 
-    public Integer getId() {
-        return id;
+    public Long getId_order() {
+        return id_order;
     }
 
-    public Integer getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public Integer getWatch() {
+    public Long getWatch() {
         return watch;
     }
 
@@ -87,7 +87,7 @@ public class PurchaseBean extends Bean{
     @Override
     public String toString() {
         return "PurchaseBeen{" +
-                "id=" + id +
+                "id=" + id_order +
                 ", user=" + user +
                 ", watch=" + watch +
                 ", quantity=" + quantity +
@@ -103,7 +103,7 @@ public class PurchaseBean extends Bean{
 
         PurchaseBean that = (PurchaseBean) o;
 
-        if (!getId().equals(that.getId())) return false;
+        if (!getId_order().equals(that.getId_order())) return false;
         if (!getUser().equals(that.getUser())) return false;
         if (!getWatch().equals(that.getWatch())) return false;
         if (!getQuantity().equals(that.getQuantity())) return false;
@@ -113,7 +113,7 @@ public class PurchaseBean extends Bean{
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
+        int result = getId_order().hashCode();
         result = 31 * result + getUser().hashCode();
         result = 31 * result + getWatch().hashCode();
         result = 31 * result + getQuantity().hashCode();

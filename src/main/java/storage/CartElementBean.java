@@ -13,25 +13,25 @@ import java.sql.ResultSet;
     );
  */
 public class CartElementBean extends Bean{
-    private  Integer user;
-    private  Integer watch;
+    private  Long user;
+    private  Long watch;
     private  Integer quantity;
 
     public CartElementBean(ResultSet rs){
         super(rs);
     }
 
-    public CartElementBean(Integer user, Integer watch, Integer quantity) {
+    public CartElementBean(Long user, Long watch, Integer quantity) {
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
     }
 
-    public void setUser(Integer user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
-    public void setWatch(Integer watch) {
+    public void setWatch(Long watch) {
         this.watch = watch;
     }
 
@@ -39,11 +39,11 @@ public class CartElementBean extends Bean{
         this.quantity = quantity;
     }
 
-    public Integer getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public Integer getWatch() {
+    public Long getWatch() {
         return watch;
     }
 

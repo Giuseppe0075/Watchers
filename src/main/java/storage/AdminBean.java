@@ -4,6 +4,7 @@ import storage.model.DatabaseKey;
 import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
 
+import java.sql.ResultSet;
 
 
 @DatabaseTable(tableName = "Admin")
@@ -15,6 +16,10 @@ public class AdminBean extends Bean {
 
     public AdminBean() {
         this.id = 0L;
+    }
+
+    public AdminBean(ResultSet rs) {
+        super(rs);
     }
 
     public AdminBean(Long id, String email, String password) {

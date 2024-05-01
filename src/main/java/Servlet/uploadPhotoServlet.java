@@ -64,9 +64,6 @@ public class uploadPhotoServlet extends HttpServlet {
     }
 
     private boolean checkWatchId(String id){
-        try {
-            return new WatchModel().doRetrieveByKey(Integer.parseInt(id)) != null;
-        }catch (Exception ignored){}
         return false;
     }
 

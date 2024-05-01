@@ -1,5 +1,6 @@
 package Servlet;
 import java.io.*;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
@@ -14,8 +15,8 @@ public class getPhoto extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ImageModel im = new ImageModel();
         try {
-
-            ImageBean image = im.doRetrieveByKey(req.getParameter("id"), req.getParameter("watch"));
+            List<Object> keys = List.of(req.getParameter("id"), req.getParameter("watch"));
+            ImageBean image = im.doRetrieveByKey(keys);
             resp.setContentType("image/*");
             ServletOutputStream out = resp.getOutputStream();
             out.write(image.getImage());
