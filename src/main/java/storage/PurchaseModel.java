@@ -33,7 +33,7 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     }
 
     @Override
-    public Collection<PurchaseBean> doRetrieveByCond(String cond) throws SQLException, Exception {
+    public Collection<PurchaseBean> doRetrieveByCond(String cond) throws Exception {
         List<PurchaseBean> purchases = new ArrayList<>();
         ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
         while(rs.next()) {
@@ -43,12 +43,17 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     }
 
     @Override
-    public Collection<PurchaseBean> doRetrieveAll() throws SQLException, Exception {
-        return null;
+    public Collection<PurchaseBean> doRetrieveAll() throws Exception {
+        List<PurchaseBean> purchases = new ArrayList<>();
+        ResultSet rs = Model.doRetrieveAll(TABLE);
+        while(rs.next()) {
+            purchases.add(new PurchaseBean(rs));
+        }
+        return purchases;
     }
 
     @Override
-    public void doSaveOrUpdate(PurchaseBean entity) throws SQLException, Exception {
+    public void doSaveOrUpdate(PurchaseBean entity) throws Exception {
 
     }
 }

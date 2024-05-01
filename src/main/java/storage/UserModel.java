@@ -68,13 +68,9 @@ public class UserModel implements DAO<UserBean>{
     @Override
     public Collection<UserBean> doRetrieveAll() throws Exception {
         List<UserBean> users = new ArrayList<>();
-        try( database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
-            ResultSet rs = connection.executeQuery("SELECT * FROM User");
-            if(rs == null){
-                throw new SQLException("User | doRetrieveAll: Failed |");
-            }
-            while(rs.next())
-                users.add(new UserBean(rs));
+        ResultSet rs = Model.doRetrieveAll(TABLE);
+        while(rs.next()) {
+            users.add(new UserBean(rs));
         }
         return users;
     }

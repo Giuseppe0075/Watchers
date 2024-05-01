@@ -78,17 +78,9 @@ public class WatchModel implements DAO<WatchBean>{
     @Override
     public Collection<WatchBean> doRetrieveAll() throws Exception {
         List<WatchBean> watches = new ArrayList<>();
-
-
-
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection(); ){
-
-            ResultSet rs = connection.executeQuery("SELECT * FROM Watch");
-
-            while(rs.next()){
-                watches.add(new WatchBean(rs));
-            }
-
+        ResultSet rs = Model.doRetrieveAll(TABLE);
+        while(rs.next()){
+            watches.add(new WatchBean(rs));
         }
         return watches;
     }

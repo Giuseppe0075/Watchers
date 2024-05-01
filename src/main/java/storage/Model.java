@@ -45,7 +45,7 @@ public class Model{
         }
     }
     public static ResultSet doRetrieveByKey(String table, List<String> keys_names, List<Object> keys) throws SQLException, Exception {
-        ResultSet rs = null;
+        ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " WHERE ");
         for (String k : keys_names){
             query.append(k).append(" = ? AND ");
@@ -64,21 +64,31 @@ public class Model{
     }
 
     public static ResultSet  doRetrieveByCond(String table, String cond) throws SQLException, Exception {
-        ResultSet rs = null;
+        ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + cond);
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
             rs = connection.executeQuery(String.valueOf(query));
             if(rs == null){
-                throw new SQLException(table + " | doRetrieveByKey: Failed | condition: " + cond);
+                throw new SQLException(table + " | doRetrieveByCond: Failed | condition: " + cond);
             }
         }catch (SQLException e){
-            throw new SQLException(table + " | doRetrieveByKey: Failed | " + e.getMessage());
+            throw new SQLException(table + " | doRetrieveByCond: Failed | " + e.getMessage());
         }
         return rs;
     }
 
-    public static <T> Collection<T> doRetrieveAll(String table) throws SQLException, Exception {
-        return null;
+    public static ResultSet doRetrieveAll(String table) throws SQLException, Exception {
+        ResultSet rs;
+        StringBuilder query = new StringBuilder("SELECT * FROM " + table);
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+            rs = connection.executeQuery(String.valueOf(query));
+            if(rs == null){
+                throw new SQLException(table + " | doRetrieveAll: Failed |");
+            }
+        }catch (SQLException e){
+            throw new SQLException(table + " | doRetrieveAll: Failed | " + e.getMessage());
+        }
+        return rs;
     }
 
     public void doSaveOrUpdate(String table, Object entity) throws SQLException, Exception {
