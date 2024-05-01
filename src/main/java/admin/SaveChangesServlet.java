@@ -1,22 +1,7 @@
 package admin;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.tinylog.Logger;
-import storage.WatchBean;
-import storage.WatchModel;
-
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.sql.SQLException;
-
 public class SaveChangesServlet extends HttpServlet {
 
     /*

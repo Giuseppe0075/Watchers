@@ -22,7 +22,7 @@ public class AdminModel implements DAO<AdminBean>{
     @Override
     public void doDelete(AdminBean adminBean) throws Exception {
 
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();){
+        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             int rs = connection.executeUpdate("DELETE FROM Admin WHERE id = ? AND email = ?", List.of(adminBean.getId(), adminBean.getEmail()));
             if(rs == 0){
                 throw new SQLException("Admin | doDelete: Failed | admin: " + adminBean);
