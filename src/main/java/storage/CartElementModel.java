@@ -20,7 +20,7 @@ public class CartElementModel implements DAO<CartElementBean> {
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override

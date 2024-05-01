@@ -38,24 +38,12 @@ public class UserModel implements DAO<UserBean>{
 
     @Override
     public void doDelete(UserBean user) throws SQLException {
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            int rs = connection.executeUpdate("DELETE FROM User WHERE id = ?",List.of(user.getId()));
 
-            if(rs == 0){
-                throw new SQLException("User | doDelete: Failed | user: "+ user);
-            }
-        }
     }
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException {
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            int rs = connection.executeUpdate("DELETE FROM User " + cond);
-
-            if(rs == 0){
-                throw new SQLException("User | doDeleteByCond: Failed | condition: " + cond);
-            }
-        }
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override

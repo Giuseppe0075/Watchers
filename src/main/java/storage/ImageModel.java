@@ -25,7 +25,7 @@ public class ImageModel implements DAO<ImageBean> {
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override

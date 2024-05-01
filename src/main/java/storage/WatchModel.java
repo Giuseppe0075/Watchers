@@ -68,32 +68,12 @@ public class WatchModel implements DAO<WatchBean>{
             ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE id = ?", List.of(key[0]));
 
             while (rs.next()){
-                watch = createWatch(rs);
+                watch = new WatchBean(rs);
             }
 
         }catch (SQLException e){
             System.out.println("Errore: "+ e.getMessage());
         }
-
-
-        return watch;
-    }
-
-    private WatchBean createWatch(ResultSet rs) throws SQLException {
-        WatchBean watch = new WatchBean();
-        watch.setId(rs.getLong("id"));
-        watch.setName(rs.getString("name"));
-        watch.setBrand(rs.getString("brand"));
-        watch.setDescription(rs.getString("description"));
-        watch.setReviews_avg(rs.getDouble("reviews_avg"));
-        watch.setPrice(rs.getDouble("price"));
-        watch.setMaterial(rs.getString("material"));
-        watch.setStock(rs.getInt("stock"));
-        watch.setDimension(rs.getDouble("dimension"));
-        watch.setIVA(rs.getInt("IVA"));
-        watch.setSex(rs.getString("sex"));
-        watch.setVisible(rs.getBoolean("visible"));
-
         return watch;
     }
 
@@ -107,9 +87,7 @@ public class WatchModel implements DAO<WatchBean>{
             ResultSet rs = connection.executeQuery("SELECT * FROM Watch "+ cond);
 
             while(rs.next()) {
-                WatchBean watch = new WatchBean();
-                createWatch(rs);
-                watches.add(watch);
+                watches.add(new WatchBean(rs));
             }
         }
         catch (SQLException e){
@@ -130,9 +108,7 @@ public class WatchModel implements DAO<WatchBean>{
             ResultSet rs = connection.executeQuery("SELECT * FROM Watch");
 
             while(rs.next()){
-                WatchBean watch = new WatchBean();
-                createWatch(rs);
-                watches.add(watch);
+                watches.add(new WatchBean(rs));
             }
 
         }
@@ -155,13 +131,6 @@ public class WatchModel implements DAO<WatchBean>{
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-
-            int rs = connection.executeUpdate("DELETE FROM Watch WHERE " + cond);
-
-            if(rs == 0){
-                throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate | Watch: ");
-            }
-        }
+        Model.doDeleteByCond(TABLE, cond);
     }
 }

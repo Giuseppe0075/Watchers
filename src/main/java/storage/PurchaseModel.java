@@ -20,7 +20,7 @@ public class PurchaseModel implements DAO<PurchaseBean>{
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override

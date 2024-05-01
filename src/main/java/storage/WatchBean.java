@@ -43,7 +43,6 @@ public class WatchBean extends Bean {
     private String sex;
     private Boolean visible;
 
-
     public WatchBean(JsonObject obj){
         this.id = obj.get("id").getAsLong();
         this.name = name;
@@ -58,8 +57,11 @@ public class WatchBean extends Bean {
         this.sex = sex;
         this.visible = visible;
     }
-
     public WatchBean(){}
+
+    public WatchBean(ResultSet rs){
+        super(rs);
+    }
 
     public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
         //this.id = id;  // id è autoincrement - viene impostato a segiuto del salvataggio sul db
@@ -90,11 +92,6 @@ public class WatchBean extends Bean {
         this.sex = sex;
         this.visible = visible;
     }
-
-    public WatchBean(ResultSet rs){
-        super(rs);
-    }
-
     public Long getId() {
         return id;
     }

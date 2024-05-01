@@ -20,7 +20,7 @@ public class BrandModel implements DAO<BrandBean>{
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override

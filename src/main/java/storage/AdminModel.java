@@ -30,7 +30,7 @@ public class AdminModel implements DAO<AdminBean>{
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override

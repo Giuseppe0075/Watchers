@@ -20,7 +20,7 @@ public class ReviewModel implements DAO<ReviewBean> {
 
     @Override
     public void doDeleteByCond(String cond) throws SQLException, Exception {
-
+        Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override
