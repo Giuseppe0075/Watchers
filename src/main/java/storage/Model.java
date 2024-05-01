@@ -63,8 +63,18 @@ public class Model{
         return rs;
     }
 
-    public static <T> Collection<T>  doRetrieveByCond(String table, String cond) throws SQLException, Exception {
-        return null;
+    public static ResultSet  doRetrieveByCond(String table, String cond) throws SQLException, Exception {
+        ResultSet rs = null;
+        StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + cond);
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+            rs = connection.executeQuery(String.valueOf(query));
+            if(rs == null){
+                throw new SQLException(table + " | doRetrieveByKey: Failed | condition: " + cond);
+            }
+        }catch (SQLException e){
+            throw new SQLException(table + " | doRetrieveByKey: Failed | " + e.getMessage());
+        }
+        return rs;
     }
 
     public static <T> Collection<T> doRetrieveAll(String table) throws SQLException, Exception {

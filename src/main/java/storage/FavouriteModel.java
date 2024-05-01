@@ -2,6 +2,7 @@ package storage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,7 +34,12 @@ public class FavouriteModel implements DAO<FavouriteBean>{
 
     @Override
     public Collection<FavouriteBean> doRetrieveByCond(String cond) throws SQLException, Exception {
-        return null;
+        List<FavouriteBean> favourites = new ArrayList<>();
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while(rs.next()) {
+            favourites.add(new FavouriteBean(rs));
+        }
+        return favourites;
     }
 
     @Override

@@ -47,11 +47,11 @@ public class ImageModel implements DAO<ImageBean> {
 
     @Override
     public Collection<ImageBean> doRetrieveByCond(String cond) throws SQLException, Exception {
-        //Declaration
-
-        Collection<ImageBean> images = new ArrayList<>();
-
-
+        List<ImageBean> images = new ArrayList<>();
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while(rs.next()) {
+            images.add(new ImageBean(rs));
+        }
         return images;
     }
 

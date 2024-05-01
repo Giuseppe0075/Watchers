@@ -67,21 +67,12 @@ public class WatchModel implements DAO<WatchBean>{
     @Override
     public Collection<WatchBean> doRetrieveByCond(String cond) throws Exception {
         List<WatchBean> watches = new ArrayList<>();
-
-
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
-           // WARNING SQL INJECTION !!!
-            ResultSet rs = connection.executeQuery("SELECT * FROM Watch "+ cond);
-
-            while(rs.next()) {
-                watches.add(new WatchBean(rs));
-            }
-        }
-        catch (SQLException e){
-            System.out.println("Errore: "+ e.getMessage());
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while(rs.next()){
+            watches.add(new WatchBean(rs));
         }
 
-        return  watches;
+        return watches;
     }
 
     @Override

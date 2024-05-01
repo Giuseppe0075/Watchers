@@ -5,6 +5,7 @@ import database.DatabaseConnectionPool;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,7 +43,12 @@ public class AdminModel implements DAO<AdminBean>{
 
     @Override
     public Collection<AdminBean> doRetrieveByCond(String cond) throws SQLException, Exception {
-        return null;
+        List<AdminBean> admins = new ArrayList<>();
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while (rs.next()) {
+            admins.add(new AdminBean(rs));
+        }
+        return admins;
     }
 
     @Override

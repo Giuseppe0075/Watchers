@@ -2,6 +2,7 @@ package storage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,7 +34,12 @@ public class BrandModel implements DAO<BrandBean>{
 
     @Override
     public Collection<BrandBean> doRetrieveByCond(String cond) throws SQLException, Exception {
-        return null;
+        List<BrandBean> brands = new ArrayList<>();
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while (rs.next()) {
+            brands.add(new BrandBean(rs));
+        }
+        return brands;
     }
 
     @Override

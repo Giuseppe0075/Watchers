@@ -58,18 +58,10 @@ public class UserModel implements DAO<UserBean>{
     @Override
     public Collection<UserBean> doRetrieveByCond(String cond) throws Exception {
         List<UserBean> users = new ArrayList<>();
-        if(cond == null) throw new SQLException("User | doRetrieveByCond: Failed | condition is null");
-        ResultSet rs = null;
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-
-            rs = connection.executeQuery("SELECT * FROM User WHERE " + cond );
-
-            if(rs == null){
-                throw new SQLException("User | doRetrieveByCond: Failed | condition:" + cond);
-            }
-        }
-        while(rs.next())
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while(rs.next()) {
             users.add(new UserBean(rs));
+        }
         return users;
     }
 

@@ -2,6 +2,7 @@ package storage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,7 +34,12 @@ public class CartElementModel implements DAO<CartElementBean> {
 
     @Override
     public Collection<CartElementBean> doRetrieveByCond(String cond) throws SQLException, Exception {
-        return null;
+        List<CartElementBean> cartElements = new ArrayList<>();
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        while (rs.next()) {
+            cartElements.add(new CartElementBean(rs));
+        }
+        return cartElements;
     }
 
     @Override
