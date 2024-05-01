@@ -8,15 +8,16 @@ import java.util.List;
 
 public class PurchaseModel implements DAO<PurchaseBean>{
     private static final String TABLE = "Purchase";
-    private static final List<String> columns = List.of("user", "watch", "quantity", "IVA", "price");
+    private static final List<String> COLUMNS = List.of("user", "watch", "quantity", "IVA", "price");
+    private static final List<String> KEYS = List.of("id", "user", "watch");
     @Override
-    public void doSave(PurchaseBean entity) throws Exception {
-        List<Object> values = List.of(entity.getUser(), entity.getWatch(), entity.getQuantity(), entity.getIVA(), entity.getPrice());
-        Model.doSave(TABLE, values, columns);
+    public void doSave(PurchaseBean purchaseBean) throws Exception {
+        List<Object> values = List.of(purchaseBean.getUser(), purchaseBean.getWatch(), purchaseBean.getQuantity(), purchaseBean.getIVA(), purchaseBean.getPrice());
+        Model.doSave(TABLE, values, COLUMNS);
     }
 
     @Override
-    public void doDelete(PurchaseBean entity) throws Exception {
+    public void doDelete(PurchaseBean purchaseBean) throws Exception {
 
     }
 
@@ -28,7 +29,7 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     @Override
     public PurchaseBean doRetrieveByKey(List<Object> key) throws Exception {
         if(key.size() != 3) throw new SQLException("Purchase | doRetrieveByKey: Failed | The number of keys is not 3");
-        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("id_order","watch", "user"), key);
+        ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, key);
         return new PurchaseBean(rs);
     }
 
@@ -53,7 +54,13 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     }
 
     @Override
-    public void doSaveOrUpdate(PurchaseBean entity) throws Exception {
-
+    public void doSaveOrUpdate(PurchaseBean purchaseBean) throws Exception {
+        if (purchaseBean.getId() == 0 || purchaseBean.getUser() == 0 || purchaseBean.getWatch() == 0) {
+            this.doSave(purchaseBean);
+            return;
+        }
+        List<Object> values = List.of( purchaseBean.getQuantity(), purchaseBean.getIVA(), purchaseBean.getPrice(), purchaseBean.getId(), purchaseBean.getUser(), purchaseBean.getWatch());
+        //needed to remove the first two columns from the columns list because they are keys, so they are used to update the row
+        Model.doUpdate(TABLE, COLUMNS.subList(2, COLUMNS.size()), values, KEYS);
     }
 }

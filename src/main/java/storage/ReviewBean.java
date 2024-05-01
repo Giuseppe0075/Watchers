@@ -16,8 +16,8 @@ CREATE TABLE `Review`(
 );
  */
 public class ReviewBean extends Bean{
-    private Integer watch;
-    private Integer user;
+    private Long watch;
+    private Long user;
     private Integer stars;
     private String description;
     private Date date;
@@ -26,7 +26,7 @@ public class ReviewBean extends Bean{
         super(rs);
     }
 
-    public ReviewBean(Integer watch, Integer user, Integer stars, String description, Date date) {
+    public ReviewBean(Long watch, Long user, Integer stars, String description, Date date) {
         this.watch = watch;
         this.user = user;
         this.stars = stars;
@@ -34,19 +34,19 @@ public class ReviewBean extends Bean{
         this.date = date;
     }
 
-    public Integer getWatch() {
+    public Long getWatch() {
         return watch;
     }
 
-    public void setWatch(Integer watch) {
+    public void setWatch(Long watch) {
         this.watch = watch;
     }
 
-    public Integer getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(Integer user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 

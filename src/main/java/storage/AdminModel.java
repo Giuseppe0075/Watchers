@@ -11,20 +11,21 @@ import java.util.List;
 
 public class AdminModel implements DAO<AdminBean>{
     private static final String TABLE = "Admin";
-    private static final List<String> columns = List.of("email", "psw");
+    private static final List<String> COLUMNS = List.of("email", "psw");
+    private static final List<String> KEYS = List.of("id");
     @Override
     public void doSave(AdminBean entity) throws Exception {
         List<Object> values = List.of(entity.getEmail(), entity.getPsw());
-        Model.doSave(TABLE, values, columns);
+        Model.doSave(TABLE, values, COLUMNS);
     }
 
     @Override
-    public void doDelete(AdminBean entity) throws Exception {
+    public void doDelete(AdminBean adminBean) throws Exception {
 
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();){
-            int rs = connection.executeUpdate("DELETE FROM Admin WHERE id = ? AND email = ?", List.of(entity.getId(), entity.getEmail()));
+            int rs = connection.executeUpdate("DELETE FROM Admin WHERE id = ? AND email = ?", List.of(adminBean.getId(), adminBean.getEmail()));
             if(rs == 0){
-                throw new SQLException("Admin | Cancellazione non eseguita | 0 righe modificate | Admin: "+ entity.toString());
+                throw new SQLException("Admin | doDelete: Failed | admin: " + adminBean);
             }
         }
     }
@@ -37,7 +38,7 @@ public class AdminModel implements DAO<AdminBean>{
     @Override
     public AdminBean doRetrieveByKey(List<Object> keys) throws Exception {
         if (keys.size() != 1) throw new SQLException("Admin | doRetrieveByKey: Failed | The number of keys is not 1");
-        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("id"), keys);
+        ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
         return new AdminBean(rs);
     }
 
@@ -62,7 +63,12 @@ public class AdminModel implements DAO<AdminBean>{
     }
 
     @Override
-    public void doSaveOrUpdate(AdminBean entity) throws Exception {
-
+    public void doSaveOrUpdate(AdminBean adminBean) throws Exception {
+        if (adminBean.getId() == 0) {
+            this.doSave(adminBean);
+            return;
+        }
+        List<Object> values = List.of(adminBean.getEmail(), adminBean.getPsw(), adminBean.getId());
+        Model.doUpdate(TABLE, COLUMNS, values, KEYS);
     }
 }

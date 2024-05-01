@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import database.*;
 /*
 CREATE TABLE `User`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -24,20 +22,21 @@ CREATE TABLE `User`(
 
 public class UserModel implements DAO<UserBean>{
     private static final String TABLE = "User";
-    private static final List<String> columns = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP");
+    private static final List<String> COLUMNS = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP");
+    private static final List<String> KEYS = List.of("id");
     @Override
-    public void doSave(UserBean user) throws Exception{
-        List<Object> values = List.of(user.getEmail(), user.getPsw(), user.getName(), user.getSurname(), user.getBirthday(),
-                user.getRoad(), user.getCivic_number(), user.getCity(), user.getCAP());
+    public void doSave(UserBean userBean) throws Exception{
+        List<Object> values = List.of(userBean.getEmail(), userBean.getPsw(), userBean.getName(), userBean.getSurname(), userBean.getBirthday(),
+                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP());
         try {
-            Model.doSave(TABLE,values, columns);
+            Model.doSave(TABLE,values, COLUMNS);
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + " | user: " + user);
+            throw new RuntimeException(e.getMessage() + " | userBean: " + userBean);
         }
     }
 
     @Override
-    public void doDelete(UserBean user) throws Exception {
+    public void doDelete(UserBean userBean) throws Exception {
 
     }
 
@@ -50,7 +49,7 @@ public class UserModel implements DAO<UserBean>{
     public UserBean doRetrieveByKey(List<Object> keys) throws Exception {
         //Check the number of keys
         if(keys.size() != 1) throw new SQLException("User | doRetrieveByKey: Failed | The number of keys is not 1");
-        ResultSet rs = Model.doRetrieveByKey(TABLE,List.of("id"), keys);
+        ResultSet rs = Model.doRetrieveByKey(TABLE,KEYS, keys);
 
         return new UserBean(rs);
     }
@@ -75,18 +74,13 @@ public class UserModel implements DAO<UserBean>{
         return users;
     }
     @Override
-    public void doSaveOrUpdate(UserBean user) throws Exception {
-        if(user.getId() == 0){
-            this.doSave(user);
+    public void doSaveOrUpdate(UserBean userBean) throws Exception {
+        if(userBean.getId() == 0){
+            this.doSave(userBean);
             return;
         }
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            int rs = connection.executeUpdate("UPDATE User SET email = ?, psw = ?, name = ?, surname = ?, birthday = ?, road = ?, civic_number = ?, city = ?, CAP = ? WHERE id = ?",
-                        List.of(user.getEmail(),user.getPsw(),user.getName(),user.getSurname(),user.getBirthday(),user.getRoad(),user.getCivic_number(),user.getCity(),user.getCAP(), user.getId()));
-
-            if(rs == 0){
-                throw new SQLException("User | doSaveOrUpdate: Failed | user: " + user);
-            }
-        }
+        List<Object> values = List.of(userBean.getEmail(), userBean.getPsw(), userBean.getName(), userBean.getSurname(), userBean.getBirthday(),
+                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP(), userBean.getId());
+        Model.doUpdate(TABLE, COLUMNS, values, KEYS);
     }
 }

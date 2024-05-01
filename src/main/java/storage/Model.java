@@ -44,7 +44,7 @@ public class Model{
             }
         }
     }
-    public static ResultSet doRetrieveByKey(String table, List<String> keys_names, List<Object> keys) throws SQLException, Exception {
+    public static ResultSet doRetrieveByKey(String table, List<String> keys_names, List<Object> keys) throws Exception {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " WHERE ");
         for (String k : keys_names){
@@ -63,7 +63,7 @@ public class Model{
         return rs;
     }
 
-    public static ResultSet  doRetrieveByCond(String table, String cond) throws SQLException, Exception {
+    public static ResultSet  doRetrieveByCond(String table, String cond) throws SQLException {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + cond);
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
@@ -77,7 +77,7 @@ public class Model{
         return rs;
     }
 
-    public static ResultSet doRetrieveAll(String table) throws SQLException, Exception {
+    public static ResultSet doRetrieveAll(String table) throws SQLException {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table);
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
@@ -91,7 +91,30 @@ public class Model{
         return rs;
     }
 
-    public void doSaveOrUpdate(String table, Object entity) throws SQLException, Exception {
-
+    /**
+     * The method updates the table with the values passed as parameters
+     * The ids of the table MUST be in the last positions of the values list
+     * @param table
+     * @param columns
+     * @param values
+     * @throws SQLException
+     */
+    public static void doUpdate(String table, List<String> columns, List<Object> values, List<String> keys) throws SQLException {
+        StringBuilder query = new StringBuilder("UPDATE " + table + " SET ");
+        for(String c : columns){
+            query.append(c).append(" = ?,");
+        }
+        query.deleteCharAt(query.length()-1);
+        query.append(" WHERE ");
+        for(String key : keys){
+            query.append(key).append(" = ? AND ");
+        }
+        query.delete(query.length()-5, query.length());
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+            int rs = connection.executeUpdate(String.valueOf(query), values);
+            if(rs == 0){
+                throw new SQLException(table + " | doUpdate: Failed | ");
+            }
+        }
     }
 }

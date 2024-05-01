@@ -8,11 +8,12 @@ import java.util.List;
 
 public class BrandModel implements DAO<BrandBean>{
     private static final String TABLE = "Brand";
-    private static final List<String> columns = List.of("name", "description");
+    private static final List<String> COLUMNS = List.of("business_name", "name", "description");
+    private static final List<String> KEYS = List.of("business_name");
     @Override
-    public void doSave(BrandBean entity) throws Exception {
-        List<Object> values = List.of(entity.getName(), entity.getDescription());
-        Model.doSave(TABLE, values, columns);
+    public void doSave(BrandBean brandBean) throws Exception {
+        List<Object> values = List.of(brandBean.getBusiness_name(), brandBean.getName(), brandBean.getDescription());
+        Model.doSave(TABLE, values, COLUMNS);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class BrandModel implements DAO<BrandBean>{
     @Override
     public BrandBean doRetrieveByKey(List<Object> keys) throws Exception {
         if (keys.size() != 1) throw new SQLException("Brand | doRetrieveByKey: Failed | The number of keys is not 1");
-        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("business_name"), keys);
+        ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
         return new BrandBean(rs);
     }
 
@@ -53,7 +54,12 @@ public class BrandModel implements DAO<BrandBean>{
     }
 
     @Override
-    public void doSaveOrUpdate(BrandBean entity) throws Exception {
-
+    public void doSaveOrUpdate(BrandBean brandBean) throws Exception {
+        if (brandBean.getBusiness_name() == null) {
+            this.doSave(brandBean);
+            return;
+        }
+        List<Object> values = List.of(brandBean.getName(), brandBean.getDescription(), brandBean.getBusiness_name());
+        Model.doUpdate(TABLE, COLUMNS.subList(1,COLUMNS.size()), values, KEYS);
     }
 }

@@ -16,15 +16,15 @@ CREATE TABLE `Purchase`(
 );
  */
 public class PurchaseBean extends Bean{
-    private  Long id_order;
+    private  Long id;
     private  Long user;
     private  Long watch;
     private  Integer quantity;
     private  Integer IVA;
     private  Double price;
 
-    public PurchaseBean(Long id_order, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
-        this.id_order = id_order;
+    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
+        this.id = id;
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
@@ -36,8 +36,8 @@ public class PurchaseBean extends Bean{
         super(rs);
     }
 
-    public void setId_order(Long id_order) {
-        this.id_order = id_order;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setUser(Long user) {
@@ -60,8 +60,8 @@ public class PurchaseBean extends Bean{
         this.price = price;
     }
 
-    public Long getId_order() {
-        return id_order;
+    public Long getId() {
+        return id;
     }
 
     public Long getUser() {
@@ -87,7 +87,7 @@ public class PurchaseBean extends Bean{
     @Override
     public String toString() {
         return "PurchaseBeen{" +
-                "id=" + id_order +
+                "id=" + id +
                 ", user=" + user +
                 ", watch=" + watch +
                 ", quantity=" + quantity +
@@ -103,7 +103,7 @@ public class PurchaseBean extends Bean{
 
         PurchaseBean that = (PurchaseBean) o;
 
-        if (!getId_order().equals(that.getId_order())) return false;
+        if (!getId().equals(that.getId())) return false;
         if (!getUser().equals(that.getUser())) return false;
         if (!getWatch().equals(that.getWatch())) return false;
         if (!getQuantity().equals(that.getQuantity())) return false;
@@ -113,7 +113,7 @@ public class PurchaseBean extends Bean{
 
     @Override
     public int hashCode() {
-        int result = getId_order().hashCode();
+        int result = getId().hashCode();
         result = 31 * result + getUser().hashCode();
         result = 31 * result + getWatch().hashCode();
         result = 31 * result + getQuantity().hashCode();

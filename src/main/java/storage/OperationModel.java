@@ -8,15 +8,16 @@ import java.util.List;
 
 public class OperationModel implements DAO<OperationBean>{
     private static final String TABLE = "Operation";
-    private static final List<String> columns = List.of("admin", "watch", "operation", "date");
+    private static final List<String> COLUMNS = List.of("admin", "watch", "operation", "date");
+    private static final List<String> KEYS = List.of("id");
     @Override
-    public void doSave(OperationBean entity) throws Exception {
-        List<Object> values = List.of(entity.getAdmin(), entity.getWatch(), entity.getOperation(), entity.getDate());
-        Model.doSave(TABLE, values, columns);
+    public void doSave(OperationBean operationBean) throws Exception {
+        List<Object> values = List.of(operationBean.getAdmin(), operationBean.getWatch(), operationBean.getOperation(), operationBean.getDate());
+        Model.doSave(TABLE, values, COLUMNS);
     }
 
     @Override
-    public void doDelete(OperationBean entity) throws Exception {
+    public void doDelete(OperationBean operationBean) throws Exception {
 
     }
 
@@ -28,7 +29,7 @@ public class OperationModel implements DAO<OperationBean>{
     @Override
     public OperationBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 1) throw new SQLException("Operation | doRetrieveByKey: Failed | The number of keys is not 1");
-        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("id"), keys);
+        ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
         return new OperationBean(rs);
     }
 
@@ -53,7 +54,12 @@ public class OperationModel implements DAO<OperationBean>{
     }
 
     @Override
-    public void doSaveOrUpdate(OperationBean entity) throws Exception {
-
+    public void doSaveOrUpdate(OperationBean operationBean) throws Exception {
+        if (operationBean.getId() == 0) {
+            this.doSave(operationBean);
+            return;
+        }
+        List<Object> values = List.of(operationBean.getAdmin(), operationBean.getWatch(), operationBean.getOperation(), operationBean.getDate(), operationBean.getId());
+        Model.doUpdate(TABLE, COLUMNS, values, KEYS);
     }
 }

@@ -1,9 +1,5 @@
 package storage;
 
-import database.Connection;
-import database.DatabaseConnectionPool;
-import org.tinylog.Logger;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,15 +7,16 @@ import java.util.List;
 
 public class ImageModel implements DAO<ImageBean> {
     private static final String TABLE = "Image";
-    private static final List<String> columns = List.of("id", "watch", "image");
+    private static final List<String> COLUMNS = List.of("id", "watch", "image");
+    private static final List<String> KEYS = List.of("id", "watch");
     @Override
-    public void doSave(ImageBean image) throws Exception {
-        List<Object> values = List.of(image.getId(), image.getWatch(), image.getImage());
-        Model.doSave(TABLE, values, columns);
+    public void doSave(ImageBean imageBean) throws Exception {
+        List<Object> values = List.of(imageBean.getId(), imageBean.getWatch(), imageBean.getImage());
+        Model.doSave(TABLE, values, COLUMNS);
     }
 
     @Override
-    public void doDelete(ImageBean image) throws Exception {
+    public void doDelete(ImageBean imageBean) throws Exception {
 
     }
 
@@ -31,7 +28,7 @@ public class ImageModel implements DAO<ImageBean> {
     @Override
     public ImageBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 2) throw new Exception("Image | doRetrieveByKey: Failed | The number of keys is not 2.");
-        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("id", "watch"), keys);
+        ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
         return new ImageBean(rs);
     }
     @Override
@@ -55,8 +52,13 @@ public class ImageModel implements DAO<ImageBean> {
     }
 
     @Override
-    public void doSaveOrUpdate(ImageBean entity) throws Exception {
-
+    public void doSaveOrUpdate(ImageBean imageBean) throws Exception {
+        if (imageBean.getId() == 0 || imageBean.getWatch() == 0) {
+            this.doSave(imageBean);
+            return;
+        }
+        List<Object> values = List.of(imageBean.getImage(), imageBean.getId(), imageBean.getWatch());
+        Model.doUpdate(TABLE, COLUMNS.subList(2,COLUMNS.size()), values, KEYS);
     }
 
 

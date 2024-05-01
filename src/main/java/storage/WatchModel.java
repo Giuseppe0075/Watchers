@@ -26,40 +26,30 @@ CREATE TABLE `Watch`(
 */
 public class WatchModel implements DAO<WatchBean>{
     private static final String TABLE = "Watch";
-    private static final List<String> columns = List.of("name", "brand","description", "reviews_avg", "price", "material", "stock", "dimension","IVA","sex","visible");
+    private static final List<String> COLUMNS = List.of("name", "brand","description", "reviews_avg", "price", "material", "stock", "dimension","IVA","sex","visible");
+    private static final List<String> KEYS = List.of("id");
     @Override
-    public void doSave(WatchBean watch) throws SQLException, Exception {
-        List<Object> values = List.of(watch.getName(), watch.getBrand(), watch.getDescription(), watch.getReviews_avg(), watch.getPrice(),
-                watch.getMaterial(), watch.getStock(), watch.getDimension(), watch.getIVA(), watch.getSex(), watch.getVisible());
-        Model.doSave(TABLE, values, columns);
+    public void doSave(WatchBean watchBean) throws SQLException, Exception {
+        List<Object> values = List.of(watchBean.getName(), watchBean.getBrand(), watchBean.getDescription(), watchBean.getReviews_avg(), watchBean.getPrice(),
+                watchBean.getMaterial(), watchBean.getStock(), watchBean.getDimension(), watchBean.getIVA(), watchBean.getSex(), watchBean.getVisible());
+        Model.doSave(TABLE, values, COLUMNS);
     }
 
     @Override
-    public void doSaveOrUpdate(WatchBean watch) throws Exception {
-
-        // prima verifica che non esista già
-//        WatchBean watchBean = this.doRetrieveByKey(watch.getId().intValue());
-//        if(watchBean.getId() == 0){
-//            this.doSave(watch);
-//            return;
-//        }
-
-        PreparedStatement preparedStatement = null;
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
-            int rs = connection.executeUpdate("UPDATE Watch SET name = ?, brand = ?, description = ?, reviews_avg = ?, price = ?, material = ?, stock = ?, dimension = ?, IVA = ?, sex = ?, visible = ? WHERE id = ?",
-                    List.of(watch.getName(), watch.getBrand(), watch.getDescription(), watch.getReviews_avg(), watch.getPrice(),
-                            watch.getMaterial(), watch.getStock(), watch.getDimension(), watch.getIVA(), watch.getVisible(), watch.getId()));
-
-            if(rs == 0){
-                throw new SQLException("Watch | Aggiornamento non eseguito | 0 righe modificate | Watch: "+ watch.toString());
-            }
+    public void doSaveOrUpdate(WatchBean watchBean) throws Exception {
+        if(watchBean.getId() == 0){
+            this.doSave(watchBean);
+            return;
         }
+        List<Object> values = List.of(watchBean.getName(), watchBean.getBrand(), watchBean.getDescription(), watchBean.getReviews_avg(), watchBean.getPrice(),
+                watchBean.getMaterial(), watchBean.getStock(), watchBean.getDimension(), watchBean.getIVA(), watchBean.getSex(), watchBean.getVisible(), watchBean.getId());
+        Model.doUpdate(TABLE, COLUMNS,values, KEYS);
     }
 
     @Override
     public WatchBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 1) throw new Exception("Watch | doRetrieveByKey: Failed | The number of keys is not 1.");
-        ResultSet rs = Model.doRetrieveByKey(TABLE,List.of("id"), keys);
+        ResultSet rs = Model.doRetrieveByKey(TABLE,KEYS, keys);
 
         return new WatchBean(rs);
     }
@@ -86,14 +76,14 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public void doDelete(WatchBean watch) throws Exception {
+    public void doDelete(WatchBean watchBean) throws Exception {
 
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
 
-            int rs = connection.executeUpdate("DELETE FROM Watch WHERE id = ?", List.of(watch.getId()));
+            int rs = connection.executeUpdate("DELETE FROM Watch WHERE id = ?", List.of(watchBean.getId()));
 
             if(rs == 0){
-                throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate | Watch: "+ watch.toString());
+                throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate | Watch: "+ watchBean.toString());
             }
         }
 
