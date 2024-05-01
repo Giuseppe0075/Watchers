@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.DAO;
+import storage.Beans.FavouriteBean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class FavouriteModel implements DAO<FavouriteBean>{
+public class FavouriteModel implements DAO<FavouriteBean> {
     private static final String TABLE = "Favourite";
     private static final List<String> COLUMNS = List.of("watch", "user");
     private static final List<String> KEYS = List.of("watch", "user");
@@ -22,8 +25,8 @@ public class FavouriteModel implements DAO<FavouriteBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -34,9 +37,9 @@ public class FavouriteModel implements DAO<FavouriteBean>{
     }
 
     @Override
-    public Collection<FavouriteBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<FavouriteBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<FavouriteBean> favourites = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()) {
             favourites.add(new FavouriteBean(rs));
         }

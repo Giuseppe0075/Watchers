@@ -6,8 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import storage.ImageBean;
-import storage.ImageModel;
+import storage.Beans.ImageBean;
+import storage.Models.ImageModel;
 
 @WebServlet(name = "getPhoto", value="/getPhoto")
 public class getPhoto extends HttpServlet{

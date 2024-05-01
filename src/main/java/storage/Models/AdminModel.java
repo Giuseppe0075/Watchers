@@ -1,7 +1,9 @@
-package storage;
+package storage.Models;
 
 
 import database.DatabaseConnectionPool;
+import storage.Beans.AdminBean;
+import storage.DAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AdminModel implements DAO<AdminBean>{
+public class AdminModel implements DAO<AdminBean> {
     private static final String TABLE = "Admin";
     private static final List<String> COLUMNS = List.of("email", "psw");
     private static final List<String> KEYS = List.of("id");
@@ -31,8 +33,8 @@ public class AdminModel implements DAO<AdminBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -43,9 +45,9 @@ public class AdminModel implements DAO<AdminBean>{
     }
 
     @Override
-    public Collection<AdminBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<AdminBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<AdminBean> admins = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while (rs.next()) {
             admins.add(new AdminBean(rs));
         }

@@ -14,9 +14,9 @@ public interface DAO<T> {
      * The condition MUST be like "WHERE value = "value"... ORDER BY .... ecc"
      * The method DOESN'T parametrize inputs.
      */
-    void doDeleteByCond(String cond) throws Exception;
+    void doDeleteByCond(String cond, List<Object> values) throws Exception;
 
-    Collection<T> doRetrieveByCond(String cond) throws Exception;
+    Collection<T> doRetrieveByCond(String cond, List<Object> values) throws Exception;
 
     T doRetrieveByKey(List<Object> keys) throws Exception;
 

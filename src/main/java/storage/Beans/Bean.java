@@ -1,4 +1,4 @@
-package storage;
+package storage.Beans;
 
 import org.tinylog.Logger;
 

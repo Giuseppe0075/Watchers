@@ -7,12 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
-import storage.AdminBean;
-import storage.AdminModel;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.Collection;
 
 import static utils.Security.sanitizeInput;
 

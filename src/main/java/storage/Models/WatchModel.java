@@ -1,9 +1,12 @@
-package storage;
+package storage.Models;
 
 import database.DatabaseConnectionPool;
 
 import java.sql.*;
 import database.Connection;
+import storage.DAO;
+import storage.Beans.WatchBean;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,7 +27,7 @@ CREATE TABLE `Watch`(
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
 */
-public class WatchModel implements DAO<WatchBean>{
+public class WatchModel implements DAO<WatchBean> {
     private static final String TABLE = "Watch";
     private static final List<String> COLUMNS = List.of("name", "brand","description", "reviews_avg", "price", "material", "stock", "dimension","IVA","sex","visible");
     private static final List<String> KEYS = List.of("id");
@@ -55,9 +58,9 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public Collection<WatchBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<WatchBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<WatchBean> watches = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()){
             watches.add(new WatchBean(rs));
         }
@@ -89,7 +92,7 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 }

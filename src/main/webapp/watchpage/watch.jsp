@@ -1,9 +1,9 @@
-<%@ page import="storage.WatchModel" %>
-<%@ page import="storage.WatchBean" %>
+<%@ page import="storage.Models.WatchModel" %>
+<%@ page import="storage.Beans.WatchBean" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="storage.ImageBean" %>
+<%@ page import="storage.Beans.ImageBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.ImageModel" %>
+<%@ page import="storage.Models.ImageModel" %>
 <%@ page import="java.util.Collection" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -19,13 +19,13 @@
         <%
             WatchModel watchModel = new WatchModel();
             ImageModel imageModel = new ImageModel();
-            String id = request.getParameter("id");
+            Long id = Long.parseLong(request.getParameter("id"));
 
             WatchBean watch = null;
             Collection<ImageBean> images = null;
             try {
-                watch = watchModel.doRetrieveByKey(Integer.parseInt(id));
-                images = imageModel.doRetrieveByCond("watch="+ watch.getId());
+                watch = watchModel.doRetrieveByKey(List.of(id));
+                images = imageModel.doRetrieveByCond("watch=", List.of(id));
                 assert(images != null);
             } catch (Exception e) {
                 response.sendError(404);

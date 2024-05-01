@@ -1,4 +1,4 @@
-package storage;
+package storage.Beans;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -29,7 +29,7 @@ public class UserBean extends Bean{
     private String city;
     private String CAP;
 
-    UserBean(ResultSet rs) {
+    public UserBean(ResultSet rs) {
         super(rs);
     }
 

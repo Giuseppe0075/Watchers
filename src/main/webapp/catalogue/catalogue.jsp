@@ -1,8 +1,8 @@
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.WatchModel" %>
+<%@ page import="storage.Models.WatchModel" %>
 <%@ page import="utils.Security" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.WatchBean" %>
+<%@ page import="storage.Beans.WatchBean" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -57,7 +57,7 @@
                 </td>
                 <td> <input style="width: 100%" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getBrand()%>"></td>
                 <td><input style="width: 100%" <%=!admin ? "readonly" : ""%> type="text"  value="<%=watch.getDescription()%>"></td>
-                <td><input name ="<%=watch.getId()%>" type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%=watch.toJson()%>"></td>
+                <td><input name ="<%=watch.getId()%>" type="hidden" name="productID"  <%=!admin ? "readonly" : ""%> value="<%=watch.toString()%>"></td>
                 <% if(admin){ %>
                 <td>
                     <a href="#">Delete</a>

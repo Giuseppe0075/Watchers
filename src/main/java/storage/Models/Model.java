@@ -1,4 +1,4 @@
-package storage;
+package storage.Models;
 
 import database.Connection;
 import database.DatabaseConnectionPool;
@@ -11,6 +11,8 @@ public class Model{
 
     /**
      * The method doSave() saves in a table passed as parameter the values passed as parameter
+     * The values must be in the same order as the columns
+     * The method throws an exception if the query fails
      */
     public static void doSave(String table, List<String> columns, List<Object> values) throws SQLException {
         //INSERT INTO table (
@@ -40,9 +42,9 @@ public class Model{
     /**
      * The method doDeleteByCond() deletes from a table passed as parameter tuples that satisfy the condition passed as parameter
      */
-    public static void doDeleteByCond(String table, String condition) throws SQLException {
+    public static void doDeleteByCond(String table, String condition, List<Object> values) throws SQLException {
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            int rs = connection.executeUpdate("DELETE FROM " + table + " " + condition);
+            int rs = connection.executeUpdate("DELETE FROM " + table + " " + condition, values);
 
             if(rs == 0){
                 throw new SQLException(table + " | doDeleteByCond: Failed | condition: " + condition);
@@ -75,13 +77,13 @@ public class Model{
     /**
      * The method doRetrieveByCond() retrieves from a table passed as parameter the tuples that satisfy the condition passed as parameter
      */
-    public static ResultSet  doRetrieveByCond(String table, String cond) throws SQLException {
+    public static ResultSet  doRetrieveByCond(String table, String condition, List<Object> values) throws SQLException {
         ResultSet rs;
-        StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + cond);
+        StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + condition);
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
-            rs = connection.executeQuery(String.valueOf(query));
+            rs = connection.executeQuery(String.valueOf(query), values);
             if(rs == null){
-                throw new SQLException(table + " | doRetrieveByCond: Failed | condition: " + cond);
+                throw new SQLException(table + " | doRetrieveByCond: Failed | condition: " + condition);
             }
         }catch (SQLException e){
             throw new SQLException(table + " | doRetrieveByCond: Failed | " + e.getMessage());

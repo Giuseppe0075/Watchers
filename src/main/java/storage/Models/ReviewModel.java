@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.DAO;
+import storage.Beans.ReviewBean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +25,8 @@ public class ReviewModel implements DAO<ReviewBean> {
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -35,9 +38,9 @@ public class ReviewModel implements DAO<ReviewBean> {
     }
 
     @Override
-    public Collection<ReviewBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<ReviewBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<ReviewBean> reviews = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()) {
             reviews.add(new ReviewBean(rs));
         }

@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.DAO;
+import storage.Beans.UserBean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +23,7 @@ CREATE TABLE `User`(
 );
  */
 
-public class UserModel implements DAO<UserBean>{
+public class UserModel implements DAO<UserBean> {
     private static final String TABLE = "User";
     private static final List<String> COLUMNS = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP");
     private static final List<String> KEYS = List.of("id");
@@ -41,8 +44,8 @@ public class UserModel implements DAO<UserBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -55,9 +58,9 @@ public class UserModel implements DAO<UserBean>{
     }
 
     @Override
-    public Collection<UserBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<UserBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<UserBean> users = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()) {
             users.add(new UserBean(rs));
         }

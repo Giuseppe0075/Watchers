@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.DAO;
+import storage.Beans.ImageBean;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,8 +24,8 @@ public class ImageModel implements DAO<ImageBean> {
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -32,9 +35,9 @@ public class ImageModel implements DAO<ImageBean> {
         return new ImageBean(rs);
     }
     @Override
-    public Collection<ImageBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<ImageBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<ImageBean> images = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()) {
             images.add(new ImageBean(rs));
         }

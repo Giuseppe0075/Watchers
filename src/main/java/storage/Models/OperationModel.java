@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.DAO;
+import storage.Beans.OperationBean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class OperationModel implements DAO<OperationBean>{
+public class OperationModel implements DAO<OperationBean> {
     private static final String TABLE = "Operation";
     private static final List<String> COLUMNS = List.of("admin", "watch", "operation", "date");
     private static final List<String> KEYS = List.of("id");
@@ -22,8 +25,8 @@ public class OperationModel implements DAO<OperationBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -34,9 +37,9 @@ public class OperationModel implements DAO<OperationBean>{
     }
 
     @Override
-    public Collection<OperationBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<OperationBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<OperationBean> operations = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()) {
             operations.add(new OperationBean(rs));
         }

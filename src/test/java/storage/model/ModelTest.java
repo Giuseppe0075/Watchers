@@ -1,7 +1,9 @@
 package storage.model;
 
 import org.junit.jupiter.api.Test;
-import storage.*;
+import storage.Beans.PurchaseBean;
+import storage.Beans.ReviewBean;
+import storage.Models.PurchaseModel;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,7 +38,7 @@ public class ModelTest {
     public void testDoDeleteByCond(){
         try {
             String condition = "";
-            model.doDeleteByCond(condition);
+            model.doDeleteByCond(condition, List.of());
         }catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -55,7 +57,7 @@ public class ModelTest {
         try {
             //Modificare la condizione in base al Bean
             String condition = "";
-            model.doRetrieveByCond(condition);
+            model.doRetrieveByCond(condition, List.of());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -64,7 +66,7 @@ public class ModelTest {
     public void testDoRetrieveAll(){
         try {
             //Modificare il tipo di Collection in base al Bean
-            //Collection<ReviewBean> beans = model.doRetrieveAll();
+            Collection<PurchaseBean> beans = model.doRetrieveAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

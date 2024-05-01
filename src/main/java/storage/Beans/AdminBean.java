@@ -1,7 +1,6 @@
-package storage;
+package storage.Beans;
 
 import storage.model.DatabaseKey;
-import storage.model.DatabaseObject;
 import storage.model.DatabaseTable;
 
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package storage;
+package storage.Beans;
 
 import java.sql.ResultSet;
 import java.util.Date;

@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.Beans.CartElementBean;
+import storage.DAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +25,8 @@ public class CartElementModel implements DAO<CartElementBean> {
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -34,9 +37,9 @@ public class CartElementModel implements DAO<CartElementBean> {
     }
 
     @Override
-    public Collection<CartElementBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<CartElementBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<CartElementBean> cartElements = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while (rs.next()) {
             cartElements.add(new CartElementBean(rs));
         }

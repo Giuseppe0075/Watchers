@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.Beans.BrandBean;
+import storage.DAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BrandModel implements DAO<BrandBean>{
+public class BrandModel implements DAO<BrandBean> {
     private static final String TABLE = "Brand";
     private static final List<String> COLUMNS = List.of("business_name", "name", "description");
     private static final List<String> KEYS = List.of("business_name");
@@ -22,8 +25,8 @@ public class BrandModel implements DAO<BrandBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -34,9 +37,9 @@ public class BrandModel implements DAO<BrandBean>{
     }
 
     @Override
-    public Collection<BrandBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<BrandBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<BrandBean> brands = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while (rs.next()) {
             brands.add(new BrandBean(rs));
         }

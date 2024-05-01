@@ -1,4 +1,7 @@
-package storage;
+package storage.Models;
+
+import storage.DAO;
+import storage.Beans.PurchaseBean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PurchaseModel implements DAO<PurchaseBean>{
+public class PurchaseModel implements DAO<PurchaseBean> {
     private static final String TABLE = "Purchase";
     private static final List<String> COLUMNS = List.of("user", "watch", "quantity", "IVA", "price");
     private static final List<String> KEYS = List.of("id", "user", "watch");
@@ -22,8 +25,8 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws Exception {
-        Model.doDeleteByCond(TABLE, cond);
+    public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        Model.doDeleteByCond(TABLE, cond, values);
     }
 
     @Override
@@ -34,9 +37,9 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     }
 
     @Override
-    public Collection<PurchaseBean> doRetrieveByCond(String cond) throws Exception {
+    public Collection<PurchaseBean> doRetrieveByCond(String cond, List<Object> values) throws Exception {
         List<PurchaseBean> purchases = new ArrayList<>();
-        ResultSet rs = Model.doRetrieveByCond(TABLE, cond);
+        ResultSet rs = Model.doRetrieveByCond(TABLE, cond, values);
         while(rs.next()) {
             purchases.add(new PurchaseBean(rs));
         }
