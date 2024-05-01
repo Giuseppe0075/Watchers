@@ -35,7 +35,7 @@
 %>
 
 
-<%@include file="../navbar.html"%> <!-- Navabar -->
+<%@include file="../navbar.jsp"%> <!-- Navabar -->
 
 
 <!-- PROBELMI DI SICUREZZA CON IL READONLY-->

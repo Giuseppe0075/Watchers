@@ -12,9 +12,6 @@ public interface DAO<T> {
      * doDeleteByCondition deletes elements from table where a certain condition is valid.
      * The condition MUST be like "WHERE value = "value"... ORDER BY .... ecc"
      * The method DOESN'T parametrize inputs.
-     * @param cond
-     * @throws SQLException
-     * @throws Exception
      */
     void doDeleteByCond(String cond) throws SQLException, Exception;
 

@@ -3,10 +3,8 @@ package storage;
 
 import database.DatabaseConnectionPool;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Connection;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,11 +25,8 @@ public class AdminModel implements DAO<AdminBean>{
     @Override
     public void doDelete(AdminBean entity) throws SQLException, Exception {
 
-
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();){
-
             int rs = connection.executeUpdate("DELETE FROM Admin WHERE id = ? AND email = ?", List.of(entity.getId(), entity.getEmail()));
-
             if(rs == 0){
                 throw new SQLException("Admin | Cancellazione non eseguita | 0 righe modificate | Admin: "+ entity.toString());
             }
@@ -46,8 +41,6 @@ public class AdminModel implements DAO<AdminBean>{
     @Override
     public AdminBean doRetrieveByKey(Object... key) throws SQLException, Exception {
         if(key.length != 2) throw new Exception("WatchModel::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
-
-
 
         AdminBean admin = new AdminBean();
 
