@@ -13,7 +13,7 @@ public class BrandModel implements DAO<BrandBean>{
     @Override
     public void doSave(BrandBean brandBean) throws Exception {
         List<Object> values = List.of(brandBean.getBusiness_name(), brandBean.getName(), brandBean.getDescription());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

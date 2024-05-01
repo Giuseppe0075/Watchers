@@ -24,7 +24,7 @@ public class SaveChangesServlet extends HttpServlet {
     [
     {
         id : 1,
-        name: "orologip",
+        name: "watch1",
 
     }
     ]
@@ -36,7 +36,7 @@ public class SaveChangesServlet extends HttpServlet {
      * @param resp null, or an error if failed
      * @throws IOException if failed to update the watch
      */
-    @Override
+    /*@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // converting the array of watch in a JsonArray
         JsonArray watches = new Gson().toJsonTree(req.getParameter("watchesJson")).getAsJsonArray();
@@ -53,4 +53,6 @@ public class SaveChangesServlet extends HttpServlet {
         }
 
     }
+
+     */
 }

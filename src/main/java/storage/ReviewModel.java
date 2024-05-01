@@ -13,7 +13,7 @@ public class ReviewModel implements DAO<ReviewBean> {
     @Override
     public void doSave(ReviewBean reviewBean) throws Exception {
         List<Object> values = List.of(reviewBean.getWatch(), reviewBean.getUser(), reviewBean.getStars(), reviewBean.getDescription(), reviewBean.getDate());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

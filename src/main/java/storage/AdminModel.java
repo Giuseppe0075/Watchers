@@ -16,7 +16,7 @@ public class AdminModel implements DAO<AdminBean>{
     @Override
     public void doSave(AdminBean entity) throws Exception {
         List<Object> values = List.of(entity.getEmail(), entity.getPsw());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

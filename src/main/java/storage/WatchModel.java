@@ -29,10 +29,10 @@ public class WatchModel implements DAO<WatchBean>{
     private static final List<String> COLUMNS = List.of("name", "brand","description", "reviews_avg", "price", "material", "stock", "dimension","IVA","sex","visible");
     private static final List<String> KEYS = List.of("id");
     @Override
-    public void doSave(WatchBean watchBean) throws SQLException, Exception {
+    public void doSave(WatchBean watchBean) throws Exception {
         List<Object> values = List.of(watchBean.getName(), watchBean.getBrand(), watchBean.getDescription(), watchBean.getReviews_avg(), watchBean.getPrice(),
                 watchBean.getMaterial(), watchBean.getStock(), watchBean.getDimension(), watchBean.getIVA(), watchBean.getSex(), watchBean.getVisible());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override
@@ -83,10 +83,9 @@ public class WatchModel implements DAO<WatchBean>{
             int rs = connection.executeUpdate("DELETE FROM Watch WHERE id = ?", List.of(watchBean.getId()));
 
             if(rs == 0){
-                throw new SQLException("Watch | Cancellazione non eseguita | 0 righe modificate | Watch: "+ watchBean.toString());
+                throw new SQLException("Watch | doDelete: Failed | watch: " + watchBean);
             }
         }
-
     }
 
     @Override

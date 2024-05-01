@@ -13,7 +13,7 @@ public class OperationModel implements DAO<OperationBean>{
     @Override
     public void doSave(OperationBean operationBean) throws Exception {
         List<Object> values = List.of(operationBean.getAdmin(), operationBean.getWatch(), operationBean.getOperation(), operationBean.getDate());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

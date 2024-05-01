@@ -12,7 +12,7 @@ public class ImageModel implements DAO<ImageBean> {
     @Override
     public void doSave(ImageBean imageBean) throws Exception {
         List<Object> values = List.of(imageBean.getId(), imageBean.getWatch(), imageBean.getImage());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class FavouriteModel implements DAO<FavouriteBean>{
     @Override
     public void doSave(FavouriteBean favouriteBean) throws Exception {
         List<Object> values = List.of(favouriteBean.getWatch(), favouriteBean.getUser());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

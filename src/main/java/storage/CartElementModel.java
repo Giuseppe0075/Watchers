@@ -13,7 +13,7 @@ public class CartElementModel implements DAO<CartElementBean> {
     @Override
     public void doSave(CartElementBean cartElementBean) throws Exception {
         List<Object> values = List.of(cartElementBean.getUser(), cartElementBean.getWatch(), cartElementBean.getQuantity());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

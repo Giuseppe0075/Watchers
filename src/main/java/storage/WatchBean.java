@@ -1,14 +1,7 @@
 package storage;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import storage.model.DatabaseKey;
-import storage.model.DatabaseObject;
-import storage.model.DatabaseTable;
-
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.Optional;
+
 
 /*
 CREATE TABLE `Watch`(
@@ -27,9 +20,7 @@ CREATE TABLE `Watch`(
     CONSTRAINT `watch_brand_foreign` FOREIGN KEY(`brand`) REFERENCES `Brand`(`business_name`)
 );
  */
-@DatabaseTable(tableName = "Watch")
 public class WatchBean extends Bean {
-    @DatabaseKey(keyName = "id")
     private Long id;
     private String name;
     private String brand;
@@ -43,28 +34,12 @@ public class WatchBean extends Bean {
     private String sex;
     private Boolean visible;
 
-    public WatchBean(JsonObject obj){
-        this.id = obj.get("id").getAsLong();
-        this.name = name;
-        this.brand = brand;
-        this.description = description;
-        this.reviews_avg = reviews_avg;
-        this.price = price;
-        this.material = material;
-        this.stock = stock;
-        this.dimension = dimension;
-        this.IVA = IVA;
-        this.sex = sex;
-        this.visible = visible;
-    }
-    public WatchBean(){}
-
     public WatchBean(ResultSet rs){
         super(rs);
     }
 
+    //Used for saving a new watch (id is autoincrement)
     public WatchBean(String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
-        //this.id = id;  // id è autoincrement - viene impostato a segiuto del salvataggio sul db
         this.name = name;
         this.brand = brand;
         this.description = description;
@@ -78,8 +53,9 @@ public class WatchBean extends Bean {
         this.visible = visible;
     }
 
+    //Used for updating an existing watch
     public WatchBean(Long id,String name, String brand, String description, Double reviews_avg, Double price, String material, Integer stock, Double dimension, Integer IVA,String sex, Boolean visible) {
-        this.id = id;  // utile per l'update
+        this.id = id;
         this.name = name;
         this.brand = brand;
         this.description = description;
@@ -208,11 +184,6 @@ public class WatchBean extends Bean {
         if (!getSex().equals(watchBean.getSex())) return false;
         return getVisible().equals(watchBean.getVisible());
     }
-
-    public String toJson(){
-        return new Gson().toJson(this);
-    }
-
     @Override
     public String toString() {
         return "WatchBeen{" +

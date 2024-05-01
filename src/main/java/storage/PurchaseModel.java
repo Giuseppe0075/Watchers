@@ -13,7 +13,7 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     @Override
     public void doSave(PurchaseBean purchaseBean) throws Exception {
         List<Object> values = List.of(purchaseBean.getUser(), purchaseBean.getWatch(), purchaseBean.getQuantity(), purchaseBean.getIVA(), purchaseBean.getPrice());
-        Model.doSave(TABLE, values, COLUMNS);
+        Model.doSave(TABLE, COLUMNS, values);
     }
 
     @Override

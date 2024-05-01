@@ -11,30 +11,38 @@ import java.util.Collections;
 import java.util.List;
 
 public class Model{
-    public static void doSave(String table, List<Object> values, List<String> columns) throws SQLException {
+
+    /**
+     * The method doSave() saves in a table passed as parameter the values passed as parameter
+     */
+    public static void doSave(String table, List<String> columns, List<Object> values) throws SQLException {
+        //INSERT INTO table (
+        StringBuilder query = new StringBuilder("INSERT INTO " + table + " (");
+
+        //value, value, value,...
+        for(String value : columns){
+            query.append(value).append(",");
+        }
+        //remove the last ,
+        query.deleteCharAt(query.length()-1);
+
+        //) VALUES ?,?,?,...
+        query.append(") VALUES (");
+        query.append("?,".repeat(columns.size()));
+        //remove the last ,
+        query.deleteCharAt(query.length()-1);
+        query.append(")");
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            //INSERT INTO table (
-            StringBuilder query = new StringBuilder("INSERT INTO " + table + " (");
-
-            //value, value, value,...
-            for(String value : columns){
-                query.append(value).append(",");
-            }
-            //remove the last ,
-            query.deleteCharAt(query.length()-1);
-
-            //) VALUES ?,?,?,...
-            query.append(") VALUES (");
-            query.append("?,".repeat(columns.size()));
-            //remove the last ,
-            query.deleteCharAt(query.length()-1);
-            query.append(")");
             int rs = connection.executeUpdate(String.valueOf(query), values);
             if(rs == 0){
                 throw new SQLException(table + " | " + "doSave: Failed | ");
             }
         }
     }
+
+    /**
+     * The method doDeleteByCond() deletes from a table passed as parameter tuples that satisfy the condition passed as parameter
+     */
     public static void doDeleteByCond(String table, String condition) throws SQLException {
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
             int rs = connection.executeUpdate("DELETE FROM " + table + " " + condition);
@@ -44,6 +52,10 @@ public class Model{
             }
         }
     }
+
+    /**
+     * The method doRetrieveByKey() retrieves from a table passed as parameter the tuple that has the keys passed as parameter
+     */
     public static ResultSet doRetrieveByKey(String table, List<String> keys_names, List<Object> keys) throws Exception {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " WHERE ");
@@ -63,6 +75,9 @@ public class Model{
         return rs;
     }
 
+    /**
+     * The method doRetrieveByCond() retrieves from a table passed as parameter the tuples that satisfy the condition passed as parameter
+     */
     public static ResultSet  doRetrieveByCond(String table, String cond) throws SQLException {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + cond);
@@ -77,6 +92,9 @@ public class Model{
         return rs;
     }
 
+    /**
+     * The method doRetrieveAll() retrieves all the tuples from a table passed as parameter
+     */
     public static ResultSet doRetrieveAll(String table) throws SQLException {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table);
@@ -94,10 +112,6 @@ public class Model{
     /**
      * The method updates the table with the values passed as parameters
      * The ids of the table MUST be in the last positions of the values list
-     * @param table
-     * @param columns
-     * @param values
-     * @throws SQLException
      */
     public static void doUpdate(String table, List<String> columns, List<Object> values, List<String> keys) throws SQLException {
         StringBuilder query = new StringBuilder("UPDATE " + table + " SET ");

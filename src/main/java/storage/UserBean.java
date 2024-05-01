@@ -1,12 +1,7 @@
 package storage;
 
-
-import org.tinylog.Logger;
-
-import java.lang.reflect.Field;
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /*
 CREATE TABLE `User`(
