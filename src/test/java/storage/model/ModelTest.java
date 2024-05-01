@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ModelTest {
 
-    //TODO: Modificare la classe Model e del Bean per cambiare argomento del test
+    //Modificare la classe Model e del Bean per cambiare argomento del test
     UserModel model = new UserModel();
     UserBean bean;
 
