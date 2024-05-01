@@ -9,17 +9,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class AdminModel implements DAO<AdminBean>{
+    private static final String TABLE = "Admin";
+    private static final List<String> columns = List.of("email", "psw");
     @Override
     public void doSave(AdminBean entity) throws SQLException, Exception {
-
-
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();){
-
-            int rs = connection.executeUpdate("INSERT INTO Admin" + "(email, psw) values (?,?)", List.of(entity.getEmail(), entity.getPassword()));
-            if(rs == 0){
-                throw new SQLException("Admin | Inserimento non eseguito | 0 righe modificate | Admin: "+ entity.toString());
-            }
-        }
+        List<Object> values = List.of(entity.getEmail(), entity.getPsw());
+        Model.doSave(TABLE, values, columns);
     }
 
     @Override

@@ -25,24 +25,13 @@ CREATE TABLE `Watch`(
 );
 */
 public class WatchModel implements DAO<WatchBean>{
-    List<WatchBean> watches;
     private static final String TABLE = "watch";
-
+    private static final List<String> columns = List.of("name", "brand","description", "reviews_avg", "price", "material", "stock", "dimension","IVA","sex","visible");
     @Override
     public void doSave(WatchBean watch) throws SQLException, Exception {
-
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
-
-            int result =  connection.executeUpdate("INSERT INTO Watch" + "(name, brand, description, reviews_avg, price, material, stock,dimension,IVA,sex,visible) values (?,?,?,?,?,?,?,?,?,?,?)",
-                    List.of(watch.getName(), watch.getBrand(), watch.getDescription(), watch.getReviews_avg(), watch.getPrice(), watch.getMaterial(), watch.getStock(), watch.getDimension(), watch.getIVA(), watch.getSex(), watch.getVisible()));
-
-
-            if(result == 0){
-                throw new SQLException("Watch | Inserimento non eseguito | 0 righe modificate | Watch: "+ watch.toString());
-            }
-        } catch (SQLException e){
-            System.out.println("Errore: "+ e.getMessage());
-        }
+        List<Object> values = List.of(watch.getName(), watch.getBrand(), watch.getDescription(), watch.getReviews_avg(), watch.getPrice(),
+                watch.getMaterial(), watch.getStock(), watch.getDimension(), watch.getIVA(), watch.getSex(), watch.getVisible());
+        Model.doSave(TABLE, values, columns);
     }
 
     @Override

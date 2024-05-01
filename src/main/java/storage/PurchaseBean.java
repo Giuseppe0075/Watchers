@@ -1,4 +1,7 @@
 package storage;
+
+import java.sql.ResultSet;
+
 /*
 CREATE TABLE `Purchase`(
     `id_order` BIGINT UNSIGNED NOT NULL,
@@ -12,16 +15,13 @@ CREATE TABLE `Purchase`(
     CONSTRAINT `purchase_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class PurchaseBean {
+public class PurchaseBean extends Bean{
     private  Integer id;
     private  Integer user;
     private  Integer watch;
     private  Integer quantity;
     private  Integer IVA;
     private  Double price;
-
-    private PurchaseBean() {
-    }
 
     public PurchaseBean(Integer id, Integer user, Integer watch, Integer quantity, Integer IVA, Double price) {
         this.id = id;
@@ -30,6 +30,10 @@ public class PurchaseBean {
         this.quantity = quantity;
         this.IVA = IVA;
         this.price = price;
+    }
+
+    public PurchaseBean(ResultSet rs){
+        super(rs);
     }
 
     public void setId(Integer id) {

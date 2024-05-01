@@ -23,12 +23,14 @@ CREATE TABLE `User`(
  */
 
 public class UserModel implements DAO<UserBean>{
+    private static final String TABLE = "User";
+    private static final List<String> columns = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP");
     @Override
     public void doSave(UserBean user) {
         List<Object> values = List.of(user.getEmail(), user.getPsw(), user.getName(), user.getSurname(), user.getBirthday(),
                 user.getRoad(), user.getCivic_number(), user.getCity(), user.getCAP());
         try {
-            Model.doSave("User",values, List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP"));
+            Model.doSave(TABLE,values, columns);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage() + " | user: " + user);
         }

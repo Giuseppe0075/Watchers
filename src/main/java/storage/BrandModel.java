@@ -2,10 +2,15 @@ package storage;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 public class BrandModel implements DAO<BrandBean>{
+    private static final String TABLE = "Brand";
+    private static final List<String> columns = List.of("name", "description");
     @Override
     public void doSave(BrandBean entity) throws SQLException, Exception {
+        List<Object> values = List.of(entity.getName(), entity.getDescription());
+        Model.doSave(TABLE, values, columns);
     }
 
     @Override

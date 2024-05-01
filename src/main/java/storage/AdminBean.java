@@ -7,7 +7,7 @@ import storage.model.DatabaseTable;
 
 
 @DatabaseTable(tableName = "Admin")
-public class AdminBean extends DatabaseObject {
+public class AdminBean extends Bean {
     @DatabaseKey(keyName = "id")
     private Long id;
     private String email;
@@ -34,7 +34,7 @@ public class AdminBean extends DatabaseObject {
     public String getEmail() {
         return email;
     }
-    public String getPassword() {
+    public String getPsw() {
         return psw;
     }
 
@@ -44,7 +44,7 @@ public class AdminBean extends DatabaseObject {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setPassword(String password) {
+    public void setPsw(String password) {
         this.psw = password;
     }
 
@@ -62,14 +62,14 @@ public class AdminBean extends DatabaseObject {
 
         if (!getId().equals(adminBean.getId())) return false;
         if (!getEmail().equals(adminBean.getEmail())) return false;
-        return getPassword().equals(adminBean.getPassword());
+        return getPsw().equals(adminBean.getPsw());
     }
 
     @Override
     public int hashCode() {
         int result = getId().hashCode();
         result = 31 * result + getEmail().hashCode();
-        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getPsw().hashCode();
         return result;
     }
 }

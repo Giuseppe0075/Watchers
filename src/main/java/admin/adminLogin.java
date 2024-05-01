@@ -8,8 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
 import storage.AdminBean;
+import storage.AdminModel;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.Collection;
+
 import static utils.Security.sanitizeInput;
 
 @WebServlet(name = "adminLoginServlet", value = "/admin-login-servlet")
@@ -23,18 +27,18 @@ public class adminLogin extends HttpServlet {
         String password = sanitizeInput(req.getParameter("password"));
 
         HttpSession session1 = req.getSession(false);
-        if( session1 != null && session1.getAttribute("admin") != null && session1.getAttribute("admin").equals(true)){
-            resp.sendRedirect(req.getContextPath()  + "/admin/adminPage.jsp");
+        if (session1 != null && session1.getAttribute("admin") != null && session1.getAttribute("admin").equals(true)) {
+            resp.sendRedirect(req.getContextPath() + "/admin/adminPage.jsp");
         }
 
         // check if authenticated
-        if(authenticate(email, password)){
+        if (authenticate(email, password)) {
             Logger.info("Login of " + email);
             HttpSession session = req.getSession();
             session.setAttribute("admin", true);
             session.setMaxInactiveInterval(1000);
-            resp.sendRedirect(req.getContextPath() +"/admin/adminPage.jsp");
-        }else{
+            resp.sendRedirect(req.getContextPath() + "/admin/adminPage.jsp");
+        } else {
             Logger.info("Login fallita, email: " + email);
             resp.sendRedirect(req.getContextPath() + "/adminLogin.jsp");
         }
@@ -42,8 +46,8 @@ public class adminLogin extends HttpServlet {
     }
 
 
-    private static boolean authenticate(String email, String psw){
-        return AdminBean.retriveAll(AdminBean.class).stream()
-                .anyMatch(adminBean -> adminBean.getEmail().equals(email) && adminBean.getPassword().equals(psw));
+    //TODO implement authenticate
+    private static boolean authenticate(String email, String psw) {
+        return false;
     }
 }

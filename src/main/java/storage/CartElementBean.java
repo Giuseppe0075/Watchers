@@ -1,4 +1,7 @@
 package storage;
+
+import java.sql.ResultSet;
+
 /*
     CREATE TABLE `Cart`(
         `user` BIGINT UNSIGNED NOT NULL,
@@ -9,12 +12,13 @@ package storage;
         CONSTRAINT `cart_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
     );
  */
-public class CartElementBean {
+public class CartElementBean extends Bean{
     private  Integer user;
     private  Integer watch;
     private  Integer quantity;
 
-    private CartElementBean() {
+    public CartElementBean(ResultSet rs){
+        super(rs);
     }
 
     public CartElementBean(Integer user, Integer watch, Integer quantity) {

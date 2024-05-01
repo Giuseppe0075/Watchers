@@ -1,5 +1,7 @@
 package storage;
 
+import java.sql.ResultSet;
+
 /*
 CREATE TABLE `Favourite`(
     `watch` BIGINT UNSIGNED NOT NULL,
@@ -10,11 +12,12 @@ CREATE TABLE `Favourite`(
 );
 
  */
-public class FavouriteBean {
+public class FavouriteBean extends Bean{
     private Long watch;
     private Long user;
 
-    private FavouriteBean() {
+    public FavouriteBean(ResultSet rs){
+        super(rs);
     }
 
     public FavouriteBean(Long watch, Long user) {

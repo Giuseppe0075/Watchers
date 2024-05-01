@@ -2,11 +2,15 @@ package storage;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 public class PurchaseModel implements DAO<PurchaseBean>{
+    private static final String TABLE = "Purchase";
+    private static final List<String> columns = List.of("user", "watch", "quantity", "IVA", "price");
     @Override
     public void doSave(PurchaseBean entity) throws SQLException, Exception {
-
+        List<Object> values = List.of(entity.getUser(), entity.getWatch(), entity.getQuantity(), entity.getIVA(), entity.getPrice());
+        Model.doSave(TABLE, values, columns);
     }
 
     @Override

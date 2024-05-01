@@ -16,10 +16,6 @@ public class ImageBean extends Bean{
     private Integer watch;
     private byte[] image;
 
-
-    private ImageBean() {
-    }
-
     public ImageBean(Integer id, Integer watch, byte[] image) {
         this.id = id;
         this.watch = watch;

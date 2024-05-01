@@ -10,18 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class ImageModel implements DAO<ImageBean> {
+    private static final String TABLE = "Image";
+    private static final List<String> columns = List.of("id", "watch", "image");
     @Override
     public void doSave(ImageBean image) throws SQLException, Exception {
-
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
-            int rs = connection.executeUpdate("INSERT INTO Watch" + "(id, watch, image) values (?,?,?)",
-                    List.of(image.getId(),image.getWatch(), image.getImage()));
-
-            if (rs == 0) {
-                throw new SQLException("Image | Inserimento non eseguito | 0 righe modificate | Image: " + image.toString());
-            }
-            Logger.debug("Inserimento avvenuto con successo!");
-        }
+        List<Object> values = List.of(image.getId(), image.getWatch(), image.getImage());
+        Model.doSave(TABLE, values, columns);
     }
 
     @Override

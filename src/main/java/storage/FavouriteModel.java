@@ -2,11 +2,15 @@ package storage;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 public class FavouriteModel implements DAO<FavouriteBean>{
+    private static final String TABLE = "Favourite";
+    private static final List<String> columns = List.of("user", "watch");
     @Override
     public void doSave(FavouriteBean entity) throws SQLException, Exception {
-
+        List<Object> values = List.of(entity.getUser(), entity.getWatch());
+        Model.doSave(TABLE, values, columns);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package storage;
 
+import java.sql.ResultSet;
 import java.util.Date;
 
 /*
@@ -14,14 +15,15 @@ CREATE TABLE `Review`(
     CONSTRAINT `review_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
  */
-public class ReviewBean {
+public class ReviewBean extends Bean{
     private Integer watch;
     private Integer user;
     private Integer stars;
     private String description;
     private Date date;
 
-    private ReviewBean() {
+    private ReviewBean(ResultSet rs) {
+        super(rs);
     }
 
     public ReviewBean(Integer watch, Integer user, Integer stars, String description, Date date) {

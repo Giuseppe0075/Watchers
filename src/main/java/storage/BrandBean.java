@@ -1,4 +1,7 @@
 package storage;
+
+import java.sql.ResultSet;
+
 /*
 CREATE TABLE `Brand`(
     `business_name` VARCHAR(255) NOT NULL,
@@ -7,12 +10,13 @@ CREATE TABLE `Brand`(
     PRIMARY KEY(`business_name`)
 );
  */
-public class BrandBean {
+public class BrandBean extends Bean{
     private String business_name;
     private String name;
     private String description;
 
-    private BrandBean() {
+    public BrandBean(ResultSet rs) {
+        super(rs);
     }
 
     public BrandBean(String business_name, String name, String description) {
