@@ -1,5 +1,6 @@
 package storage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -24,8 +25,10 @@ public class BrandModel implements DAO<BrandBean>{
     }
 
     @Override
-    public BrandBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        return null;
+    public BrandBean doRetrieveByKey(List<Object> keys) throws SQLException, Exception {
+        if (keys.size() != 1) throw new SQLException("Brand | doRetrieveByKey: Failed | The number of keys is not 1");
+        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("business_name"), keys);
+        return new BrandBean(rs);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package storage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -24,8 +25,11 @@ public class ReviewModel implements DAO<ReviewBean> {
     }
 
     @Override
-    public ReviewBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        return null;
+    public ReviewBean doRetrieveByKey(List<Object> keys) throws Exception {
+        if(keys.size() != 2) throw new SQLException("Review | doRetrieveByKey: Failed | The number of keys is not 2");
+        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("watch", "user"), keys);
+
+        return new ReviewBean(rs);
     }
 
     @Override

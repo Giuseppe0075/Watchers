@@ -1,15 +1,16 @@
 package storage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
 public class FavouriteModel implements DAO<FavouriteBean>{
     private static final String TABLE = "Favourite";
-    private static final List<String> columns = List.of("user", "watch");
+    private static final List<String> columns = List.of("watch", "user");
     @Override
     public void doSave(FavouriteBean entity) throws SQLException, Exception {
-        List<Object> values = List.of(entity.getUser(), entity.getWatch());
+        List<Object> values = List.of(entity.getWatch(), entity.getUser());
         Model.doSave(TABLE, values, columns);
     }
 
@@ -24,8 +25,10 @@ public class FavouriteModel implements DAO<FavouriteBean>{
     }
 
     @Override
-    public FavouriteBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        return null;
+    public FavouriteBean doRetrieveByKey(List<Object> keys) throws SQLException, Exception {
+        if(keys.size() != 2) throw new SQLException("Favourite | doRetrieveByKey: Failed | The number of keys is not 2");
+        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("watch", "user"), keys);
+        return new FavouriteBean(rs);
     }
 
     @Override

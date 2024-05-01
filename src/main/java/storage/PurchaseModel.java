@@ -1,5 +1,6 @@
 package storage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -8,24 +9,26 @@ public class PurchaseModel implements DAO<PurchaseBean>{
     private static final String TABLE = "Purchase";
     private static final List<String> columns = List.of("user", "watch", "quantity", "IVA", "price");
     @Override
-    public void doSave(PurchaseBean entity) throws SQLException, Exception {
+    public void doSave(PurchaseBean entity) throws Exception {
         List<Object> values = List.of(entity.getUser(), entity.getWatch(), entity.getQuantity(), entity.getIVA(), entity.getPrice());
         Model.doSave(TABLE, values, columns);
     }
 
     @Override
-    public void doDelete(PurchaseBean entity) throws SQLException, Exception {
+    public void doDelete(PurchaseBean entity) throws Exception {
 
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws SQLException, Exception {
+    public void doDeleteByCond(String cond) throws Exception {
         Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override
-    public PurchaseBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        return null;
+    public PurchaseBean doRetrieveByKey(List<Object> key) throws Exception {
+        if(key.size() != 3) throw new SQLException("Purchase | doRetrieveByKey: Failed | The number of keys is not 3");
+        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("id_order","watch", "user"), key);
+        return new PurchaseBean(rs);
     }
 
     @Override

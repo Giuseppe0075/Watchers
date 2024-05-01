@@ -34,22 +34,10 @@ public class AdminModel implements DAO<AdminBean>{
     }
 
     @Override
-    public AdminBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        if(key.length != 2) throw new Exception("WatchModel::doRetrieveByKey: Il numero di chiavi deve essere 2. Numero chiavi passate: " + key.length);
-
-        AdminBean admin = new AdminBean();
-
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection();){
-
-            ResultSet rs =  connection.executeQuery("SELECT * FROM Admin WHERE id = ? AND email = ?", List.of(key[0], key[1]));
-
-            if(rs == null){
-                throw new SQLException("Admin | Query non riuscita. | id:"+ admin.getId());
-            }
-
-            admin = new AdminBean(rs.getLong(0), rs.getString(1), rs.getString(2));
-        }
-        return null;
+    public AdminBean doRetrieveByKey(List<Object> keys) throws SQLException, Exception {
+        if (keys.size() != 1) throw new SQLException("Admin | doRetrieveByKey: Failed | The number of keys is not 1");
+        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("id"), keys);
+        return new AdminBean(rs);
     }
 
     @Override

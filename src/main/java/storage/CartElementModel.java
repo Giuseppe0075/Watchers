@@ -1,5 +1,6 @@
 package storage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -24,8 +25,10 @@ public class CartElementModel implements DAO<CartElementBean> {
     }
 
     @Override
-    public CartElementBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        return null;
+    public CartElementBean doRetrieveByKey(List<Object> keys) throws SQLException, Exception {
+        if (keys.size() != 2) throw new SQLException("Cart | doRetrieveByKey: Failed | The number of keys is not 2");
+        ResultSet rs = Model.doRetrieveByKey(TABLE, List.of("user", "watch"), keys);
+        return new CartElementBean(rs);
     }
 
     @Override

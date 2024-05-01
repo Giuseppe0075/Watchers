@@ -25,7 +25,7 @@ CREATE TABLE `Watch`(
 );
 */
 public class WatchModel implements DAO<WatchBean>{
-    private static final String TABLE = "watch";
+    private static final String TABLE = "Watch";
     private static final List<String> columns = List.of("name", "brand","description", "reviews_avg", "price", "material", "stock", "dimension","IVA","sex","visible");
     @Override
     public void doSave(WatchBean watch) throws SQLException, Exception {
@@ -35,14 +35,14 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public void doSaveOrUpdate(WatchBean watch) throws SQLException, Exception {
+    public void doSaveOrUpdate(WatchBean watch) throws Exception {
 
         // prima verifica che non esista già
-        WatchBean watchBean = this.doRetrieveByKey(watch.getId().intValue());
-        if(watchBean.getId() == 0){
-            this.doSave(watch);
-            return;
-        }
+//        WatchBean watchBean = this.doRetrieveByKey(watch.getId().intValue());
+//        if(watchBean.getId() == 0){
+//            this.doSave(watch);
+//            return;
+//        }
 
         PreparedStatement preparedStatement = null;
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection();) {
@@ -57,28 +57,15 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public WatchBean doRetrieveByKey(Object... key) throws SQLException, Exception {
-        if(key.length != 1) throw new Exception("WatchModel::doRetrieveByKey: Il numero di chiavi deve essere 1. Numero chiavi passate: " + key.length);
+    public WatchBean doRetrieveByKey(List<Object> keys) throws Exception {
+        if(keys.size() != 1) throw new Exception("Watch | doRetrieveByKey: Failed | The number of keys is not 1.");
+        ResultSet rs = Model.doRetrieveByKey(TABLE,List.of("id"), keys);
 
-
-        WatchBean watch = null;
-
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
-
-            ResultSet rs = connection.executeQuery("SELECT * FROM Watch WHERE id = ?", List.of(key[0]));
-
-            while (rs.next()){
-                watch = new WatchBean(rs);
-            }
-
-        }catch (SQLException e){
-            System.out.println("Errore: "+ e.getMessage());
-        }
-        return watch;
+        return new WatchBean(rs);
     }
 
     @Override
-    public Collection<WatchBean> doRetrieveByCond(String cond) throws SQLException, Exception {
+    public Collection<WatchBean> doRetrieveByCond(String cond) throws Exception {
         List<WatchBean> watches = new ArrayList<>();
 
 
@@ -98,7 +85,7 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public Collection<WatchBean> doRetrieveAll() throws SQLException, Exception {
+    public Collection<WatchBean> doRetrieveAll() throws Exception {
         List<WatchBean> watches = new ArrayList<>();
 
 
@@ -116,7 +103,7 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public void doDelete(WatchBean watch) throws SQLException {
+    public void doDelete(WatchBean watch) throws Exception {
 
         try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
 
@@ -130,7 +117,7 @@ public class WatchModel implements DAO<WatchBean>{
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws SQLException, Exception {
+    public void doDeleteByCond(String cond) throws Exception {
         Model.doDeleteByCond(TABLE, cond);
     }
 }

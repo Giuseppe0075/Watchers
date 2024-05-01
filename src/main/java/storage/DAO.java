@@ -2,24 +2,25 @@ package storage;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 public interface DAO<T> {
-    void doSave(T entity) throws SQLException, Exception;
+    void doSave(T entity) throws Exception;
 
-    void doDelete(T entity) throws SQLException, Exception;
+    void doDelete(T entity) throws Exception;
 
     /**
      * doDeleteByCondition deletes elements from table where a certain condition is valid.
      * The condition MUST be like "WHERE value = "value"... ORDER BY .... ecc"
      * The method DOESN'T parametrize inputs.
      */
-    void doDeleteByCond(String cond) throws SQLException, Exception;
+    void doDeleteByCond(String cond) throws Exception;
 
-    Collection<T> doRetrieveByCond(String cond) throws SQLException, Exception;
+    Collection<T> doRetrieveByCond(String cond) throws Exception;
 
-    T doRetrieveByKey(Object... key) throws SQLException, Exception;
+    T doRetrieveByKey(List<Object> keys) throws Exception;
 
-    Collection<T> doRetrieveAll() throws SQLException, Exception;
+    Collection<T> doRetrieveAll() throws Exception;
 
-    void doSaveOrUpdate(T entity) throws SQLException, Exception;
+    void doSaveOrUpdate(T entity) throws Exception;
 }

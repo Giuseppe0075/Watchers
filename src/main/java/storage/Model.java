@@ -1,5 +1,6 @@
 package storage;
 
+import database.Connection;
 import database.DatabaseConnectionPool;
 
 import java.sql.ResultSet;
@@ -43,8 +44,23 @@ public class Model{
             }
         }
     }
-    public static <T> T doRetrieveByKey(String table, Object... key) throws SQLException, Exception {
-        return null;
+    public static ResultSet doRetrieveByKey(String table, List<String> keys_names, List<Object> keys) throws SQLException, Exception {
+        ResultSet rs = null;
+        StringBuilder query = new StringBuilder("SELECT * FROM " + table + " WHERE ");
+        for (String k : keys_names){
+            query.append(k).append(" = ? AND ");
+        }
+        query.delete(query.length()-5, query.length());
+        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+            rs = connection.executeQuery(String.valueOf(query), keys);
+            if(rs == null){
+                throw new SQLException(table + " | doRetrieveByKey: Failed | keys: " + keys);
+            }
+        }catch (SQLException e){
+            throw new SQLException(table + " | doRetrieveByKey: Failed | " + e.getMessage());
+        }
+        rs.next();
+        return rs;
     }
 
     public static <T> Collection<T>  doRetrieveByCond(String table, String cond) throws SQLException, Exception {

@@ -26,7 +26,7 @@ public class UserModel implements DAO<UserBean>{
     private static final String TABLE = "User";
     private static final List<String> columns = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP");
     @Override
-    public void doSave(UserBean user) {
+    public void doSave(UserBean user) throws Exception{
         List<Object> values = List.of(user.getEmail(), user.getPsw(), user.getName(), user.getSurname(), user.getBirthday(),
                 user.getRoad(), user.getCivic_number(), user.getCity(), user.getCAP());
         try {
@@ -37,36 +37,26 @@ public class UserModel implements DAO<UserBean>{
     }
 
     @Override
-    public void doDelete(UserBean user) throws SQLException {
+    public void doDelete(UserBean user) throws Exception {
 
     }
 
     @Override
-    public void doDeleteByCond(String cond) throws SQLException {
+    public void doDeleteByCond(String cond) throws Exception {
         Model.doDeleteByCond(TABLE, cond);
     }
 
     @Override
-    public UserBean doRetrieveByKey(Object... key) throws SQLException {
+    public UserBean doRetrieveByKey(List<Object> keys) throws Exception {
         //Check the number of keys
-        if(key.length != 1) throw new SQLException("User | doRetrieveByKey: Failed | The number of keys is not 1");
-        UserBean user = null;
+        if(keys.size() != 1) throw new SQLException("User | doRetrieveByKey: Failed | The number of keys is not 1");
+        ResultSet rs = Model.doRetrieveByKey(TABLE,List.of("id"), keys);
 
-        //try connection
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-            ResultSet rs = connection.executeQuery("SELECT * FROM User WHERE id = ?", List.of(key[0]));
-
-            if(rs == null){
-                throw new SQLException("User | doRetrieveByKey: Failed | Key: " + key[0]);
-            }
-            rs.next();
-            user = new UserBean(rs);
-        }
-        return user;
+        return new UserBean(rs);
     }
 
     @Override
-    public Collection<UserBean> doRetrieveByCond(String cond) throws SQLException {
+    public Collection<UserBean> doRetrieveByCond(String cond) throws Exception {
         List<UserBean> users = new ArrayList<>();
         if(cond == null) throw new SQLException("User | doRetrieveByCond: Failed | condition is null");
         ResultSet rs = null;
@@ -84,7 +74,7 @@ public class UserModel implements DAO<UserBean>{
     }
 
     @Override
-    public Collection<UserBean> doRetrieveAll() throws SQLException {
+    public Collection<UserBean> doRetrieveAll() throws Exception {
         List<UserBean> users = new ArrayList<>();
         try( database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
             ResultSet rs = connection.executeQuery("SELECT * FROM User");
@@ -97,7 +87,7 @@ public class UserModel implements DAO<UserBean>{
         return users;
     }
     @Override
-    public void doSaveOrUpdate(UserBean user) throws SQLException {
+    public void doSaveOrUpdate(UserBean user) throws Exception {
         if(user.getId() == 0){
             this.doSave(user);
             return;
