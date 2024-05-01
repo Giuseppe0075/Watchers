@@ -18,9 +18,9 @@
 
     <div class="itemPage"> <!-- Item main page -->
         <ul>
-            <li><a href="watchpage/watch.jsp?id=1"><img src="homepage/watch1.avif"></a></li>
-            <li><a href="watchpage/watch.jsp?id=2"><img src="homepage/watch2.avif"></a></li>
-            <li><a href="watchpage/watch.jsp?id=3"><img src="homepage/watch3.avif"></a></li>
+            <li><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=1"><img src="homepage/watch1.avif"></a></li>
+            <li><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=2"><img src="homepage/watch2.avif"></a></li>
+            <li><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=3"><img src="homepage/watch3.avif"></a></li>
         </ul>
     </div>
 </div>

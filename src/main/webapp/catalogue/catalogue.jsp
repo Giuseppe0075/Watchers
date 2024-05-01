@@ -23,7 +23,7 @@
                 watchList = model.doRetrieveAll();
         }
         else {
-                watchList = model.doRetrieveByCond(sort);
+                watchList = model.doRetrieveByCond(sort, List.of());
         }
     } catch (Exception e) {
         throw new RuntimeException(e);
