@@ -25,7 +25,7 @@
             Collection<ImageBean> images = null;
             try {
                 watch = watchModel.doRetrieveByKey(List.of(id));
-                images = imageModel.doRetrieveByCond("watch=", List.of(id));
+                images = imageModel.doRetrieveByCond("WHERE watch=?", List.of(id));
                 assert(images != null);
             } catch (Exception e) {
                 response.sendError(404);
