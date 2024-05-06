@@ -21,11 +21,12 @@ public class CartElementModel implements DAO<CartElementBean> {
 
     @Override
     public void doDelete(CartElementBean cartElementBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE,"WHERE user= ? AND watch= ?",List.of(cartElementBean.getUser(),cartElementBean.getWatch()));
     }
 
     @Override
     public void doDeleteByCond(String cond, List<Object> values) throws Exception {
+        if (values.size() != 2) throw new SQLException("Cart | doDeleteByCond: Failed | The number of keys is not 2");
         Model.doDeleteByCond(TABLE, cond, values);
     }
 
