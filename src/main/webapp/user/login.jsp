@@ -9,23 +9,16 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="homepage/style.css">
+    <link rel="stylesheet" href="../homepage/style.css">
 </head>
 <body>
-<%
-
-    if(session.getAttribute("admin") == null || session.getAttribute("admin").equals(false)){
-        response.sendRedirect(request.getContextPath() + "admin/adminPage.jsp");
-    }
-%>
-
-        <%@include file="navbar.jsp"%>
-
-        <form action="${pageContext.request.contextPath}/login-servlet" method="post">
+        <%@include file="../navbar.jsp"%>
+        <form action="${pageContext.request.contextPath}/user/login" method="post">
             <label for="email">Email</label><br>
             <input type="email" id="email" name="email"><br>
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password"><br>
+            <input type="checkbox" value="adminlogin" >
             <input type="submit"><br>
         </form>
 

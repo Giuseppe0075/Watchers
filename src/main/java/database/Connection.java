@@ -1,5 +1,7 @@
 package database;
 
+import org.tinylog.Logger;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +32,7 @@ public class Connection implements AutoCloseable{
 
     public ResultSet executeQuery(String query, List<Object> params) throws SQLException {
         PreparedStatement ps = buildStatement(query, params);
+        //Logger.debug("-------"+ps.toString());
         return ps.executeQuery();
 
 

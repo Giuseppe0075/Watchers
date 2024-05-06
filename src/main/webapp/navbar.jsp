@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div class="Account"> <!--Account ICon-->
-        <a href="${pageContext.request.contextPath}/login.jsp"><img id="AccountLogo" src="${pageContext.request.contextPath}/homepage/omino.png"></a>
+        <a href="${pageContext.request.contextPath}/user/login.jsp"><img id="AccountLogo" src="${pageContext.request.contextPath}/homepage/omino.png"></a>
     </div>
 
 </nav>
