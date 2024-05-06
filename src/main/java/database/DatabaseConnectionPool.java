@@ -37,15 +37,14 @@ public class DatabaseConnectionPool {
 
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(() -> {
-            synchronized (pool) {
-                for (Connection connection : pool) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        Logger.warn("Failed to close connection in the pool", e);
-                    }
+            for (Connection connection : pool) {
+                try {
+                    connection.connection.close();
+                } catch (Exception e) {
+                    Logger.warn("Failed to close connection in the pool", e);
                 }
             }
+
             Logger.info("Db connection pool closed");
         }));
     }

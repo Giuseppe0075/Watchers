@@ -33,6 +33,7 @@ public class CartElementModel implements DAO<CartElementBean> {
     public CartElementBean doRetrieveByKey(List<Object> keys) throws Exception {
         if (keys.size() != 2) throw new SQLException("Cart | doRetrieveByKey: Failed | The number of keys is not 2");
         ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
+        if(!rs.next()) return null;
         return new CartElementBean(rs);
     }
 
@@ -58,10 +59,12 @@ public class CartElementModel implements DAO<CartElementBean> {
 
     @Override
     public void doSaveOrUpdate(CartElementBean cartElementBean) throws Exception {
-        if (cartElementBean.getUser() == 0 || cartElementBean.getWatch() == 0) {
-            this.doSave(cartElementBean);
+        CartElementBean temp = this.doRetrieveByKey(List.of(cartElementBean.getUser(), cartElementBean.getWatch()));
+        if (temp == null) {
+            doSave(cartElementBean);
             return;
         }
+        cartElementBean.setQuantity(cartElementBean.getQuantity() + temp.getQuantity());
         List<Object> values = List.of(cartElementBean.getQuantity(), cartElementBean.getUser(), cartElementBean.getWatch());
         Model.doUpdate(TABLE, COLUMNS.subList(2, COLUMNS.size()), values, KEYS);
     }

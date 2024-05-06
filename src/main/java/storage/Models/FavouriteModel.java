@@ -33,6 +33,7 @@ public class FavouriteModel implements DAO<FavouriteBean> {
     public FavouriteBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 2) throw new SQLException("Favourite | doRetrieveByKey: Failed | The number of keys is not 2");
         ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
+        if(!rs.next()) return null;
         return new FavouriteBean(rs);
     }
 

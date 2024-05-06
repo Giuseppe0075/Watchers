@@ -70,7 +70,6 @@ public class Model{
         }catch (SQLException e){
             throw new SQLException(table + " | doRetrieveByKey: Failed | " + e.getMessage());
         }
-        rs.next();
         return rs;
     }
 

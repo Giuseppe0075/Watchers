@@ -54,7 +54,7 @@ public class UserModel implements DAO<UserBean> {
         //Check the number of keys
         if(keys.size() != 1) throw new SQLException("User | doRetrieveByKey: Failed | The number of keys is not 1");
         ResultSet rs = Model.doRetrieveByKey(TABLE,KEYS, keys);
-
+        if(!rs.next()) return null;
         return new UserBean(rs);
     }
 

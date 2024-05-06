@@ -42,8 +42,6 @@ public class CartServlet extends HttpServlet {
                 CartElementModel cartElementModel = new CartElementModel();
                 try {
                     cartElement.setUser(user);
-                    CartElementBean cartElementBean = cartElementModel.doRetrieveByKey(List.of(user,watch));
-                    cartElement.setQuantity(cartElementBean == null ? quantity : cartElementBean.getQuantity() + quantity);
                     cartElementModel.doSaveOrUpdate(cartElement);
                     cart.add(cartElement);
                 } catch (Exception e) {
