@@ -74,7 +74,7 @@ public class DatabaseConnectionPool {
      * @return a valid connection
      */
     public synchronized Connection getConnection(){
-        Logger.debug("Connection Pool added connection "+ (pool.size()-1) + "/" + POOL_SIZE );
+        Logger.debug("Connection Pool added connection "+ (!pool.isEmpty() ? pool.size()-1: 0) + "/" + POOL_SIZE );
         return pool.remove();
     }
 
