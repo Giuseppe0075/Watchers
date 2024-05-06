@@ -3,6 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
     <filter>
         <filter-name>Admin-Filter</filter-name>
@@ -12,13 +15,34 @@
         <filter-name>Admin-Filter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
-        <location>/error-servlet</location>
+        <location>/errors/error.jsp</location>
     </error-page>
+
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.watchers.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/user/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>cartServlet</servlet-name>
+        <servlet-class>Servlet.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cartServlet</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>r
 
 
 </web-app>

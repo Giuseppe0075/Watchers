@@ -14,7 +14,7 @@ public abstract class ConfigurationProperties {
         properties = new Properties();
         try (FileInputStream fis = new FileInputStream(CONFIG_FILE)) {
             properties.load(fis);
-            Logger.debug("URI: {}, USER: {}, PSW: {}", getUrl(), getUsername(), getPassword());
+            //Logger.debug("URI: {}, USER: {}, PSW: {}", getUrl(), getUsername(), getPassword());
         } catch (IOException e) {
             Logger.error(e, "Cannot load configuration file: {}", CONFIG_FILE);
         }

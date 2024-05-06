@@ -24,7 +24,7 @@ public class DatabaseConnectionPool {
 
 
     private DatabaseConnectionPool() {
-        Logger.info("Trying to connect to db with URI: {}, USER: {}, PSW: {}", uri, username, password);
+        //Logger.info("Trying to connect to db with URI: {}, USER: {}, PSW: {}", uri, username, password);
 
         for (int i = 0; i < POOL_SIZE; i++) {
             try {

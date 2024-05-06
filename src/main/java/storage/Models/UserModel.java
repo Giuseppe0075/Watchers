@@ -1,5 +1,6 @@
 package storage.Models;
 
+import org.tinylog.Logger;
 import storage.DAO;
 import storage.Beans.UserBean;
 

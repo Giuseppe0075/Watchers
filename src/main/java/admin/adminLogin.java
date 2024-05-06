@@ -17,7 +17,7 @@ public class adminLogin extends HttpServlet {
     //TODO Add password hashing
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String email = sanitizeInput(req.getParameter("email"));
         String password = sanitizeInput(req.getParameter("password"));
