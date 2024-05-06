@@ -1,3 +1,4 @@
+
 a {
     text-decoration: none;
 }
@@ -15,7 +16,7 @@ nav #title {
     font-size: 25px;
 }
 .menu {
-    float:center;
+    float: center;
     li {
         background: none;
         color: white;
@@ -82,7 +83,6 @@ li {
 }
 
 
-
 .container {
     display: flex;
     flex-flow: row nowrap;
@@ -131,6 +131,34 @@ li {
     height: 245px;
     width: 245px;
 }
+
+header {
+    ali
+}
+
+nav {
+    background: ghostwhite;
+    margin: 10px 10px 0px 10px;
+}
+
+nav ul{
+    margin: 0px;
+    list-style-type: none;
+    padding: 5px 0px 5px 0px;
+}
+
+nav ul li{
+    display: inline;
+}
+
+nav ul li a:link, nav ul li a:visited{
+    color: black;
+    border-bottom: none;
+    font-weight: bold;
+}
+ nav ul li.selected {
+     background-color: darkslategrey ;
+ }
 
 
 
