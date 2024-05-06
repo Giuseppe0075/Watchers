@@ -27,11 +27,11 @@ public class CartServlet extends HttpServlet {
         String action = req.getParameter("action");
         Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
         Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-        Logger.debug("action: " + action + " watch: " + watch + " quantity: " + req.getParameter("quantity"));
+        //Logger.debug("action: " + action + " watch: " + watch + " quantity: " + req.getParameter("quantity"));
 
         HttpSession session = req.getSession();
 
-        List<CartElementBean> cart =  session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") : new ArrayList<>();
+        List<CartElementBean> cart =  session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") : new ArrayList<CartElementBean>();
 
         if(action.equals("add")){
             CartElementBean cartElement = new CartElementBean(0L,watch,quantity);
