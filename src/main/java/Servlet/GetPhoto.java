@@ -10,7 +10,7 @@ import storage.Beans.ImageBean;
 import storage.Models.ImageModel;
 
 @WebServlet(name = "getPhoto", value="/getPhoto")
-public class getPhoto extends HttpServlet{
+public class GetPhoto extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ImageModel im = new ImageModel();

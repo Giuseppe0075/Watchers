@@ -6,7 +6,7 @@
     <div> <!--Menu-->
         <ul class="menu">
             <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
-            <li><a href="">Menu2</a></li>
+            <li><a href="${pageContext.request.contextPath}/cart">Cart</a></li>
             <li><a href="">Menu3</a></li>
             <li><a href="">Menu4</a></li>
         </ul>

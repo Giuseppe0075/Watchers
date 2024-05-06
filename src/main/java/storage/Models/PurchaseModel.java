@@ -21,7 +21,7 @@ public class PurchaseModel implements DAO<PurchaseBean> {
 
     @Override
     public void doDelete(PurchaseBean purchaseBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE id = ? AND user = ? AND watch = ?", List.of(purchaseBean.getId(), purchaseBean.getUser(), purchaseBean.getWatch()));
     }
 
     @Override

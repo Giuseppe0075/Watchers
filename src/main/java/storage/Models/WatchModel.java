@@ -80,15 +80,7 @@ public class WatchModel implements DAO<WatchBean> {
 
     @Override
     public void doDelete(WatchBean watchBean) throws Exception {
-
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
-
-            int rs = connection.executeUpdate("DELETE FROM Watch WHERE id = ?", List.of(watchBean.getId()));
-
-            if(rs == 0){
-                throw new SQLException("Watch | doDelete: Failed | watch: " + watchBean);
-            }
-        }
+        Model.doDeleteByCond(TABLE, "WHERE id = ?", List.of(watchBean.getId()));
     }
 
     @Override

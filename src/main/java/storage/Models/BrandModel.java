@@ -21,7 +21,7 @@ public class BrandModel implements DAO<BrandBean> {
 
     @Override
     public void doDelete(BrandBean entity) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE business_name = ?", List.of(entity.getBusiness_name()));
     }
 
     @Override

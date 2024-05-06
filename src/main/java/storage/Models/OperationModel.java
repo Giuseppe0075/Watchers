@@ -21,7 +21,7 @@ public class OperationModel implements DAO<OperationBean> {
 
     @Override
     public void doDelete(OperationBean operationBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE id = ?", List.of(operationBean.getId()));
     }
 
     @Override

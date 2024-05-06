@@ -10,6 +10,7 @@ import org.tinylog.Logger;
 import storage.Beans.CartElementBean;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import storage.Beans.UserBean;
 import storage.Models.CartElementModel;
@@ -24,33 +25,19 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
-        Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-        //Logger.debug("action: " + action + " watch: " + watch + " quantity: " + req.getParameter("quantity"));
-
+        CartElementModel cartElementModel = new CartElementModel();
         HttpSession session = req.getSession();
-
-        List<CartElementBean> cart =  session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") : new ArrayList<CartElementBean>();
-
-        if(action.equals("add")){
-            CartElementBean cartElement = new CartElementBean(0L,watch,quantity);
-            Long user = (Long) session.getAttribute("user");
-            if(user == null){
-                cart.add(cartElement);
-            }else{
-                CartElementModel cartElementModel = new CartElementModel();
-                try {
-                    cartElement.setUser(user);
-                    cartElementModel.doSaveOrUpdate(cartElement);
-                    cart.add(cartElement);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
+        Long user = session.getAttribute("user") != null ?  ((UserBean) session.getAttribute("user")).getId() : (long) 0;
+        Collection<CartElementBean> cart;
+        try {
+            cart = session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") :
+                    cartElementModel.doRetrieveByCond("WHERE user = ?", List.of(user));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         session.setAttribute("cart",cart);
         req.getRequestDispatcher("/cart/cart.jsp").forward(req, resp);
     }
 }
+

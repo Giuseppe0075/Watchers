@@ -11,8 +11,8 @@ public class Model{
 
     /**
      * The method doSave() saves in a table passed as parameter the values passed as parameter
-     * The values must be in the same order as the columns
      * The method throws an exception if the query fails
+     * The values must be in the same order as the columns
      */
     public static void doSave(String table, List<String> columns, List<Object> values) throws SQLException {
         //INSERT INTO table (
@@ -41,6 +41,8 @@ public class Model{
 
     /**
      * The method doDeleteByCond() deletes from a table passed as parameter tuples that satisfy the condition passed as parameter
+     * The method throws an exception if the query fails
+     * The values must be in the same order as the columns
      */
     public static void doDeleteByCond(String table, String condition, List<Object> values) throws SQLException {
         try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){

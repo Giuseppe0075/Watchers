@@ -21,7 +21,7 @@ public class ReviewModel implements DAO<ReviewBean> {
 
     @Override
     public void doDelete(ReviewBean reviewBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE watch = ? AND user = ?", List.of(reviewBean.getWatch(), reviewBean.getUser()));
     }
 
     @Override

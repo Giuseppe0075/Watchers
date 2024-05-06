@@ -20,7 +20,7 @@ public class ImageModel implements DAO<ImageBean> {
 
     @Override
     public void doDelete(ImageBean imageBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE id = ? AND watch = ?", List.of(imageBean.getId(), imageBean.getWatch()));
     }
 
     @Override

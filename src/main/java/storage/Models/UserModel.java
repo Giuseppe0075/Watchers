@@ -41,7 +41,7 @@ public class UserModel implements DAO<UserBean> {
 
     @Override
     public void doDelete(UserBean userBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE id = ?", List.of(userBean.getId()));
     }
 
     @Override

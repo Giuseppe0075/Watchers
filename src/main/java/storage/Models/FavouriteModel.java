@@ -21,7 +21,7 @@ public class FavouriteModel implements DAO<FavouriteBean> {
 
     @Override
     public void doDelete(FavouriteBean favouriteBean) throws Exception {
-
+        Model.doDeleteByCond(TABLE, "WHERE watch = ? AND user = ?", List.of(favouriteBean.getWatch(), favouriteBean.getUser()));
     }
 
     @Override
