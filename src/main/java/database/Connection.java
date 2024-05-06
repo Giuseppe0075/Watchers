@@ -32,7 +32,7 @@ public class Connection implements AutoCloseable{
 
     public ResultSet executeQuery(String query, List<Object> params) throws SQLException {
         PreparedStatement ps = buildStatement(query, params);
-        //Logger.debug("-------"+ps.toString());
+        Logger.debug("-------"+ps.toString());
         return ps.executeQuery();
 
 
