@@ -74,15 +74,15 @@ public class DatabaseConnectionPool {
      * @return a valid connection
      */
     public synchronized Connection getConnection(){
-        Logger.debug("Connection Pool added connection "+ pool.size() + "/" + POOL_SIZE );
+        Logger.debug("Connection Pool added connection "+ (pool.size()-1) + "/" + POOL_SIZE );
         return pool.remove();
     }
 
 
 
     public synchronized void releaseConnection(Connection connection) {
-        Logger.debug("releasing connection");
         pool.add(connection);
+        Logger.debug("Releasing connection. " + pool.size() + "/" + POOL_SIZE);
     }
 
     public synchronized void releaseConnection(java.sql.Connection connection) {
