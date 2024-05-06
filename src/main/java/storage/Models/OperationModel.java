@@ -33,6 +33,7 @@ public class OperationModel implements DAO<OperationBean> {
     public OperationBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 1) throw new SQLException("Operation | doRetrieveByKey: Failed | The number of keys is not 1");
         ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
+        if(!rs.next()) return null;
         return new OperationBean(rs);
     }
 

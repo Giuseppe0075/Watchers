@@ -53,7 +53,7 @@ public class WatchModel implements DAO<WatchBean> {
     public WatchBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 1) throw new Exception("Watch | doRetrieveByKey: Failed | The number of keys is not 1.");
         ResultSet rs = Model.doRetrieveByKey(TABLE,KEYS, keys);
-
+        if(!rs.next()) return null;
         return new WatchBean(rs);
     }
 

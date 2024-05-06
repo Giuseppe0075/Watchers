@@ -33,7 +33,7 @@ public class ReviewModel implements DAO<ReviewBean> {
     public ReviewBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 2) throw new SQLException("Review | doRetrieveByKey: Failed | The number of keys is not 2");
         ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
-
+        if(!rs.next()) return null;
         return new ReviewBean(rs);
     }
 

@@ -26,11 +26,12 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
-        Integer quantity = Integer.getInteger(req.getParameter("quantity"));
-        Logger.debug("action: " + action + " watch: " + watch + " quantity: " + quantity);
+        Integer quantity = Integer.parseInt(req.getParameter("quantity"));
+        //Logger.debug("action: " + action + " watch: " + watch + " quantity: " + req.getParameter("quantity"));
 
         HttpSession session = req.getSession();
-        List<CartElementBean> cart =  session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") : new ArrayList<>();
+
+        List<CartElementBean> cart =  session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") : new ArrayList<CartElementBean>();
 
         if(action.equals("add")){
             CartElementBean cartElement = new CartElementBean(0L,watch,quantity);
@@ -41,13 +42,14 @@ public class CartServlet extends HttpServlet {
                 CartElementModel cartElementModel = new CartElementModel();
                 try {
                     cartElement.setUser(user);
-                    cartElementModel.doSave(cartElement);
+                    cartElementModel.doSaveOrUpdate(cartElement);
                     cart.add(cartElement);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         }
+
         session.setAttribute("cart",cart);
         req.getRequestDispatcher("/cart/cart.jsp").forward(req, resp);
     }

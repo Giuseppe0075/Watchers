@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             Optional<UserBean> user = userModel.doRetrieveByCond("WHERE email=? AND psw=?", List.of(email,password)).stream().findFirst();
             if (user.isPresent()){
                 HttpSession session = req.getSession();
-
+                session.setAttribute("user",user.get().getId());
                 resp.sendRedirect(req.getContextPath() + "/index.jsp");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/user/login.jsp");

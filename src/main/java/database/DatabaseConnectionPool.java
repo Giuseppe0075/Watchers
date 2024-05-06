@@ -37,15 +37,14 @@ public class DatabaseConnectionPool {
 
         Runtime runtime = Runtime.getRuntime();
         runtime.addShutdownHook(new Thread(() -> {
-            synchronized (pool) {
-                for (Connection connection : pool) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        Logger.warn("Failed to close connection in the pool", e);
-                    }
+            for (Connection connection : pool) {
+                try {
+                    connection.connection.close();
+                } catch (Exception e) {
+                    Logger.warn("Failed to close connection in the pool", e);
                 }
             }
+
             Logger.info("Db connection pool closed");
         }));
     }
@@ -74,7 +73,7 @@ public class DatabaseConnectionPool {
      * @return a valid connection
      */
     public synchronized Connection getConnection(){
-        Logger.debug("Connection Pool added connection "+ (pool.size()-1) + "/" + POOL_SIZE );
+        Logger.debug("Connection Pool added connection "+ (!pool.isEmpty() ? pool.size()-1: 0) + "/" + POOL_SIZE );
         return pool.remove();
     }
 

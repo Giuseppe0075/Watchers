@@ -33,6 +33,7 @@ public class PurchaseModel implements DAO<PurchaseBean> {
     public PurchaseBean doRetrieveByKey(List<Object> key) throws Exception {
         if(key.size() != 3) throw new SQLException("Purchase | doRetrieveByKey: Failed | The number of keys is not 3");
         ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, key);
+        if(!rs.next()) return null;
         return new PurchaseBean(rs);
     }
 

@@ -32,6 +32,7 @@ public class ImageModel implements DAO<ImageBean> {
     public ImageBean doRetrieveByKey(List<Object> keys) throws Exception {
         if(keys.size() != 2) throw new Exception("Image | doRetrieveByKey: Failed | The number of keys is not 2.");
         ResultSet rs = Model.doRetrieveByKey(TABLE, KEYS, keys);
+        if(!rs.next()) return null;
         return new ImageBean(rs);
     }
     @Override
