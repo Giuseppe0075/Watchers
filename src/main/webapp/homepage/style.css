@@ -2,6 +2,9 @@ header img {
     height: 80px;
     margin-left: 40px;
 }
+.omino{
+    height: 70px;
+}
 
 body {
     height: 125vh;
@@ -29,7 +32,7 @@ header * {
 }
 
 header li{
-    margin: 80px;
+    margin: 90px;
 }
 
 header div{
@@ -55,8 +58,11 @@ nav ul li.selected {
 }
 
 #mainVideo {
-    position: absolute;
+    position: fixed; right: 0; bottom: 0;
     top: 86px;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto; z-index: -100;
+    background-size: cover;
     z-index: -1;
 }
 
