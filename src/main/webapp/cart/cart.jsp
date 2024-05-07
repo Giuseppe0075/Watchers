@@ -9,7 +9,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% HttpSession session1 = request.getSession(); %>
-  }
 <html>
 <head>
     <title>Title</title>
@@ -33,10 +32,15 @@
         <td><%= element.getQuantity() %></td>
         <td>
           <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="watch" value="<%= element.getWatch()%>">
             <label>
-              <input type="number"  name="quantity" value="<% element.getQuantity(); %>">
+              <input type="number"  name="quantity" value="<%= element.getQuantity() %>">
             </label>
-            <input type="submit" name="remove" value="remove">
+            <input type="submit" name="action" value="update">
+          </form>
+          <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="watch" value="<%= element.getWatch()%>">
+            <input type="submit" name="action" value="remove">
           </form>
         </td>
       </tr>

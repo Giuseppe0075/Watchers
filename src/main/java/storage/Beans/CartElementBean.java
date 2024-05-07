@@ -68,7 +68,6 @@ public class CartElementBean extends Bean{
         CartElementBean that = (CartElementBean) o;
 
         if (!user.equals(that.user)) return false;
-        if (!watch.equals(that.watch)) return false;
-        return quantity.equals(that.quantity);
+        return watch.equals(that.watch);
     }
 }
