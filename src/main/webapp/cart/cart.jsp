@@ -22,11 +22,14 @@
       <td>Azioni</td>
     </tr>
     <%
-      if(session1.getAttribute("cart") == null) {
-        session1.setAttribute("cart", new ArrayList<CartElementBean>());
-      }
       List<CartElementBean> cart = (List<CartElementBean>) session1.getAttribute("cart");
-      for(CartElementBean element : cart) { %>
+      if(cart == null) {
+        cart = new ArrayList<>();
+        session1.setAttribute("cart", cart);
+      }%>
+
+
+      <%for(CartElementBean element : cart) { %>
       <tr>
         <td><%= element.getWatch()%></td>
         <td><%= element.getQuantity() %></td>

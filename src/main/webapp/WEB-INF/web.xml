@@ -42,7 +42,7 @@
     <servlet-mapping>
         <servlet-name>cartServlet</servlet-name>
         <url-pattern>/cart</url-pattern>
-    </servlet-mapping>r
+    </servlet-mapping>
 
 
 </web-app>

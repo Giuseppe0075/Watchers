@@ -25,38 +25,40 @@ public class CartServlet extends HttpServlet {
         HttpSession session = req.getSession();
         ShoppingCart shoppingCart = new ShoppingCart(session);
         Long user = session.getAttribute("user") != null ? Long.parseUnsignedLong(String.valueOf(session.getAttribute("user"))) : 0;
-
+        Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
         String action = String.valueOf(req.getParameter("action"));
-        if(action.equals("add")){
-            CartElementModel cartElementModel = new CartElementModel();
-            Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-            Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
-            CartElementBean old;
-            try{
-                old = cartElementModel.doRetrieveByKey(List.of(user,watch));
-                if(old != null)
-                    quantity += old.getQuantity();
-            }catch(Exception e){
-                Logger.warn(e.getMessage());
+        switch (action) {
+            case "add": {
+                CartElementModel cartElementModel = new CartElementModel();
+                Integer quantity = Integer.parseInt(req.getParameter("quantity"));
+                CartElementBean old;
+                try {
+                    old = cartElementModel.doRetrieveByKey(List.of(user, watch));
+                    if (old != null)
+                        quantity += old.getQuantity();
+                } catch (Exception e) {
+                    Logger.warn(e.getMessage());
+                }
+                CartElementBean cartElementBean = new CartElementBean(user, watch, quantity);
+                shoppingCart.sumCartElementQuantity(cartElementBean);
+                break;
             }
-            CartElementBean cartElementBean = new CartElementBean(user, watch, quantity);
-            shoppingCart.sumCartElementQuantity(cartElementBean);
-        }
-        else if(action.equals("update")){
-            Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-            Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
-            CartElementBean cartElementBean = new CartElementBean(user, watch, quantity);
-            shoppingCart.updateCartElementQuantity(cartElementBean);
-        }
-        else if(action.equals("remove")){
-            Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
-            CartElementBean cartElementBean = new CartElementBean(user, watch, 0);
-            shoppingCart.removeFromCart(cartElementBean);
+            case "update": {
+                Integer quantity = Integer.parseInt(req.getParameter("quantity"));
+                CartElementBean cartElementBean = new CartElementBean(user, watch, quantity);
+                shoppingCart.updateCartElementQuantity(cartElementBean);
+                break;
+            }
+            case "remove": {
+                CartElementBean cartElementBean = new CartElementBean(user, watch, 0);
+                shoppingCart.removeFromCart(cartElementBean);
+                break;
+            }
         }
         List<CartElementBean> cart = shoppingCart.getCart();
-
         session.setAttribute("cart",cart);
         req.getRequestDispatcher("/cart/cart.jsp").forward(req, resp);
+        // maybe better: resp.sendRedirect("/cart/cart.jsp"); ???
     }
 }
 
