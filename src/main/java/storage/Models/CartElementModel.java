@@ -64,7 +64,6 @@ public class CartElementModel implements DAO<CartElementBean> {
             doSave(cartElementBean);
             return;
         }
-        cartElementBean.setQuantity(cartElementBean.getQuantity() + temp.getQuantity());
         List<Object> values = List.of(cartElementBean.getQuantity(), cartElementBean.getUser(), cartElementBean.getWatch());
         Model.doUpdate(TABLE, COLUMNS.subList(2, COLUMNS.size()), values, KEYS);
     }
