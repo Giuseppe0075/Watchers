@@ -55,9 +55,7 @@ public class CartServlet extends HttpServlet {
                 break;
             }
         }
-        List<CartElementBean> cart = shoppingCart.getCart();
-        session.setAttribute("cart",cart);
-        req.getRequestDispatcher("/cart/cart.jsp").forward(req, resp);
+        resp.sendRedirect("/cart/cart.jsp");
         // maybe better: resp.sendRedirect("/cart/cart.jsp"); ???
     }
 }

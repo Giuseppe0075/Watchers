@@ -1,6 +1,7 @@
 <%@ page import="storage.Beans.CartElementBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="ShoppingCart.ShoppingCart" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 30/04/2024
@@ -22,7 +23,7 @@
       <td>Azioni</td>
     </tr>
     <%
-      List<CartElementBean> cart = (List<CartElementBean>) session1.getAttribute("cart");
+      List<CartElementBean> cart = new ShoppingCart(session1).getCart();
       if(cart == null) {
         cart = new ArrayList<>();
         session1.setAttribute("cart", cart);

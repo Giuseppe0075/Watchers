@@ -13,7 +13,6 @@
         <title>Watchers</title>
         <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
         <link rel="stylesheet" href="../homepage/style.css">
-
     </head>
     <body>
         <%
@@ -53,7 +52,5 @@
                 <p><%=watch.getDescription()%></p>
             </aside>
         </div>
-
-
     </body>
 </html>

@@ -12,10 +12,10 @@
     <nav>
         <div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
-                <li><a href="#">Menu1</a></li>
+                <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a></li>
+                <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a></li>
                 <li><a href="#">Menu2</a></li>
-                <li><a href="#">Menu3</a></li>
+                <li><a href="#">Logout</a></li>
             </ul>
         </div>
     </nav>
