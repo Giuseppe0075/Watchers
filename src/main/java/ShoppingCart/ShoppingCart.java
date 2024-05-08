@@ -27,7 +27,7 @@ public class ShoppingCart {
         Object userIdObject = session.getAttribute("user");
         if(userIdObject != null){
             Long userId = Long.parseUnsignedLong(String.valueOf(userIdObject));
-            updateCart();
+            //updateCart(); not working
             try {
                 shoppingCart = (List<CartElementBean>) cartElementModel.doRetrieveByCond("WHERE user = ?", List.of(userId));
                 session.setAttribute("cart", shoppingCart);
@@ -64,7 +64,7 @@ public class ShoppingCart {
         int index = shoppingCart.indexOf(cartElementBean);
         if(index != -1) {
             CartElementBean old = shoppingCart.get(index);
-            old.setQuantity(10);
+            //old.setQuantity(0); ma tutt appost
             shoppingCart.remove(old);
             cartElementBean.setQuantity(old.getQuantity() + cartElementBean.getQuantity());
         }

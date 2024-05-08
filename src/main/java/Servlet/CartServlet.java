@@ -55,8 +55,7 @@ public class CartServlet extends HttpServlet {
                 break;
             }
         }
-        resp.sendRedirect("/cart/cart.jsp");
-        // maybe better: resp.sendRedirect("/cart/cart.jsp"); ???
+        resp.sendRedirect(req.getContextPath() + "/cart/cart.jsp");
     }
 }
 
