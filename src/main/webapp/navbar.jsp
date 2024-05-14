@@ -7,7 +7,7 @@
 <body>
 <header>
     <a href="${pageContext.request.contextPath}/index.jsp">
-    <img src="${pageContext.request.contextPath}/homepage/LOGO.png">
+    <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
     </a>
     <nav>
         <div>
@@ -24,7 +24,7 @@
         </div>
     </nav>
 
-    <a href="${pageContext.request.contextPath}/user/login.jsp"><img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png"></a>
+    <a href="${pageContext.request.contextPath}/user/login.jsp"><img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino"></a>
 </header>
 </body>
 </html>

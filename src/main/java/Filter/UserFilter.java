@@ -16,7 +16,7 @@ public class UserFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        if((req.getServletPath().contains("user/login") || req.getServletPath().contains("user/register") && req.getSession(false).getAttribute("user") == null)){
+        if((req.getServletPath().contains("user/login") || req.getServletPath().contains("user/signup") && req.getSession(false).getAttribute("user") == null)){
             filterChain.doFilter(request, response);
             return;
         }

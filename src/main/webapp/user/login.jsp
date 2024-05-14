@@ -21,6 +21,6 @@
             <input type="checkbox" value="adminlogin" >
             <input type="submit"><br>
         </form>
-
+        <a href="signup.jsp">Sign-Up</a>
 </body>
 </html>

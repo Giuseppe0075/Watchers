@@ -27,7 +27,7 @@
 
     %>
     <div class="container">
-        <div class="mainData">
+        <div class="mainDetails">
             <div class="header"> <%=user.getName()%></div>
             <div class="header"> <%=user.getSurname()%></div>
         </div>
