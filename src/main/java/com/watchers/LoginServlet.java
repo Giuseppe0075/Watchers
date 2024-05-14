@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@WebServlet(name = "LoginServlet", value = "/user/login")
 public class LoginServlet extends HttpServlet {
     public void init() {
 
