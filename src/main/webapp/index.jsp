@@ -10,7 +10,8 @@
 
 </head>
 <body>
-<%@include file="navbar.jsp"%> <!-- Navabar -->
+<!-- Navbar -->
+<%@include file="navbar.jsp"%>
 <%DatabaseConnectionPool.getInstance();%>
 <div id="frontPage">
     <<video id="mainVideo" autoplay muted loop>

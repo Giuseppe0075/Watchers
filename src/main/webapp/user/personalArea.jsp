@@ -14,6 +14,7 @@
     <title>Personal Area</title>
 </head>
 <body>
+    <!-- Navbar -->
     <%@include file="../navbar.jsp"%>
     <%
         UserBean user;
