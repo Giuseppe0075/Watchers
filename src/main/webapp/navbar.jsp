@@ -15,7 +15,11 @@
                 <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a></li>
                 <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a></li>
                 <li><a href="#">Menu2</a></li>
-                <li><a href="#">Logout</a></li>
+                <% if (session.getAttribute("user") != null) { %>
+                <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+                <% } else { %>
+                <li><a href="${pageContext.request.contextPath}/user/login.jsp">Login</a></li>
+                <% } %>
             </ul>
         </div>
     </nav>
