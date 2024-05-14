@@ -54,7 +54,7 @@
             <td><%=watch.getBrand()%></td>
             <td><%=watch.getDescription()%></td>
             <td>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
+                <form action="${pageContext.request.contextPath}/cart-servlet" method="post">
                     <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="watch" value="<%= watch.getId()%>">
                     <input type="submit" name="action" value="add">

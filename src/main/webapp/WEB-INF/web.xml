@@ -19,30 +19,4 @@
         <error-code>404</error-code>
         <location>/errors/error.jsp</location>
     </error-page>
-
-
-    <servlet>
-        <servlet-name>loginServlet</servlet-name>
-        <servlet-class>com.watchers.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>loginServlet</servlet-name>
-        <url-pattern>/user/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>loginServlet</servlet-name>
-        <url-pattern>/admin/login</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>cartServlet</servlet-name>
-        <servlet-class>Servlet.CartServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>cartServlet</servlet-name>
-        <url-pattern>/cart</url-pattern>
-    </servlet-mapping>
-
-
 </web-app>

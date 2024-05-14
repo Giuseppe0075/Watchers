@@ -2,6 +2,7 @@ package Servlet;
 
 import ShoppingCart.ShoppingCart;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.util.List;
 import storage.Models.CartElementModel;
 import java.io.IOException;
 
+@WebServlet(name = "CartServlet", value = "/cart-servlet")
 public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

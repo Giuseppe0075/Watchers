@@ -15,8 +15,8 @@ public class ShoppingCart {
     HttpSession session;
 
     public ShoppingCart(HttpSession session){
-        this.session = session;
         shoppingCart  = new ArrayList<>();
+        this.session = session;
     }
 
     /**

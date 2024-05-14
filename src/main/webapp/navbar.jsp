@@ -20,7 +20,7 @@
         </div>
     </nav>
 
-    <a href=""><img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png"></a>
+    <a href="${pageContext.request.contextPath}/user/login.jsp"><img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png"></a>
 </header>
 </body>
 </html>
