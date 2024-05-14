@@ -16,7 +16,11 @@ public class UserFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        if(req.getServletPath().contains("user/login") || req.getServletPath().contains("user/logout")){
+        if((req.getServletPath().contains("user/login") || req.getServletPath().contains("user/register") && req.getSession(false).getAttribute("user") == null)){
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if(req.getServletPath().contains("user/logout")){
             filterChain.doFilter(request, response);
             return;
         }
@@ -31,6 +35,6 @@ public class UserFilter implements Filter {
             Logger.warn("Filter User | User tried to access user pages without being authenticated");
         }
 
-        resp.sendRedirect("/");
+        resp.sendRedirect(req.getContextPath() + "/user/login.jsp");
     }
 }
