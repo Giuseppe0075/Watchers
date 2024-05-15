@@ -1,6 +1,5 @@
 package admin;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import java.io.IOException;
 import static utils.Security.sanitizeInput;
 
 @WebServlet(name = "adminLoginServlet", value = "/admin-login-servlet")
-public class adminLogin extends HttpServlet {
+public class AdminLogin extends HttpServlet {
     //TODO Add password hashing
 
     @Override

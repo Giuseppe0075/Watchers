@@ -18,7 +18,7 @@
                 <% if (session.getAttribute("user") != null) { %>
                 <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
                 <% } else { %>
-                <li><a href="${pageContext.request.contextPath}/user/login.jsp">Login</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a></li>
                 <% } %>
             </ul>
         </div>

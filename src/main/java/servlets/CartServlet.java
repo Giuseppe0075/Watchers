@@ -1,4 +1,4 @@
-package Servlet;
+package servlets;
 
 import ShoppingCart.ShoppingCart;
 import jakarta.servlet.ServletException;

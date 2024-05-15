@@ -1,6 +1,5 @@
-package com.watchers;
+package servlets;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.*;
@@ -12,23 +11,11 @@ import storage.Beans.UserBean;
 import storage.Models.UserModel;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @WebServlet(name = "LoginServlet", value = "/user/login")
 public class LoginServlet extends HttpServlet {
-    public void init() {
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
-        rd.forward(req, resp);
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,8 +40,4 @@ public class LoginServlet extends HttpServlet {
             Logger.warn(e);
         }
     }
-
-    public void destroy() {
-    }
-
 }

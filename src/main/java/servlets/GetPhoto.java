@@ -1,4 +1,4 @@
-package Servlet;
+package servlets;
 import java.io.*;
 import java.util.List;
 
@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.*;
 import storage.Beans.ImageBean;
 import storage.Models.ImageModel;
 
-@WebServlet(name = "getPhoto", value="/getPhoto")
+@WebServlet(name = "GetPhoto", value="/Get-Photo")
 public class GetPhoto extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
