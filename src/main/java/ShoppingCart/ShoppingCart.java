@@ -64,7 +64,7 @@ public class ShoppingCart {
         int index = shoppingCart.indexOf(cartElementBean);
         if(index != -1) {
             CartElementBean old = shoppingCart.get(index);
-            //old.setQuantity(0); ma tutt appost
+            //old.setQuantity(0); ma tutt appost ??
             shoppingCart.remove(old);
             cartElementBean.setQuantity(old.getQuantity() + cartElementBean.getQuantity());
         }

@@ -1,4 +1,7 @@
-<%--
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.lang.reflect.Field" %>
+<%@ page import="user.SignupDataForm" %>
+<%@ page import="utils.FieldDescriptor" %><%--
   Created by IntelliJ IDEA.
   User: giuse
   Date: 14/05/2024
@@ -16,50 +19,16 @@
         <%@include file="../navbar.jsp"%>
         <h2> Sign-Up</h2><br><br>
         <form action="${pageContext.request.contextPath}/signup" method="post">
-            <!-- Name -->
-            <label for="name">Name
-                <input type="text" id="name" name="name" placeholder="Insert your name..."><br>
-            </label>
+            <%
+                for(Field field: SignupDataForm.class.getDeclaredFields()){
+                    FieldDescriptor descriptor = field.getAnnotation(FieldDescriptor.class);
+                    String placeHolder = descriptor != null ? descriptor.description() : "";
+                %>
 
-            <!-- Surname -->
-            <label for="surname">Surname
-                <input type="text" id="surname" name="surname" placeholder="Insert your surname..."><br>
-            </label>
+            <label for=name=><%=field.getName()%></label>
+            <input type="text" id=<%=field.getName()%> name=<%=field.getName()%> placeholder=<%=placeHolder%>><br>
 
-            <!-- Birthday -->
-            <label for="birthday">Birthday
-                <input type="date" id="birthday" name="birthday"><br>
-            </label>
-
-            <!-- Address -->
-            <label for="city">City
-                <input type="text" id="city" name="city" placeholder="Insert your city..."><br>
-            </label>
-            <label for="road">Road
-                <input type="text" id="road" name="road" placeholder="Insert your address..."><br>
-            </label>
-            <label for="civicNumber">Civic number
-                <input type="text" id="civicNumber" name="civicNumber" placeholder="Insert your civic number..."><br>
-            </label>
-            <label for="CAP">CAP
-                <input type="text" id="CAP" name="CAP" placeholder="Insert your CAP..."><br>
-            </label>
-
-            <!-- Email -->
-            <label for="email">Email
-                <input type="email" id="email" name="email" placeholder="Insert your email..."><br>
-            </label>
-            <label for="repeatEmail">Repeat email
-                <input type="email" id="repeatEmail" name="repeatEmail" placeholder="Repeat your email..."><br>
-            </label>
-
-            <!-- Password -->
-            <label for="password">Password
-                <input type="password" id="password" name="password" placeholder="Insert your password..."><br>
-            </label>
-            <label for="repeatPassword">Repeat password
-                <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repeat your password..."><br>
-            </label>
+            <%}%>
 
             <input type="submit" value="Sign-up">
         </form>
