@@ -1,5 +1,6 @@
 package utils;
 
+import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
 
 import java.security.MessageDigest;
@@ -74,6 +75,28 @@ public class Security {
         messageDigest.update(salt);
         byte[] hashedPassword = messageDigest.digest(string.getBytes());
         return Base64.getEncoder().encodeToString(hashedPassword);
+    }
+
+
+    public static boolean checkCSRFToken(HttpSession session, String token){
+        if(session == null || token == null){
+            return false;
+        }
+        return session.getAttribute("CSRF-Token").equals(token);
+    }
+
+    /**
+     * Check if the password has:
+     * - at least 1 lower case (?=.*[a-z])
+     * - at least 1 upper case (?=.*[A-Z])
+     * - at least 1 digit (?=.*\\d)
+     * - at least 1 special symbol (?=.*[@#$%^&+=])
+     * - minimum 8 characters long, max 20 chars long .{8,20}
+     * @return true if the requirements are met
+     */
+    public static boolean checkPasswordForm(String password){
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@#$%^&+=]).{8,}$");
+
     }
 
 

@@ -1,5 +1,7 @@
 package storage.Beans;
 
+import user.SignupDataForm;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 
@@ -44,6 +46,18 @@ public class UserBean extends Bean{
         this.civic_number = civic_number;
         this.city = city;
         this.CAP = CAP;
+    }
+
+    public UserBean(SignupDataForm data){
+        this.email = data.email;
+        this.psw = data.password;
+        this.name = data.name;
+        this.surname = data.surname;
+        this.birthday = data.birthday;
+        this.road = data.address;
+        this.civic_number = data.civicNumber;
+        this.city = data.city;
+        this.CAP = data.CAP;
     }
 
 

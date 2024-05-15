@@ -1,7 +1,8 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.lang.reflect.Field" %>
 <%@ page import="user.SignupDataForm" %>
-<%@ page import="utils.FieldDescriptor" %><%--
+<%@ page import="utils.FieldDescriptor" %>
+<%@ page import="utils.Security" %><%--
   Created by IntelliJ IDEA.
   User: giuse
   Date: 14/05/2024
@@ -17,16 +18,23 @@
     <div class="container">
         <!-- Navbar -->
         <%@include file="../navbar.jsp"%>
+        <%!String csrfToken = Security.getCSRFToken();%>
+        <%session.setAttribute("CSRF-Token", csrfToken);%>
         <h2> Sign-Up</h2><br><br>
         <form action="${pageContext.request.contextPath}/signup" method="post">
+
+            <input type="hidden" id="CSRF-Token" name="CSRF-Token" value=<%=csrfToken%>>
             <%
-                for(Field field: SignupDataForm.class.getDeclaredFields()){
+                for(Field field: SignupDataForm.class.getFields()){
                     FieldDescriptor descriptor = field.getAnnotation(FieldDescriptor.class);
                     String placeHolder = descriptor != null ? descriptor.description() : "";
+                    String type = descriptor != null ? descriptor.type() : "text";
                 %>
 
-            <label for=name=><%=field.getName()%></label>
-            <input type="text" id=<%=field.getName()%> name=<%=field.getName()%> placeholder=<%=placeHolder%>><br>
+
+            <label> <%=field.getName()%>
+                <input type=<%=type%> id=<%=field.getName()%> name=<%=field.getName()%> placeholder=<%=placeHolder%>>
+            </label><br>
 
             <%}%>
 
