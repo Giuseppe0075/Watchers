@@ -1,4 +1,4 @@
-package Filter;
+package filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
 
 import java.io.IOException;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 public class UserFilter implements Filter {
     @Override
