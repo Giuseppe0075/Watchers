@@ -25,10 +25,10 @@
                     String placeHolder = descriptor != null ? descriptor.description() : "";
                 %>
 
-            <label for=name=><%=field.getName()%></label>
-            <input type="text" id=<%=field.getName()%> name=<%=field.getName()%> placeholder=<%=placeHolder%>><br>
+                    <label for=name=><%=field.getName()%></label>
+                    <input type="text" id=<%=field.getName()%> name=<%=field.getName()%> placeholder=<%=placeHolder%>><br>
 
-            <%}%>
+                <%}%>
 
             <input type="submit" value="Sign-up">
         </form>

@@ -17,7 +17,7 @@ public class AdminFilter implements Filter {
 
             if(session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true)){
                 System.out.println("authenticated");
-                filterChain.doFilter(servletRequest, servletResponse);
+                filterChain.doFilter(request, response);
                 return;
             }
 
@@ -26,7 +26,7 @@ public class AdminFilter implements Filter {
         }
 
         System.out.println("not authenticated");
-        response.sendRedirect(request.getContextPath() + "/adminLogin.jsp");
+        response.sendRedirect("../adminLogin.jsp");
 
     }
 }
