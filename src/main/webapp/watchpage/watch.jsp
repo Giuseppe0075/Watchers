@@ -25,7 +25,6 @@
             try {
                 watch = watchModel.doRetrieveByKey(List.of(id));
                 images = imageModel.doRetrieveByCond("WHERE watch=?", List.of(id));
-                assert(images != null);
             } catch (Exception e) {
                 response.sendError(404);
                 return;
@@ -39,7 +38,7 @@
                     // Itera attraverso la lista di immagini associate all'orologio
                     for (ImageBean image : images) {
                 %>
-                <img class="photo" src="${pageContext.request.contextPath}/Get-Photo?id=<%=image.getId() %>&watch=<%= watch.getId() %>" alt="Immagine al momento non disponibile">
+                <img class="photo" src="${pageContext.request.contextPath}/get-photo?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
                 <%
                     }
                 %>

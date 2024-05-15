@@ -6,8 +6,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
+import storage.Beans.AdminBean;
+import storage.Models.AdminModel;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 import static utils.Security.sanitizeInput;
 
@@ -21,15 +25,15 @@ public class AdminLogin extends HttpServlet {
         String email = sanitizeInput(req.getParameter("email"));
         String password = sanitizeInput(req.getParameter("password"));
 
-        HttpSession session1 = req.getSession(false);
-        if (session1 != null && session1.getAttribute("admin") != null && session1.getAttribute("admin").equals(true)) {
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true)) {
             resp.sendRedirect(req.getContextPath() + "/admin/adminPage.jsp");
         }
 
         // check if authenticated
         if (authenticate(email, password)) {
             Logger.info("Login of " + email);
-            HttpSession session = req.getSession();
+            session = req.getSession();
             session.setAttribute("admin", true);
             session.setMaxInactiveInterval(1000);
             resp.sendRedirect(req.getContextPath() + "/admin/adminPage.jsp");
@@ -41,8 +45,19 @@ public class AdminLogin extends HttpServlet {
     }
 
 
-    //TODO implement authenticate
+    //TODO: Add password hashing
     private static boolean authenticate(String email, String psw) {
-        return false;
+        AdminModel adminModel = new AdminModel();
+        Collection<AdminBean> admins = null;
+        try {
+            admins = adminModel.doRetrieveByCond("WHERE email = ?", List.of(email) );
+        } catch (Exception e) {
+            return false;
+        }
+        if(admins.isEmpty()){
+            return false;
+        }
+        AdminBean admin = admins.iterator().next();
+        return admin.getPsw().equals(psw);
     }
 }

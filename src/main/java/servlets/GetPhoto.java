@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.*;
 import storage.Beans.ImageBean;
 import storage.Models.ImageModel;
 
-@WebServlet(name = "GetPhoto", value="/Get-Photo")
+@WebServlet(name = "GetPhoto", value="/get-photo")
 public class GetPhoto extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
