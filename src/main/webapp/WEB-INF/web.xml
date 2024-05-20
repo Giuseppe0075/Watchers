@@ -24,7 +24,6 @@
     <filter-mapping>
         <filter-name>UserFilter</filter-name>
         <url-pattern>/user/*</url-pattern>
-        <url-pattern>/admin/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 

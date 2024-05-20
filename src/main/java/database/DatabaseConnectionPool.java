@@ -30,7 +30,7 @@ public class DatabaseConnectionPool {
             try {
                 pool.add(new Connection(DriverManager.getConnection(uri, username, password)));
             }catch (Exception e){
-                Logger.error("failed to create the connection to the database", e);
+                Logger.error(e, "failed to create the connection to the database");
             }
         }
         Logger.info("Connection Pool created, "+ pool.size() + "/" + POOL_SIZE + " Connection Created");
@@ -41,7 +41,7 @@ public class DatabaseConnectionPool {
                 try {
                     connection.connection.close();
                 } catch (Exception e) {
-                    Logger.warn("Failed to close connection in the pool", e);
+                    Logger.warn(e, "Failed to close connection in the pool");
                 }
             }
 
