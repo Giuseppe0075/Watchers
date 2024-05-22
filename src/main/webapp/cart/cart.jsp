@@ -17,7 +17,8 @@
 </head>
 <body>
   <%@include file="../navbar.jsp"%>
-  <% List<CartElementBean> cart = new ShoppingCart(session).getCart();
+  <%
+    List<CartElementBean> cart = new ShoppingCart(session).getCart();
     WatchModel watchModel = new WatchModel();
   %>
 
@@ -33,7 +34,7 @@
     <!--All Watches -->
     <div class="elements">
       <% for(CartElementBean element : cart) {
-        WatchBean watch;
+        WatchBean watch = null;
           try {
                watch = watchModel.doRetrieveByKey(List.of(element.getWatch()));
           } catch (Exception e) {

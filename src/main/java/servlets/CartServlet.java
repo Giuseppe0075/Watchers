@@ -26,9 +26,11 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         ShoppingCart shoppingCart = new ShoppingCart(session);
+
         Long user = session.getAttribute("user") != null ? Long.parseUnsignedLong(String.valueOf(session.getAttribute("user"))) : 0;
         Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
         String action = String.valueOf(req.getParameter("action"));
+
         switch (action) {
             case "add": {
                 CartElementModel cartElementModel = new CartElementModel();

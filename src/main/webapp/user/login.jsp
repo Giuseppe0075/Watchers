@@ -18,7 +18,6 @@
             <input type="email" id="email" name="email"><br>
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password"><br>
-            <label for="adminlogin"></label><input type="checkbox" id="adminlogin" value="adminlogin">
             <input type="submit"><br>
         </form>
         <a href="signup.jsp">Sign-Up</a>

@@ -17,7 +17,8 @@
 %>
 <%
     String sort = request.getParameter("sort");
-    try {WatchModel model = new WatchModel();
+    WatchModel model = new WatchModel();
+    try {
         if(sort == null) {
                 watchList = model.doRetrieveAll();
         }
@@ -56,6 +57,10 @@
             <td>
                 <form action="${pageContext.request.contextPath}/cart-servlet" method="post">
                     <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="watch" value="<%= watch.getId()%>">
+                    <input type="submit" name="action" value="add">
+                </form>
+                <form action="${pageContext.request.contextPath}/favourites-servlet" method="post">
                     <input type="hidden" name="watch" value="<%= watch.getId()%>">
                     <input type="submit" name="action" value="add">
                 </form>
