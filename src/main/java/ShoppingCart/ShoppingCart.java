@@ -49,16 +49,13 @@ public class ShoppingCart {
         if(index != -1) {
             CartElementBean old = shoppingCart.get(index);
             shoppingCart.remove(old);
-
         }
-
         shoppingCart.add(cartElementBean);
         session.setAttribute("cart", shoppingCart);
         this.updateCart();
     }
 
     public synchronized void sumCartElementQuantity(CartElementBean cartElementBean){
-
         shoppingCart = this.getCart();
 
         int index = shoppingCart.indexOf(cartElementBean);

@@ -21,7 +21,7 @@
 <body>
 <%
     FavouritesCart favouritesCart = new FavouritesCart(request.getSession(false));
-    Logger.info(favouritesCart.getFavourites());
+    //Logger.info(favouritesCart.getFavourites());
     Set<FavouriteBean> t = favouritesCart.getFavourites();
 
 %>

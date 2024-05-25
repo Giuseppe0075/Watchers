@@ -1,5 +1,6 @@
 package servlets;
 
+import FavouritesCart.FavouritesCart;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.annotation.*;
@@ -22,7 +23,9 @@ public class LoginServlet extends HttpServlet {
         UserModel userModel = new UserModel();
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        Logger.debug("email: " + email + " password: " + password);
+        String admin = req.getParameter("admin");
+
+        Logger.debug("email: " + email + " password: " + password + "admin" + admin);
 
         if (email == null || password == null) {
             doGet(req, resp);

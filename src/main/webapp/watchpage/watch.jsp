@@ -51,5 +51,6 @@
                 <p><%=watch.getDescription()%></p>
             </aside>
         </div>
+        <%@include file="../WEB-INF/NotVisible/review.jsp"%>
     </body>
 </html>

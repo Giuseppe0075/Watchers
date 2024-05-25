@@ -14,6 +14,7 @@ CREATE TABLE `User`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `email` VARCHAR(255) NOT NULL UNIQUE,
     `psw` VARCHAR(255) NOT NULL,
+    `admin` TINYINT NOT NULL DEFAULT(1),
     `name` VARCHAR(255) NOT NULL,
     `surname` VARCHAR(255) NOT NULL,
     `birthday` DATE NULL,
@@ -26,7 +27,7 @@ CREATE TABLE `User`(
 
 public class UserModel implements DAO<UserBean> {
     private static final String TABLE = "User";
-    private static final List<String> COLUMNS = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP");
+    private static final List<String> COLUMNS = List.of("email", "psw", "name", "surname", "birthday", "road", "civic_number", "city", "CAP","admin");
     private static final List<String> KEYS = List.of("id");
     @Override
     public void doSave(UserBean userBean) throws Exception{

@@ -23,6 +23,7 @@ public class UserBean extends Bean{
     private Long id;
     private String email;
     private String psw;
+    private Boolean isAdmin;
     private String name;
     private String surname;
     private Date birthday;
@@ -33,6 +34,20 @@ public class UserBean extends Bean{
 
     public UserBean(ResultSet rs) {
         super(rs);
+    }
+
+    public UserBean(Long id, String email, String psw,Boolean isAdmin, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
+        this.id = id;
+        this.email = email;
+        this.psw = psw;
+        this.isAdmin = isAdmin;
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.road = road;
+        this.civic_number = civic_number;
+        this.city = city;
+        this.CAP = CAP;
     }
 
     public UserBean(Long id, String email, String psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
@@ -141,39 +156,50 @@ public class UserBean extends Bean{
         this.CAP = CAP;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof UserBean)) return false;
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
 
-        UserBean userBean = (UserBean) obj;
-
-        if (!getId().equals(userBean.getId())) return false;
-        if (!getEmail().equals(userBean.getEmail())) return false;
-        if (!getPsw().equals(userBean.getPsw())) return false;
-        if (!getName().equals(userBean.getName())) return false;
-        if (!getSurname().equals(userBean.getSurname())) return false;
-        if (!getBirthday().equals(userBean.getBirthday())) return false;
-        if (!getRoad().equals(userBean.getRoad())) return false;
-        if (!getCivic_number().equals(userBean.getCivic_number())) return false;
-        if (!getCity().equals(userBean.getCity())) return false;
-        return getCAP().equals(userBean.getCAP());
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     @Override
     public String toString() {
-        return "UserBeen{" +
+        return "UserBean{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", psw='" + psw + '\'' +
+                ", isAdmin=" + isAdmin +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", road='" + road + '\'' +
-                ", civic_number='" + civic_number + '\'' +
-                ", city='" + city + '\'' +
-                ", CAP='" + CAP + '\'' +
                 '}';
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserBean)) return false;
+
+        UserBean userBean = (UserBean) o;
+
+        if (!getId().equals(userBean.getId())) return false;
+        if (!getEmail().equals(userBean.getEmail())) return false;
+        if (!getPsw().equals(userBean.getPsw())) return false;
+        if (!isAdmin.equals(userBean.isAdmin)) return false;
+        if (getName() != null ? !getName().equals(userBean.getName()) : userBean.getName() != null) return false;
+        return getSurname() != null ? getSurname().equals(userBean.getSurname()) : userBean.getSurname() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getPsw().hashCode();
+        result = 31 * result + isAdmin.hashCode();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getSurname() != null ? getSurname().hashCode() : 0);
+        return result;
+    }
 }

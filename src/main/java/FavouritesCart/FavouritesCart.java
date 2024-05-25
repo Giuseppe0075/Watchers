@@ -14,7 +14,7 @@ public class FavouritesCart {
     HttpSession session;
 
     public FavouritesCart(HttpSession session){
-        favouritesCart  = new HashSet<>();
+        favouritesCart  = session.getAttribute("favourites") == null ? new HashSet<>() : new HashSet<>((Set<FavouriteBean>) session.getAttribute("favourites"));
         this.session = session;
     }
 
@@ -22,24 +22,32 @@ public class FavouritesCart {
      * From session
      */
     public synchronized Set<FavouriteBean> getFavourites(){
-        Logger.info("test");
         Object userIdObject = session.getAttribute("user");
-        var temp = favouritesCart;
         if(userIdObject != null){
             Long userId = Long.parseUnsignedLong(String.valueOf(userIdObject));
             try {
-                temp.addAll(FavouriteModel.doRetrieveByCond("WHERE user = ?", List.of(userId)));
-
+                var temp = new HashSet<>(FavouriteModel.doRetrieveByCond("WHERE user = ?", List.of(userId)));
+                favouritesCart.forEach(favouriteBean -> {
+                    if(!temp.contains(favouriteBean)){
+                        try {
+                            favouriteBean.setUser(userId);
+                            FavouriteModel.doSaveOrUpdate(favouriteBean);
+                        } catch (Exception e) {
+                            Logger.error(e.getMessage());
+                        }
+                    }
+                });
+                favouritesCart.addAll(temp);
+                session.setAttribute("favourites", favouritesCart);
             } catch (Exception e) {
-                Logger.warn(e.getMessage());
+                Logger.warn(e.getMessage(),"jndskcenjkdsnjkfivkdnkinbjknjk");
             }
         }
         else {
             if(session.getAttribute("favourites") != null)
-                temp.addAll((Collection<? extends FavouriteBean>) session.getAttribute("favourites"));
+                favouritesCart.addAll((Set<FavouriteBean>)session.getAttribute("favourites"));
         }
-        session.setAttribute("favourites", temp);
-        return temp;
+        return favouritesCart;
     }
 
     public synchronized void addFavourites(FavouriteBean favouriteBean){
