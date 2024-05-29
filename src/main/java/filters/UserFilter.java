@@ -30,7 +30,7 @@ public class UserFilter implements Filter {
             }
 
         }catch (Exception e){
-            Logger.warn("Filter User | User tried to access user pages without being authenticated");
+            Logger.warn(e,"Filter User | User tried to access user pages without being authenticated");
         }
 
         resp.sendRedirect(req.getContextPath() + "/user/login.jsp");

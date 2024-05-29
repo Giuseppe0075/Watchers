@@ -23,7 +23,7 @@ public class UserBean extends Bean{
     private Long id;
     private String email;
     private String psw;
-    private Boolean isAdmin;
+    private Boolean admin;
     private String name;
     private String surname;
     private Date birthday;
@@ -36,11 +36,11 @@ public class UserBean extends Bean{
         super(rs);
     }
 
-    public UserBean(Long id, String email, String psw,Boolean isAdmin, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
+    public UserBean(Long id, String email, String psw,Boolean admin, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
         this.id = id;
         this.email = email;
         this.psw = psw;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
@@ -157,11 +157,11 @@ public class UserBean extends Bean{
     }
 
     public Boolean getAdmin() {
-        return isAdmin;
+        return this.admin;
     }
 
     public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     @Override
@@ -170,7 +170,7 @@ public class UserBean extends Bean{
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", psw='" + psw + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", isAdmin=" + admin +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
@@ -187,7 +187,7 @@ public class UserBean extends Bean{
         if (!getId().equals(userBean.getId())) return false;
         if (!getEmail().equals(userBean.getEmail())) return false;
         if (!getPsw().equals(userBean.getPsw())) return false;
-        if (!isAdmin.equals(userBean.isAdmin)) return false;
+        if (!getAdmin().equals(userBean.getAdmin())) return false;
         if (getName() != null ? !getName().equals(userBean.getName()) : userBean.getName() != null) return false;
         return getSurname() != null ? getSurname().equals(userBean.getSurname()) : userBean.getSurname() == null;
     }
@@ -197,7 +197,7 @@ public class UserBean extends Bean{
         int result = getId().hashCode();
         result = 31 * result + getEmail().hashCode();
         result = 31 * result + getPsw().hashCode();
-        result = 31 * result + isAdmin.hashCode();
+        result = 31 * result + getAdmin().hashCode();
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getSurname() != null ? getSurname().hashCode() : 0);
         return result;

@@ -17,6 +17,7 @@
                 <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Preferiti</a></li>
                 <% if (session.getAttribute("user") != null) { %>
                 <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
                 <% } else { %>
                 <li><a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a></li>
                 <% } %>

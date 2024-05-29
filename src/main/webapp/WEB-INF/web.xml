@@ -8,11 +8,11 @@
     </welcome-file-list>
 
     <filter>
-        <filter-name>Admin-Filter</filter-name>
+        <filter-name>AdminFilter</filter-name>
         <filter-class>filters.AdminFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>Admin-Filter</filter-name>
+        <filter-name>AdminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
 
@@ -24,15 +24,8 @@
     <filter-mapping>
         <filter-name>UserFilter</filter-name>
         <url-pattern>/user/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
-    <filter-mapping>
-        <filter-name>UserFilter</filter-name>
-        <url-pattern>/user/login</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
     <error-page>
         <error-code>404</error-code>
         <location>/errors/error.jsp</location>

@@ -32,7 +32,7 @@ public class UserModel implements DAO<UserBean> {
     @Override
     public void doSave(UserBean userBean) throws Exception{
         List<Object> values = List.of(userBean.getEmail(), userBean.getPsw(), userBean.getName(), userBean.getSurname(), userBean.getBirthday(),
-                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP());
+                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP(), userBean.getAdmin());
         try {
             Model.doSave(TABLE, COLUMNS, values);
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public class UserModel implements DAO<UserBean> {
             return;
         }
         List<Object> values = List.of(userBean.getEmail(), userBean.getPsw(), userBean.getName(), userBean.getSurname(), userBean.getBirthday(),
-                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP(), userBean.getId());
+                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP(), userBean.getId(), userBean.getAdmin());
         Model.doUpdate(TABLE, COLUMNS, values, KEYS);
     }
 }

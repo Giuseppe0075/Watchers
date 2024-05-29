@@ -14,6 +14,7 @@
 </head>
 <body>
     <div class="container">
+        <%@include file="../navbar.jsp"%>
         <h2>Watch registration</h2>
         <form action="${pageContext.request.contextPath}/add-watch" method="post">
             <%
@@ -29,6 +30,7 @@
 
             <input type="submit" value="Add Watch">
         </form>
+        <%@include file="../footer.html"%>
     </div>
 </body>
 </html>

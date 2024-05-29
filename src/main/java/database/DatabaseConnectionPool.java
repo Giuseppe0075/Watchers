@@ -15,7 +15,7 @@ public class DatabaseConnectionPool {
 
     private static DatabaseConnectionPool instance = null;
     private static final String db = "bcvrujqustmrsee1qise";
-    private static final String uri = ConfigurationProperties.getUrl();
+    private static final String uri = ConfigurationProperties.getUrl()+"?autoReconnect=true";
     private static final String username = ConfigurationProperties.getUsername();
     private static final String password = ConfigurationProperties.getPassword();
 
