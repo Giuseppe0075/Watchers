@@ -46,7 +46,6 @@
           <!-- Watch details -->
           <div class="details">
             <%=watch.getName()%>
-
             <%=watch.getBrand()%>
           </div>
           <!-- Quantity -->

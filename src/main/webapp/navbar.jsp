@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Navigation bar DEMO</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/style.css">
-</head>
-<body>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <header>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/style.css">
     <a href="${pageContext.request.contextPath}/index.jsp">
     <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
     </a>
@@ -32,6 +27,5 @@
     <% }%>
 
 </header>
-</body>
-</html>
+
 

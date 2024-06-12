@@ -16,7 +16,7 @@ CREATE TABLE `Purchase`(
 );
  */
 public class PurchaseBean extends Bean{
-    private  Long id;
+    private  Long id_order;
     private  Long user;
     private  Long watch;
     private  Integer quantity;
@@ -24,7 +24,7 @@ public class PurchaseBean extends Bean{
     private  Double price;
 
     public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
-        this.id = id;
+        this.id_order = id;
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
@@ -37,7 +37,7 @@ public class PurchaseBean extends Bean{
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_order = id;
     }
 
     public void setUser(Long user) {
@@ -61,7 +61,7 @@ public class PurchaseBean extends Bean{
     }
 
     public Long getId() {
-        return id;
+        return id_order;
     }
 
     public Long getUser() {
@@ -87,7 +87,7 @@ public class PurchaseBean extends Bean{
     @Override
     public String toString() {
         return "PurchaseBeen{" +
-                "id=" + id +
+                "id=" + id_order +
                 ", user=" + user +
                 ", watch=" + watch +
                 ", quantity=" + quantity +
