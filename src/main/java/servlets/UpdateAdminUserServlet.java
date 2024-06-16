@@ -28,6 +28,7 @@ public class UpdateAdminUserServlet extends HttpServlet {
             UserBean user = userModel.doRetrieveByKey(List.of(id));
             if (user != null) {
                 // Aggiorna i campi dell'utente
+                user.setId(id);
                 user.setEmail(email);
                 user.setName(name);
                 user.setSurname(surname);
@@ -38,7 +39,6 @@ public class UpdateAdminUserServlet extends HttpServlet {
                 userModel.doSaveOrUpdate(user);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new ServletException("Errore durante l'aggiornamento dei dati dell'utente", e);
         }
         // Reindirizza nuovamente alla pagina del profilo utente

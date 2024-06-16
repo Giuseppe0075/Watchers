@@ -1,5 +1,5 @@
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <header>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/style.css">
     <a href="${pageContext.request.contextPath}/index.jsp">
     <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
@@ -13,6 +13,7 @@
                 <% if (session.getAttribute("user") != null) { %>
                 <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
+                <li><a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a> </li>
                 <% } else { %>
                 <li><a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a></li>
                 <% } %>

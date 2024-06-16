@@ -1,6 +1,7 @@
 package storage.Beans;
 
 import java.sql.ResultSet;
+import java.util.Date;
 
 /*
 CREATE TABLE `Purchase`(
@@ -23,13 +24,16 @@ public class PurchaseBean extends Bean{
     private  Integer IVA;
     private  Double price;
 
-    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
+    private Date date;
+
+    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price, Date date) {
         this.id_order = id;
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
         this.IVA = IVA;
         this.price = price;
+        this.date = date;
     }
 
     public PurchaseBean(ResultSet rs){
@@ -93,7 +97,16 @@ public class PurchaseBean extends Bean{
                 ", quantity=" + quantity +
                 ", IVA=" + IVA +
                 ", price=" + price +
+                ", date='" + date +
                 '}';
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -108,6 +121,7 @@ public class PurchaseBean extends Bean{
         if (!getWatch().equals(that.getWatch())) return false;
         if (!getQuantity().equals(that.getQuantity())) return false;
         if (!getIVA().equals(that.getIVA())) return false;
+        if(!getDate().equals(that.getDate())) return false;
         return getPrice().equals(that.getPrice());
     }
 
@@ -119,6 +133,7 @@ public class PurchaseBean extends Bean{
         result = 31 * result + getQuantity().hashCode();
         result = 31 * result + getIVA().hashCode();
         result = 31 * result + getPrice().hashCode();
+        result = 31 * result + getDate().hashCode();
         return result;
     }
 }
