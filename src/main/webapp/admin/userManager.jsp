@@ -29,7 +29,7 @@
 
         <% for(UserBean user : users){ %>
             <tr>
-                <td><a href="${pageContext.request.contextPath}/admin/userProfile.jsp?user=<%=user.getId()%>"><%= user.getEmail()%></a> </td>
+                <td><a href="${pageContext.request.contextPath}/admin/userProfile.jsp?id=<%=user.getId()%>"><%= user.getEmail()%></a> </td>
                 <td><%= user.getName()%></td>
                 <td><%= user.getSurname()%></td>
                 <td><%= user.getCAP()%></td>

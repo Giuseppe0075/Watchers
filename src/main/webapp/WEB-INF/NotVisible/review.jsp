@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
     body {
         font-family: Arial, sans-serif; /* Ensure a standard font is used */
@@ -36,6 +35,7 @@
 
 <!-- Qui l'utente loggato potra inserire una recensione su un prodotto -->
 <div>
+    <h1>Scrivi una recensione</h1>
     <form id="reviewForm">
         <label for="stars">Stelle</label>
         <div id="stars">
@@ -52,43 +52,48 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.star').on('click', function() {
-            const selectedIndex = $(this).index();
-            $('.star').each(function(index) {
-                if (index <= selectedIndex) {
-                    $(this).addClass('active');
-                } else {
-                    $(this).removeClass('active');
-                }
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.star').forEach((star, index) => {
+            star.addEventListener('click', () => {
+                document.querySelectorAll('.star').forEach((s, i) => {
+                    s.classList.toggle('active', i <= index);
+                });
             });
         });
 
-        $('#reviewForm').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-            const rating = $('#rating').val();
-            const review = $('#review').val();
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const review = document.getElementById('review').value;
             let stars = 0;
-            $(this).find('.star').val(function(index, value) {
-                if ($(this).hasClass('active')) {
-                    stars = value;
+            document.querySelectorAll('.star').forEach((star, index) => {
+                if (star.classList.contains('active')) {
+                    stars = index + 1;
                 }
             });
 
-            console.log(stars, review)
-            $.ajax({
-                type: 'POST',
-                url: '/your-backend-endpoint', // Replace with your backend URL
-                data: { rating: rating, review: review },
-                success: function(response) {
-                    // Handle success response
+            const reviewData = {
+                watchID: '<%= request.getParameter("id") %>',
+                rating: stars,
+                review: review,
+                userID: '<%= session.getAttribute("user") %>'
+            };
+
+            fetch('<%= request.getContextPath() %>/newReview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                error: function(error) {
-                    alert('Si e\' verificato un errore. Riprova.');
-                    // Handle error response
-                },
-            });
+                body: JSON.stringify(reviewData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('reviewForm').reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Errore durante l\'invio della recensione');
+                });
         });
     });
 </script>
-

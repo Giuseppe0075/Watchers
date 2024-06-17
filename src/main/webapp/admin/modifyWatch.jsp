@@ -29,7 +29,7 @@
     }
     System.out.println(watch);
 %>
-<form action="${pageContext.request.contextPath}/admin/updateWatch" method="get">
+<form action="${pageContext.request.contextPath}/admin/updateWatch" method="post">
 
     <input type="hidden" id="id" name="id" value="<%=watch.getId()%>"/><br/>
     <input type="hidden" id="reviews_avg" name="reviews_avg" value="<%=watch.getReviews_avg()%>">
@@ -38,10 +38,15 @@
     <input type="text" id="name" name="name" value="<%=watch.getName()%>" required /><br/>
 
     <label for="brand">Brand:</label>
-    <select id="brand" name="brand" required>
+    <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
+        <option value="" disabled selected>Select a brand</option>
         <% for (BrandBean brand : brands) { %>
         <option value="<%=brand.getBusiness_name()%>" <%= brand.getBusiness_name().equals(watch.getBrand()) ? "selected" : "" %>><%=brand.getName()%></option>
         <% } %>
+        <option value="new">Other (specify below)</option>
+    </select>
+    <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;"><br><br>
+
     </select><br/>
     <label for="description">Description:</label>
     <input type="text" id="description" name="description" value="<%=watch.getDescription()%>" required /><br/>
@@ -73,7 +78,21 @@
 
     <input type="submit" value="Update"/>
 </form>
-
+<jsp:include page="/WEB-INF/NotVisible/imageManager.jsp">
+    <jsp:param name="watchId" value="${id}" />
+</jsp:include>
 <%@include file="../footer.html"%>
+<script>
+    function toggleBrandInput(select) {
+        var brandInput = document.getElementById('newBrandInput');
+        if (select.value === 'new') {
+            brandInput.style.display = 'inline';
+            brandInput.required = true;
+        } else {
+            brandInput.style.display = 'none';
+            brandInput.required = false;
+        }
+    }
+</script>
 </body>
 </html>

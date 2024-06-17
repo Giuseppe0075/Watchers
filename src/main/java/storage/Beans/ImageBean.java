@@ -1,5 +1,6 @@
 package storage.Beans;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 
 /*
@@ -20,6 +21,11 @@ public class ImageBean extends Bean{
         this.id = id;
         this.watch = watch;
         this.image = image;
+    }
+    public ImageBean(){
+        this.id = 0L;
+        this.watch = 0L;
+        this.image = null;
     }
 
     public ImageBean(ResultSet rs){

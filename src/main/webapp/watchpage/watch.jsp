@@ -38,7 +38,7 @@
                     // Itera attraverso la lista di immagini associate all'orologio
                     for (ImageBean image : images) {
                 %>
-                <img class="photo" src="${pageContext.request.contextPath}/get-photo?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
+                <img class="photo" src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
                 <%
                     }
                 %>

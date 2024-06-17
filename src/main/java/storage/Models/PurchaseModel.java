@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PurchaseModel implements DAO<PurchaseBean> {
     private static final String TABLE = "Purchase";
-    private static final List<String> COLUMNS = List.of("user", "watch", "quantity", "IVA", "price");
+    private static final List<String> COLUMNS = List.of("user", "watch", "quantity", "IVA", "price","date");
     private static final List<String> KEYS = List.of("id_order", "user", "watch");
     @Override
     public void doSave(PurchaseBean purchaseBean) throws Exception {

@@ -85,7 +85,7 @@ public class UserModel implements DAO<UserBean> {
             return;
         }
         List<Object> values = List.of(userBean.getEmail(), userBean.getPsw(), userBean.getName(), userBean.getSurname(), userBean.getBirthday(),
-                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP(), userBean.getId(), userBean.getAdmin());
+                userBean.getRoad(), userBean.getCivic_number(), userBean.getCity(), userBean.getCAP(),userBean.getAdmin(),userBean.getId());
         Model.doUpdate(TABLE, COLUMNS, values, KEYS);
     }
 }

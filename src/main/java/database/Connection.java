@@ -44,6 +44,7 @@ public class Connection implements AutoCloseable{
 
     public int executeUpdate(String query, List<Object> params) throws SQLException {
         PreparedStatement ps = buildStatement(query, params);
+        Logger.debug("-------"+ps.toString());
         return ps.executeUpdate();
 
     }
