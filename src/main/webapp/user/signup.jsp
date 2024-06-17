@@ -1,46 +1,94 @@
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="java.lang.reflect.Field" %>
-<%@ page import="user.SignupDataForm" %>
-<%@ page import="utils.FieldDescriptor" %>
-<%@ page import="utils.Security" %><%--
-  Created by IntelliJ IDEA.
-  User: giuse
-  Date: 14/05/2024
-  Time: 13:33
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Sign-Up</title>
+    <script src="signupFormChecker.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Navbar -->
         <%@include file="../navbar.jsp"%>
-        <%!String csrfToken = Security.getCSRFToken();%>
-        <%session.setAttribute("CSRF-Token", csrfToken);%>
         <h2> Sign-Up</h2><br><br>
-        <form action="${pageContext.request.contextPath}/signup" method="post">
+        <form id="form" name="form">
 
-            <input type="hidden" id="CSRF-Token" name="CSRF-Token" value=<%=csrfToken%>>
-            <%
-                for(Field field: SignupDataForm.class.getFields()){
-                    FieldDescriptor descriptor = field.getAnnotation(FieldDescriptor.class);
-                    String placeHolder = descriptor != null ? descriptor.description() : "";
-                    String type = descriptor != null ? descriptor.type() : "text";
-                %>
+            <label for="name">
+                Name
+                <input type="text" id="name" name="name" placeholder="insert your name..." required>
+                <span id="nameError" class="error"></span>
+                <br>
+            </label>
 
+            <label for="surname">
+                Surname
+                <input type="text" id="surname" name="surname" placeholder="insert your surname..." required>
+                <span id="surnameError" class="error"></span>
+                <br>
+            </label>
 
-            <label> <%=field.getName()%>
-                <input type=<%=type%> id=<%=field.getName()%> name=<%=field.getName()%> placeholder=<%=placeHolder%>>
-            </label><br>
+            <label for="birthday">
+                Birthday
+                <input type="date" id="birthday" name="birthday" required>
+                <span id="birthdayError" class="error"></span>
+                <br>
+            </label>
 
-            <%}%>
+            <label for="road">
+                Road
+                <input type="text" id="road" name="road" placeholder="insert your road..." required>
+                <span id="roadError" class="error"></span>
+                <br>
+            </label>
 
-            <input type="submit" value="Sign-up">
+            <label for="civic_number">
+                Civic number
+                <input type="text" id="civic_number" name="civic_number" placeholder="insert your civic number..." required>
+                <span id="civic_numberError" class="error"></span>
+                <br>
+            </label>
+
+            <label for="city">
+                City
+                <input type="text" id="city" name="city" placeholder="insert your city..." required>
+                <span id="cityError" class="error"></span>
+                <br>
+            </label>
+
+            <label for="CAP">
+                CAP
+                <input type="text" id="CAP" name="CAP" placeholder="insert your CAP..." required>
+                <span id="CAPError" class="error"></span>
+                <br>
+            </label>
+
+            <label for="email">
+                Email
+                <input type="email" id="email" name="email" placeholder="insert your email..." required>
+                <span id="emailError" class="error"></span>
+                <br>
+            </label>
+
+            <label for="repeatedEmail">
+                Repeat Email
+                <input type="email" id="repeatedEmail" name="repeatedEmail" placeholder="repeat your email..." required>
+                <span id="repeatedEmailError" class="error"></span>
+                <br>
+            </label>
+
+            <label for="password">
+                Password
+                <input type="password" id="password" name="password" placeholder="insert your password..." required>
+                <span id="passwordError" class="error"></span>
+                <br>
+            </label>
+
+            <label for="repeatedPassword">
+                Repeat Password
+                <input type="password" id="repeatedPassword" name="repeatedPassword" placeholder="repeat your password..." required>
+                <span id="repeatedPasswordError" class="error"></span>
+                <br>
+            </label>
+            <button type="submit">Submit</button>
         </form>
-
     </div>
 </body>
 </html>
