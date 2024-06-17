@@ -48,8 +48,8 @@ public class UserBean extends Bean{
         this.CAP = CAP;
     }
 
-    public UserBean(Long id, String email, String psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
-        this.id = id;
+    public UserBean(String email, String psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
+        id = 0L;
         this.email = email;
         this.psw = psw;
         this.name = name;
