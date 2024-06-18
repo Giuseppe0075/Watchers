@@ -220,6 +220,6 @@
             </form>
         </div>
     </div>
-    <script src="signup.js"></script>
+    <script src="../utils/formValidator.js"></script>
 </body>
 </html>

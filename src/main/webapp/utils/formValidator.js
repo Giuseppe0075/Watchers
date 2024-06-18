@@ -1,6 +1,17 @@
+/**
+ * Validates a form by taking the form id and checking all the formGroups inside it.
+ * If the form is valid it submits the form.
+ * @param formSelector
+ */
 const validateForm = formSelector => {
+    //Takes the form by the id
     const formElement = document.querySelector(formSelector);
 
+    /**
+     * A list of validation options that must be added into the tag you want to validate
+     * If a tag is required, add the required attribute, if it has a minimum length, add the minlength attribute and so on
+     *
+     */
     const validationOptions = [
         {
           attribute: 'match',
@@ -41,7 +52,14 @@ const validateForm = formSelector => {
         }
 
     ];
+    formElement.setAttribute('novalidate', '');
 
+    /**
+     * Validate a single form group checking all validation options (if it has any)
+     * Returns true if the form group passes all the validation options
+     * @param formGroup
+     * @returns {boolean}
+     */
     const validateSingleFormGroup = formGroup => {
         const label = formGroup.querySelector('label');
         const input = formGroup.querySelector('input, textarea');
@@ -71,21 +89,17 @@ const validateForm = formSelector => {
         return !formGroupError;
     };
 
-    formElement.setAttribute('novalidate', '');
-
     // Array.from(formElement.elements).forEach(element => {
     //     element.addEventListener('blur', event=>{
     //        validateSingleFormGroup(event.target.parentElement.parentElement)
     //     });
     // });
 
-    formElement.addEventListener('submit', (event) => {
-        event.preventDefault();
-        if(validateAllFormGroups(formElement)){
-            formElement.submit();
-        }
-    });
-
+    /**Takes all form groups and validate each of them
+     * If all form groups are valid, return true
+     * @param formToValidate
+     * @returns {boolean}
+     */
     const validateAllFormGroups = formToValidate => {
         const formGroups = Array.from(formToValidate.querySelectorAll('.formGroup'));
         let validForm = true;
@@ -96,6 +110,18 @@ const validateForm = formSelector => {
         });
         return validForm;
     }
+
+    //On Submit, validate all form groups
+    formElement.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if(validateAllFormGroups(formElement)){
+            formElement.submit();
+        }
+    });
+
+
 };
 
-validateForm('#registrationForm');
+const form = document.querySelector("form");
+const formSelector = `#${form.id}`;
+validateForm(formSelector);
