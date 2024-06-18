@@ -35,11 +35,14 @@ public class CartServlet extends HttpServlet {
             case "add": {
                 CartElementModel cartElementModel = new CartElementModel();
                 Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-                CartElementBean old;
+                CartElementBean old = null;
                 try {
-                    old = cartElementModel.doRetrieveByKey(List.of(user, watch));
-                    if (old != null)
+                    List<CartElementBean> cart = (List<CartElementBean>) session.getAttribute("cart");
+                    if(cart.contains(new CartElementBean(user, watch, 0))) {
+                        old = cart.get(cart.indexOf(new CartElementBean(user, watch, 0)));
+                        cart.remove(new CartElementBean(user, watch, 0));
                         quantity += old.getQuantity();
+                    }
                 } catch (Exception e) {
                     Logger.warn(e.getMessage());
                 }
