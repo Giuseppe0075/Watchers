@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/deleteImage")
+@WebServlet("/admin/deleteImage")
 public class DeleteImageAdminServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -34,10 +34,10 @@ public class DeleteImageAdminServlet extends HttpServlet {
         ImageModel imageModel = new ImageModel();
         try {
             imageModel.doDelete(imageBean);
-            response.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete image");
         }
+        response.sendRedirect(request.getContextPath() + "/admin/modifyWatch.jsp?id="+ watchId);
     }
 }

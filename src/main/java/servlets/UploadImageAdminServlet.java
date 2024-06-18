@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import storage.Beans.ImageBean;
+import storage.Beans.WatchBean;
 import storage.Models.ImageModel;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 
-@WebServlet("/uploadImage")
+@WebServlet("/admin/uploadImage")
 @MultipartConfig(maxFileSize = 16177215) // 16MB
 public class UploadImageAdminServlet extends HttpServlet {
 
@@ -56,7 +57,7 @@ public class UploadImageAdminServlet extends HttpServlet {
             ImageModel imageModel = new ImageModel();
             try {
                 imageModel.doSave(imageBean);
-                response.getWriter().print("Image uploaded and saved successfully.");
+
             } catch (Exception e) {
                 e.printStackTrace();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save image");
@@ -64,5 +65,6 @@ public class UploadImageAdminServlet extends HttpServlet {
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No file uploaded");
         }
+        response.sendRedirect("/admin/modifyWatch.jsp?id=" + watchId);
     }
 }

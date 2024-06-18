@@ -20,7 +20,6 @@ public class UpdateWatchAdminServlet extends HttpServlet {
             throws ServletException, IOException {
         // Recupera i dati modificati dal form
         try {
-            Long id = Long.parseLong(request.getParameter("id"));
             String name = request.getParameter("name");
             String brand = request.getParameter("brand");
             if ("new".equals(brand)) {
@@ -44,12 +43,12 @@ public class UpdateWatchAdminServlet extends HttpServlet {
             Boolean visible = request.getParameter("visible") != null;
 
             // Aggiorna il bean (in un caso reale, salveresti queste modifiche in un database)
-            WatchBean watch = new WatchBean(id,name,brand, description, reviews_avg, price,  material,  stock,  dimension,  IVA, sex,  visible);
-            WatchModel wm = new WatchModel();
-            wm.doSaveOrUpdate(watch);
+            WatchModel watchModel = new WatchModel();
+            WatchBean watch = new WatchBean(0L,name,brand, description, reviews_avg, price,  material,  stock,  dimension,  IVA, sex,  visible);
+            watchModel.doSaveOrUpdate(watch);
 
             request.setAttribute("watch", watch);
-            request.getRequestDispatcher("/admin/modifyWatch.jsp?id=" + id).forward(request, response);
+            request.getRequestDispatcher(request.getContextPath()+"/admin/productList.jsp").forward(request, response);
 
         } catch (NumberFormatException | NullPointerException e) {
             Logger.warn(e, "Invalid parameter received");

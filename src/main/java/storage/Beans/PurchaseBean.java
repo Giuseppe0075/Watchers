@@ -23,7 +23,6 @@ public class PurchaseBean extends Bean{
     private  Integer quantity;
     private  Integer IVA;
     private  Double price;
-
     private Date date;
 
     public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price, Date date) {
