@@ -59,7 +59,9 @@
                     <label for="name">Name</label>
                     <div class="flex items-center">
                         <input type="text" id="name" name="name" class="w-full border-b-2 border-grey-200 outline-none py-2"
-                               required/>
+                               required
+                               maxlength="255"
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </span>
@@ -75,7 +77,9 @@
                     <label for="surname">Surname</label>
                     <div class="flex items-center">
                         <input type="text" id="surname" name="surname" class="w-full border-b-2 border-grey-200 outline-none py-2"
-                               required/>
+                               required
+                               maxlength="255"
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         </span>
@@ -90,7 +94,9 @@
                 <div class="formGroup flex flex-col my-4">
                     <label for="birthday">Birthday</label>
                     <div class="flex items-center">
-                        <input type="date" id="birthday" name="birthday" class="w-full border-b-2 border-grey-200 outline-none py-2" required />
+                        <input type="date" id="birthday" name="birthday" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                               required
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </span>
@@ -105,7 +111,10 @@
                 <div class="formGroup flex flex-col my-4">
                     <label for="road">Road</label>
                     <div class="flex items-center">
-                        <input type="text" id="road" name="road" class="w-full border-b-2 border-grey-200 outline-none py-2" required />
+                        <input type="text" id="road" name="road" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                               required
+                               maxlength="255"
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </span>
@@ -120,7 +129,10 @@
                 <div class="formGroup flex flex-col my-4">
                     <label for="civic_number">Civic Number</label>
                     <div class="flex items-center">
-                        <input type="text" id="civic_number" name="civic_number" class="w-full border-b-2 border-grey-200 outline-none py-2" required />
+                        <input type="text" id="civic_number" name="civic_number" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                               required
+                               maxlength="255"
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
                     </span>
@@ -135,7 +147,10 @@
                 <div class="formGroup flex flex-col my-4">
                     <label for="city">City</label>
                     <div class="flex items-center">
-                        <input type="text" id="city" name="city" class="w-full border-b-2 border-grey-200 outline-none py-2" required />
+                        <input type="text" id="city" name="city" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                               required
+                               maxlength="255"
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
                     </span>
@@ -150,7 +165,11 @@
                 <div class="formGroup flex flex-col my-4">
                     <label for="cap">CAP</label>
                     <div class="flex items-center">
-                        <input type="text" id="cap" name="cap" class="w-full border-b-2 border-grey-200 outline-none py-2" required />
+                        <input type="text" id="cap" name="cap" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                               required
+                               minlength="5"
+                               maxlength="5"
+                        />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
                     </span>

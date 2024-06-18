@@ -46,6 +46,11 @@ const validateForm = formSelector => {
             errorMessage: (input, label) => `${label.textContent} must be at least ${input.getAttribute('minlength')} characters long`
         },
         {
+            attribute: 'maxlength',
+            isValid: input=> input.value && input.value.length <= parseInt(input.getAttribute('maxlength')),
+            errorMessage: (input, label) => `${label.textContent} must be maximum ${input.getAttribute('minlength')} characters long`
+        },
+        {
             attribute: 'required',
             isValid: input=> input.value.trim() !== '',
             errorMessage: (input, label) => `${label.textContent} is required`
