@@ -11,10 +11,10 @@
     <title>Add Watch</title>
 </head>
 <body>
-<div class="container">
+
     <%@include file="../navbar.jsp"%>
     <h2>Watch Registration</h2>
-    <form action="${pageContext.request.contextPath}/admin/addWatch" method="post">
+    <form action="${pageContext.request.contextPath}/admin/addWatch" method="get" enctype="multipart/form-data">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" placeholder="Enter watch name" required><br><br>
 
@@ -32,10 +32,10 @@
         <textarea id="description" name="description" placeholder="Enter description" required></textarea><br><br>
 
         <label for="reviews_avg">Average Reviews:</label>
-        <input type="number" step="0.1" id="reviews_avg" name="reviews_avg" placeholder="Enter average reviews" required><br><br>
+        <input type="number" step="0.1" max="5" id="reviews_avg" name="reviews_avg" placeholder="Enter average reviews" required><br><br>
 
         <label for="price">Price:</label>
-        <input type="number" step="0.01" id="price" name="price" placeholder="Enter price" required><br><br>
+        <input type="number" step="0.25" id="price" name="price" placeholder="Enter price" required><br><br>
 
         <label for="material">Material:</label>
         <input type="text" id="material" name="material" placeholder="Enter material" required><br><br>
@@ -47,7 +47,7 @@
         <input type="text" id="dimension" name="dimension" placeholder="Enter dimensions" required><br><br>
 
         <label for="IVA">IVA:</label>
-        <input type="number" step="0.01" id="IVA" name="IVA" placeholder="Enter IVA" required><br><br>
+        <input type="number" step="0.1" id="IVA" name="IVA" placeholder="Enter IVA" required><br><br>
 
         <label for="sex">Sex:</label>
         <select id="sex" name="sex" required>
@@ -62,7 +62,6 @@
         <input type="submit" value="Add Watch">
     </form>
     <%@include file="../footer.html"%>
-</div>
 
 <script>
     function toggleBrandInput(select) {

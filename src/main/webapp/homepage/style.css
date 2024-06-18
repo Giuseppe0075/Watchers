@@ -6,21 +6,21 @@ header img {
     height: 70px;
 }
 
-/*body {
+body {
     height: 125vh;
     background-size: cover;
     font-family: Arial, sans-serif;
     margin-top: 80px;
     padding: 30px;
-}*/
+}
 
-body {
+/*body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
     color: #333;
     margin: 0;
     padding: 0;
-}
+}*/
 
 header {
     background-color: white;
@@ -145,6 +145,10 @@ nav ul li.selected {
     width: 245px;
 }
 
+
+form {
+    margin-top: 200px;
+}
 
 
 

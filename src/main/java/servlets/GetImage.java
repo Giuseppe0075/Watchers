@@ -18,9 +18,11 @@ public class GetImage extends HttpServlet{
             Long user = Long.valueOf(req.getParameter("id"));
             Long watch = Long.valueOf(req.getParameter("watch"));
             ImageBean image = im.doRetrieveByKey(List.of(user, watch));
-            resp.setContentType("image/*");
             ServletOutputStream out = resp.getOutputStream();
-            out.write(image.getImage());
+            if(image.getImage() != null){
+                resp.setContentType("image/*");
+                out.write(image.getImage());
+            }
             out.close();
         } catch (Exception e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);

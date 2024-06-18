@@ -1,22 +1,34 @@
 package servlets;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Part;
 import org.tinylog.Logger;
 import storage.Beans.BrandBean;
+import storage.Beans.ImageBean;
 import storage.Beans.WatchBean;
 import storage.Models.BrandModel;
+import storage.Models.ImageModel;
 import storage.Models.WatchModel;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "AddWatch", value = "/admin/addWatch")
+@MultipartConfig
 public class AddWatchAdminServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    private final WatchModel watchModel = new WatchModel();
+    private final BrandModel brandModel = new BrandModel();
+    private final ImageModel imageModel = new ImageModel();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             String name = request.getParameter("name");
@@ -24,7 +36,6 @@ public class AddWatchAdminServlet extends HttpServlet {
             if ("new".equals(brand)) {
                 brand = request.getParameter("newBrand");
                 // Check if brand exists, if not, create it
-                BrandModel brandModel = new BrandModel();
                 BrandBean existingBrand = brandModel.doRetrieveByKey(List.of(brand));
                 if (existingBrand == null) {
                     BrandBean newBrand = new BrandBean(brand,brand,"");
@@ -41,9 +52,8 @@ public class AddWatchAdminServlet extends HttpServlet {
             String sex = request.getParameter("sex");
             Boolean visible = request.getParameter("visible") != null;
 
-            WatchBean watch = new WatchBean(null, name, brand, description, reviews_avg, price, material, stock, dimension, IVA, sex, visible);
-            WatchModel wm = new WatchModel();
-            wm.doSave(watch);
+            WatchBean watch = new WatchBean(0L, name, brand, description, reviews_avg, price, material, stock, dimension, IVA, sex, visible);
+            watchModel.doSave(watch);
 
             response.sendRedirect("/admin/productList.jsp");
 
@@ -51,8 +61,7 @@ public class AddWatchAdminServlet extends HttpServlet {
             Logger.warn(e, "Invalid parameter received");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid parameter received");
         } catch (Exception e) {
-            Logger.error(e, "Error adding watch");
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error adding watch");
+            throw new RuntimeException(e);
         }
     }
 }
