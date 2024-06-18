@@ -10,8 +10,10 @@ import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
 import storage.Beans.UserBean;
 import storage.Models.UserModel;
+import utils.Security;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,24 +25,30 @@ public class LoginServlet extends HttpServlet {
         UserModel userModel = new UserModel();
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        String admin = req.getParameter("admin");
-
-        Logger.debug("email: " + email + " password: " + password + "admin" + admin);
-
-        if (email == null || password == null) {
-            doGet(req, resp);
-        }
         try {
-            Optional<UserBean> user = userModel.doRetrieveByCond("WHERE email=? AND psw=?", List.of(email,password)).stream().findFirst();
-            if (user.isPresent()){
-                HttpSession session = req.getSession();
-                session.setAttribute("user",user.get().getId());
-                resp.sendRedirect(req.getContextPath() + "/index.jsp");
-            } else {
-                resp.sendRedirect(req.getContextPath() + "/user/login.jsp");
+            // Check if the user exists
+            Collection<UserBean> userBeans =  userModel.doRetrieveByCond("WHERE email = ?", List.of(email));
+            if (userBeans.isEmpty()) {
+                resp.sendRedirect(req.getContextPath() + "/login.jsp");
+                return;
             }
+            UserBean userBean = userBeans.iterator().next();
+
+            // Check if the password is correct
+            byte[] hashedPassword = userBean.getPsw();
+            if(Security.verifyPassword(password, hashedPassword)){
+                HttpSession session = req.getSession();
+                session.setAttribute("user", userBean.getId());
+                session.setAttribute("admin", userBean.getAdmin());
+                resp.sendRedirect(req.getContextPath() + "/index.jsp");
+            }
+            else{
+                resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            }
+
         } catch (Exception e) {
             Logger.warn(e);
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
         }
     }
 }

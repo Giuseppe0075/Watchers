@@ -2,6 +2,7 @@ package storage.Beans;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.Arrays;
 
 /*
 CREATE TABLE `User`(
@@ -15,13 +16,13 @@ CREATE TABLE `User`(
     `civic_number` VARCHAR(255) NOT NULL,
     `city` VARCHAR(255) NOT NULL,
     `CAP` CHAR(5) NOT NULL
+    `admin` TINYINT NOT NULL
 );
  */
 public class UserBean extends Bean{
     private Long id;
     private String email;
-    private String psw;
-    private Boolean admin;
+    private byte[] psw;
     private String name;
     private String surname;
     private Date birthday;
@@ -29,16 +30,16 @@ public class UserBean extends Bean{
     private String civic_number;
     private String city;
     private String CAP;
+    private Boolean admin;
 
     public UserBean(ResultSet rs) {
         super(rs);
     }
 
-    public UserBean(Long id, String email, String psw,Boolean admin, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
+    public UserBean(Long id, String email,byte[] psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP, Boolean admin) {
         this.id = id;
         this.email = email;
         this.psw = psw;
-        this.admin = admin;
         this.name = name;
         this.surname = surname;
         this.birthday = birthday;
@@ -46,9 +47,10 @@ public class UserBean extends Bean{
         this.civic_number = civic_number;
         this.city = city;
         this.CAP = CAP;
+        this.admin = admin;
     }
 
-    public UserBean(String email, String psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
+    public UserBean(String email, byte[] psw, String name, String surname, Date birthday, String road, String civic_number, String city, String CAP) {
         id = 0L;
         this.email = email;
         this.psw = psw;
@@ -59,6 +61,7 @@ public class UserBean extends Bean{
         this.civic_number = civic_number;
         this.city = city;
         this.CAP = CAP;
+        this.admin = false;
     }
 
     public Long getId() {
@@ -77,11 +80,11 @@ public class UserBean extends Bean{
         this.email = email;
     }
 
-    public String getPsw() {
+    public byte[] getPsw() {
         return psw;
     }
 
-    public void setPsw(String psw) {
+    public void setPsw(byte[] psw) {
         this.psw = psw;
     }
 
@@ -150,19 +153,6 @@ public class UserBean extends Bean{
     }
 
     @Override
-    public String toString() {
-        return "UserBean{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", psw='" + psw + '\'' +
-                ", isAdmin=" + admin +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
-    }
-
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserBean)) return false;
@@ -177,6 +167,22 @@ public class UserBean extends Bean{
         return getSurname() != null ? getSurname().equals(userBean.getSurname()) : userBean.getSurname() == null;
     }
 
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", psw='" + Arrays.toString(psw) + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", road='" + road + '\'' +
+                ", civic_number='" + civic_number + '\'' +
+                ", city='" + city + '\'' +
+                ", CAP='" + CAP + '\'' +
+                ", admin=" + admin +
+                '}';
+    }
     @Override
     public int hashCode() {
         int result = getId().hashCode();

@@ -10,19 +10,12 @@ import storage.Models.UserModel;
 import utils.Security;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 
-@WebServlet(name = "registrationServlet", value = "/signup")
-public class registrationServlet extends HttpServlet {
+@WebServlet(name = "RegistrationServlet", value = "/signup")
+public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //CHECK FOR CSRF
-//        if(!Security.checkCSRFToken(request.getSession(false), request.getParameter("CSRF-Token"))){
-//            response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
-//            return;
-//        }
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
@@ -33,11 +26,13 @@ public class registrationServlet extends HttpServlet {
         String city = request.getParameter("city");
         String cap = request.getParameter("cap");
 
-        UserBean user = new UserBean(email, password, name, surname, birthday, road, civic_number, city, cap);
+        byte[] hashedPassword = Security.hashPassword(password);
+
+        UserBean user = new UserBean(email, hashedPassword, name, surname, birthday, road, civic_number, city, cap);
         // GET INPUT
         try {
             new UserModel().doSave(user);
-            response.sendRedirect("/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

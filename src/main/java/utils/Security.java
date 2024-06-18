@@ -3,10 +3,15 @@ package utils;
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -51,33 +56,6 @@ public class Security {
         }
     }
 
-
-    /**
-     * Generates a random byte array for unique hashing
-     * @return a random byte array
-     */
-    public static byte[] generateSalt() {
-        byte[] salt = new byte[16];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(salt);
-        return salt;
-    }
-
-    /**
-     * Create a hash function from a string (SHA-256)
-     * @param string the input string
-     * @param salt the salt that makes unique each string
-     * @return the hash function
-     * @throws NoSuchAlgorithmException if no Provider supports a MessageDigestSpi implementation for the specified algorithm
-     */
-    public static String hash(String string, byte[] salt) throws NoSuchAlgorithmException{
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.update(salt);
-        byte[] hashedPassword = messageDigest.digest(string.getBytes());
-        return Base64.getEncoder().encodeToString(hashedPassword);
-    }
-
-
     public static boolean checkCSRFToken(HttpSession session, String token){
         if(session == null || token == null){
             return false;
@@ -85,21 +63,56 @@ public class Security {
         return session.getAttribute("CSRF-Token").equals(token);
     }
 
-    /**
-     * Check if the password has:
-     * - at least 1 lower case (?=.*[a-z])
-     * - at least 1 upper case (?=.*[A-Z])
-     * - at least 1 digit (?=.*\\d)
-     * - at least 1 special symbol (?=.*[@#$%^&+=])
-     * - minimum 8 characters long, max 20 chars long .{8,20}
-     * @return true if the requirements are met
-     */
-    public static boolean checkPasswordForm(String password){
-        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@#$%^&+=]).{8,}$");
+    public static byte[] hashPassword(String password) {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        SecretKeyFactory factory = null;
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+        byte[] hash = null;
+        byte[] combined; // Array to store the combined salt and hash
 
+        try {
+            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            hash = factory.generateSecret(spec).getEncoded();
+
+            // Concatenate salt and hash
+            combined = new byte[salt.length + hash.length];
+            System.arraycopy(salt, 0, combined, 0, salt.length);
+            System.arraycopy(hash, 0, combined, salt.length, hash.length);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
+
+        return combined;
     }
 
+    public static boolean verifyPassword(String enteredPassword, byte[] combinedHash) {
+        if (combinedHash == null || combinedHash.length == 0) {
+            throw new IllegalArgumentException("Combined hash cannot be null or empty");
+        }
 
+        // Separate the salt from the combined hash
+        byte[] salt = new byte[16];
+        System.arraycopy(combinedHash, 0, salt, 0, salt.length);
 
+        // Extract the hash from the combined hash
+        byte[] storedHash = new byte[combinedHash.length - salt.length];
+        System.arraycopy(combinedHash, salt.length, storedHash, 0, storedHash.length);
+
+        // Generate a new hash using the entered password and the extracted salt
+        KeySpec spec = new PBEKeySpec(enteredPassword.toCharArray(), salt, 65536, 256);
+        SecretKeyFactory factory = null;
+        byte[] newHash = null;
+        try {
+            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            newHash = factory.generateSecret(spec).getEncoded();
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Compare the newly generated hash with the stored hash
+        return Arrays.equals(newHash, storedHash);
+    }
 
 }

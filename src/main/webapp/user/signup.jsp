@@ -54,11 +54,11 @@
             <p class="my-8">Already have an account? <a class="text-blue-700" href="#">Login here </a> instead  </p>
             <form id="registrationForm" method="POST" action="${pageContext.request.contextPath}/signup">
 
-                <%--First name--%>
+                <%--Name--%>
                 <div class="formGroup flex flex-col my-4">
-                    <label for="firstName">First Name</label>
+                    <label for="name">Name</label>
                     <div class="flex items-center">
-                        <input type="text" id="firstName" name="firstName" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                        <input type="text" id="name" name="name" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required/>
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
@@ -70,11 +70,11 @@
                     <div class="error text-red-700 py-2"></div>
                 </div>
 
-                <%--Last name--%>
+                <%--Surname--%>
                 <div class="formGroup flex flex-col my-4">
-                    <label for="lastName">Last Name</label>
+                    <label for="surname">Surname</label>
                     <div class="flex items-center">
-                        <input type="text" id="lastName" name="lastName" class="w-full border-b-2 border-grey-200 outline-none py-2"
+                        <input type="text" id="surname" name="surname" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required/>
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>

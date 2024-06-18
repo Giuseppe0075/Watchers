@@ -11,7 +11,6 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 public class DatabaseConnectionPool {
-    //TODO: Put username and password into a config file, Test the Pool
 
     private static DatabaseConnectionPool instance = null;
     private static final String db = "bcvrujqustmrsee1qise";
