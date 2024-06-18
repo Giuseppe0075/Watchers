@@ -45,13 +45,13 @@
                 </div>
                 <div class="flex items-center gap-4 text-sm bg-sky-400 text-white px-8 py-2 rounded-full">
                     <i class="fa-brands fa-twitter"></i>
-                    <span>Facebook</span>
+                    <span>Twitter</span>
                 </div>
             </div>
         </div>
         <div class="w-1/2 p-16 bg-white">
             <h2 class="text-4xl font-bold">Sign-up</h2>
-            <p class="my-8">Already have an account? <a class="text-blue-700" href="#">Login here </a> instead  </p>
+            <p class="my-8">Already have an account? <a class="text-blue-700" href="${pageContext.request.contextPath}/user/login.jsp">Login here </a> instead  </p>
             <form id="registrationForm" method="POST" action="${pageContext.request.contextPath}/signup">
 
                 <%--Name--%>

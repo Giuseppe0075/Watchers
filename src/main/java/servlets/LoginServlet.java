@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet(name = "LoginServlet", value = "/user/login")
+@WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
 
     @Override
@@ -29,7 +29,8 @@ public class LoginServlet extends HttpServlet {
             // Check if the user exists
             Collection<UserBean> userBeans =  userModel.doRetrieveByCond("WHERE email = ?", List.of(email));
             if (userBeans.isEmpty()) {
-                resp.sendRedirect(req.getContextPath() + "/login.jsp");
+                req.setAttribute("loginError", "1");
+                req.getRequestDispatcher("/user/login.jsp").forward(req, resp);
                 return;
             }
             UserBean userBean = userBeans.iterator().next();
@@ -43,12 +44,14 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/index.jsp");
             }
             else{
-                resp.sendRedirect(req.getContextPath() + "/login.jsp");
+                req.setAttribute("loginError", "1");
+                req.getRequestDispatcher("/user/login.jsp").forward(req, resp);
             }
 
         } catch (Exception e) {
             Logger.warn(e);
-            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            req.setAttribute("loginError", "1");
+            req.getRequestDispatcher("/user/login.jsp").forward(req, resp);
         }
     }
 }
