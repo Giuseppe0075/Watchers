@@ -7,12 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.tinylog.Logger;
 import storage.Beans.CartElementBean;
 
-import java.util.List;
-
-import storage.Models.CartElementModel;
 import java.io.IOException;
 
 @WebServlet(name = "CartServlet", value = "/cart-servlet")
@@ -23,7 +19,7 @@ public class CartServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         ShoppingCart shoppingCart = new ShoppingCart(session);
 
@@ -38,12 +34,14 @@ public class CartServlet extends HttpServlet {
                 }
                 resp.sendRedirect("../index.jsp");
                 return;
+            //Called to add one quantity of a watch in the cart
             case "add": {
                 Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
                 CartElementBean cartElementBean = new CartElementBean(user, watch, 1);
                 shoppingCart.sumCartElementQuantity(cartElementBean);
                 break;
             }
+            //Called to update the quantity of a watch in the cart
             case "update": {
                 Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
                 Integer quantity = Integer.parseInt(req.getParameter("quantity"));
@@ -51,6 +49,7 @@ public class CartServlet extends HttpServlet {
                 shoppingCart.updateCartElementQuantity(cartElementBean);
                 break;
             }
+            //Called to remove a watch from the cart
             case "remove": {
                 Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
                 CartElementBean cartElementBean = new CartElementBean(user, watch, 0);
