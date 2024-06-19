@@ -7,9 +7,6 @@
 --%>
 
 <style>
-    body {
-        font-family: Arial, sans-serif; /* Ensure a standard font is used */
-    }
 
     #stars {
         width: 100%;

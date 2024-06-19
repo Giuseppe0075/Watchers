@@ -1,10 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.util.Collection" %>
 <%@ page import="storage.Models.WatchModel" %>
 <%@ page import="utils.Security" %>
 <%@ page import="java.util.List" %>
 <%@ page import="storage.Beans.WatchBean" %>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Catalogue</title>
