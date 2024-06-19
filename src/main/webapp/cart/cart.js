@@ -31,6 +31,4 @@ function removeItem(watchId) {
     // Open the request with the correct URL and parameters
     request.open('GET', `../cart-servlet?watch=${watchId}&action=remove`, true);
     request.send();
-
-
 }

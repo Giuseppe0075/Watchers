@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", userBean.getId());
                 session.setAttribute("admin", userBean.getAdmin());
-                resp.sendRedirect(req.getContextPath() + "/index.jsp");
+                resp.sendRedirect(req.getContextPath() + "/cart-servlet?user="+userBean.getId()+"&action=merge");
             }
             else{
                 req.setAttribute("loginError", "1");

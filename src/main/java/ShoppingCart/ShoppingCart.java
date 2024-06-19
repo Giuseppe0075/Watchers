@@ -7,7 +7,6 @@ import storage.Models.CartElementModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public class ShoppingCart {
@@ -27,19 +26,9 @@ public class ShoppingCart {
     public synchronized List<CartElementBean> getCart(){
         Object userIdObject = session.getAttribute("user");
         if(userIdObject != null){
-            updateCart();
-            Long userId = Long.parseUnsignedLong(String.valueOf(userIdObject));
-            try {
-                shoppingCart = (List<CartElementBean>) cartElementModel.doRetrieveByCond("WHERE user = ?", List.of(userId));
-                session.setAttribute("cart", shoppingCart);
-            } catch (Exception e) {
-                Logger.warn(e.getMessage());
-            }
+            updateSessionCart();
         }
-        else {
-            if(session.getAttribute("cart") != null)
-                shoppingCart = (List<CartElementBean>) session.getAttribute("cart");
-        }
+        shoppingCart = session.getAttribute("cart") != null ? (List<CartElementBean>) session.getAttribute("cart") : new ArrayList<>();
         return shoppingCart;
     }
 
@@ -47,13 +36,11 @@ public class ShoppingCart {
         shoppingCart = this.getCart();
         int index = shoppingCart.indexOf(cartElementBean);
         if(index != -1) {
-            CartElementBean old = shoppingCart.get(index);
-            shoppingCart.remove(old);
-            removeFromCart(old);
+            removeFromCart(shoppingCart.get(index));
         }
         shoppingCart.add(cartElementBean);
         session.setAttribute("cart", shoppingCart);
-        this.updateCart();
+        this.updateDatabaseCart(cartElementBean.getUser());
     }
 
     public synchronized void sumCartElementQuantity(CartElementBean cartElementBean){
@@ -61,53 +48,72 @@ public class ShoppingCart {
         int index = shoppingCart.indexOf(cartElementBean);
         if(index != -1) {
             CartElementBean old = shoppingCart.get(index);
-            shoppingCart.remove(old);
             cartElementBean.setQuantity(old.getQuantity() + cartElementBean.getQuantity());
+            removeFromCart(old);
         }
         shoppingCart.add(cartElementBean);
         session.setAttribute("cart", shoppingCart);
-        this.updateCart();
+        this.updateDatabaseCart(cartElementBean.getUser());
     }
 
-    public synchronized void updateCart() {
-        // Check if the user is logged
-        Long user = session.getAttribute("user") != null ? Long.parseUnsignedLong(String.valueOf(session.getAttribute("user"))) : 0;
+    public synchronized void updateSessionCart() {
+        try{
+            long user = session.getAttribute("user") != null ? Long.parseUnsignedLong(String.valueOf(session.getAttribute("user"))) : 0;
+            if(user == 0) return;
+            Collection<CartElementBean> cartElementBeans = cartElementModel.doRetrieveByCond("WHERE user = ?", List.of(user));
+            session.setAttribute("cart", cartElementBeans);
+        }catch (Exception e){
+            Logger.error(e.getMessage());
+        }
+    }
 
-        // Get the cart from the session and update in database for every bean
-        Collection<CartElementBean> temp = (List<CartElementBean>) session.getAttribute("cart"); // Create a copy of the shoppingCart
-        if(temp == null) return;
+    @SuppressWarnings("unchecked")
+    public synchronized void updateDatabaseCart(Long user) {
+        //Check if the user is logged
+        if(user == 0) return;
+
+        //Take the cart from the session
+        Collection<CartElementBean> sessionCart = (List<CartElementBean>) session.getAttribute("cart");
+
+        //If it's null, nothing to merge
+        if (sessionCart == null) return;
+
         try {
-            Collection<CartElementBean> temp2 = cartElementModel.doRetrieveByCond("WHERE user=?", List.of(user));
-            if(temp.equals(temp2)) return;
+            //For every element in the session cart, update the database
+            for (CartElementBean cartElementBean : sessionCart) {
+                cartElementModel.doSaveOrUpdate(cartElementBean);
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        // If the user is logged, update the cart in the database
-        if (user != 0) {
-            // Update the cart in the database
-            for (CartElementBean cartElementBean : temp) {
-                try {
-                    CartElementBean old = cartElementModel.doRetrieveByKey(List.of(user, cartElementBean.getWatch()));
-                    cartElementBean.setUser(user);
-                    if (old != null) {
-                        cartElementBean.setQuantity(cartElementBean.getQuantity() + old.getQuantity());
-                    }
-                    cartElementModel.doSaveOrUpdate(cartElementBean);
-                } catch (Exception e) {
-                    Logger.warn(e.getMessage());
+    }
+
+    public synchronized void mergeCarts(Long user){
+        //Check if the user is logged
+        if(user == 0) return;
+
+        //Take the cart from the session
+        Collection<CartElementBean> sessionCart = (List<CartElementBean>) session.getAttribute("cart");
+
+        //If it's null, nothing to merge
+        if (sessionCart == null) return;
+
+        try {
+            //For every element in the session cart, update the database
+            for (CartElementBean cartElementBean : sessionCart) {
+                CartElementBean databaseCartElement = cartElementModel.doRetrieveByKey(List.of(user, cartElementBean.getWatch()));
+                cartElementBean.setUser(user);
+                if(databaseCartElement != null){
+                    cartElementBean.setQuantity(databaseCartElement.getQuantity() + cartElementBean.getQuantity());
                 }
+                cartElementModel.doSaveOrUpdate(cartElementBean);
             }
-        }
-        try {
-            if(user != 0) {
-                temp = cartElementModel.doRetrieveByCond("WHERE user=?", List.of(user));
-            }
-            session.setAttribute("cart", temp);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
 
     public synchronized void removeFromCart(CartElementBean cartElementBean){
         //Check if the user is logged

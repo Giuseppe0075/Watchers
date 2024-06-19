@@ -68,12 +68,7 @@
   <body>
   <%@include file="../navbar.jsp"%>
   <%
-    List<CartElementBean> cart;
-    if(session.getAttribute("cart") == null){
-      cart = new ShoppingCart(session).getCart();
-    }else {
-      cart = (List<CartElementBean>) session.getAttribute("cart");
-    }
+    List<CartElementBean> cart = new ShoppingCart(session).getCart();
 
     WatchModel watchModel = new WatchModel();
     ImageModel imageModel = new ImageModel();
@@ -132,13 +127,13 @@
             <input type="number" class="quantity" value="<%=element.getQuantity()%>" min="1" max="99" style="width: 50px; text-align: center;">
           </label>
         </div>
-        <button name="remove" onclick="removeItem(<%=watch.getId()%>)">Remove</button>
+        <button type="button" name="remove" onclick="removeItem(<%=watch.getId()%>)">Remove</button>
       </div>
       <% }
       if(cart.isEmpty()){ %>
         <h2>Your cart is empty</h2>
       <% } else { %>
-        <button name="checkout" onclick="">Checkout</button>
+        <button type="submit" name="checkout" onclick="">Checkout</button>
       <% } %>
     </form>
   </div>
