@@ -1,0 +1,69 @@
+.omino{
+    height: 70px;
+}
+header{
+    padding-bottom: 80px;
+}
+
+nav img {
+    height: 80px;
+}
+
+nav {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 25px 0 black;
+}
+
+nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav li a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+nav #menu{
+    display: none;
+}
+nav #user{
+    display: block;
+}
+
+
+
+@media (max-width: 800px) {
+    nav ul {
+        display: none;
+    }
+
+    nav #menu {
+        display: block;
+    }
+
+    header #user {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
