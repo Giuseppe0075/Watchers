@@ -1,20 +1,18 @@
 <%@ page import="storage.Beans.CartElementBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="ShoppingCart.ShoppingCart" %>
 <%@ page import="storage.Beans.WatchBean" %>
 <%@ page import="storage.Models.WatchModel" %>
 <%@ page import="storage.Models.ImageModel" %>
 <%@ page import="storage.Beans.ImageBean" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="java.net.http.HttpResponse" %><%--
+<%@ page import="java.util.Collection" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 30/04/2024
   Time: 18:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
   <head>
     <title>Shopping Cart</title>
@@ -69,7 +67,7 @@
   <%@include file="../navbar.jsp"%>
   <%
     List<CartElementBean> cart = new ShoppingCart(session).getCart();
-
+    Long userId = session.getAttribute("user") != null ? Long.parseUnsignedLong(String.valueOf(session.getAttribute("user"))) : 0;
     WatchModel watchModel = new WatchModel();
     ImageModel imageModel = new ImageModel();
   %>
@@ -80,6 +78,9 @@
 
     <!-- Cart elements -->
     <form method="post" action="#" class="elements">
+      <label for="userId"></label>
+      <input hidden type="text" name="userId" id="userId" value="<%=userId%>">
+
       <% for(CartElementBean element : cart) {
         WatchBean watch = null;
         // Get the watch
@@ -124,7 +125,7 @@
         <!-- Quantity -->
         <div>
           <label>
-            <input type="number" class="quantity" value="<%=element.getQuantity()%>" min="1" max="99" style="width: 50px; text-align: center;">
+            <input type="number" class="quantity" value="<%=element.getQuantity()%>" min="1" max="<%=watch.getStock()%>" style="width: 50px; text-align: center;">
           </label>
         </div>
         <button type="button" name="remove" onclick="removeItem(<%=watch.getId()%>)">Remove</button>
@@ -133,7 +134,7 @@
       if(cart.isEmpty()){ %>
         <h2>Your cart is empty</h2>
       <% } else { %>
-        <button type="submit" name="checkout" onclick="">Checkout</button>
+        <button type="submit" name="checkout">Checkout</button>
       <% } %>
     </form>
   </div>

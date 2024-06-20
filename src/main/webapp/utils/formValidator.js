@@ -94,12 +94,6 @@ const validateForm = formSelector => {
         return !formGroupError;
     };
 
-    // Array.from(formElement.elements).forEach(element => {
-    //     element.addEventListener('blur', event=>{
-    //        validateSingleFormGroup(event.target.parentElement.parentElement)
-    //     });
-    // });
-
     /**Takes all form groups and validate each of them
      * If all form groups are valid, return true
      * @param formToValidate
