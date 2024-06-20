@@ -6,10 +6,9 @@ for(let quantity of quantities) {
         let watch = quantity.parentElement.parentElement.parentElement.getElementsByClassName('watch')[0];
         if (quantity.value < 1) {
             quantity.value = 1;
-        } else if (quantity.value > 99) {
-            quantity.value = 99;
+        } else if (quantity.value > quantity.max.value) {
+            quantity.value = quantity.max.value;
         }
-        console.log(`Updating quantity of watch ${watch.value} to ${quantity.value}`);
 
         request.onreadystatechange = function () {
             if (request.status === 200 && request.readyState === 4) {
