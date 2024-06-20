@@ -77,25 +77,21 @@
     <h1>Shopping Cart</h1>
 
     <!-- Cart elements -->
-    <form method="post" action="#" class="elements">
+    <form method="post" action="${pageContext.request.contextPath}/user/checkout/checkout.jsp" class="elements">
       <label for="userId"></label>
       <input hidden type="text" name="userId" id="userId" value="<%=userId%>">
 
       <% for(CartElementBean element : cart) {
         WatchBean watch = null;
-        // Get the watch
+        Collection<ImageBean> images = null;
+        // Get the watch and the images
         try {
           watch = watchModel.doRetrieveByKey(List.of(element.getWatch()));
+          images = imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
-        Collection<ImageBean> images = null;
-        // Get the images
-        try {
-            images = imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
         // Get the first image
         ImageBean image = images.stream().findFirst().orElse(null);
         if(image == null){
@@ -125,7 +121,7 @@
         <!-- Quantity -->
         <div>
           <label>
-            <input type="number" class="quantity" value="<%=element.getQuantity()%>" min="1" max="<%=watch.getStock()%>" style="width: 50px; text-align: center;">
+            <input type="number" name="quantity" class="quantity" value="<%=element.getQuantity()%>" min="1" max="<%=watch.getStock()%>" style="width: 50px; text-align: center;">
           </label>
         </div>
         <button type="button" name="remove" onclick="removeItem(<%=watch.getId()%>)">Remove</button>
