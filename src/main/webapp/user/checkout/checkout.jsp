@@ -26,8 +26,8 @@
     %>
     <div class="container">
         <h2> Checkout </h2><br>
-        <form action="#" method="post">
-
+        <form action="${pageContext.request.contextPath}/checkout" method="post">
+            <button type="submit">Order</button>
             <%
                 for(int i = 0; i < n; i++) {
                     String watchId = watches[i];
@@ -44,11 +44,16 @@
                         if(image == null){
                             image = new ImageBean();
                         }
+
+                        //TODO: Implement the "not have enough stock" message
             %>
 
                         <div class="element" id="watch<%=watchId%>">
                             <label>
                                 <input hidden class="priceForOne" value="<%=price%>">
+                            </label>
+                            <label>
+                                <input hidden class="watchId" name="watchId" value="<%=watchId%>">
                             </label>
                             <div class="details">
                                 <img class="photo" src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watchId%>" alt="Immagine al momento non disponibile">
@@ -57,8 +62,9 @@
                             </div>
                             <div>
                                 <label>
-                                    <input type="number" name="quantity" class="quantity" value="<%=quantity%>" min="1" max="<%=watchBean.getStock()%>" style="width: 50px; text-align: center;">
+                                    <input hidden type="number" name="quantity" class="quantity" value="<%=quantity%>" min="1" max="<%=watchBean.getStock()%>" style="width: 50px; text-align: center;">
                                 </label>
+                                <div class="quantity"> <%=quantity%> </div>
                                 <div class="price" data-single-price="<%=price%>"> <%=price * quantity%> € </div>
                             </div>
                             <button type="button" onclick="removeItem(<%=watchId%>)">Remove</button>

@@ -54,14 +54,19 @@
             <td><%=watch.getBrand()%></td>
             <td><%=watch.getDescription()%></td>
             <td>
-                <form action="${pageContext.request.contextPath}/cart-servlet" method="post">
+                <form id="cartForm" method="post" action="${pageContext.request.contextPath}/cart-servlet">
                     <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                    <input type="submit" name="action" value="add">
+                    <% if(watch.getStock() == 0){
+                        %> <p>Out of stock</p>
+                    <% } else { %>
+                        <button type="submit" name="action" value="add">Add to cart</button>
+                    <%}%>
                 </form>
-                <form action="${pageContext.request.contextPath}/favourites-servlet" method="post">
+                <form id="favoriteForm" method="post" action="${pageContext.request.contextPath}/favourites-servlet">
+                    <input type="hidden" name="url" value="${pageContext.request.contextPath}/catalogue/catalogue.jsp">
                     <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                    <input type="submit" name="action" value="add">
+                    <button type="submit" name="action" value="add">Add to favourites</button>
                 </form>
             </td>
         </tr>

@@ -17,22 +17,20 @@ CREATE TABLE `Purchase`(
 );
  */
 public class PurchaseBean extends Bean{
-    private  Long id_order;
+    private  Long id;
     private  Long user;
     private  Long watch;
     private  Integer quantity;
     private  Integer IVA;
     private  Double price;
-    private Date date;
 
-    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price, Date date) {
-        this.id_order = id;
+    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
+        this.id = id;
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
         this.IVA = IVA;
         this.price = price;
-        this.date = date;
     }
 
     public PurchaseBean(ResultSet rs){
@@ -40,7 +38,7 @@ public class PurchaseBean extends Bean{
     }
 
     public void setId(Long id) {
-        this.id_order = id;
+        this.id = id;
     }
 
     public void setUser(Long user) {
@@ -64,7 +62,7 @@ public class PurchaseBean extends Bean{
     }
 
     public Long getId() {
-        return id_order;
+        return id;
     }
 
     public Long getUser() {
@@ -90,22 +88,13 @@ public class PurchaseBean extends Bean{
     @Override
     public String toString() {
         return "PurchaseBeen{" +
-                "id=" + id_order +
+                "id=" + id +
                 ", user=" + user +
                 ", watch=" + watch +
                 ", quantity=" + quantity +
                 ", IVA=" + IVA +
                 ", price=" + price +
-                ", date='" + date +
                 '}';
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     @Override
@@ -120,7 +109,6 @@ public class PurchaseBean extends Bean{
         if (!getWatch().equals(that.getWatch())) return false;
         if (!getQuantity().equals(that.getQuantity())) return false;
         if (!getIVA().equals(that.getIVA())) return false;
-        if(!getDate().equals(that.getDate())) return false;
         return getPrice().equals(that.getPrice());
     }
 
@@ -132,7 +120,6 @@ public class PurchaseBean extends Bean{
         result = 31 * result + getQuantity().hashCode();
         result = 31 * result + getIVA().hashCode();
         result = 31 * result + getPrice().hashCode();
-        result = 31 * result + getDate().hashCode();
         return result;
     }
 }
