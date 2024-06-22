@@ -12,8 +12,13 @@
 <head>
     <title>User Manager</title>
     <%
-        UserModel userModel = new UserModel();
-        List<UserBean> users= (List<UserBean>) userModel.doRetrieveAll();
+        UserModel um = new UserModel();
+        List<UserBean> users= null;
+        try {
+            users = (List<UserBean>) um.doRetrieveAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     %>
 </head>
 <body>
@@ -27,13 +32,13 @@
             <td>Admin</td>
         </thead>
 
-        <% for(UserBean user : users){ %>
+        <% for(UserBean userr : users){ %>
             <tr>
-                <td><a href="${pageContext.request.contextPath}/admin/userProfile.jsp?id=<%=user.getId()%>"><%= user.getEmail()%></a> </td>
-                <td><%= user.getName()%></td>
-                <td><%= user.getSurname()%></td>
-                <td><%= user.getCAP()%></td>
-                <td><%= user.getAdmin()%></td>
+                <td><a href="${pageContext.request.contextPath}/admin/userProfile.jsp?id=<%=userr.getId()%>"><%= userr.getEmail()%></a> </td>
+                <td><%= userr.getName()%></td>
+                <td><%= userr.getSurname()%></td>
+                <td><%= userr.getCAP()%></td>
+                <td><%= userr.getAdmin()%></td>
             </tr>
         <% } %>
     </table>

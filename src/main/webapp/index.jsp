@@ -18,8 +18,7 @@
         Your browser does not support the video tag.
     </video>
 </div>
-<div class="container itemPage"> <!-- Item main page -->
-    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+    <div id="carouselExample" class="carousel slide" data-ride="carousel" style="width: 30vh" y>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=1"><img src="homepage/watch1.avif" class="d-block" alt="Watch 1"></a>
@@ -40,7 +39,8 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-</div>
+
+
 
 <%@include file="footer.html"%>
 

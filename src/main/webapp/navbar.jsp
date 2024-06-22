@@ -6,19 +6,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/homepage/navbar.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <%
+        Long user =  session.getAttribute("user") == null ? 0L : (Long) session.getAttribute("user");
+        UserModel userModel = new UserModel();
+        UserBean userBean;
+        try {
+            userBean = userModel.doRetrieveByKey(List.of(user));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    %>
 
     <nav>
-        <%
-            Long user =  session.getAttribute("user") == null ? 0L : (Long) session.getAttribute("user");
-            UserModel userModel = new UserModel();
-            UserBean userBean;
-            try {
-                userBean = userModel.doRetrieveByKey(List.of(user));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        %>
         <a href="${pageContext.request.contextPath}/index.jsp" id="logo">
             <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
         </a>
@@ -42,7 +41,29 @@
         <% } %>
                 <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
             </a>
-            <div class="material-symbols-outlined" id="menu">menu</div>
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="menu">&#9776;</span>
     </nav>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a>
+        <a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a>
+        <a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Preferiti</a>
+        <% if (userBean != null && userBean.getAdmin()) { %>
+        <a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+        <a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a>
+        <a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a>
+        <% } if (userBean != null) {%>
+        <a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a>
+        <% } %>
+    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 </header>
 
