@@ -1,5 +1,3 @@
-const request = new XMLHttpRequest();
-const form = document.querySelector('form');
 let quantities = document.getElementsByClassName('quantity');
 for(let quantity of quantities) {
     quantity.addEventListener('change', function () {
@@ -15,6 +13,5 @@ for(let quantity of quantities) {
 }
 
 function removeItem(watchId) {
-    alert(`Removing watch ${watchId}`)
     document.getElementById(`watch${watchId}`).remove();
 }
