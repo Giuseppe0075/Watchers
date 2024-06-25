@@ -36,7 +36,7 @@
         <div class="w-1/2 p-12 side-column">
             <h2 class="text-black text-8xl mt-16 font-bold">Watchers</h2>
 
-            <p class="text-black-400 my-8"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores dolorem eligendi enim error eveniet excepturi facilis inventore labore modi nihil, optio provident quidem quod, ratione recusandae suscipit totam ullam ut.</p>
+            <p class="text-black-400 my-8"> Join us in the world of luxury. We have a variety of watches from every luxury brand and from every part of the world.</p>
             <p class ="text-black my-8 font-bold"> Register with social media</p>
             <div class="flex gap-8">
                 <div class="flex items-center gap-4 text-sm bg-blue-900 text-white px-8 py-2 rounded-full">
