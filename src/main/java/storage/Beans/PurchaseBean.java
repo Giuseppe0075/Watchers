@@ -23,14 +23,16 @@ public class PurchaseBean extends Bean{
     private  Integer quantity;
     private  Integer IVA;
     private  Double price;
+    private Date date;
 
-    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price) {
+    public PurchaseBean(Long id, Long user, Long watch, Integer quantity, Integer IVA, Double price, Date date) {
         this.id = id;
         this.user = user;
         this.watch = watch;
         this.quantity = quantity;
         this.IVA = IVA;
         this.price = price;
+        this.date = date;
     }
 
     public PurchaseBean(ResultSet rs){
@@ -121,5 +123,13 @@ public class PurchaseBean extends Bean{
         result = 31 * result + getIVA().hashCode();
         result = 31 * result + getPrice().hashCode();
         return result;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

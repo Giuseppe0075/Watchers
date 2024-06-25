@@ -14,12 +14,8 @@ import storage.Models.PurchaseModel;
 import storage.Models.WatchModel;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-import static java.lang.Math.max;
 
 @WebServlet(name = "CheckoutServlet", value = "/checkout")
 public class CheckoutServlet extends HttpServlet {
@@ -40,12 +36,12 @@ public class CheckoutServlet extends HttpServlet {
         Long[] watchIds = Arrays.stream(req.getParameterValues("watchId")).mapToLong(Long::parseLong).boxed().toArray(Long[]::new);
         Integer[] quantities = Arrays.stream(req.getParameterValues("quantity")).mapToInt(Integer::parseInt).boxed().toArray(Integer[]::new);
 
-        Collection<PurchaseBean> temp = null;
 
-        //Id of the order: starts from one if it is the first order of the user, otherwise it is the id of the last order + 1
+
+        //id of the order: starts from one if it is the first order of the user, otherwise it is the id of the last order + 1
         long id_order = 1L;
         try {
-            temp = purchaseModel.doRetrieveByCond("WHERE user = ?\nGROUP BY id\nORDER BY id DESC", List.of(userId));
+            Collection<PurchaseBean> temp = purchaseModel.doRetrieveByCond("WHERE user = ?\nGROUP BY id\nORDER BY id DESC", List.of(userId));
             //Take the id of the last order of this user and increment it by 1
             if(!temp.isEmpty())
                 id_order = temp.iterator().next().getId() + 1;
@@ -77,8 +73,11 @@ public class CheckoutServlet extends HttpServlet {
                 watchBeans.get(i).setStock(watchBeans.get(i).getStock() - quantities[i]);
                 watchModel.doSaveOrUpdate(watchBeans.get(i));
 
+
+                Date date = new Date();
+
                 //Save the purchase
-                PurchaseBean purchaseBean = new PurchaseBean(id_order, userId, watchIds[i], quantities[i], 21, watchBeans.get(i).getPrice());
+                PurchaseBean purchaseBean = new PurchaseBean(id_order, userId, watchIds[i], quantities[i], 21, watchBeans.get(i).getPrice(), date);
                 purchaseModel.doSave(purchaseBean);
 
                 //Remove the watch from the cart

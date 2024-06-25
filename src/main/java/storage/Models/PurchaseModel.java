@@ -11,11 +11,11 @@ import java.util.List;
 
 public class PurchaseModel implements DAO<PurchaseBean> {
     private static final String TABLE = "Purchase";
-    private static final List<String> COLUMNS = List.of("id","user", "watch", "quantity", "IVA", "price");
+    private static final List<String> COLUMNS = List.of("id","user", "watch", "quantity", "IVA", "price", "date");
     private static final List<String> KEYS = List.of("id", "user", "watch");
     @Override
     public void doSave(PurchaseBean purchaseBean) throws Exception {
-        List<Object> values = List.of(purchaseBean.getId(), purchaseBean.getUser(), purchaseBean.getWatch(), purchaseBean.getQuantity(), purchaseBean.getIVA(), purchaseBean.getPrice());
+        List<Object> values = List.of(purchaseBean.getId(), purchaseBean.getUser(), purchaseBean.getWatch(), purchaseBean.getQuantity(), purchaseBean.getIVA(), purchaseBean.getPrice(), purchaseBean.getDate());
         Model.doSave(TABLE, COLUMNS, values);
     }
 
