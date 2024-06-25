@@ -1,3 +1,16 @@
+
+/* Stile per i link della navbar */
+ a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+a:hover {
+    background-color: #03424e;
+}
+
 .omino{
     height: 70px;
 }
@@ -11,6 +24,7 @@ nav img {
 
 nav {
     background-color: white;
+    z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;

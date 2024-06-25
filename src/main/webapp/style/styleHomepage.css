@@ -10,19 +10,19 @@ body, html {
 
 #frontPage {
     position: relative;
+    z-index: 0;
     width: 100%;
     height: 100vh;
 }
 
 #mainVideo {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+    z-index: 0;
 }
 
 .itemPage {

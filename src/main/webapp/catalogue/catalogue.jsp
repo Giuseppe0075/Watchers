@@ -4,6 +4,8 @@
 <%@ page import="utils.Security" %>
 <%@ page import="java.util.List" %>
 <%@ page import="storage.Beans.WatchBean" %>
+<%@ page import="storage.Models.ImageModel" %>
+<%@ page import="storage.Beans.ImageBean" %>
 <html>
 <head>
     <title>Catalogue</title>
@@ -17,13 +19,13 @@
 %>
 <%
     String sort = request.getParameter("sort");
-    WatchModel model = new WatchModel();
+    WatchModel watchModel = new WatchModel();
     try {
         if(sort == null) {
-                watchList = model.doRetrieveAll();
+                watchList = watchModel.doRetrieveAll();
         }
         else {
-                watchList = model.doRetrieveByCond("order by " + sort,List.of());
+                watchList = watchModel.doRetrieveByCond("order by " + sort,List.of());
         }
     } catch (Exception e) {
         throw new RuntimeException(e);
@@ -40,8 +42,27 @@
 
 <main>
     <section id="catalogo">
-        <% for (WatchBean watch : watchList) { %>
+        <%
+            ImageModel imageModel= new ImageModel();
+            for (WatchBean watch : watchList) {
+                Collection<ImageBean> images = null;
+                // Get the watch and the images
+                try {
+                    watch = watchModel.doRetrieveByKey(List.of(watch.getId()));
+                    images = imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                // Get the first image
+                ImageBean image = images.stream().findFirst().orElse(null);
+                if(image == null){
+                    image = new ImageBean();
+                }
+            %>
+
         <div class="orologio">
+            <img src="${pageContext.request.contextPath}/getImage?id=<%= image.getId()%>&watch=<%= watch.getId()%>" alt="no images">
             <h2><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
                 <%=watch.getName()%></a></h2>
             <p>Brand: <%=watch.getBrand()%></p>
