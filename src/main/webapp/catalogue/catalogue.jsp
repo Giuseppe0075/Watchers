@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.Collection" %>
 <%@ page import="storage.Models.WatchModel" %>
 <%@ page import="utils.Security" %>
@@ -40,12 +40,16 @@
 
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
+<div id="filters">
+    <!-- TODO: Add filters -->
+</div>
+
 <main>
     <section id="catalogo">
         <%
             ImageModel imageModel= new ImageModel();
             for (WatchBean watch : watchList) {
-                Collection<ImageBean> images = null;
+                Collection<ImageBean> images;
                 // Get the watch and the images
                 try {
                     watch = watchModel.doRetrieveByKey(List.of(watch.getId()));
@@ -61,27 +65,28 @@
                 }
             %>
 
-        <div class="orologio">
-            <img src="${pageContext.request.contextPath}/getImage?id=<%= image.getId()%>&watch=<%= watch.getId()%>" alt="no images">
-            <h2><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
-                <%=watch.getName()%></a></h2>
-            <p>Brand: <%=watch.getBrand()%></p>
-            <p>Descrizione: <%=watch.getDescription()%></p>
-            <form method="post" action="${pageContext.request.contextPath}/cart-servlet">
-                <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                <% if(watch.getStock() == 0) { %>
-                <p>Out of stock</p>
-                <% } else { %>
-                <button type="submit" name="action" value="add">Aggiungi a Carrello</button>
-                <% } %>
-            </form>
-            <form method="post" action="${pageContext.request.contextPath}/favourites-servlet">
-                <input type="hidden" name="url" value="${pageContext.request.contextPath}/catalogue/catalogue.jsp">
-                <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                <button type="submit" name="action" value="add">Aggiungi a Preferiti</button>
-            </form>
-        </div>
+            <div class="orologio">
+                <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
+                    <img src="${pageContext.request.contextPath}/getImage?id=<%= image.getId()%>&watch=<%= watch.getId()%>" alt="no images">
+                    <h2><%=watch.getName()%></h2>
+                    <p>Brand: <%=watch.getBrand()%></p>
+                    <p>Descrizione: <%=watch.getDescription()%></p>
+                    <form method="post" action="${pageContext.request.contextPath}/cart-servlet">
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="watch" value="<%= watch.getId()%>">
+                        <% if(watch.getStock() == 0) { %>
+                        <p>Out of stock</p>
+                        <% } else { %>
+                        <button type="submit" name="action" value="add">Aggiungi a Carrello</button>
+                        <% } %>
+                    </form>
+                    <form method="post" action="${pageContext.request.contextPath}/favourites-servlet">
+                        <input type="hidden" name="url" value="${pageContext.request.contextPath}/catalogue/catalogue.jsp">
+                        <input type="hidden" name="watch" value="<%= watch.getId()%>">
+                        <button type="submit" name="action" value="add">Aggiungi a Preferiti</button>
+                    </form>
+                </a>
+            </div>
         <% } %>
     </section>
 </main>
