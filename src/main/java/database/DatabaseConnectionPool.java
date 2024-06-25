@@ -5,12 +5,9 @@ import utils.ConfigurationProperties;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.Queue;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.TimeUnit;
 
 public class DatabaseConnectionPool {
 
@@ -19,7 +16,7 @@ public class DatabaseConnectionPool {
     private static final String username = ConfigurationProperties.getUsername();
     private static final String password = ConfigurationProperties.getPassword();
 
-    private static final int POOL_SIZE = 1;
+    private static final int POOL_SIZE = 3;
     private final BlockingQueue<Connection> pool = new LinkedBlockingQueue<>();
 
     private DatabaseConnectionPool() {
@@ -74,14 +71,14 @@ public class DatabaseConnectionPool {
      * @throws SQLException if a connection cannot be obtained within the timeout
      */
     public synchronized Connection getConnection() throws SQLException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = pool.take(); // This will block if the queue is empty
         } catch (InterruptedException e) {
             throw new SQLException("Interrupted while waiting for connection", e);
         }
 
-        Logger.debug("Got connection from pool. Remaining connections: " + (!pool.isEmpty() ? pool.size() - 1 : 0) + "/" + POOL_SIZE);
+        Logger.debug("Got connection from pool. Remaining connections: " + pool.size() + "/" + POOL_SIZE);
         return connection;
     }
 
