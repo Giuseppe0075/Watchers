@@ -32,6 +32,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="../style/styleHomepage.css">
 </head>
 <body>
         <%@include file="../navbar.jsp"%>

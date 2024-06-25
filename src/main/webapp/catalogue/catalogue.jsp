@@ -7,8 +7,9 @@
 <html>
 <head>
     <title>Catalogue</title>
-    <link rel="stylesheet" href="../homepage/style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style/styleCatalogue.css" type="text/css">
+    <link rel="stylesheet" href="../style/styleHomepage.css">
+
 </head>
 <body>
 <%!
@@ -37,40 +38,34 @@
 
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
-    <table style="width: 100%">
-        <tr>
-            <th>Name:  <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp?sort=name">sort</a></th>
-            <th>Brand: <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp?sort=brand">sort</a></th>
-            <th>Description <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp?sort=description">sort</a></th>
-            <th>Action</th>
-        </tr>
+<main>
+    <section id="catalogo">
         <% for (WatchBean watch : watchList) { %>
-        <tr>
-            <td>
-                <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
-                    <%=watch.getName()%>
-                </a>
-            </td>
-            <td><%=watch.getBrand()%></td>
-            <td><%=watch.getDescription()%></td>
-            <td>
-                <form id="cartForm" method="post" action="${pageContext.request.contextPath}/cart-servlet">
-                    <input type="hidden" name="quantity" value="1">
-                    <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                    <% if(watch.getStock() == 0){
-                        %> <p>Out of stock</p>
-                    <% } else { %>
-                        <button type="submit" name="action" value="add">Add to cart</button>
-                    <%}%>
-                </form>
-                <form id="favoriteForm" method="post" action="${pageContext.request.contextPath}/favourites-servlet">
-                    <input type="hidden" name="url" value="${pageContext.request.contextPath}/catalogue/catalogue.jsp">
-                    <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                    <button type="submit" name="action" value="add">Add to favourites</button>
-                </form>
-            </td>
-        </tr>
-        <%}%>
-    </table>
+        <div class="orologio">
+            <h2><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
+                <%=watch.getName()%></a></h2>
+            <p>Brand: <%=watch.getBrand()%></p>
+            <p>Descrizione: <%=watch.getDescription()%></p>
+            <form method="post" action="${pageContext.request.contextPath}/cart-servlet">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="watch" value="<%= watch.getId()%>">
+                <% if(watch.getStock() == 0) { %>
+                <p>Out of stock</p>
+                <% } else { %>
+                <button type="submit" name="action" value="add">Aggiungi a Carrello</button>
+                <% } %>
+            </form>
+            <form method="post" action="${pageContext.request.contextPath}/favourites-servlet">
+                <input type="hidden" name="url" value="${pageContext.request.contextPath}/catalogue/catalogue.jsp">
+                <input type="hidden" name="watch" value="<%= watch.getId()%>">
+                <button type="submit" name="action" value="add">Aggiungi a Preferiti</button>
+            </form>
+        </div>
+        <% } %>
+    </section>
+</main>
+
+<%@include file="../footer.html"%> <!-- Footer -->
+
 </body>
 </html>
