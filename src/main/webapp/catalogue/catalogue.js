@@ -1,21 +1,20 @@
 const filterForm = document.getElementById('filterForm');
 const catalogue = document.getElementById('catalogue');
 const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
+
 filterFormGroup.forEach(formGroup => {
     formGroup.addEventListener('change', event => {
         event.preventDefault();
         // Create a FormData object from the form
         const formData = new FormData(filterForm);
-        for(let pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]);
-        }
-        // Send a POST request to the server
-        fetch('/get-watches', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
+
+        $.ajax({
+            url: '/get-watches',
+            type: 'POST',
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function (data) {
                 // Clear the current catalog
                 while (catalogue.firstChild) {
                     catalogue.removeChild(catalogue.firstChild);
@@ -25,7 +24,8 @@ filterFormGroup.forEach(formGroup => {
                 for (const watch of data) {
                     createWatchCard(watch)
                 }
-            });
+            }
+        });
     });
 });
 
@@ -36,13 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create a FormData object from the form
     const formData = new FormData(filterForm);
 
-    // Send a POST request to the server
-    fetch('/get-watches', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
+    $.ajax({
+        url: '/get-watches',
+        type: 'POST',
+        data: formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success: function(data) {
             // Clear the current catalog
             while (catalogue.firstChild) {
                 catalogue.removeChild(catalogue.firstChild);
@@ -52,8 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
             for (const watch of data) {
                 createWatchCard(watch)
             }
-        });
+        }
+    });
 });
+
 
 function createWatchCard(watch){
     // Create the outer div
