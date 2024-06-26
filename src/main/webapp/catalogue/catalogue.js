@@ -5,7 +5,9 @@ filterFormGroup.forEach(formGroup => {
     formGroup.addEventListener('change', event => {
         // Create a FormData object from the form
         const formData = new FormData(filterForm);
-
+        for(let pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
+        }
         // Send a POST request to the server
         fetch('/get-watches', {
             method: 'POST',
@@ -24,6 +26,32 @@ filterFormGroup.forEach(formGroup => {
                 }
             });
     });
+});
+
+
+//For the first load of the catalogue
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Create a FormData object from the form
+    const formData = new FormData(filterForm);
+
+    // Send a POST request to the server
+    fetch('/get-watches', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Clear the current catalog
+            while (catalogue.firstChild) {
+                catalogue.removeChild(catalogue.firstChild);
+            }
+
+            // Assume `watch` and `image` are objects with the necessary properties
+            for (const watch of data) {
+                createWatchCard(watch)
+            }
+        });
 });
 
 function createWatchCard(watch){
