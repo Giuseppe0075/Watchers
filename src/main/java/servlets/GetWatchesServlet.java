@@ -7,9 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.tinylog.Logger;
 import storage.Beans.WatchBean;
-import storage.Models.ImageModel;
 import storage.Models.WatchModel;
 
 import java.io.IOException;

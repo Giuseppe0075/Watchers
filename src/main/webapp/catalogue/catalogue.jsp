@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.Models.WatchModel" %>
 <%@ page import="utils.Security" %>
-<%@ page import="storage.Beans.WatchBean" %>
-<%@ page import="storage.Models.ImageModel" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="storage.Models.BrandModel" %>

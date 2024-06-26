@@ -3,6 +3,7 @@ const catalogue = document.getElementById('catalogue');
 const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
 filterFormGroup.forEach(formGroup => {
     formGroup.addEventListener('change', event => {
+        event.preventDefault();
         // Create a FormData object from the form
         const formData = new FormData(filterForm);
         for(let pair of formData.entries()) {
