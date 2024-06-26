@@ -5,22 +5,19 @@ import utils.ConfigurationProperties;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.TimeUnit;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class DatabaseConnectionPool {
 
     private static DatabaseConnectionPool instance = null;
-    private static final String db = "bcvrujqustmrsee1qise";
     private static final String uri = ConfigurationProperties.getUrl();//+"?autoReconnect=true"
     private static final String username = ConfigurationProperties.getUsername();
     private static final String password = ConfigurationProperties.getPassword();
 
     private static final int POOL_SIZE = 3;
-    private final Queue<Connection> pool = new LinkedList<>();
-
+    private final BlockingQueue<Connection> pool = new LinkedBlockingQueue<>();
 
     private DatabaseConnectionPool() {
         Logger.info("Trying to connect to db with URI: {}, USER: {}, PSW: {}", uri, username, password);
@@ -74,42 +71,19 @@ public class DatabaseConnectionPool {
      * @throws SQLException if a connection cannot be obtained within the timeout
      */
     public synchronized Connection getConnection() throws SQLException {
-        final long TIMEOUT_MILLIS = 500; // Adjust as needed
-        long start = System.currentTimeMillis();
-        Connection connection = pool.poll(); // Try to get a connection without blocking
-
-        while (connection == null) {
-            try {
-                long elapsedTime = System.currentTimeMillis() - start;
-                if (elapsedTime >= TIMEOUT_MILLIS) {
-                    throw new SQLException("No connections available in the pool within timeout");
-                }
-
-                // Check if a connection became available after the initial poll
-                connection = pool.poll();
-                if (connection != null) {
-                    break; // Connection obtained, exit the loop
-                }
-
-                // Sleep for a short interval before retrying
-                Thread.sleep(50); // Adjust as needed
-            } catch (InterruptedException e) {
-                throw new SQLException("Interrupted while waiting for connection", e);
-            }
+        Connection connection;
+        try {
+            connection = pool.take(); // This will block if the queue is empty
+        } catch (InterruptedException e) {
+            throw new SQLException("Interrupted while waiting for connection", e);
         }
 
-        Logger.debug("Connection Pool added connection " + (!pool.isEmpty() ? pool.size() - 1 : 0) + "/" + POOL_SIZE);
+        Logger.debug("Got connection from pool. Remaining connections: " + pool.size() + "/" + POOL_SIZE);
         return connection;
     }
 
-
-
-    public synchronized void releaseConnection(Connection connection) {
+    public void releaseConnection(Connection connection) {
         pool.add(connection);
-        Logger.debug("Releasing connection. " + pool.size() + "/" + POOL_SIZE);
-    }
-
-    public synchronized void releaseConnection(java.sql.Connection connection) {
-        pool.add(new Connection(connection));
+        Logger.debug("Releasing connection. Available connections: " + pool.size() + "/" + POOL_SIZE);
     }
 }

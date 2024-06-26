@@ -31,10 +31,15 @@ public class Model{
         //remove the last ,
         query.deleteCharAt(query.length()-1);
         query.append(")");
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+        Connection connection = DatabaseConnectionPool.getInstance().getConnection();
+        try{
             int rs = connection.executeUpdate(String.valueOf(query), values);
             if(rs == 0){
                 throw new SQLException(table + " | " + "doSave: Failed | ");
+            }
+        } finally {
+            if (connection != null) {
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
             }
         }
     }
@@ -45,11 +50,16 @@ public class Model{
      * The values must be in the same order as the columns
      */
     public static void doDeleteByCond(String table, String condition, List<Object> values) throws SQLException {
-        try (database.Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+        Connection connection = DatabaseConnectionPool.getInstance().getConnection();
+        try {
             int rs = connection.executeUpdate("DELETE FROM " + table + " " + condition, values);
 
             if(rs == 0){
                 throw new SQLException(table + " | doDeleteByCond: Failed | condition: " + condition);
+            }
+        } finally {
+            if (connection != null) {
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
             }
         }
     }
@@ -64,13 +74,18 @@ public class Model{
             query.append(k).append(" = ? AND ");
         }
         query.delete(query.length()-5, query.length());
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+        Connection connection = DatabaseConnectionPool.getInstance().getConnection();
+        try {
             rs = connection.executeQuery(String.valueOf(query), keys);
             if(rs == null){
                 throw new SQLException(table + " | doRetrieveByKey: Failed | keys: " + keys);
             }
         }catch (SQLException e){
             throw new SQLException(table + " | doRetrieveByKey: Failed | " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
+            }
         }
         return rs;
     }
@@ -81,13 +96,18 @@ public class Model{
     public static ResultSet  doRetrieveByCond(String table, String condition, List<Object> values) throws SQLException {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table + " " + condition);
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+        Connection connection = DatabaseConnectionPool.getInstance().getConnection();
+        try {
             rs = connection.executeQuery(String.valueOf(query), values);
             if(rs == null){
                 throw new SQLException(table + " | doRetrieveByCond: Failed | condition: " + condition);
             }
         }catch (SQLException e){
             throw new SQLException(table + " | doRetrieveByCond: Failed | " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
+            }
         }
         return rs;
     }
@@ -98,13 +118,18 @@ public class Model{
     public static ResultSet doRetrieveAll(String table) throws SQLException {
         ResultSet rs;
         StringBuilder query = new StringBuilder("SELECT * FROM " + table);
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()) {
+        Connection connection = DatabaseConnectionPool.getInstance().getConnection();
+        try {
             rs = connection.executeQuery(String.valueOf(query));
             if(rs == null){
                 throw new SQLException(table + " | doRetrieveAll: Failed |");
             }
         }catch (SQLException e){
             throw new SQLException(table + " | doRetrieveAll: Failed | " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
+            }
         }
         return rs;
     }
@@ -124,10 +149,16 @@ public class Model{
             query.append(key).append(" = ? AND ");
         }
         query.delete(query.length()-5, query.length());
-        try (Connection connection = DatabaseConnectionPool.getInstance().getConnection()){
+
+        Connection connection = DatabaseConnectionPool.getInstance().getConnection();
+        try{
             int rs = connection.executeUpdate(String.valueOf(query), values);
             if(rs == 0){
                 throw new SQLException(table + " | doUpdate: Failed | ");
+            }
+        } finally {
+            if (connection != null) {
+                DatabaseConnectionPool.getInstance().releaseConnection(connection);
             }
         }
     }

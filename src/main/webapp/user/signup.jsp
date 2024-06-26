@@ -36,7 +36,7 @@
         <div class="w-1/2 p-12 side-column">
             <h2 class="text-black text-8xl mt-16 font-bold">Watchers</h2>
 
-            <p class="text-black-400 my-8"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores dolorem eligendi enim error eveniet excepturi facilis inventore labore modi nihil, optio provident quidem quod, ratione recusandae suscipit totam ullam ut.</p>
+            <p class="text-black-400 my-8"> Join us in the world of luxury. We have a variety of watches from every luxury brand and from every part of the world.</p>
             <p class ="text-black my-8 font-bold"> Register with social media</p>
             <div class="flex gap-8">
                 <div class="flex items-center gap-4 text-sm bg-blue-900 text-white px-8 py-2 rounded-full">
@@ -61,6 +61,7 @@
                         <input type="text" id="name" name="name" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required
                                maxlength="255"
+                               value="<%= request.getAttribute("name") != null ? request.getAttribute("name") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
@@ -79,6 +80,7 @@
                         <input type="text" id="surname" name="surname" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required
                                maxlength="255"
+                                 value="<%= request.getAttribute("surname") != null ? request.getAttribute("surname") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
@@ -96,6 +98,7 @@
                     <div class="flex items-center">
                         <input type="date" id="birthday" name="birthday" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required
+                               value="<%= request.getAttribute("birthday") != null ? request.getAttribute("birthday") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
@@ -114,6 +117,7 @@
                         <input type="text" id="road" name="road" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required
                                maxlength="255"
+                               value = "<%= request.getAttribute("road") != null ? request.getAttribute("road") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                             <i class="fa-solid fa-circle-exclamation"></i>
@@ -132,6 +136,7 @@
                         <input type="text" id="civic_number" name="civic_number" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required
                                maxlength="255"
+                               value = "<%= request.getAttribute("civic_number") != null ? request.getAttribute("civic_number") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
@@ -150,6 +155,7 @@
                         <input type="text" id="city" name="city" class="w-full border-b-2 border-grey-200 outline-none py-2"
                                required
                                maxlength="255"
+                               value = "<%= request.getAttribute("city") != null ? request.getAttribute("city") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
@@ -169,6 +175,7 @@
                                required
                                minlength="5"
                                maxlength="5"
+                               value= "<%= request.getAttribute("cap") != null ? request.getAttribute("cap") : ""%>"
                         />
                         <span class="error-icon hidden -ml-6 text-red-700">
                         <i class="fa-solid fa-circle-exclamation"></i>
@@ -234,6 +241,9 @@
                     </div>
                     <div class="error text-red-700 py-2"></div>
                 </div>
+                    <% if(request.getAttribute("registrationError") != null) { %>
+                    <p class="text-red-700"><%= request.getAttribute("registrationError")%>. Maybe <a href="${pageContext.request.contextPath}/user/login.jsp">Login</a>?</p>
+                    <% } %>
 
                 <button type="submit" class="px-8 py-2 mt-4 bg-blue-400 w-full rounded-full text-white shadow-large">Sign-up</button>
             </form>

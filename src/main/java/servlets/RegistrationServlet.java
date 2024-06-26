@@ -11,6 +11,8 @@ import utils.Security;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 
 @WebServlet(name = "RegistrationServlet", value = "/signup")
 public class RegistrationServlet extends HttpServlet {
@@ -31,8 +33,23 @@ public class RegistrationServlet extends HttpServlet {
         UserBean user = new UserBean(email, hashedPassword, name, surname, birthday, road, civic_number, city, cap);
         // GET INPUT
         try {
-            new UserModel().doSave(user);
-            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            UserModel userModel = new UserModel();
+            Collection<UserBean> beans = userModel.doRetrieveByCond("WHERE email = ?", List.of(email));
+            if(!beans.isEmpty()) {
+                request.setAttribute("name", name);
+                request.setAttribute("surname", surname);
+                request.setAttribute("birthday", birthday);
+                request.setAttribute("road", road);
+                request.setAttribute("civic_number", civic_number);
+                request.setAttribute("city", city);
+                request.setAttribute("cap", cap);
+                request.setAttribute("registrationError", "Email already in use");
+                request.getRequestDispatcher("/user/signup.jsp").forward(request, response);
+            }
+            else {
+                userModel.doSave(user);
+                response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
