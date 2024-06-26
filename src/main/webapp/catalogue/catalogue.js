@@ -1,60 +1,43 @@
 const filterForm = document.getElementById('filterForm');
 const catalogue = document.getElementById('catalogue');
 const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
+const xhttp = new XMLHttpRequest();
 
 filterFormGroup.forEach(formGroup => {
     formGroup.addEventListener('change', event => {
         event.preventDefault();
-        // Create a FormData object from the form
-        const formData = new FormData(filterForm);
-
-        $.ajax({
-            url: '/get-watches',
-            type: 'POST',
-            data: formData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,  // tell jQuery not to set contentType
-            success: function (data) {
-                // Clear the current catalog
-                while (catalogue.firstChild) {
-                    catalogue.removeChild(catalogue.firstChild);
-                }
-
-                // Assume `watch` and `image` are objects with the necessary properties
-                for (const watch of data) {
-                    createWatchCard(watch)
-                }
-            }
-        });
+        sendForm()
     });
 });
 
 
 //For the first load of the catalogue
 document.addEventListener('DOMContentLoaded', () => {
+    sendForm();
+});
 
+
+function sendForm() {
     // Create a FormData object from the form
     const formData = new FormData(filterForm);
 
-    $.ajax({
-        url: '/get-watches',
-        type: 'POST',
-        data: formData,
-        processData: false,  // tell jQuery not to process the data
-        contentType: false,  // tell jQuery not to set contentType
-        success: function(data) {
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
             // Clear the current catalog
             while (catalogue.firstChild) {
                 catalogue.removeChild(catalogue.firstChild);
             }
 
             // Assume `watch` and `image` are objects with the necessary properties
-            for (const watch of data) {
+            for (const watch of JSON.parse(this.responseText)) {
                 createWatchCard(watch)
             }
         }
-    });
-});
+    }
+
+    xhttp.open('POST', '/get-watches', true);
+    xhttp.send(formData);
+}
 
 
 function createWatchCard(watch){
