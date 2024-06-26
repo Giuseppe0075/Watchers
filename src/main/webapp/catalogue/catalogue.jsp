@@ -70,10 +70,10 @@
         <div class="filterGroup">
             <h3>Size (mm):</h3>
             <label>
-                <input type="number" id="sizeMin" name="sizeMin" min="0" style="width: 50px; text-align: center;">
+                <input type="number" id="sizeMin" name="sizeMin" placeholder="min" min="0" style="width: 50px; text-align: center;">
             </label>
             <label>
-                <input type="number" id="sizeMax" name="sizeMax" min="0" style="width: 50px; text-align: center;">
+                <input type="number" id="sizeMax" name="sizeMax" placeholder="max" min="0" style="width: 50px; text-align: center;">
             </label>
         </div>
 
@@ -91,10 +91,10 @@
         <div class="filterGroup">
             <h3>Price:</h3>
             <label>
-                <input type="number" id="priceMin" name="priceMin" min="0" style="width: 50px; text-align: center;">
+                <input type="number" id="priceMin" name="priceMin" placeholder="min" min="0" style="width: 50px; text-align: center;">
             </label>
             <label>
-                <input type="number" id="priceMax" name="priceMax" min="0" style="width: 50px; text-align: center;"><br>
+                <input type="number" id="priceMax" name="priceMax" placeholder="max" min="0" style="width: 50px; text-align: center;"><br>
             </label>
         </div>
     </form>
