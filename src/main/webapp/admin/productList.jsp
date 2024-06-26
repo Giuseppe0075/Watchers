@@ -65,7 +65,7 @@
                         },
                         error: function() {
                             // Gestisci errori di richiesta qui
-                            alert('Errore nell\'eliminazione dell\'orologio.');
+                            alert('An error occurred while removing the watch.');
                         }
                     });
                // }
