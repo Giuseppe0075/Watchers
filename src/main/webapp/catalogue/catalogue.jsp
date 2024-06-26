@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.Models.WatchModel" %>
 <%@ page import="utils.Security" %>
-<%@ page import="java.util.List" %>
-<%@ page import="storage.Beans.WatchBean" %>
-<%@ page import="storage.Models.ImageModel" %>
-<%@ page import="storage.Beans.ImageBean" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="storage.Models.BrandModel" %>
+<%@ page import="storage.Beans.BrandBean" %>
 <html>
 <head>
     <title>Catalogue</title>
@@ -15,23 +14,16 @@
 </head>
 <body>
 <%!
-    Collection<WatchBean> watchList;
+    BrandModel brandModel = new BrandModel();
+    Set<String> materials = new HashSet<>();
+    Collection<BrandBean> brands;
 %>
 <%
-    String sort = request.getParameter("sort");
-    WatchModel watchModel = new WatchModel();
-    try {
-        if(sort == null) {
-                watchList = watchModel.doRetrieveAll();
-        }
-        else {
-                watchList = watchModel.doRetrieveByCond("order by " + sort,List.of());
-        }
-    } catch (Exception e) {
+    try{
+         brands = brandModel.doRetrieveAll();
+    }catch (Exception e){
         throw new RuntimeException(e);
     }
-%>
-<%
     boolean admin = session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true);
     String csrfToken= Security.getCSRFToken();
     request.getSession().setAttribute("csrfToken", csrfToken);
@@ -40,58 +32,75 @@
 
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
-<div id="filters">
-    <!-- TODO: Add filters -->
-</div>
-
 <main>
-    <section id="catalogo">
-        <%
-            ImageModel imageModel= new ImageModel();
-            for (WatchBean watch : watchList) {
-                Collection<ImageBean> images;
-                // Get the watch and the images
-                try {
-                    watch = watchModel.doRetrieveByKey(List.of(watch.getId()));
-                    images = imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+    <section id="catalogue">
 
-                // Get the first image
-                ImageBean image = images.stream().findFirst().orElse(null);
-                if(image == null){
-                    image = new ImageBean();
-                }
-            %>
-
-            <div class="orologio">
-                <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
-                    <img src="${pageContext.request.contextPath}/getImage?id=<%= image.getId()%>&watch=<%= watch.getId()%>" alt="no images">
-                    <h2><%=watch.getName()%></h2>
-                    <p>Brand: <%=watch.getBrand()%></p>
-                    <p>Descrizione: <%=watch.getDescription()%></p>
-                    <form method="post" action="${pageContext.request.contextPath}/cart-servlet">
-                        <input type="hidden" name="quantity" value="1">
-                        <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                        <% if(watch.getStock() == 0) { %>
-                        <p>Out of stock</p>
-                        <% } else { %>
-                        <button type="submit" name="action" value="add">Aggiungi a Carrello</button>
-                        <% } %>
-                    </form>
-                    <form method="post" action="${pageContext.request.contextPath}/favourites-servlet">
-                        <input type="hidden" name="url" value="${pageContext.request.contextPath}/catalogue/catalogue.jsp">
-                        <input type="hidden" name="watch" value="<%= watch.getId()%>">
-                        <button type="submit" name="action" value="add">Aggiungi a Preferiti</button>
-                    </form>
-                </a>
-            </div>
-        <% } %>
     </section>
 </main>
 
-<%@include file="../footer.html"%> <!-- Footer -->
+<div id="filters">
+    <form id="filterForm">
+        <!-- Filter by gender -->
+        <div class="filterGroup">
+            <h3>Gender</h3>
+            <label>
+                <input type="checkbox" id="male" name="gender" value="MAN">Man<br>
+            </label>
+            <label>
+                <input type="checkbox" id="female" name="gender" value="WOMEN">Woman<br>
+            </label>
+            <label>
+                <input type="checkbox" id="unisex" name="gender" value="UNISEX">Unisex<br>
+            </label>
 
+        </div>
+
+        <!-- Filter by brand -->
+        <div class="filterGroup">
+            <h3>Brand:</h3>
+
+            <% for(BrandBean brand : brands) { %>
+            <label>
+                <input type="checkbox" name="brand" value="<%= brand.getBusiness_name() %>"><%= brand.getBusiness_name() %><br>
+            </label>
+            <% } %>
+        </div>
+
+        <!-- Filter by size -->
+        <div class="filterGroup">
+            <h3>Size (mm):</h3>
+            <label>
+                <input type="number" id="sizeMin" name="sizeMin" min="0" style="width: 50px; text-align: center;">
+            </label>
+            <label>
+                <input type="number" id="sizeMax" name="sizeMax" min="0" style="width: 50px; text-align: center;">
+            </label>
+        </div>
+
+        <!-- Filter by material -->
+        <div class="filterGroup">
+            <h3>Material:</h3>
+                <% for(String material : materials) { %>
+                <label>
+                    <input type="checkbox" name="material" value="<%= material %>"><%= material %><br>
+                </label>
+                <% } %>
+        </div>
+
+        <!-- Filter by price -->
+        <div class="filterGroup">
+            <h3>Price:</h3>
+            <label>
+                <input type="number" id="priceMin" name="priceMin" min="0" style="width: 50px; text-align: center;">
+            </label>
+            <label>
+                <input type="number" id="priceMax" name="priceMax" min="0" style="width: 50px; text-align: center;"><br>
+            </label>
+        </div>
+    </form>
+</div>
+
+<%@include file="../footer.html"%> <!-- Footer -->
+<script src="catalogue.js"></script>
 </body>
 </html>

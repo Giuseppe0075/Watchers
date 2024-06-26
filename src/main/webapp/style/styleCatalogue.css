@@ -7,15 +7,15 @@ body {
 
 
 /* Stile per la sezione catalogo */
-#catalogo {
+#catalogue {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
 }
 
-/* Stile per ogni orologio */
-.orologio {
+/* Stile per ogni watch */
+.watch {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
