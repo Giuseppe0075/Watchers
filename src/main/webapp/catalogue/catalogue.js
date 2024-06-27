@@ -3,20 +3,19 @@ const catalogue = document.getElementById('catalogue');
 const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
 const xhttp = new XMLHttpRequest();
 
+/* Filtering Catalogue */
+// Add an event listener to all the filter form groups
 filterFormGroup.forEach(formGroup => {
-    formGroup.addEventListener('change', event => {
+    formGroup.addEventListener('input', event => {
         event.preventDefault();
         sendForm()
     });
 });
-
-
 //For the first load of the catalogue
 document.addEventListener('DOMContentLoaded', () => {
     sendForm();
 });
-
-
+//Sends the form via AJAX to the server
 function sendForm() {
     // Create a FormData object from the form
     const formData = new FormData(filterForm);
@@ -38,8 +37,7 @@ function sendForm() {
     xhttp.open('POST', '/get-watches', true);
     xhttp.send(formData);
 }
-
-
+//Creates a watch card for the catalogue
 function createWatchCard(watch){
     // Create the outer div
     const watchElement = document.createElement('div');
@@ -134,3 +132,4 @@ function createWatchCard(watch){
     // Append the watch element to the catalog
     catalogue.appendChild(watchElement);
 }
+/* End filtering catalogue */

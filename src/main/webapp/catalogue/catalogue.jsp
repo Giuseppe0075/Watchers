@@ -10,12 +10,11 @@
     <title>Catalogue</title>
     <link rel="stylesheet" href="../style/styleCatalogue.css" type="text/css">
     <link rel="stylesheet" href="../style/styleHomepage.css">
-
+    <script src="stars.js"></script>
 </head>
 <body>
 <%!
     BrandModel brandModel = new BrandModel();
-    Set<String> materials = new HashSet<>();
     Collection<BrandBean> brands;
 %>
 <%
@@ -80,11 +79,9 @@
         <!-- Filter by material -->
         <div class="filterGroup">
             <h3>Material:</h3>
-                <% for(String material : materials) { %>
                 <label>
-                    <input type="checkbox" name="material" value="<%= material %>"><%= material %><br>
+                    <!--<input type="checkbox" name="material" value=""><br>-->
                 </label>
-                <% } %>
         </div>
 
         <!-- Filter by price -->
@@ -97,6 +94,15 @@
                 <input type="number" id="priceMax" name="priceMax" placeholder="max" min="0" style="width: 50px; text-align: center;"><br>
             </label>
         </div>
+
+        <!-- Filter by stars -->
+        <div class="filterGroup">
+            <h3>Stars:<span id="starsMinValue"></span></h3>
+            <label>
+                <input type="range" id="starsMin" name="starsMin"  min=0 max=5 step=0.5 value=0 onchange="updateStars(this.value)">
+            </label>
+        </div>
+
     </form>
 </div>
 

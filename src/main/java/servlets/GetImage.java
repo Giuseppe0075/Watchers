@@ -12,7 +12,7 @@ import storage.Models.ImageModel;
 @WebServlet(name = "GetImage", value="/getImage")
 public class GetImage extends HttpServlet{
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ImageModel im = new ImageModel();
         try {
             Long user = Long.valueOf(req.getParameter("id"));
