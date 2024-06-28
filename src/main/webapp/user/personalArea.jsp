@@ -39,5 +39,8 @@
             <div class="detail"> <%=user.getCity()%> </div>
         </div>
     </div>
+    <a href="../user/orderHistory.jsp"> Order History </a>
+    <!-- Footer -->
+    <%@include file="../footer.html"%>
 </body>
 </html>
