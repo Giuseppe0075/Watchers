@@ -11,6 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <link rel="stylesheet" href="../style/styleFooter.css">
     <title>Personal Area</title>
 </head>
 <body>

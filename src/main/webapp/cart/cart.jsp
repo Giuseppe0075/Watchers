@@ -16,6 +16,7 @@
 <html>
   <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
     <style>
       .container {
         width: 80%;

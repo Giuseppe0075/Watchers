@@ -13,6 +13,7 @@
 <html>
 <head>
     <title>Modifica Prodotto</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
 <%@include file="../navbar.jsp"%>

@@ -10,6 +10,7 @@
     <title>Catalogue</title>
     <link rel="stylesheet" href="../style/styleCatalogue.css" type="text/css">
     <link rel="stylesheet" href="../style/styleHomepage.css">
+    <link rel="stylesheet" href="../style/styleFooter.css">
     <script src="stars.js"></script>
 </head>
 <body>
