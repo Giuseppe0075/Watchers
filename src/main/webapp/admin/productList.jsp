@@ -13,6 +13,7 @@
     <title>Title</title>
 </head>
 <body>
+<link rel="stylesheet" href="../style/styleFooter.css">
     <%
         WatchModel watchModel = new WatchModel();
         List<WatchBean> watches;

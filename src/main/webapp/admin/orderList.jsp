@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Ordini</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
 <%

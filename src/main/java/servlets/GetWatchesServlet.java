@@ -28,6 +28,7 @@ public class GetWatchesServlet extends HttpServlet {
         String[] materials = req.getParameterValues("material");
         Integer priceMin = req.getParameter("priceMin").isEmpty() ? 0 : Integer.parseInt(req.getParameter("priceMin"));
         Integer priceMax = req.getParameter("priceMax").isEmpty() ? Integer.MAX_VALUE : Integer.parseInt(req.getParameter("priceMax"));
+        Float starsMin = req.getParameter("starsMin").isEmpty() ? 0f : Float.parseFloat(req.getParameter("starsMin"));
         List<Object> values = new ArrayList<>();
         StringBuilder query = new StringBuilder();
         query.append("WHERE ");
@@ -62,9 +63,11 @@ public class GetWatchesServlet extends HttpServlet {
             query.deleteCharAt(query.length() - 1);
             query.append(") AND ");
         }
-        query.append("price BETWEEN ? AND ?");
+        query.append("price BETWEEN ? AND ? AND");
         values.add(priceMin);
         values.add(priceMax);
+        query.append(" reviews_avg >= ?");
+        values.add(starsMin);
         WatchModel watchModel = new WatchModel();
         Collection<WatchBean> watches;
         try {

@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>User Profile</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
     <%
         Long sessionUser = (Long) session.getAttribute("user");
         WatchModel watchModel = new WatchModel();

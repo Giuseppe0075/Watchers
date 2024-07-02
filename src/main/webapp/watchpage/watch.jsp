@@ -13,6 +13,7 @@
         <title>Watchers</title>
         <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
         <link rel="stylesheet" href="../style/styleHomepage.css">
+        <link rel="stylesheet" href="../style/styleFooter.css">
     </head>
     <body>
         <%

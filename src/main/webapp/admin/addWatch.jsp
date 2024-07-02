@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Add Watch</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
 

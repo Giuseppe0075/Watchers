@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>User Manager</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
     <%
         UserModel um = new UserModel();
         List<UserBean> users= null;
