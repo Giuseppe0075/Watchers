@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="storage.Models.PurchaseModel" %>
 <%@ page import="storage.Beans.PurchaseBean" %>
 <%@ page import="java.util.List" %>
@@ -6,14 +5,14 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="storage.Models.WatchModel" %>
-<%--
+<%@ page import="storage.Models.WatchModel" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 18/06/2024
   Time: 18:51
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Ordini</title>
@@ -92,6 +91,8 @@
     }
     } %>
 </table>
-</div>
+
+<%@include file="../footer.html"%> <!-- Footer -->
+
 </body>
 </html>

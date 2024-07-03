@@ -16,7 +16,7 @@ a. :hover{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 100%; /* Ad esempio, per impostare la larghezza al 50% della larghezza del contenitore */
+    width: 100%;
 
 }
 

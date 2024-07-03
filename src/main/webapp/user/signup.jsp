@@ -251,5 +251,6 @@
         </div>
     </div>
     <script src="../utils/formValidator.js"></script>
+    <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

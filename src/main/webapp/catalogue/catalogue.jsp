@@ -107,7 +107,8 @@
     </form>
 </div>
 
-<%@include file="../footer.html"%> <!-- Footer -->
+
 <script src="catalogue.js"></script>
+<%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>
