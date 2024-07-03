@@ -17,6 +17,7 @@
 <body>
     <!-- Navbar -->
     <%@include file="../navbar.jsp"%>
+
     <%
         UserBean user;
         try {
@@ -40,5 +41,6 @@
             <div class="detail"> <%=user.getCity()%> </div>
         </div>
     </div>
+    <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

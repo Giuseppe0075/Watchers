@@ -62,7 +62,7 @@
 
         <input type="submit" value="Add Watch">
     </form>
-    <%@include file="../footer.html"%>
+
 
 <script>
     function toggleBrandInput(select) {
@@ -76,5 +76,7 @@
         }
     }
 </script>
+
+    <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

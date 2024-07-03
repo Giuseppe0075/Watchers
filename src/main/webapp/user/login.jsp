@@ -37,6 +37,7 @@
 </head>
 <body>
         <%@include file="../navbar.jsp"%>
+
         <div class="h-full w-full fixed top-0 background"></div>
         <div class="w-full px-8 mt-32 flex shadow-2xl">
             <div class="w-1/2 p-12 side-column">
@@ -101,5 +102,6 @@
             </div>
         </div>
         <script src="../utils/formValidator.js"></script>
+        <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

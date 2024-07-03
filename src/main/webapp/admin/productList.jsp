@@ -72,5 +72,7 @@
         });
     </script>
 
+<%@include file="../footer.html"%> <!-- Footer -->
+
 </body>
 </html>

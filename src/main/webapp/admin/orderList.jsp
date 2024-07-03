@@ -93,5 +93,7 @@
     } %>
 </table>
 
+<%@include file="../footer.html"%> <!-- Footer -->
+
 </body>
 </html>
