@@ -1,6 +1,7 @@
 <%@ page import="storage.Beans.UserBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.Models.UserModel" %><%--
+<%@ page import="storage.Models.UserModel" %>
+<%@ page import="filters.UserFilter" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 22/05/2024
@@ -12,6 +13,7 @@
 <head>
     <title>User Manager</title>
     <link rel="stylesheet" href="../style/styleFooter.css">
+    <link rel="stylesheet" href="../style/styleUserManager.css">
     <%
         UserModel um = new UserModel();
         List<UserBean> users= null;
@@ -24,7 +26,8 @@
 </head>
 <body>
     <%@include file="../navbar.jsp"%>
-    <table style="border: solid 2px;">
+    <div style="overflow-x: auto;">
+    <table >
         <thead>
             <td>Email</td>
             <td>Name</td>
@@ -43,6 +46,7 @@
             </tr>
         <% } %>
     </table>
+    </div>
     <%@include file="../footer.html"%>
 </body>
 </html>

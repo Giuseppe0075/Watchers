@@ -1,6 +1,4 @@
 /* homepage/style.css */
-
-
 body, html {
     position: relative;
     margin: 0;
@@ -13,7 +11,6 @@ body, html {
 
 #frontPage {
     position: relative;
-    z-index: 0;
     width: 100%;
     height: 100vh;
 }
@@ -25,7 +22,8 @@ body, html {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    z-index: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
 .itemPage {

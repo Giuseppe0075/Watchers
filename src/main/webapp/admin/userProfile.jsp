@@ -15,7 +15,7 @@
     <%
         Long sessionUser = (Long) session.getAttribute("user");
         WatchModel watchModel = new WatchModel();
-        UserBean user = null;
+        UserBean userModify = null;
         Map<Long, List<PurchaseBean>> groupedById = null;
 
         String userIdObject = request.getParameter("id");
@@ -25,7 +25,7 @@
             Long userId = Long.parseLong(userIdObject);
             PurchaseModel purchaseModel = new PurchaseModel();
             try {
-                user = userModel.doRetrieveByKey(List.of(userId));
+                userModify = userModel.doRetrieveByKey(List.of(userId));
                 groupedById = purchaseModel.doRetrieveByCond("WHERE user=?", List.of(userId)).stream()
                         .collect(Collectors.groupingBy(PurchaseBean::getId));
             } catch (Exception e) {
@@ -58,29 +58,29 @@
 <%@include file="../navbar.jsp"%>
 <% if (user != null) { %>
 <form action="${pageContext.request.contextPath}/admin/updateUser" method="post">
-    <input type="hidden" name="id" value="<%= user.getId() %>">
+    <input type="hidden" name="id" value="<%= userModify.getId() %>">
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" value="<%= user.getEmail() %>" required>
+        <input type="email" id="email" name="email" value="<%= userModify.getEmail() %>" required>
     </div>
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" value="<%= user.getName() %>" required>
+        <input type="text" id="name" name="name" value="<%= userModify.getName() %>" required>
     </div>
     <div class="form-group">
         <label for="surname">Surname</label>
-        <input type="text" id="surname" name="surname" value="<%= user.getSurname() %>" required>
+        <input type="text" id="surname" name="surname" value="<%= userModify.getSurname() %>" required>
     </div>
     <div class="form-group">
         <label for="cap">CAP</label>
-        <input type="text" id="cap" name="cap" value="<%= user.getCAP() %>" required>
+        <input type="text" id="cap" name="cap" value="<%= userModify.getCAP() %>" required>
     </div>
-    <% if (!user.getId().equals(sessionUser)) { %>
+    <% if (!userModify.getId().equals(sessionUser)) { %>
     <div class="form-group">
         <label for="admin">Admin</label>
         <select id="admin" name="admin" required>
-            <option value="true" <%= user.getAdmin() ? "selected" : "" %>>Yes</option>
-            <option value="false" <%= !user.getAdmin() ? "selected" : "" %>>No</option>
+            <option value="true" <%= userModify.getAdmin() ? "selected" : "" %>>Yes</option>
+            <option value="false" <%= !userModify.getAdmin() ? "selected" : "" %>>No</option>
         </select>
     </div>
     <% }
