@@ -70,9 +70,12 @@
                         </tr>
                     <% } %>
                 </table>
+                <button onclick="createInvoice()">Scarica Fattura</button>
             </div>
         <% } %>
     </div>
+
+    <script src="orderHistory.js"></script>
     <%@include file="/footer.html" %>
 </body>
 </html>

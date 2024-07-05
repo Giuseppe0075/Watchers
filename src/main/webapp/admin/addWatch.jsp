@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Add Watch</title>
-    <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
 
@@ -62,7 +61,7 @@
 
         <input type="submit" value="Add Watch">
     </form>
-
+    <%@include file="../footer.html"%>
 
 <script>
     function toggleBrandInput(select) {
@@ -76,7 +75,5 @@
         }
     }
 </script>
-
-    <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>
