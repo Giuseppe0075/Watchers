@@ -1,6 +1,8 @@
 <%@ page import="storage.Beans.UserBean" %>
 <%@ page import="storage.Models.UserModel" %>
 <%@ page import="java.util.List" %>
+
+<% { %><!-- don't delete, it's used to avoid scope problems -->
 <header>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -66,4 +68,4 @@
         }
     </script>
 </header>
-
+<% } %> <!-- don't delete, it's used to avoid scope problems -->
