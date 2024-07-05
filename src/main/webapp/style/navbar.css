@@ -4,15 +4,31 @@
     color: black;
     text-decoration: none;
     padding: 10px 20px;
-    display: inline-block;
+    display: inline;
 }
 
-a:hover {
-    background-color: #03424e;
+a. :hover{
+    color: #03424e;
+}
+
+#logo img {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
 .omino{
-    height: 70px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 header{
     padding-bottom: 80px;

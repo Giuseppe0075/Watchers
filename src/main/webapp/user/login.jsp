@@ -15,6 +15,7 @@
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../style/styleFooter.css">
 
     <title>Login</title>
 
@@ -36,6 +37,7 @@
 </head>
 <body>
         <%@include file="../navbar.jsp"%>
+
         <div class="h-full w-full fixed top-0 background"></div>
         <div class="w-full px-8 mt-32 flex shadow-2xl">
             <div class="w-1/2 p-12 side-column">
@@ -100,5 +102,6 @@
             </div>
         </div>
         <script src="../utils/formValidator.js"></script>
+        <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

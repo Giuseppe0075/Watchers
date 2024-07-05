@@ -17,6 +17,7 @@
 <html>
 <head>
     <title>Favourites</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
 <%
@@ -49,5 +50,6 @@
         </tr>
     <% } %>
 </table>
+<%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

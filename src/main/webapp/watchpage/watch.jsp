@@ -52,5 +52,6 @@
             </aside>
         </div>
         <%@include file="../WEB-INF/NotVisible/review.jsp"%>
+        <%@include file="../footer.html"%> <!-- Footer -->
     </body>
 </html>

@@ -16,6 +16,8 @@
 <html>
 <head>
     <title>Ordini</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
+    <link rel="stylesheet" href="../style/styleOrderList.css">
 </head>
 <body>
 <%
@@ -63,15 +65,13 @@
     <input type="date" id="date" name="date" value="<%= dateParam != null ? dateParam : "" %>">
     <input type="submit" value="Filtra">
 </form>
-
-<table>
+<div style="overflow-x: auto;">
+<table >
     <thead>
-    <tr>
         <th>Orologio</th>
         <th>Quantita</th>
         <th>Prezzo</th>
         <th>Iva</th>
-    </tr>
     </thead>
     <% if (orders != null) {
         for (var entry : orders.entrySet()) {
@@ -91,6 +91,8 @@
     }
     } %>
 </table>
+
+<%@include file="../footer.html"%> <!-- Footer -->
 
 </body>
 </html>

@@ -16,52 +16,7 @@
 <html>
   <head>
     <title>Shopping Cart</title>
-    <style>
-      .container {
-        width: 80%;
-        margin: 20px auto;
-        background: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border-radius: 8px;
-      }
-      .categories {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 2px solid #ddd;
-      }
-      .table-header {
-        font-weight: bold;
-        font-size: 1.2em;
-      }
-      .elements {
-        padding: 20px 0;
-      }
-      .element {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #eee;
-      }
-      .details {
-        flex: 2;
-        font-size: 1em;
-      }
-      .quantity {
-        flex: 1;
-        font-size: 1em;
-        text-align: center;
-      }
-      .element img {
-        max-width: 100px;
-        margin-right: 20px;
-      }
-      .details, .quantity {
-        display: flex;
-        align-items: center;
-      }
-    </style>
+    <link rel="stylesheet" href="../style/styleFooter.css">
   </head>
   <body>
   <%@include file="../navbar.jsp"%>
@@ -135,5 +90,6 @@
     </form>
   </div>
   <script src="cart.js"></script>
+  <%@include file="../footer.html"%> <!-- Footer -->
   </body>
 </html>

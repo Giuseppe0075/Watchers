@@ -13,6 +13,7 @@
 <html>
 <head>
     <title>Modifica Prodotto</title>
+    <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
@@ -81,7 +82,7 @@
 <jsp:include page="/WEB-INF/NotVisible/imageManager.jsp">
     <jsp:param name="watchId" value="${id}" />
 </jsp:include>
-<%@include file="../footer.html"%>
+
 <script>
     function toggleBrandInput(select) {
         var brandInput = document.getElementById('newBrandInput');
@@ -94,5 +95,6 @@
         }
     }
 </script>
+<%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>

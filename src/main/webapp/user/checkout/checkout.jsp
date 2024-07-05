@@ -17,6 +17,7 @@
 </head>
 <body>
     <%@include file="../../navbar.jsp"%> <!-- Navabar -->
+
     <%
         String[] watches = request.getParameterValues("watch");
         String[] quantities = request.getParameterValues("quantity");
@@ -80,5 +81,6 @@
     </div>
 
     <script src="checkout.js"></script>
+    <%@include file="../../footer.html"%> <!-- Footer -->
 </body>
 </html>
