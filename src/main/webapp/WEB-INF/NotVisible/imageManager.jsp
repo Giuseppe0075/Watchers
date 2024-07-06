@@ -20,10 +20,10 @@
 %>
 
 <div class="container">
-    <h2>Manage Product Images</h2>
 
     <!-- Upload Form -->
     <div class="form-group">
+        <h2>Manage Product Images</h2>
         <h3>Upload Image</h3>
         <form action="${pageContext.request.contextPath}/admin/uploadImage" method="post" enctype="multipart/form-data">
             <input type="hidden" name="watch" value="<%= watchId %>">
@@ -55,8 +55,20 @@
 
 <style>
     .container {
-        width: 90%;
-        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .image-manager-container {
+        flex: 1 1 45%;
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .form-group {
@@ -75,7 +87,7 @@
     }
 
     .form-group input[type="submit"] {
-        background-color: #4CAF50;
+        background-color: #5d9ea8;
         color: white;
         border: none;
         padding: 10px 20px;
@@ -84,7 +96,7 @@
     }
 
     .form-group input[type="submit"]:hover {
-        background-color: #45a049;
+        background-color: #498e99;
     }
 
     #imageList {
@@ -129,6 +141,14 @@
         border-radius: 50%;
         padding: 5px 10px;
         cursor: pointer;
+    }
+
+    /* Ensure form and image manager stack vertically on small screens */
+    @media (max-width: 768px) {
+        .form-container,
+        .image-manager-container {
+            flex: 1 1 100%;
+        }
     }
 
 </style>
