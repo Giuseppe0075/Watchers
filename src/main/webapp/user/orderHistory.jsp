@@ -56,10 +56,10 @@
                 <h2>Order <%= i %></h2>
                 <table>
                     <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th>Prodotto</th>
+                        <th>Quantità</th>
+                        <th>Prezzo</th>
+                        <th>Totale</th>
                     </tr>
                     <% for(PurchaseBean purchaseBean : purchaseBeansList) {
                         WatchBean watchBean;
@@ -77,7 +77,7 @@
                         </tr>
                     <% } %>
                 </table>
-                <button onclick="createInvoice()">Scarica Fattura</button>
+                <button onclick="createInvoice(this)">Scarica Fattura</button>
             </div>
         <% } %>
     </div>

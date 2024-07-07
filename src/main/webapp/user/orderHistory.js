@@ -1,7 +1,25 @@
 const xhttp = new XMLHttpRequest();
 
-function createInvoice(){
-    xhttp.responseTyoe = 'blob';
+function createInvoice(buttonElement){
+    const order = buttonElement.parentElement;
+    const table = order.querySelector("table");
+    let data = [];
+
+    //get the data from the table
+    for(let i = 1; i < table.rows.length; i++){
+        const row = table.rows[i];
+        const rowData = {
+            product: row.cells[0].innerText,
+            quantity: row.cells[1].innerText,
+            price: row.cells[2].innerText,
+            total: row.cells[3].innerText
+        };
+        data.push(rowData);
+    }
+
+    const jsonData = JSON.stringify(data);
+
+    xhttp.responseType = 'blob';
     xhttp.onreadystatechange = function() {
         if(this.readyState === 4 && this.status === 200){
             const blob = new Blob([this.response], { type: 'application/pdf' });
@@ -17,5 +35,5 @@ function createInvoice(){
     }
 
     xhttp.open("POST", "/pdfGenerator-servlet", true);
-    xhttp.send();
+    xhttp.send(jsonData);
 }
