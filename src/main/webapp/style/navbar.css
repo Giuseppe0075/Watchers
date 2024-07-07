@@ -7,8 +7,9 @@
     display: inline;
 }
 
-a. :hover{
+nav ul li a. :hover{
     color: #03424e;
+    font-weight: bold;
 }
 
 #logo img {
@@ -49,6 +50,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 0 25px 0 black;
+    z-index: 1000;
 }
 
 nav ul{
