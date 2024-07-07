@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>Catalogue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../style/styleCatalogue.css" type="text/css">
     <link rel="stylesheet" href="../style/styleHomepage.css">
     <link rel="stylesheet" href="../style/styleFooter.css">
@@ -24,12 +25,7 @@
     }catch (Exception e){
         throw new RuntimeException(e);
     }
-    boolean admin = session != null && session.getAttribute("admin") != null && session.getAttribute("admin").equals(true);
-    String csrfToken= Security.getCSRFToken();
-    request.getSession().setAttribute("csrfToken", csrfToken);
 %>
-
-
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
 <div class="catalogue-container">
@@ -101,9 +97,9 @@
 
         </form>
     </div>
-    <section id="catalogue" class="watches-container">
+    <div id="catalogue" class="watches-container">
 
-    </section>
+    </div>
 </div>
 
 

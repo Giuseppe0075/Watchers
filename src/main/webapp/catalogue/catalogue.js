@@ -1,7 +1,7 @@
 const filterForm = document.getElementById('filterForm');
 const catalogue = document.getElementById('catalogue');
 const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
-const xhttp = new XMLHttpRequest();
+
 
 /* Filtering Catalogue */
 // Add an event listener to all the filter form groups
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 //Sends the form via AJAX to the server
 function sendForm() {
+    const xhttp = new XMLHttpRequest();
     // Create a FormData object from the form
     const formData = new FormData(filterForm);
 
@@ -37,11 +38,32 @@ function sendForm() {
     xhttp.open('POST', '/get-watches', true);
     xhttp.send(formData);
 }
+
+function changeFavourite(watchId, button){
+    return function(){
+        const xhttp = new XMLHttpRequest();
+        let action = button.innerHTML.includes('fas fa-heart') ? 'remove' : 'add';
+        let parameters = "watch=" + watchId + "&action=" + action;
+
+        if(action === 'add'){
+            button.innerHTML = '<i class="fas fa-heart"></i>';
+            button.style.color = 'red';
+        } else {
+            button.innerHTML = '<i class="far fa-heart"></i>';
+            button.style.color = 'black';
+        }
+
+        xhttp.open('GET', '/favourites-servlet?' + parameters, true);
+        xhttp.send();
+    }
+}
+
 //Creates a watch card for the catalogue
 function createWatchCard(watch){
     // Create the outer div
     const watchElement = document.createElement('div');
     watchElement.className = 'watch';
+    watchElement.style.position = 'relative';
 
     // Create the anchor element
     const anchorElement = document.createElement('a');
@@ -63,71 +85,41 @@ function createWatchCard(watch){
     brandElement.textContent = `Brand: ${watch.brand}`;
     anchorElement.appendChild(brandElement);
 
-    // Create the description p element
-    const descriptionElement = document.createElement('p');
-    descriptionElement.textContent = `Descrizione: ${watch.description}`;
-    anchorElement.appendChild(descriptionElement);
-
-    // Create the first form
-    const form1Element = document.createElement('form');
-    form1Element.method = 'post';
-    form1Element.action = `../cart-servlet`;
-
-    const input1Element = document.createElement('input');
-    input1Element.type = 'hidden';
-    input1Element.name = 'quantity';
-    input1Element.value = '1';
-    form1Element.appendChild(input1Element);
-
-    const input2Element = document.createElement('input');
-    input2Element.type = 'hidden';
-    input2Element.name = 'watch';
-    input2Element.value = watch.id;
-    form1Element.appendChild(input2Element);
-
-    if (watch.stock === 0) {
-        const pElement = document.createElement('p');
-        pElement.textContent = 'Out of stock';
-        form1Element.appendChild(pElement);
-    } else {
-        const buttonElement = document.createElement('button');
-        buttonElement.type = 'submit';
-        buttonElement.name = 'action';
-        buttonElement.value = 'add';
-        buttonElement.textContent = 'Aggiungi a Carrello';
-        form1Element.appendChild(buttonElement);
-    }
-
-    anchorElement.appendChild(form1Element);
-
-    // Create the second form
-    const form2Element = document.createElement('form');
-    form2Element.method = 'post';
-    form2Element.action = `../favourites-servlet`;
-
-    const input3Element = document.createElement('input');
-    input3Element.type = 'hidden';
-    input3Element.name = 'url';
-    input3Element.value = `../catalogue/catalogue.jsp`;
-    form2Element.appendChild(input3Element);
-
-    const input4Element = document.createElement('input');
-    input4Element.type = 'hidden';
-    input4Element.name = 'watch';
-    input4Element.value = watch.id;
-    form2Element.appendChild(input4Element);
-
-    const button2Element = document.createElement('button');
-    button2Element.type = 'submit';
-    button2Element.name = 'action';
-    button2Element.value = 'add';
-    button2Element.textContent = 'Aggiungi a Preferiti';
-    form2Element.appendChild(button2Element);
-
-    anchorElement.appendChild(form2Element);
+    // Create the price p element
+    const priceElement = document.createElement('p');
+    priceElement.textContent = `Price: ${watch.price}`;
+    anchorElement.appendChild(priceElement);
 
     // Append the anchor element to the outer div
     watchElement.appendChild(anchorElement);
+
+    // Create the button for favorite element
+    const buttonElement = document.createElement('button');
+    buttonElement.style.position = 'absolute';
+    buttonElement.style.top = '2%';
+    buttonElement.style.right = '2%';
+
+    // Invia una richiesta GET per verificare se l'orologio è nei preferiti
+    const xhttpFavourite = new XMLHttpRequest();
+    xhttpFavourite.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            // Se l'orologio è nei preferiti, mostra il cuore pieno
+            if(this.responseText === 'true'){
+                buttonElement.innerHTML = '<i class="fas fa-heart"></i>';
+                buttonElement.style.color = 'red';
+            } else {
+                // Altrimenti mostra il cuore vuoto
+                buttonElement.innerHTML = '<i class="far fa-heart"></i>';
+                buttonElement.style.color = 'black';
+            }
+        }
+    };
+
+    xhttpFavourite.open('GET', '/favourites-servlet?watch='+watch.id+'&action=get', true);
+    xhttpFavourite.send();
+    buttonElement.addEventListener('click', changeFavourite(watch.id, buttonElement));
+
+    watchElement.appendChild(buttonElement);
 
     // Append the watch element to the catalog
     catalogue.appendChild(watchElement);
