@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
 
 @WebServlet("/admin/uploadImage")
 @MultipartConfig(maxFileSize = 16177215) // 16MB
@@ -34,11 +36,12 @@ public class UploadImageAdminServlet extends HttpServlet {
             InputStream inputStream = filePart.getInputStream();
 
             // Create a Blob from the input stream
-            Blob imageBlob = null;
+            Blob imageBlob;
+
+            ImageModel imageModel = new ImageModel();
             try {
                 imageBlob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());
             } catch (SQLException e) {
-                e.printStackTrace();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create Blob");
                 return;
             }
@@ -46,19 +49,26 @@ public class UploadImageAdminServlet extends HttpServlet {
             // Create ImageBean and set its properties
             ImageBean imageBean = new ImageBean();
             imageBean.setWatch(watchId);
+            long imageId = 0;
             try {
                 imageBean.setImage(imageBlob.getBytes(1, (int) imageBlob.length()));
-            } catch (SQLException e) {
+                Collection<ImageBean> images = imageModel.doRetrieveByCond("watch = ? ORDER BY watch DESC", List.of(watchId));
+                if (!images.isEmpty()) {
+                    imageId = images.iterator().next().getId();
+                }
+
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
+            imageId++;
+            imageBean.setId(imageId);
+
             // Save the image to the database
-            ImageModel imageModel = new ImageModel();
             try {
                 imageModel.doSave(imageBean);
 
             } catch (Exception e) {
-                e.printStackTrace();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save image");
             }
         } else {
