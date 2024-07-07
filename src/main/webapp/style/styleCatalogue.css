@@ -1,6 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background-color: #498e99;
+}
+
 .catalogue-container {
     display: flex;
-    flex-wrap: nowrap;
+    flex: 1;
+    flex-direction: column;
 }
 
 .sidebar-filters {
