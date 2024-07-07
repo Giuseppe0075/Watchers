@@ -14,6 +14,31 @@
 <head>
     <title>Modifica Prodotto</title>
     <link rel="stylesheet" href="../style/styleFooter.css">
+    <link rel="stylesheet" href="../style/styleForm.css"> <!-- Nuovo file CSS per lo stile del form -->
+    <link rel="stylesheet" href="../style/styleImageManager.css"> <!-- Nuovo file CSS per lo stile delle immagini -->
+    <style>
+        /* Container for form and image manager */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .form-container,
+        .image-manager-container {
+            flex: 1 1 45%;
+            box-sizing: border-box;
+        }
+
+        /* Ensure form and image manager stack vertically on small screens */
+        @media (max-width: 768px) {
+            .form-container,
+            .image-manager-container {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
@@ -30,58 +55,84 @@
     }
     System.out.println(watch);
 %>
-<form action="${pageContext.request.contextPath}/admin/updateWatch" method="post">
+<div class="container">
+    <div class="form-container">
+        <form action="${pageContext.request.contextPath}/admin/updateWatch" method="post">
 
-    <input type="hidden" id="id" name="id" value="<%=watch.getId()%>"/><br/>
-    <input type="hidden" id="reviews_avg" name="reviews_avg" value="<%=watch.getReviews_avg()%>">
+            <input type="hidden" id="id" name="id" value="<%=watch.getId()%>"/><br/>
+            <input type="hidden" id="reviews_avg" name="reviews_avg" value="<%=watch.getReviews_avg()%>">
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<%=watch.getName()%>" required /><br/>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<%=watch.getName()%>" required />
+            </div>
 
-    <label for="brand">Brand:</label>
-    <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
-        <option value="" disabled selected>Select a brand</option>
-        <% for (BrandBean brand : brands) { %>
-        <option value="<%=brand.getBusiness_name()%>" <%= brand.getBusiness_name().equals(watch.getBrand()) ? "selected" : "" %>><%=brand.getName()%></option>
-        <% } %>
-        <option value="new">Other (specify below)</option>
-    </select>
-    <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;"><br><br>
+            <div class="form-group">
+                <label for="brand">Brand:</label>
+                <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
+                    <option value="" disabled selected>Select a brand</option>
+                    <% for (BrandBean brand : brands) { %>
+                    <option value="<%=brand.getBusiness_name()%>" <%= brand.getBusiness_name().equals(watch.getBrand()) ? "selected" : "" %>><%=brand.getName()%></option>
+                    <% } %>
+                    <option value="new">Other (specify below)</option>
+                </select>
+                <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
+            </div>
 
-    </select><br/>
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" value="<%=watch.getDescription()%>" required /><br/>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" value="<%=watch.getDescription()%>" required />
+            </div>
 
-    <label for="price">Price:</label>
-    <input type="number" step="0.01" id="price" name="price" value="<%=watch.getPrice()%>" required /><br/>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" step="0.01" id="price" name="price" value="<%=watch.getPrice()%>" required />
+            </div>
 
-    <label for="material">Material:</label>
-    <input type="text" id="material" name="material" value="<%=watch.getMaterial()%>" required /><br/>
+            <div class="form-group">
+                <label for="material">Material:</label>
+                <input type="text" id="material" name="material" value="<%=watch.getMaterial()%>" required />
+            </div>
 
-    <label for="stock">Stock:</label>
-    <input type="number" id="stock" name="stock" value="<%=watch.getStock()%>" required /><br/>
+            <div class="form-group">
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" name="stock" value="<%=watch.getStock()%>" required />
+            </div>
 
-    <label for="dimension">Dimension (in mm):</label>
-    <input type="number" step="0.01" id="dimension" name="dimension" value="<%=watch.getDimension()%>" required /><br/>
+            <div class="form-group">
+                <label for="dimension">Dimension (in mm):</label>
+                <input type="number" step="0.01" id="dimension" name="dimension" value="<%=watch.getDimension()%>" required />
+            </div>
 
-    <label for="IVA">IVA:</label>
-    <input type="number" id="IVA" name="IVA" value="<%=watch.getIVA()%>" required /><br/>
+            <div class="form-group">
+                <label for="IVA">IVA:</label>
+                <input type="number" id="IVA" name="IVA" value="<%=watch.getIVA()%>" required />
+            </div>
 
-    <label for="sex">Sex:</label>
-    <select id="sex" name="sex" required>
-        <option value="MAN" <% if(watch.getSex().equals("MAN")){%> selected <% } %>>MAN</option>
-        <option value="WOMEN" <% if(watch.getSex().equals("WOMAN")){%> selected <% } %>>WOMEN</option>
-        <option value="UNISEX" <% if(watch.getSex().equals("UNISEX")){%> selected <% } %>>UNISEX</option>
-    </select><br/>
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select id="sex" name="sex" required>
+                    <option value="MAN" <% if(watch.getSex().equals("MAN")){%> selected <% } %>>MAN</option>
+                    <option value="WOMEN" <% if(watch.getSex().equals("WOMAN")){%> selected <% } %>>WOMEN</option>
+                    <option value="UNISEX" <% if(watch.getSex().equals("UNISEX")){%> selected <% } %>>UNISEX</option>
+                </select>
+            </div>
 
-    <label for="visible">Visible:</label>
-    <input type="checkbox" id="visible" name="visible" <% if(watch.getVisible()){%> checked <% } %> /><br/>
+            <div class="form-group">
+                <label for="visible">Visible:</label>
+                <input type="checkbox" id="visible" name="visible" <% if(watch.getVisible()){%> checked <% } %> />
+            </div>
 
-    <input type="submit" value="Update"/>
-</form>
-<jsp:include page="/WEB-INF/NotVisible/imageManager.jsp">
-    <jsp:param name="watchId" value="${id}" />
-</jsp:include>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+    <div class="image-manager-container">
+        <jsp:include page="/WEB-INF/NotVisible/imageManager.jsp">
+            <jsp:param name="watchId" value="${id}" />
+        </jsp:include>
+    </div>
+</div>
 
 <script>
     function toggleBrandInput(select) {
@@ -95,6 +146,49 @@
         }
     }
 </script>
+
 <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>
+<style>
+    /* Stile per il container del form */
+    .form-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    button[type="submit"] {
+        background-color: #498e99;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #498e99;
+    }
+
+</style>

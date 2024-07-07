@@ -40,7 +40,6 @@ nav img {
 
 nav {
     background-color: white;
-    z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;

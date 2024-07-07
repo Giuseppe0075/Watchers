@@ -20,6 +20,7 @@ public class UpdateWatchAdminServlet extends HttpServlet {
             throws ServletException, IOException {
         // Recupera i dati modificati dal form
         try {
+            Long watchId = Long.parseUnsignedLong(request.getParameter("id"));
             String name = request.getParameter("name");
             String brand = request.getParameter("brand");
             if ("new".equals(brand)) {
@@ -42,9 +43,8 @@ public class UpdateWatchAdminServlet extends HttpServlet {
             String sex = request.getParameter("sex");
             Boolean visible = request.getParameter("visible") != null;
 
-            // Aggiorna il bean (in un caso reale, salveresti queste modifiche in un database)
             WatchModel watchModel = new WatchModel();
-            WatchBean watch = new WatchBean(0L,name,brand, description, reviews_avg, price,  material,  stock,  dimension,  IVA, sex,  visible);
+            WatchBean watch = new WatchBean(watchId,name,brand, description, reviews_avg, price,  material,  stock,  dimension,  IVA, sex,  visible);
             watchModel.doSaveOrUpdate(watch);
 
             request.setAttribute("watch", watch);

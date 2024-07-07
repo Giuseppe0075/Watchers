@@ -31,15 +31,17 @@
             <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
             <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
             <li><a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a> </li>
+            <li><a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a> </li>
+
             <% }
                 if (userBean != null) {%>
             <li><a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a></li>
             <% } %>
         </ul>
         <% if (userBean == null) { %>
-            <a href="${pageContext.request.contextPath}/user/login.jsp"
+            <a href="${pageContext.request.contextPath}/user/login.jsp" id="user">
         <% } else { %>
-            <a href="${pageContext.request.contextPath}/user/personalArea.jsp">
+            <a href="${pageContext.request.contextPath}/user/personalArea.jsp" id="user">
         <% } %>
                 <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
             </a>
@@ -54,6 +56,7 @@
         <a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
         <a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a>
         <a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a>
+        <a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a>
         <% } if (userBean == null) {%>
         <a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a>
         <% } %>
