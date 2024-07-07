@@ -1,6 +1,6 @@
-<%@ page import="storage.Beans.UserBean" %>
+<%@ page import="Model.Beans.UserBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.Models.UserModel" %>
+<%@ page import="Model.Models.UserModel" %>
 <%@ page import="filters.UserFilter" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri

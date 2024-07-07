@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ page import="storage.Models.WatchModel" %>
+<%@ page import="Model.Models.WatchModel" %>
 <%@ page import="java.util.List"%>
-<%@ page import="storage.Beans.WatchBean" %><%--
+<%@ page import="Model.Beans.WatchBean" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 30/05/2024

@@ -1,8 +1,8 @@
-<%@ page import="storage.Models.PurchaseModel" %>
-<%@ page import="storage.Beans.PurchaseBean" %>
+<%@ page import="Model.Models.PurchaseModel" %>
+<%@ page import="Model.Beans.PurchaseBean" %>
 <%@ page import="java.util.*" %>
-<%@ page import="storage.Models.WatchModel" %>
-<%@ page import="storage.Beans.WatchBean" %><%--
+<%@ page import="Model.Models.WatchModel" %>
+<%@ page import="Model.Beans.WatchBean" %><%--
   Created by IntelliJ IDEA.
   User: giuse
   Date: 27/06/2024

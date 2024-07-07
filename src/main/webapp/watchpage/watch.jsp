@@ -1,9 +1,9 @@
-<%@ page import="storage.Models.WatchModel" %>
-<%@ page import="storage.Beans.WatchBean" %>
+<%@ page import="Model.Models.WatchModel" %>
+<%@ page import="Model.Beans.WatchBean" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="storage.Beans.ImageBean" %>
+<%@ page import="Model.Beans.ImageBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.Models.ImageModel" %>
+<%@ page import="Model.Models.ImageModel" %>
 <%@ page import="java.util.Collection" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>

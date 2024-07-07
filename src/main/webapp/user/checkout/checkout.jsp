@@ -1,9 +1,9 @@
-<%@ page import="storage.Beans.WatchBean" %>
-<%@ page import="storage.Models.WatchModel" %>
+<%@ page import="Model.Beans.WatchBean" %>
+<%@ page import="Model.Models.WatchModel" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.Models.ImageModel" %>
+<%@ page import="Model.Models.ImageModel" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="storage.Beans.ImageBean" %><%--
+<%@ page import="Model.Beans.ImageBean" %><%--
   Created by IntelliJ IDEA.
   User: giuse
   Date: 20/06/2024

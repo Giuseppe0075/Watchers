@@ -5,12 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
-import storage.Beans.UserBean;
-import storage.Models.UserModel;
+import Model.Beans.UserBean;
+import Model.Models.UserModel;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class AdminFilter implements Filter {
     @Override

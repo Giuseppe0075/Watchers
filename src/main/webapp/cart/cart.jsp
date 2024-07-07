@@ -1,10 +1,10 @@
-<%@ page import="storage.Beans.CartElementBean" %>
+<%@ page import="Model.Beans.CartElementBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="ShoppingCart.ShoppingCart" %>
-<%@ page import="storage.Beans.WatchBean" %>
-<%@ page import="storage.Models.WatchModel" %>
-<%@ page import="storage.Models.ImageModel" %>
-<%@ page import="storage.Beans.ImageBean" %>
+<%@ page import="Model.Beans.WatchBean" %>
+<%@ page import="Model.Models.WatchModel" %>
+<%@ page import="Model.Models.ImageModel" %>
+<%@ page import="Model.Beans.ImageBean" %>
 <%@ page import="java.util.Collection" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri

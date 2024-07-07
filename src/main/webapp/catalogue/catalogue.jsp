@@ -3,8 +3,8 @@
 <%@ page import="utils.Security" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="storage.Models.BrandModel" %>
-<%@ page import="storage.Beans.BrandBean" %>
+<%@ page import="Model.Models.BrandModel" %>
+<%@ page import="Model.Beans.BrandBean" %>
 <html>
 <head>
     <title>Catalogue</title>

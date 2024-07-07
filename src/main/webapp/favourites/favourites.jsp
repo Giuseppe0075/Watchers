@@ -5,15 +5,11 @@
   Time: 11:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="storage.Models.WatchModel" %>
-<%@ page import="java.util.List" %>
-<%@ page import="storage.Beans.WatchBean" %>
 <%@ page import="FavouritesCart.FavouritesCart" %>
-<%@ page import="org.tinylog.Logger" %>
-<%@ page import="storage.Beans.FavouriteBean" %>
+<%@ page import="Model.Beans.FavouriteBean" %>
 <%@ page import="java.util.Set" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Favourites</title>
@@ -27,7 +23,7 @@
 %>
 
 
-<%@include file="../navbar.jsp"%> <!-- Navabar -->
+<%@include file="../navbar.jsp"%> <!-- Navbar -->
 
 <table style="width: 100%">
     <tr>

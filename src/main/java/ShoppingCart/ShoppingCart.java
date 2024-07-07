@@ -2,8 +2,8 @@ package ShoppingCart;
 
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
-import storage.Beans.CartElementBean;
-import storage.Models.CartElementModel;
+import Model.Beans.CartElementBean;
+import Model.Models.CartElementModel;
 
 import java.util.ArrayList;
 import java.util.Collection;

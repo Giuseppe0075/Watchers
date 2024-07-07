@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="storage.Models.PurchaseModel" %>
-<%@ page import="storage.Beans.PurchaseBean" %>
+<%@ page import="Model.Models.PurchaseModel" %>
+<%@ page import="Model.Beans.PurchaseBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="storage.Models.WatchModel" %>
+<%@ page import="Model.Models.WatchModel" %>
 <%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri

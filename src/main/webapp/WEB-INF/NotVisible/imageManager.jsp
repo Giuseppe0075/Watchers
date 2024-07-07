@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="storage.Beans.ImageBean" %>
-<%@ page import="storage.Models.ImageModel" %>
+<%@ page import="Model.Beans.ImageBean" %>
+<%@ page import="Model.Models.ImageModel" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="java.util.List" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

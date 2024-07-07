@@ -2,9 +2,8 @@ package FavouritesCart;
 
 import jakarta.servlet.http.HttpSession;
 import org.tinylog.Logger;
-import storage.Beans.CartElementBean;
-import storage.Beans.FavouriteBean;
-import storage.Models.FavouriteModel;
+import Model.Beans.FavouriteBean;
+import Model.Models.FavouriteModel;
 
 import java.util.*;
 

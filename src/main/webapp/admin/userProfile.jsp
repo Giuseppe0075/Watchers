@@ -1,11 +1,11 @@
-<%@ page import="storage.Beans.UserBean" %>
-<%@ page import="storage.Models.UserModel" %>
+<%@ page import="Model.Beans.UserBean" %>
+<%@ page import="Model.Models.UserModel" %>
 <%@ page import="java.util.List" %>
-<%@ page import="storage.Beans.PurchaseBean" %>
-<%@ page import="storage.Models.PurchaseModel" %>
+<%@ page import="Model.Beans.PurchaseBean" %>
+<%@ page import="Model.Models.PurchaseModel" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.stream.Collectors" %>
-<%@ page import="storage.Models.WatchModel" %>
+<%@ page import="Model.Models.WatchModel" %>
 <%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

@@ -1,5 +1,5 @@
-<%@ page import="storage.Beans.UserBean" %>
-<%@ page import="storage.Models.UserModel" %>
+<%@ page import="Model.Beans.UserBean" %>
+<%@ page import="Model.Models.UserModel" %>
 <%@ page import="java.util.List" %>
 
 <% { %><!-- don't delete, it's used to avoid scope problems -->

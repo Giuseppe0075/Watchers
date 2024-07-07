@@ -1,5 +1,5 @@
-<%@ page import="storage.Models.UserModel" %>
-<%@ page import="storage.Beans.UserBean" %>
+<%@ page import="Model.Models.UserModel" %>
+<%@ page import="Model.Beans.UserBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.tinylog.Logger" %><%--
   Created by IntelliJ IDEA.
