@@ -49,19 +49,17 @@ public class UploadImageAdminServlet extends HttpServlet {
             // Create ImageBean and set its properties
             ImageBean imageBean = new ImageBean();
             imageBean.setWatch(watchId);
-            long imageId = 0;
+            long imageId = 1L;
             try {
                 imageBean.setImage(imageBlob.getBytes(1, (int) imageBlob.length()));
-                Collection<ImageBean> images = imageModel.doRetrieveByCond("watch = ? ORDER BY watch DESC", List.of(watchId));
+                Collection<ImageBean> images = imageModel.doRetrieveByCond("WHERE watch = ?\nORDER BY watch DESC", List.of(watchId));
                 if (!images.isEmpty()) {
-                    imageId = images.iterator().next().getId();
+                    imageId = images.iterator().next().getId() + 1;
                 }
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
-            imageId++;
             imageBean.setId(imageId);
 
             // Save the image to the database
