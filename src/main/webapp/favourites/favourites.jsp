@@ -17,6 +17,7 @@
 <html>
 <head>
     <title>Favourites</title>
+    <link rel="stylesheet" href="../style/styleFavorites.css">
     <link rel="stylesheet" href="../style/styleFooter.css">
 </head>
 <body>
