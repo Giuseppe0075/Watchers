@@ -23,10 +23,12 @@
         WatchModel watchModel = new WatchModel();
         Collection<PurchaseBean> purchaseBeans;
         try {
-            purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? ORDER BY user DESC", List.of(userId));
+            purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? ORDER BY id DESC", List.of(userId));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        long hid = purchaseBeans.iterator().next().getId();
 
         //Division of the purchases by order
         HashMap<Long, List<PurchaseBean>> orderMap = new HashMap<>();
@@ -44,9 +46,14 @@
     <div id="container">
         <h1>Order History</h1>
         <br><br>
-        <% for(Map.Entry<Long, List<PurchaseBean>> entry : orderMap.entrySet()) { %>
+        <% for(long i = hid; i >= 1; i--) {
+            if(!orderMap.containsKey(i)) {
+                continue;
+            }
+            List<PurchaseBean> purchaseBeansList = orderMap.get(i);
+        %>
             <div class="order">
-                <h2>Order <%= entry.getKey() %></h2>
+                <h2>Order <%= i %></h2>
                 <table>
                     <tr>
                         <th>Product</th>
@@ -54,7 +61,7 @@
                         <th>Price</th>
                         <th>Total</th>
                     </tr>
-                    <% for(PurchaseBean purchaseBean : entry.getValue()) {
+                    <% for(PurchaseBean purchaseBean : purchaseBeansList) {
                         WatchBean watchBean;
                         try {
                              watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
