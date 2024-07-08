@@ -152,9 +152,7 @@ public class PdfGeneratorServlet extends HttpServlet {
         });
 
         //Adding the data
-        data.forEach(row -> row.values().forEach(value -> {
-            table.addCell(createCell(value));
-        }));
+        data.forEach(row -> row.values().forEach(value -> table.addCell(createCell(value))));
 
         //create the total
         float total = 0f;
