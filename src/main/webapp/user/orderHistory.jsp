@@ -22,8 +22,12 @@
         PurchaseModel purchaseModel = new PurchaseModel();
         WatchModel watchModel = new WatchModel();
         Collection<PurchaseBean> purchaseBeans;
+        UserModel userModel = new UserModel();
+        UserBean userBean;
+
         try {
             purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? ORDER BY id DESC", List.of(userId));
+            userBean = userModel.doRetrieveByKey(List.of(userId));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +63,7 @@
                         <th>Prodotto</th>
                         <th>Quantità</th>
                         <th>Prezzo</th>
+                        <th>IVA</th>
                         <th>Totale</th>
                     </tr>
                     <% for(PurchaseBean purchaseBean : purchaseBeansList) {
@@ -73,8 +78,16 @@
                             <td><%= watchBean.getName() %></td>
                             <td><%= purchaseBean.getQuantity() %></td>
                             <td><%= purchaseBean.getPrice() %>€</td>
+                            <td><%= purchaseBean.getIVA() %>%</td>
                             <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
                         </tr>
+
+                    <div id="hidden-data-for-<%=i%>" hidden>
+                        <div class="date"><%=purchaseBean.getDate()%></div>
+                        <div class="user-name"><%=userBean.getName()%></div>
+                        <div class="user-surname"><%=userBean.getSurname()%></div>
+                        <div class="user-address"><%=userBean.getRoad()%>,<%=userBean.getCivic_number()%></div>
+                    </div>
                     <% } %>
                 </table>
                 <button onclick="createInvoice(this)">Scarica Fattura</button>

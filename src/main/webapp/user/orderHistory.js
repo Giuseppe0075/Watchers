@@ -3,7 +3,12 @@ const xhttp = new XMLHttpRequest();
 function createInvoice(buttonElement){
     const order = buttonElement.parentElement;
     const table = order.querySelector("table");
-    let data = [];
+    const orderId = order.querySelector("h2").innerText.split(" ")[1];
+    const hiddenDataDiv = document.getElementById(`hidden-data-for-${orderId}`);
+    let data = {
+        tableData: [],
+        clientData: {}
+    }
 
     //get the data from the table
     for(let i = 1; i < table.rows.length; i++){
@@ -12,10 +17,19 @@ function createInvoice(buttonElement){
             product: row.cells[0].innerText,
             quantity: row.cells[1].innerText,
             price: row.cells[2].innerText,
-            total: row.cells[3].innerText
+            iva: row.cells[3].innerText,
+            total: row.cells[4].innerText
         };
-        data.push(rowData);
+        data.tableData.push(rowData);
     }
+
+    // Get the additional data from the hidden div
+    data.clientData = {
+        date: hiddenDataDiv.querySelector(".date").innerText,
+        userName: hiddenDataDiv.querySelector(".user-name").innerText,
+        userSurname: hiddenDataDiv.querySelector(".user-surname").innerText,
+        userAddress: hiddenDataDiv.querySelector(".user-address").innerText
+    };
 
     const jsonData = JSON.stringify(data);
 
