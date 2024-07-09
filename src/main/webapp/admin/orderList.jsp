@@ -18,67 +18,7 @@
 <head>
     <title>Ordini</title>
     <link rel="stylesheet" href="../style/styleFooter.css">
-    <%--<link rel="stylesheet" href="../style/styleOrderList.css">--%>
-    <style>
-        /* Stile per il container principale */
-        .container {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 1000px;
-            margin: 20px auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .order-total {
-            font-weight: bold;
-            background-color: #f9f9f9;
-        }
-
-        .filter-form {
-            margin-bottom: 20px;
-        }
-
-        .filter-form label {
-            font-weight: bold;
-        }
-
-        .filter-form input[type="date"],
-        .filter-form input[type="submit"] {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-left: 10px;
-        }
-
-        .filter-form input[type="submit"]{
-            color: white;
-            background-color: #498e99;
-        }
-
-        .filter-form input[type="submit"]:hover{
-            background-color: #5d9ea8;
-        }
-    </style>
+    <link rel="stylesheet" href="../style/styleOrderList.css">
 </head>
 <body>
 <%

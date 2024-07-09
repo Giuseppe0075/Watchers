@@ -38,14 +38,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-/* Filtering Catalogue */
-// Add an event listener to all the filter form groups
-filterFormGroup.forEach(formGroup => {
-    formGroup.addEventListener('input', event => {
-        event.preventDefault();
-        sendForm()
-    });
-});
+    window.onresize = function() {
+        const filtersBar = document.getElementById('filters');
+        if (filtersBar.classList.contains('visible')) {
+            // Rimuovi temporaneamente la classe visible per calcolare l'altezza del contenuto
+            filtersBar.style.height = '0';
+            setTimeout(() => {
+                filtersBar.classList.remove('visible');
+            }, 500);
+        }
+    };
+
 //For the first load of the catalogue
 document.addEventListener('DOMContentLoaded', () => {
     sendForm();

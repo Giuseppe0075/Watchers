@@ -13,6 +13,7 @@
         <title>Watchers</title>
         <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
         <link rel="stylesheet" href="../style/styleHomepage.css">
+        <link rel="stylesheet" href="../style/styleFooter.css">
     </head>
     <body>
         <%
@@ -26,9 +27,9 @@
                 watch = watchModel.doRetrieveByKey(List.of(id));
                 images = imageModel.doRetrieveByCond("WHERE watch=?", List.of(id));
             } catch (Exception e) {
-                response.sendError(404);
-                return;
+                throw new RuntimeException(e);
             }
+
 
         %>
         <%@include file="../navbar.jsp"%>
