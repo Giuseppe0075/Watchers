@@ -1,43 +1,82 @@
-
-table {
-    background-color: white;
-    border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 90px auto;
+/* Stile per il container principale */
+.container {
+    background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 20px auto;
 }
 
-table th,
-table td {
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
     border: 1px solid #ddd;
+    border-radius: 10px;
     overflow: hidden;
+}
+
+th, td {
     padding: 8px;
-}
-
-table th {
-    background-color: #f2f2f2;
     text-align: left;
+    border: 1px solid #ddd;
 }
 
-table tr:hover {
-    background-color: #f1f1f1;
+th {
+    background-color: #f2f2f2;
 }
 
-table .elimina {
-    background: #498e99;
-    border-radius: 3px;
-    width: 40px;
-    height: 30px;
+.order-total {
+    font-weight: bold;
+    background-color: #f9f9f9;
 }
 
-@media screen and (max-width: 600px) {
-    table th, table td {
-        padding: 8px;
-        font-size: 12px;
-    }
+.filter-form {
+    margin-bottom: 20px;
+}
 
-    .table-container {
-        padding: 8px;
+.filter-form label {
+    font-weight: bold;
+}
+
+.filter-form input[type="date"],
+.filter-form input[type="submit"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.filter-form input[type="submit"]{
+    color: white;
+    background-color: #498e99;
+}
+
+.filter-form input[type="submit"]:hover{
+    background-color: #5d9ea8;
+}
+
+
+
+/* Container for form and image manager */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.form-container,
+.image-manager-container {
+    flex: 1 1 45%;
+    box-sizing: border-box;
+}
+
+/* Ensure form and image manager stack vertically on small screens */
+@media (max-width: 768px) {
+    .form-container,
+    .image-manager-container {
+        flex: 1 1 100%;
     }
 }

@@ -13,9 +13,9 @@
 <html>
 <head>
     <title>Modifica Prodotto</title>
-    <link rel="stylesheet" href="../style/styleFooter.css">
-    <link rel="stylesheet" href="../style/styleForm.css"> <!-- Nuovo file CSS per lo stile del form -->
-    <link rel="stylesheet" href="../style/styleImageManager.css"> <!-- Nuovo file CSS per lo stile delle immagini -->
+    <link rel="stylesheet" href="../style/styleModifyWatch.css">
+    <link rel="stylesheet" href="../style/styleImageManager.css">
+
     <style>
         /* Container for form and image manager */
         .container {
@@ -31,12 +31,20 @@
             box-sizing: border-box;
         }
 
-        /* Ensure form and image manager stack vertically on small screens */
         @media (max-width: 768px) {
             .form-container,
             .image-manager-container {
                 flex: 1 1 100%;
             }
+        }
+
+        .image-manager-container {
+            flex: 1 1 45%;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -150,45 +158,3 @@
 <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>
-<style>
-    /* Stile per il container del form */
-    .form-container {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .form-group input, .form-group select {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    button[type="submit"] {
-        background-color: #498e99;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-        font-size: 16px;
-    }
-
-    button[type="submit"]:hover {
-        background-color: #498e99;
-    }
-
-</style>
