@@ -126,7 +126,7 @@
                 <label for="password">Password</label>
                 <div class="input-container">
                     <input type="password" id="password" name="password" required minlength="8"
-                           pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&.])[A-Za-z\d@$!%*#?&.]{8,}$" />
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&.,%])[A-Za-z\d@$!%*#?&.,%]{8,}$" />
                     <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                     <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
                 </div>
