@@ -1,6 +1,5 @@
 <%@ page import="Model.Models.WatchModel" %>
 <%@ page import="Model.Beans.WatchBean" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page import="Model.Beans.ImageBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.Models.ImageModel" %>
@@ -21,8 +20,8 @@
             ImageModel imageModel = new ImageModel();
             Long id = Long.parseLong(request.getParameter("id"));
 
-            WatchBean watch = null;
-            Collection<ImageBean> images = null;
+            WatchBean watch;
+            Collection<ImageBean> images;
             try {
                 watch = watchModel.doRetrieveByKey(List.of(id));
                 images = imageModel.doRetrieveByCond("WHERE watch=?", List.of(id));
@@ -50,6 +49,7 @@
                 <h3><%="price: " + watch.getPrice()%></h3>
                 <p><%="id: " +watch.getId() %></p>
                 <p><%=watch.getDescription()%></p>
+                <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>">Aggiungi al carrello</a></p>
             </aside>
         </div>
         <%@include file="../WEB-INF/NotVisible/review.jsp"%>

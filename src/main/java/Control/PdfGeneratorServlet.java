@@ -111,7 +111,7 @@ public class PdfGeneratorServlet extends HttpServlet {
 
         // Company details
         Font detailsFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, customColor);
-        Paragraph companyDetails = new Paragraph("Indirizzo\nP.IVA/C.F.: 86334519757\n\n", detailsFont);
+        Paragraph companyDetails = new Paragraph("Via degli Orologi\nP.IVA/C.F.: 86334519757\n\n", detailsFont);
         document.add(companyDetails);
     }
 

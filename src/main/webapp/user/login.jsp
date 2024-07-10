@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <div class="input-container">
-                    <input type="email" id="email" name="email" required />
+                    <input type="email" id="email" name="email" required pattern="^\w((\.)?\w+)*@\w+\.{1}[a-z]+(\.{1}\w+)*$"/>
                     <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                     <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
                 </div>
