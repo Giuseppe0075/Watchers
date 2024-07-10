@@ -1,10 +1,10 @@
 <%@ page import="Model.Beans.UserBean" %>
 <%@ page import="Model.Models.UserModel" %>
 <%@ page import="java.util.List" %>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <% { %><!-- don't delete, it's used to avoid scope problems -->
 <header>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/navbar.css">
@@ -39,10 +39,10 @@
             <% } %>
         </ul>
         <% if (userBean == null) { %>
-            <a href="${pageContext.request.contextPath}/user/login.jsp" id="user">
-        <% } else { %>
+        <a href="${pageContext.request.contextPath}/user/login.jsp" id="user">
+                <% } else { %>
             <a href="${pageContext.request.contextPath}/user/personalArea.jsp" id="user">
-        <% } %>
+                <% } %>
                 <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
             </a>
             <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="menu">&#9776;</span>
@@ -72,3 +72,4 @@
     </script>
 </header>
 <% } %> <!-- don't delete, it's used to avoid scope problems -->
+

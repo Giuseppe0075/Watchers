@@ -17,8 +17,8 @@
 <html>
 <head>
     <title>Ordini</title>
-    <link rel="stylesheet" href="../style/styleFooter.css">
     <link rel="stylesheet" href="../style/styleOrderList.css">
+
 </head>
 <body>
 <%

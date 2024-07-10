@@ -19,7 +19,7 @@
 <html>
 <head>
     <title>Favourites</title>
-    <link rel="stylesheet" href="../style/styleFooter.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Stile per il container principale */
         #favourites-container {

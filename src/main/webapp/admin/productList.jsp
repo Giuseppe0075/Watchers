@@ -11,9 +11,9 @@
 <html>
 <head>
     <title>Lista Prodotti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<link rel="stylesheet" href="../style/styleFooter.css">
 <link rel="stylesheet" href="../style/styleProductList.css">
     <%
         WatchModel watchModel = new WatchModel();

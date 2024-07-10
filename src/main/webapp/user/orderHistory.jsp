@@ -13,6 +13,7 @@
 <html>
 <head>
     <title>Order History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <%@include file="/navbar.jsp" %>

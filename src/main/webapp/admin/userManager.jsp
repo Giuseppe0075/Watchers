@@ -12,7 +12,6 @@
 <html>
 <head>
     <title>User Manager</title>
-    <link rel="stylesheet" href="../style/styleFooter.css">
     <link rel="stylesheet" href="../style/styleUserManager.css">
     <style>
         /* Stile per il container principale */

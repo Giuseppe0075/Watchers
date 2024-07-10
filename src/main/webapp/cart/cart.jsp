@@ -16,7 +16,6 @@
 <html>
   <head>
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="../style/styleFooter.css">
   </head>
   <body>
   <%@include file="../navbar.jsp"%>

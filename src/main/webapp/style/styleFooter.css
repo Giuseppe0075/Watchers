@@ -6,7 +6,7 @@ body{
 }
 
 .container{
-    width: 1170px;
+    width: auto;
     margin: auto;
 }
 
@@ -20,7 +20,7 @@ ul{
     list-style: none;
 }
 
-.footer{
+footer{
     position: relative;
     background-color: #c0c0c0;
     padding: 70px 0;

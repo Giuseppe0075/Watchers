@@ -1,6 +1,6 @@
 
 /* Stile per i link della navbar */
- a {
+a {
     color: black;
     text-decoration: none;
     padding: 10px 20px;
@@ -109,7 +109,7 @@ nav #user{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
-@media (max-width: 800px) {
+@media screen and (max-width: 800px) {
     nav ul {
         display: none;
     }
