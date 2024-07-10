@@ -16,6 +16,7 @@
 <html>
   <head>
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="../style/styleCart.css">
   </head>
   <body>
   <%@include file="../navbar.jsp"%>
@@ -27,9 +28,17 @@
   %>
 
   <!-- Container -->
-  <div class="container">
+  <div class="container-cart">
     <h1>Shopping Cart</h1>
 
+    <% if(cart.isEmpty()){ %>
+    <div class="empty-cart-message">
+      <h2>Il carrello è vuoto</h2>
+      <p>Non hai ancora aggiunto articoli al tuo carrello.</p>
+    </div>
+    <% } else { %>
+
+    <% } %>
     <!-- Cart elements -->
     <form method="post" action="${pageContext.request.contextPath}/user/checkout/checkout.jsp" class="elements">
       <label for="userId"></label>
@@ -52,6 +61,7 @@
           image = new ImageBean();
         }
       %>
+
       <!-- Single watch -->
       <div class="element" id="watch<%=watch.getId()%>">
         <!-- Watch details -->

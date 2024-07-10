@@ -1,0 +1,89 @@
+.container-cart {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 80px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+}
+
+.details img {
+    width: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.details div {
+    margin-right: 10px;
+}
+
+.quantity {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+button[name="remove"] {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button[name="remove"]:hover {
+    background-color: #ff3333;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .element {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Responsive per smartphone */
+@media (max-width: 480px) {
+    .container-cart {
+        padding: 10px;
+    }
+
+    .details, .quantity {
+        width: 100%;
+        text-align: center;
+    }
+
+    img.photo {
+        max-width: 100%;
+        height: auto;
+    }
+}

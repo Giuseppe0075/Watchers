@@ -1,5 +1,6 @@
 <%@ page import="Model.Models.WatchModel" %>
 <%@ page import="Model.Beans.WatchBean" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page import="Model.Beans.ImageBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.Models.ImageModel" %>
