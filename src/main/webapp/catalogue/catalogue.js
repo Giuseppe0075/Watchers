@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 })
 
+
 document.addEventListener("DOMContentLoaded", function() {
     const closeFiltersBtn = document.getElementById('closeFiltersBtn');
     const filtersBar = document.querySelector('.filters-bar');
