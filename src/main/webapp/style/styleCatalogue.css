@@ -139,6 +139,7 @@ body{
 
     .watches-container {
         flex: 1;
+        justify-content: center;
     }
 
 }
