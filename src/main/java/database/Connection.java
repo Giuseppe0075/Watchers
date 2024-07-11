@@ -38,10 +38,6 @@ public class Connection implements AutoCloseable{
 
     }
 
-    public int executeUpdate(String query) throws SQLException {
-        return executeUpdate(query, null);
-    }
-
     public int executeUpdate(String query, List<Object> params) throws SQLException {
         PreparedStatement ps = buildStatement(query, params);
         Logger.debug("-------"+ps.toString());
@@ -49,6 +45,13 @@ public class Connection implements AutoCloseable{
 
     }
 
+    public boolean isValid() {
+        try {
+            return this.connection.isValid(2); // 2 seconds timeout
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 
     @Override
     public void close(){

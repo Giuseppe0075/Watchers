@@ -65,8 +65,8 @@ public class DatabaseConnectionPool {
     }
 
     /**
-     * Get a connection from the pool. If no connections are available, wait
-     * for a short period before throwing an exception.
+     * Get a connection from the pool. If no connections are available, wait until one is released.
+     * If the connection is not valid, create a new one.
      *
      * @throws SQLException if a connection cannot be obtained within the timeout
      */
@@ -74,6 +74,10 @@ public class DatabaseConnectionPool {
         Connection connection;
         try {
             connection = pool.take(); // This will block if the queue is empty
+            if (!connection.isValid()) {
+                Logger.warn("Connection is not valid, creating a new one");
+                connection = new Connection(DriverManager.getConnection(uri, username, password));
+            }
         } catch (InterruptedException e) {
             throw new SQLException("Interrupted while waiting for connection", e);
         }
