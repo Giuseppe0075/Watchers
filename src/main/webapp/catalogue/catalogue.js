@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 })
 
-
 document.addEventListener("DOMContentLoaded", function() {
     const closeFiltersBtn = document.getElementById('closeFiltersBtn');
     const filtersBar = document.querySelector('.filters-bar');
@@ -39,21 +38,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-    window.onresize = function() {
-        const filtersBar = document.getElementById('filters');
-        if (filtersBar.classList.contains('visible')) {
-            // Rimuovi temporaneamente la classe visible per calcolare l'altezza del contenuto
-            filtersBar.style.height = '0';
-            setTimeout(() => {
-                filtersBar.classList.remove('visible');
-            }, 500);
-        }
-    };
+window.onresize = function() {
+    const filtersBar = document.getElementById('filters');
+    if (filtersBar.classList.contains('visible')) {
+        // Rimuovi temporaneamente la classe visible per calcolare l'altezza del contenuto
+        filtersBar.style.height = '0';
+        setTimeout(() => {
+            filtersBar.classList.remove('visible');
+        }, 500);
+    }
+};
 
 //For the first load of the catalogue
 document.addEventListener('DOMContentLoaded', () => {
     sendForm();
 });
+
+/* Filtering Catalogue */
+// Add an event listener to all the filter form groups
+filterFormGroup.forEach(formGroup => {
+    formGroup.addEventListener('input', event => {
+        event.preventDefault();
+        console.log("Form changed")
+        sendForm()
+    });
+});
+
 //Sends the form via AJAX to the server
 function sendForm() {
     const xhttp = new XMLHttpRequest();
@@ -74,7 +84,7 @@ function sendForm() {
         }
     }
 
-    xhttp.open('POST', '/get-watches', true);
+    xhttp.open('POST', '../get-watches', true);
     xhttp.send(formData);
 }
 
@@ -92,7 +102,7 @@ function changeFavourite(watchId, button){
             button.style.color = 'black';
         }
 
-        xhttp.open('GET', '/favourites-servlet?' + parameters, true);
+        xhttp.open('GET', '../favourites-servlet?' + parameters, true);
         xhttp.send();
     }
 }
@@ -110,7 +120,7 @@ function createWatchCard(watch){
 
     // Create the img element
     const imgElement = document.createElement('img');
-    imgElement.src = `/getImage?id=1&watch=${watch.id}`;
+    imgElement.src = `../getImage?id=1&watch=${watch.id}`;
     imgElement.alt = 'no images';
     anchorElement.appendChild(imgElement);
 
@@ -154,7 +164,7 @@ function createWatchCard(watch){
         }
     };
 
-    xhttpFavourite.open('GET', '/favourites-servlet?watch='+watch.id+'&action=get', true);
+    xhttpFavourite.open('GET', '../favourites-servlet?watch='+watch.id+'&action=get', true);
     xhttpFavourite.send();
     buttonElement.addEventListener('click', changeFavourite(watch.id, buttonElement));
 
@@ -163,4 +173,3 @@ function createWatchCard(watch){
     // Append the watch element to the catalog
     catalogue.appendChild(watchElement);
 }
-/* End filtering catalogue */
