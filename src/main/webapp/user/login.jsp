@@ -20,7 +20,9 @@
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
-
+<video autoplay muted loop id="myVideo">
+    <source src="../homepage/home.webm" type="video/mp4">
+</video>
 <div class="form-container">
     <div class="form-column side">
         <h2 class="form-title">Watchers</h2>
@@ -60,3 +62,14 @@
 <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>
+<style>
+    #myVideo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -1;
+    }
+</style>

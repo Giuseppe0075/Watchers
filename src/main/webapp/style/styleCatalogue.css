@@ -1,13 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body{
-    background-color: ghostwhite;
-}
 
 .card-container {
     display: flex;
@@ -15,6 +5,7 @@ body{
     flex-wrap: wrap;
     margin-top: 100px;
 }
+
 
 .sidebar-filters {
     flex: 1;
@@ -93,7 +84,7 @@ body{
     height: 0;
 }
 
-.filters-bar.visible {
+.filters-bar .visible {
     height: auto;
 }
 
@@ -130,7 +121,7 @@ body{
 
 
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .card-container {
         flex-direction: column;
     }
@@ -145,18 +136,17 @@ body{
     }
 
     .filters-bar{
-        height: auto;
-        overflow: visible;
+        height: 0;
+        overflow: hidden;
     }
 
     .filterGroup{
         flex-basis: 100%;
     }
-
 }
 
 
-@media (min-width: 769px) {
+@media screen and (min-width: 769px) {
     .watches-container {
         display: flex;
         flex-wrap: wrap;

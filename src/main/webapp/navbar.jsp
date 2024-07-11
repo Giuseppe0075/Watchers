@@ -27,14 +27,13 @@
             <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a></li>
             <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a></li>
             <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Preferiti</a></li>
-            <% if (userBean != null && userBean.getAdmin()) { %>
-            <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+            <% if (user != 0L) {%>
+            <a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+            <% }if (userBean != null && userBean.getAdmin()) { %>
             <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
             <li><a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a> </li>
             <li><a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a> </li>
-
-            <% }
-                if (userBean != null) {%>
+            <% } if (user == 0L) {%>
             <li><a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a></li>
             <% } %>
         </ul>
@@ -52,12 +51,13 @@
         <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a>
         <a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a>
         <a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Preferiti</a>
-        <% if (userBean != null && userBean.getAdmin()) { %>
+        <% if (user != 0L) {%>
         <a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+        <% }if (userBean != null && userBean.getAdmin()) { %>
         <a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a>
         <a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a>
         <a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a>
-        <% } if (userBean == null) {%>
+        <% } if (user == 0L) {%>
         <a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a>
         <% } %>
     </div>
