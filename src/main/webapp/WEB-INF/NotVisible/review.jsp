@@ -14,7 +14,6 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 100%;
-    margin: 20px;
 }
 
 .review-container h1 {

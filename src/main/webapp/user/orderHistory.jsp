@@ -2,7 +2,8 @@
 <%@ page import="Model.Beans.PurchaseBean" %>
 <%@ page import="java.util.*" %>
 <%@ page import="Model.Models.WatchModel" %>
-<%@ page import="Model.Beans.WatchBean" %><%--
+<%@ page import="Model.Beans.WatchBean" %>
+<%--
   Created by IntelliJ IDEA.
   User: giuse
   Date: 27/06/2024

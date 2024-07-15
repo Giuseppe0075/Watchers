@@ -14,7 +14,7 @@ table {
     border-spacing: 0;
     border: 1px solid #ddd;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-x: scroll;
 }
 
 th, td {
@@ -62,9 +62,8 @@ th {
 /* Container for form and image manager */
 .container {
     display: flex;
-    flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .form-container,

@@ -19,7 +19,7 @@
         WatchModel watchModel = new WatchModel();
         List<WatchBean> watches;
         try {
-            watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE visible= ?",List.of(true));
+            watches = (List<WatchBean>) watchModel.doRetrieveAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

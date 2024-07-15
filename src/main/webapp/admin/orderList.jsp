@@ -18,15 +18,22 @@
 <head>
     <title>Ordini</title>
     <link rel="stylesheet" href="../style/styleOrderList.css">
-
 </head>
 <body>
 <%
+    UserModel userModelFilter = new UserModel();
     WatchModel watchModel = new WatchModel();
     PurchaseModel orderModel = new PurchaseModel();
     Map<Long, List<PurchaseBean>> orders;
+    List<UserBean> users;
+    try {
+       users = (List<UserBean>) userModelFilter.doRetrieveAll();
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
 
     String dateParam = request.getParameter("date");
+    Long userIdFilter = Long.parseUnsignedLong(request.getParameter("user") == null ? "0" : request.getParameter("user"));
     Date filterDate = null;
     if (dateParam != null && !dateParam.isEmpty()) {
         try {
@@ -38,6 +45,15 @@
 
     try {
         List<PurchaseBean> allOrders = (List<PurchaseBean>) orderModel.doRetrieveAll();
+
+        // Applica il filtro per utente se selezionato
+        if (userIdFilter != 0) {
+            allOrders = allOrders.stream()
+                    .filter(order -> order.getUser().equals(userIdFilter))
+                    .collect(Collectors.toList());
+        }
+
+        // Applica il filtro per data, se specificata
         if (filterDate != null) {
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();
@@ -51,6 +67,7 @@
                     })
                     .collect(Collectors.toList());
         }
+
         orders = allOrders.stream().collect(Collectors.groupingBy(PurchaseBean::getId));
     } catch (Exception e) {
         throw new RuntimeException(e);
@@ -59,15 +76,26 @@
 
 <%@include file="../navbar.jsp"%>
 <div class="container">
-    <p>Ordini</p>
+    <div class="form-filter">
+        <p>Ordini</p>
 
-    <!-- Form per selezionare la data -->
-    <form method="GET" action="" class="filter-form">
-        <label for="date">Filtra per data:</label>
-        <input type="date" id="date" name="date" value="<%= dateParam != null ? dateParam : "" %>">
-        <input type="submit" value="Filtra">
-    </form>
+        <!-- Form per selezionare la data -->
+        <form method="GET" action="" class="filter-form">
+            <label for="date">Filtra per data:</label>
+            <input type="date" id="date" name="date" value="<%= dateParam != null ? dateParam : "" %>">
+            <div class="form-group">
+                <label for="user">User:</label>
+                <select id="user" name="user" required>
+                    <option value="0">ALL</option>
+                    <% for(var user : users) {%>
+                    <option value="<%=user.getId()%>"><%=user.getName()%></option>
+                    <%}%>
+                </select>
+            </div>
 
+            <input type="submit" value="Filtra">
+        </form>
+    </div>
     <div style="overflow-x: auto;">
         <table>
             <thead>
@@ -84,7 +112,7 @@
                     Date dataOrdine = entry.getValue().get(0).getDate();
                     double totalOrderPrice = entry.getValue().stream().mapToDouble(PurchaseBean::getPrice).sum(); %>
             <tr class="order-total">
-                <td colspan="4">Ordine #<%= entry.getKey() %> - Totale Prezzo: €<%= totalOrderPrice %>  --- <%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(dataOrdine) %> </td>
+                <td colspan="4">Ordine #<%= entry.getKey() %> - Totale Prezzo: €<%= totalOrderPrice %>  --- <%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(dataOrdine) %>-- <%=userModelFilter.doRetrieveByKey(List.of(entry.getValue().getFirst().getUser())).getName()%> </td>
             </tr>
             <% for (var el : entry.getValue()) { %>
             <tr>

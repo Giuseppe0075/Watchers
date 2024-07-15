@@ -11,6 +11,8 @@
 <html>
 <head>
     <title>User Profile</title>
+    <script src="../utils/formValidator.js"></script>
+
     <%
         Long sessionUser = (Long) session.getAttribute("user");
         WatchModel watchModel = new WatchModel();
@@ -36,6 +38,40 @@
         }
     %>
     <style>
+        .form-group input:focus {
+            border-color: #007BFF;
+        }
+
+        .form-group .error-icon, .form-group .success-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .form-group .error {
+            color: red;
+            padding-top: 8px;
+        }
+
+        .form-group input.border-red {
+            border-color: red;
+        }
+
+        .form-group input.border-green {
+            border-color: green;
+        }
+
+        .form-group .error-icon.visible, .form-group .success-icon.visible {
+            display: inline;
+        }
+
+        .error-message {
+            color: red;
+            padding-top: 8px;
+        }
+
         /* Stile per il container principale */
         .container {
             padding: 10px;
@@ -132,19 +168,42 @@
             <input type="hidden" name="id" value="<%= userModify.getId() %>">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<%= userModify.getEmail() %>" required>
+                <div class="input-container">
+                    <input type="email" id="email" name="email" required pattern="^\w((\.)?\w+)*@\w+\.{1}[a-z]+(\.{1}\w+)*$" value="<%=userModify.getEmail()%>"/>
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" value="<%= userModify.getName() %>" required>
+                <div class="input-container">
+                    <input type="text" id="name" name="name" required maxlength="255"
+                           value="<%= userModify.getName()%>" />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" name="surname" value="<%= userModify.getSurname() %>" required>
+                <div class="input-container">
+                    <input type="text" id="surname" name="surname" required maxlength="255"
+                           value="<%=userModify.getSurname()%>" />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
             <div class="form-group">
                 <label for="cap">CAP</label>
-                <input type="text" id="cap" name="cap" value="<%= userModify.getCAP() %>" required>
+                <div class="input-container">
+                    <input type="text" id="cap" name="cap" required minlength="5" maxlength="5"
+                           value="<%=userModify.getCAP()%>" />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
             <% if (!userModify.getId().equals(sessionUser)) { %>
             <div class="form-group">
@@ -155,7 +214,7 @@
                 </select>
             </div>
             <% } %>
-            <button type="submit">Update</button>
+            <button type="submit" class="btn-submit">Sign-up</button>
         </form>
         <% } %>
     </div>
