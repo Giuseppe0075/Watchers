@@ -5,7 +5,7 @@
   Time: 11:18
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <link rel="stylesheet"
@@ -19,6 +19,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+<%
+    //check if user is already logged in
+    if (session.getAttribute("user") != null) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+%>
+
 <%@include file="../navbar.jsp"%>
 <video autoplay muted loop id="myVideo">
     <source src="../homepage/home.webm" type="video/mp4">
