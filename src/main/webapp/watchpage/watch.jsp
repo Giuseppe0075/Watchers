@@ -45,7 +45,7 @@
         .slider img {
             width: 100%;
             height: 400px;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .prev, .next {
@@ -55,7 +55,7 @@
             width: auto;
             padding: 16px;
             margin-top: -22px;
-            color: white;
+            color: #498e99;
             font-weight: bold;
             font-size: 18px;
             transition: 0.6s ease;
@@ -69,7 +69,8 @@
         }
 
         .prev:hover, .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            background-color: rgb(93, 158, 168);
         }
 
         .watch-infobar {
