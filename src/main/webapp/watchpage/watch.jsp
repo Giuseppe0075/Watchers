@@ -13,23 +13,63 @@
     <title>Watchers</title>
     <link rel="stylesheet" href="../style/styleHomepage.css">
     <style>
-        .watch-container {
+        .container {
             display: flex;
             flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .watch-photos {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 10px;
+        .slider {
+            position: relative;
             flex: 1;
+            max-width: 600px;
+            margin: auto;
         }
 
-        .watch-photo {
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: none;
+        }
+
+        .slider img {
             width: 100%;
-            height: auto;
+            height: 400px;
             object-fit: cover;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         .watch-infobar {
@@ -38,20 +78,27 @@
         }
 
         @media (max-width: 700px) {
-            .watch-photos {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
+            .container {
+                flex-direction: column;
             }
 
-            .watch-photo {
-                flex: 0 0 100%;
-                scroll-snap-align: center;
+            .slider {
+                max-width: 100%;
             }
 
             .watch-infobar {
                 width: 100%;
             }
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -71,15 +118,21 @@
     }
 %>
 <%@include file="../navbar.jsp"%>
-<div class="watch-container">
-    <div class="watch-photos"> <!-- Photos Showroom-->
-        <%
-            for (ImageBean image : images) {
-        %>
-        <img class="watch-photo" src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
-        <%
-            }
-        %>
+<div class="container">
+    <div class="slider">
+        <div class="slides">
+            <%
+                for (ImageBean image : images) {
+            %>
+            <div class="slide">
+                <img src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
+            </div>
+            <%
+                }
+            %>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
 
     <aside class="watch-infobar">
@@ -87,10 +140,28 @@
         <h3><%="price: " + watch.getPrice()%></h3>
         <p><%="id: " + watch.getId() %></p>
         <p><%=watch.getDescription()%></p>
-        <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>">Aggiungi al carrello</a></p>
+        <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>" class="btn">Aggiungi al carrello</a></p>
     </aside>
 </div>
 <%@include file="../WEB-INF/NotVisible/review.jsp"%>
 <%@include file="../footer.html"%> <!-- Footer -->
+<script>
+    let slideIndex = 0;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let slides = document.getElementsByClassName("slide");
+        if (n >= slides.length) { slideIndex = 0 }
+        if (n < 0) { slideIndex = slides.length - 1 }
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block";
+    }
+</script>
 </body>
 </html>

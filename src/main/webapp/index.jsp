@@ -60,7 +60,7 @@
         // Mobile-first defaults
         slidesToShow: 1,
         slidesToScroll: 1,
-        draggable: true,
+        draggable: false,
         dots: '.dots',
         arrows: {
             prev: '.glider-prev',
