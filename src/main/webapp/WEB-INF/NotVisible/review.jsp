@@ -40,7 +40,7 @@
     transition: color 0.3s;
 }
 
-.review-star.active, .review-star:hover {
+.review-star, .review-star:hover {
     color: #f1c40f;
 }
 
@@ -162,13 +162,13 @@ input[type="submit"]:hover {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    alert(data.message);
                     document.getElementById('review-form').reset();
                     document.querySelectorAll('.review-star').forEach(star => star.classList.remove('active'));
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Errore durante l\'invio della recensione');
+                    alert(error);
                 });
         });
     });

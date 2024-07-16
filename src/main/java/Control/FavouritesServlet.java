@@ -19,7 +19,7 @@ public class FavouritesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
-        resp.sendRedirect("../favuorites/favourites.jsp");
+        resp.sendRedirect("../favourites/favourites.jsp");
     }
 
     @Override
