@@ -23,12 +23,12 @@ public class NewReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Verifica la sessione utente
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") == null) {
             resp.setContentType("application/json");
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             JsonObject errorResponse = new JsonObject();
-            errorResponse.addProperty("error", "Utente non autorizzato");
+            errorResponse.addProperty("error", "User not authenticated");
             resp.getWriter().write(gson.toJson(errorResponse));
             return;
         }

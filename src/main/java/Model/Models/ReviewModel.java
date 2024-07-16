@@ -59,7 +59,8 @@ public class ReviewModel implements DAO<ReviewBean> {
 
     @Override
     public void doSaveOrUpdate(ReviewBean reviewBean) throws Exception {
-        if (reviewBean.getWatch() == 0 || reviewBean.getUser() == 0) {
+        ReviewModel reviewModel = new ReviewModel();
+        if (reviewModel.doRetrieveByKey(List.of(reviewBean.getWatch(), reviewBean.getUser())) == null) {
             this.doSave(reviewBean);
             return;
         }

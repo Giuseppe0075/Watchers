@@ -1,4 +1,5 @@
-<%--
+<%@ page import="Model.Models.ReviewModel" %>
+<%@ page import="Model.Beans.ReviewBean" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 25/05/2024
@@ -78,8 +79,9 @@ input[type="submit"]:hover {
 </style>
 
 <!-- Qui l'utente loggato potra inserire una recensione su un prodotto -->
+<br><br>
 <div class="review-container">
-    <h1>Scrivi una recensione</h1>
+    <h1>Write a review</h1>
     <form id="review-form">
         <label for="review-rating-stars">Stelle</label>
         <div id="review-rating-stars">
@@ -93,7 +95,37 @@ input[type="submit"]:hover {
         <textarea name="review" id="review-text" cols="30" rows="10" required></textarea>
         <input type="submit" value="Invia">
     </form>
+    <%
+        //Getting the reviews
+        ReviewModel reviewModel = new ReviewModel();
+        Collection<ReviewBean> reviews;
+        try {
+             reviews = reviewModel.doRetrieveByCond("WHERE watch=?", List.of(watch.getId()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        for (ReviewBean review : reviews) {
+    %>
+    <div class="review">
+        <div class="user"><%= review.getUser() %></div>
+        <div class="date"><%= review.getDate() %></div>
+        <div class="rating">
+            <%
+                for (int i = 0; i < review.getStars(); i++) {
+            %>
+            &bigstar;
+            <%
+                }
+            %>
+        </div>
+        <div class="text"><%= review.getDescription() %></div>
+    </div>
+    <%
+        }
+    %>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.review-star').forEach((star, index) => {
@@ -140,6 +172,4 @@ input[type="submit"]:hover {
                 });
         });
     });
-
-
 </script>

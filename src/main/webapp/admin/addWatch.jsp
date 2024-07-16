@@ -9,86 +9,59 @@
 <html>
 <head>
     <title>Add Watch</title>
-    <link rel="stylesheet" href="../style/styleAddWatch.css">
-
 </head>
 <body>
-<%@include file="../navbar.jsp"%> <!-- Navbar -->
 
-<div id="add-watch-container">
+    <%@include file="../navbar.jsp"%>
     <h2>Watch Registration</h2>
     <form action="${pageContext.request.contextPath}/admin/addWatch" method="get" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter watch name" required>
-        </div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter watch name" required><br><br>
 
-        <div class="form-group">
-            <label for="brand">Brand:</label>
-            <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
-                <option value="" disabled selected>Select a brand</option>
-                <option value="brand1">Brand 1</option>
-                <option value="brand2">Brand 2</option>
-                <option value="brand3">Brand 3</option>
-                <option value="new">Other (specify below)</option>
-            </select>
-            <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
-        </div>
+        <label for="brand">Brand:</label>
+        <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
+            <option value="" disabled selected>Select a brand</option>
+            <option value="brand1">Brand 1</option>
+            <option value="brand2">Brand 2</option>
+            <option value="brand3">Brand 3</option>
+            <option value="new">Other (specify below)</option>
+        </select>
+        <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
 
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" placeholder="Enter description" required></textarea>
-        </div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" placeholder="Enter description" required></textarea><br><br>
 
-        <div class="form-group">
-            <label for="reviews_avg">Average Reviews:</label>
-            <input type="number" step="0.1" max="5" id="reviews_avg" name="reviews_avg" placeholder="Enter average reviews" required>
-        </div>
+        <label for="reviews_avg">Average Reviews:</label>
+        <input type="number" step="0.1" max="5" id="reviews_avg" name="reviews_avg" placeholder="Enter average reviews" required><br><br>
 
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" step="0.25" id="price" name="price" placeholder="Enter price" required>
-        </div>
+        <label for="price">Price:</label>
+        <input type="number" step="0.25" id="price" name="price" placeholder="Enter price" required><br><br>
 
-        <div class="form-group">
-            <label for="material">Material:</label>
-            <input type="text" id="material" name="material" placeholder="Enter material" required>
-        </div>
+        <label for="material">Material:</label>
+        <input type="text" id="material" name="material" placeholder="Enter material" required><br><br>
 
-        <div class="form-group">
-            <label for="stock">Stock:</label>
-            <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required>
-        </div>
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required><br><br>
 
-        <div class="form-group">
-            <label for="dimension">Dimension:</label>
-            <input type="text" id="dimension" name="dimension" placeholder="Enter dimensions" required>
-        </div>
+        <label for="dimension">Dimension:</label>
+        <input type="text" id="dimension" name="dimension" placeholder="Enter dimensions" required><br><br>
 
-        <div class="form-group">
-            <label for="IVA">IVA:</label>
-            <input type="number" step="0.1" id="IVA" name="IVA" placeholder="Enter IVA" required>
-        </div>
+        <label for="IVA">IVA:</label>
+        <input type="number" step="0.1" id="IVA" name="IVA" placeholder="Enter IVA" required><br><br>
 
-        <div class="form-group">
-            <label for="sex">Sex:</label>
-            <select id="sex" name="sex" required>
-                <option value="MAN">MAN</option>
-                <option value="WOMEN">WOMEN</option>
-                <option value="UNISEX">UNISEX</option>
-            </select>
-        </div>
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" required>
+            <option value="MAN">MAN</option>
+            <option value="WOMEN">WOMEN</option>
+            <option value="UNISEX">UNISEX</option>
+        </select><br/><br>
 
-        <div class="form-group">
-            <label for="visible">Visible:</label>
-            <input type="checkbox" id="visible" name="visible">
-        </div>
+        <label for="visible">Visible:</label>
+        <input type="checkbox" id="visible" name="visible"><br><br>
 
         <input type="submit" value="Add Watch">
     </form>
-</div>
-
-<%@include file="../footer.html"%> <!-- Footer -->
+    <%@include file="../footer.html"%>
 
 <script>
     function toggleBrandInput(select) {

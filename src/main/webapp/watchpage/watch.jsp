@@ -112,6 +112,9 @@
     Collection<ImageBean> images;
     try {
         watch = watchModel.doRetrieveByKey(List.of(id));
+        if(!watch.getVisible()) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+        }
         images = imageModel.doRetrieveByCond("WHERE watch=?", List.of(id));
     } catch (Exception e) {
         throw new RuntimeException(e);
