@@ -37,6 +37,9 @@
                     // Get the watch from the database
                     try {
                         WatchBean watchBean = watchModel.doRetrieveByKey(List.of(watchId));
+                        if(watchBean.getStock() < quantity){
+                            quantity = watchBean.getStock();
+                        }
                         Double price = watchBean.getPrice();
                         String name = watchBean.getName();
                         Collection<ImageBean> images = imageModel.doRetrieveByCond("WHERE watch=?",List.of(watchId));
@@ -46,7 +49,10 @@
                             image = new ImageBean();
                         }
 
-                        //TODO: Implement the "not have enough stock" message
+                        if(quantity == 0){
+                            response.sendRedirect("/cart/cart.jsp");
+                            return;
+                        }
             %>
 
                         <div class="element" id="watch<%=watchId%>">

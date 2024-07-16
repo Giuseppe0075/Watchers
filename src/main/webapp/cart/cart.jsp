@@ -31,22 +31,14 @@
   <div class="container-cart">
     <h1>Shopping Cart</h1>
 
-    <% if(cart.isEmpty()){ %>
-    <div class="empty-cart-message">
-      <h2>Il carrello è vuoto</h2>
-      <p>Non hai ancora aggiunto articoli al tuo carrello.</p>
-    </div>
-    <% } else { %>
-
-    <% } %>
     <!-- Cart elements -->
     <form method="post" action="${pageContext.request.contextPath}/user/checkout/checkout.jsp" class="elements">
       <label for="userId"></label>
       <input hidden type="text" name="userId" id="userId" value="<%=userId%>">
 
       <% for(CartElementBean element : cart) {
-        WatchBean watch = null;
-        Collection<ImageBean> images = null;
+        WatchBean watch;
+        Collection<ImageBean> images;
         // Get the watch and the images
         try {
           watch = watchModel.doRetrieveByKey(List.of(element.getWatch()));
@@ -81,21 +73,35 @@
           </div>
 
         </div>
+        <%
+          if(watch.getStock() < element.getQuantity()){
+          element.setQuantity(watch.getStock());
+          }
 
+          if(element.getQuantity() == 0) { %>
+            <div>
+              <h2>Out of stock</h2>
+              <label>
+                <input hidden type="number" name="quantity" class="quantity" value="0">
+              </label>
+            </div>
+        <%
+          } else {
+        %>
         <!-- Quantity -->
         <div>
           <label>
-            <input type="number" name="quantity" class="quantity" value="<%=element.getQuantity()%>" min="1" max="<%=watch.getStock()%>" style="width: 50px; text-align: center;">
+            <input type="number" name="quantity" class="quantity" value="<%=element.getQuantity()%>" min="0" max="<%=watch.getStock()%>" style="width: 50px; text-align: center;">
           </label>
         </div>
+        <% } %>
         <button type="button" name="remove" onclick="removeItem(<%=watch.getId()%>)">Remove</button>
       </div>
-      <% }
-      if(cart.isEmpty()){ %>
-        <h2>Your cart is empty</h2>
-      <% } else { %>
-        <button type="submit" name="checkout">Checkout</button>
+
+
       <% } %>
+        <h2 id="empty" style="display: none">Your cart is empty</h2>
+        <button id="checkout" type="submit" name="checkout" style="display: none">Checkout</button>
     </form>
   </div>
   <script src="cart.js"></script>
