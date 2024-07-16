@@ -214,7 +214,7 @@
                 </select>
             </div>
             <% } %>
-            <button type="submit" class="btn-submit">Sign-up</button>
+            <button type="submit" class="btn-submit">Update</button>
         </form>
         <% } %>
     </div>
