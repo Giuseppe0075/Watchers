@@ -1,23 +1,22 @@
 
 /* Stile per i link della navbar */
-a {
+header a {
     color: black;
     text-decoration: none;
     padding: 10px 20px;
     display: inline;
 }
 
-nav ul li a. :hover{
+header nav ul li a. :hover{
     color: #03424e;
     font-weight: bold;
 }
 
-#logo img {
+header #logo > img {
 
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 
 }
 
@@ -26,20 +25,20 @@ nav ul li a. :hover{
     100% {opacity: 1;}
 }
 
-.omino{
+header .omino{
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    object-fit: cover;
 }
 header{
     padding-bottom: 80px;
 }
 
-nav img {
+header nav img {
     height: 80px;
 }
 
-nav {
+header nav {
     background-color: white;
     position: fixed;
     top: 0;
@@ -53,25 +52,26 @@ nav {
     z-index: 1000;
 }
 
-nav ul{
+header nav ul{
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
-nav li a {
+header nav li a {
     color: black;
     text-decoration: none;
     padding: 10px 15px;
 }
 
-nav #menu{
+header nav #menu{
     display: none;
 }
-nav #user{
+header nav #user{
     display: block;
 }
-.sidenav {
+header .sidenav {
     height: 100%;
     width: 0;
     position: fixed;

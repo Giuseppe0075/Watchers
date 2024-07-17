@@ -9,75 +9,101 @@
 --%>
 
 <style>
+    .review-container {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 100%;
+    }
 
-.review-container {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 100%;
-}
+    .review-container h1 {
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
 
-.review-container h1 {
-    text-align: center;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
+    #review-rating-stars {
+        width: 100%;
+        margin: 10px auto;
+        text-align: left;
+    }
 
-#review-rating-stars {
-    width: 100%;
-    margin: 10px auto;
-    text-align: left;
-}
+    .review-star {
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 2em;
+        color: #aaa;
+        transition: color 0.3s;
+    }
 
-.review-star {
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 2em;
-    color: #aaa;
-    transition: color 0.3s;
-}
+    .review-star.active {
+        color: #f1c40f;
+    }
 
-.review-star.active {
-    color: #f1c40f;
-}
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
 
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        resize: vertical;
+    }
 
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    resize: vertical;
-}
+    input[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        border: 0;
+        border-radius: 5px;
+        background-color: #5d9ea8;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-input[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    border: 0;
-    border-radius: 5px;
-    background-color: #5d9ea8;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    input[type="submit"]:hover {
+        background-color: #498e99;
+    }
 
-input[type="submit"]:hover {
-    background-color: #498e99;
-}
+    .review {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    .review .user {
+        font-weight: bold;
+    }
+
+    .review .date {
+        color: #999;
+        font-size: 0.9em;
+    }
+
+    .review .rating {
+        color: #f1c40f;
+        margin-top: 5px;
+    }
+
+    .review .text {
+        margin-top: 10px;
+    }
 </style>
+
 
 <%
     //Getting the reviews
@@ -96,9 +122,9 @@ input[type="submit"]:hover {
 <br><br>
 <div class="review-container">
     <% if (userReview != null) { %>
-        <h1>Your review</h1>
+    <h1>Your review</h1>
     <% } else { %>
-        <h1>Write a review</h1>
+    <h1>Write a review</h1>
     <% } %>
     <!-- Form to submit a review -->
     <form id="review-form">
@@ -111,14 +137,14 @@ input[type="submit"]:hover {
             <button type="button" class="review-star" value="5">&bigstar;</button>
         </div>
         <% if (userReview != null) { %>
-            <p> Date: <%= userReview.getDate()%> </p>
+        <p> Date: <%= userReview.getDate()%> </p>
         <% } %>
         <label for="review-text">Review</label>
         <textarea name="review" id="review-text" cols="30" rows="10"><% if(userReview != null){ %><%= userReview.getDescription() %><% } %></textarea>
         <% if(userReview == null){ %>
-            <input type="submit" value="Submit">
+        <input type="submit" value="Submit">
         <% } else { %>
-            <input type="submit" value="Update">
+        <input type="submit" value="Update">
         <% } %>
     </form>
     <%
@@ -140,15 +166,15 @@ input[type="submit"]:hover {
             <%
                 for (int i = 0; i < review.getStars(); i++) {
                     //Print full stars
-                %>
-                    &bigstar;
-                <%
+            %>
+            &bigstar;
+            <%
                 }
                 for(int i = review.getStars(); i < 5; i++) {
                     //Print empty stars
-                %>
-                    &star;
-                <%
+            %>
+            &star;
+            <%
                 }
             %>
         </div>

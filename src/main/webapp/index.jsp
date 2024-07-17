@@ -1,3 +1,7 @@
+<%@ page import="Model.Beans.ImageBean" %>
+<%@ page import="Model.Models.ImageModel" %>
+<%@ page import="Model.Models.WatchModel" %>
+<%@ page import="Model.Beans.WatchBean" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +13,61 @@
 <body>
 <!-- Navbar -->
 <%@include file="navbar.jsp"%>
+<style>
+    #mainVideo {
+        position: relative; /* Cambiato da absolute a relative per permettere agli elementi successivi di posizionarsi sotto di esso */
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 70vh; /* Ridotto l'altezza per lasciare spazio al carousel sotto */
+        object-fit: cover;
+        z-index: -1;
+    }
 
+    #frontPage {
+        position: relative; /* Assicura che il contenitore del video abbia un posizionamento relativo */
+        height: auto; /* Permette al contenitore di adattarsi all'altezza del video */
+    }
+
+    .glider-contain {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .glider-prev, .glider-next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: #498e99;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+
+        user-select: none;
+    }
+
+    .glider-prev {
+        border-radius: 3px 0 0 3px;
+    }
+
+    .glider-next{
+        border-radius: 0 3px 3px 0;
+    }
+
+    .glider-prev:hover, .glider-next:hover {
+        background-color: #35757d;
+        color: white;
+    }
+
+    .slider img {
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+    }
+</style>
 <div id="frontPage">
     <video id="mainVideo" autoplay muted loop>
         <source src="homepage/home.webm" type="video/webm">
@@ -17,89 +75,63 @@
     </video>
 </div>
 <div class="glider-contain">
+    <button class="glider-prev">&#10094;</button>
     <div class="glider">
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=1"><img src="homepage/watch1.avif" class="d-block" alt="Watch 1"></a>
+        <%
+            WatchModel watchModel = new WatchModel();
+            ImageModel imageModel = new ImageModel();
+            List<WatchBean> watches = null;
+            try {
+                watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE visible=?", List.of(true));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            for(var watch : watches) {
+                List<ImageBean> images = (List<ImageBean>) imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
+        %>
+        <div>
+            <img src="${pageContext.request.contextPath}/getImage?id=<%=images.get(0).getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
         </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=2"><img src="homepage/watch2.avif" class="d-block" alt="Watch 2"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=3"><img src="homepage/watch3.avif" class="d-block" alt="Watch 3"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=1"><img src="homepage/watch1.avif" class="d-block" alt="Watch 1"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=2"><img src="homepage/watch2.avif" class="d-block" alt="Watch 2"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=3"><img src="homepage/watch3.avif" class="d-block" alt="Watch 3"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=1"><img src="homepage/watch1.avif" class="d-block" alt="Watch 1"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=2"><img src="homepage/watch2.avif" class="d-block" alt="Watch 2"></a>
-        </div>
-        <div class="carousel-item">
-            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=3"><img src="homepage/watch3.avif" class="d-block" alt="Watch 3"></a>
-        </div>
+        <%
+            }
+        %>
     </div>
-
-    <button aria-label="Previous" class="glider-prev"><</button>
-    <button aria-label="Next" class="glider-next">></button>
-    <div role="tablist" class="dots"></div>
+    <button class="glider-next">&#10095;</button>
 </div>
 
-
 <script>
-
-    let test = new Glider(document.querySelector('.glider'), {
-        // Mobile-first defaults
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        draggable: false,
-        dots: '.dots',
-        arrows: {
-            prev: '.glider-prev',
-            next: '.glider-next'
-        },
-        responsive: [
-            {
-                // screens greater than >= 775px
-                breakpoint: 775,
-                settings: {
-                    // Set to `auto` and provide item width to adjust to viewport
-                    slidesToShow: 3,
-                    slidesToScroll: 2,
-                    itemWidth: 150,
-                    duration: 0.25
+    document.addEventListener('DOMContentLoaded', function() {
+        new Glider(document.querySelector('.glider'), {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: '.dots',
+            arrows: {
+                prev: '.glider-prev',
+                next: '.glider-next'
+            },
+            responsive: [
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 900,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
                 }
-            },{
-                // screens greater than >= 1024px
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 1,
-                    itemWidth: 150,
-                    duration: 0.25
-                }
-            }
-        ]
+            ]
+        });
     });
 </script>
-<style>
-    img{
-        width: 100%;
-        height: 100%;
-    }
-</style>
 
 <%@include file="footer.html"%> <!-- Footer -->
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
