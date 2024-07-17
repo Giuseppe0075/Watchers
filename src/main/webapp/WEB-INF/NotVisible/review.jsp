@@ -1,5 +1,6 @@
 <%@ page import="Model.Models.ReviewModel" %>
-<%@ page import="Model.Beans.ReviewBean" %><%--
+<%@ page import="Model.Beans.ReviewBean" %>
+<%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: Pasquale Livrieri
   Date: 25/05/2024
@@ -26,7 +27,7 @@
 #review-rating-stars {
     width: 100%;
     margin: 10px auto;
-    text-align: center;
+    text-align: left;
 }
 
 .review-star {
@@ -94,7 +95,11 @@ input[type="submit"]:hover {
 %>
 <br><br>
 <div class="review-container">
-    <h1>Write a review</h1>
+    <% if (userReview != null) { %>
+        <h1>Your review</h1>
+    <% } else { %>
+        <h1>Write a review</h1>
+    <% } %>
     <!-- Form to submit a review -->
     <form id="review-form">
         <label for="review-rating-stars">Stars</label>
@@ -105,6 +110,9 @@ input[type="submit"]:hover {
             <button type="button" class="review-star" value="4">&bigstar;</button>
             <button type="button" class="review-star" value="5">&bigstar;</button>
         </div>
+        <% if (userReview != null) { %>
+            <p> Date: <%= userReview.getDate()%> </p>
+        <% } %>
         <label for="review-text">Review</label>
         <textarea name="review" id="review-text" cols="30" rows="10"><% if(userReview != null){ %><%= userReview.getDescription() %><% } %></textarea>
         <% if(userReview == null){ %>
@@ -114,11 +122,19 @@ input[type="submit"]:hover {
         <% } %>
     </form>
     <%
+        UserModel userModel = new UserModel();
         //Show all reviews except the one of the user itself, because it's already shown in the form
         for (ReviewBean review : reviews) {
+            UserBean user;
+            try{
+                //Get the user that wrote the review
+                user = userModel.doRetrieveByKey(List.of(review.getUser()));
+            } catch (Exception e) {
+                user = new UserBean("none",new byte[0],"Anonymous","",new Date(0), "none", "none", "none", "none");
+            }
     %>
     <div class="review">
-        <div class="user"><%= review.getUser() %></div>
+        <div class="user"><%= user.getName() + " " + user.getSurname() %></div>
         <div class="date"><%= review.getDate() %></div>
         <div class="rating">
             <%

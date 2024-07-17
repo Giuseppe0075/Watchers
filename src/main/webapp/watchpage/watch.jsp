@@ -122,6 +122,7 @@
     }
 %>
 <%@include file="../navbar.jsp"%>
+<br>
 <div class="container">
     <div class="slider">
         <div class="slides">
