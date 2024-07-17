@@ -36,7 +36,7 @@
 
 .watch:hover {
     opacity: 0.8;
-    transform: scale(1.1);
+    transform: scale(1.03);
     transition: transform 0.3s ease-in-out;
 }
 
