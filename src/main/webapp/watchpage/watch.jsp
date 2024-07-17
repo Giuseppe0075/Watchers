@@ -140,11 +140,19 @@
     </div>
 
     <aside class="watch-infobar">
-        <h1><%=watch.getName()%></h1>
+        <h2><%=watch.getName()%></h2>
         <h3><%="price: " + watch.getPrice()%></h3>
-        <p><%="id: " + watch.getId() %></p>
         <p><%=watch.getDescription()%></p>
-        <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>" class="btn">Aggiungi al carrello</a></p>
+        <% if (watch.getStock() > 0) {
+            if(watch.getStock() > 10) { %>
+                <p style="color: #4CAF50">Available</p>
+            <% } else { %>
+                <p style="color: #ff3333"> <%="Only " + watch.getStock() + " left"%></p>
+            <% } %>
+            <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>" class="btn">Add to cart</a></p>
+        <% } else { %>
+            <p class="btn">Out of stock</p>
+        <% } %>
     </aside>
 </div>
 <%@include file="../WEB-INF/NotVisible/review.jsp"%>
