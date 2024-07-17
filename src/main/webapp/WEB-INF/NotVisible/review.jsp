@@ -229,15 +229,15 @@
                 },
                 body: JSON.stringify(reviewData)
             })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert(error);
-                });
+            .then(response => response.json())
+            .then(data => {
+                toastr["error"](data.message)
+                this.reset()
+                //location.reload();
+            })
+            .catch(error => {
+                toastr["error"](error)
+            });
         });
     });
 </script>
