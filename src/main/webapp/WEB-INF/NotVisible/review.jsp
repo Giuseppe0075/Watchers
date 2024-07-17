@@ -40,7 +40,7 @@
     transition: color 0.3s;
 }
 
-.review-star, .review-star:hover {
+.review-star.active {
     color: #f1c40f;
 }
 
@@ -78,12 +78,26 @@ input[type="submit"]:hover {
 }
 </style>
 
-<!-- Qui l'utente loggato potra inserire una recensione su un prodotto -->
+<%
+    //Getting the reviews
+    ReviewModel reviewModel = new ReviewModel();
+    Collection<ReviewBean> reviews;
+    ReviewBean userReview;
+    long userId = session.getAttribute("user") != null ? (long) session.getAttribute("user") : 0;
+    try {
+        //Get all reviews for the current watch
+        reviews = reviewModel.doRetrieveByCond("WHERE watch=? AND user!=?", List.of(watch.getId(), userId));
+        userReview = reviewModel.doRetrieveByKey(List.of(watch.getId(), userId));
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+%>
 <br><br>
 <div class="review-container">
     <h1>Write a review</h1>
+    <!-- Form to submit a review -->
     <form id="review-form">
-        <label for="review-rating-stars">Stelle</label>
+        <label for="review-rating-stars">Stars</label>
         <div id="review-rating-stars">
             <button type="button" class="review-star" value="1">&bigstar;</button>
             <button type="button" class="review-star" value="2">&bigstar;</button>
@@ -91,20 +105,16 @@ input[type="submit"]:hover {
             <button type="button" class="review-star" value="4">&bigstar;</button>
             <button type="button" class="review-star" value="5">&bigstar;</button>
         </div>
-        <label for="review-text">Recensione</label>
-        <textarea name="review" id="review-text" cols="30" rows="10" required></textarea>
-        <input type="submit" value="Invia">
+        <label for="review-text">Review</label>
+        <textarea name="review" id="review-text" cols="30" rows="10"><% if(userReview != null){ %><%= userReview.getDescription() %><% } %></textarea>
+        <% if(userReview == null){ %>
+            <input type="submit" value="Submit">
+        <% } else { %>
+            <input type="submit" value="Update">
+        <% } %>
     </form>
     <%
-        //Getting the reviews
-        ReviewModel reviewModel = new ReviewModel();
-        Collection<ReviewBean> reviews;
-        try {
-             reviews = reviewModel.doRetrieveByCond("WHERE watch=?", List.of(watch.getId()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        //Show all reviews except the one of the user itself, because it's already shown in the form
         for (ReviewBean review : reviews) {
     %>
     <div class="review">
@@ -113,9 +123,16 @@ input[type="submit"]:hover {
         <div class="rating">
             <%
                 for (int i = 0; i < review.getStars(); i++) {
-            %>
-            &bigstar;
-            <%
+                    //Print full stars
+                %>
+                    &bigstar;
+                <%
+                }
+                for(int i = review.getStars(); i < 5; i++) {
+                    //Print empty stars
+                %>
+                    &star;
+                <%
                 }
             %>
         </div>
@@ -128,6 +145,16 @@ input[type="submit"]:hover {
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const userReviewStars = <% if(userReview != null) { %> <%= userReview.getStars() %> <% } else { %> 0 <% }; %>;
+
+        const setInitialStars = (starsCount) => {
+            document.querySelectorAll('.review-star').forEach((star, index) => {
+                star.classList.toggle('active', index < starsCount);
+            });
+        };
+
+        setInitialStars(userReviewStars);
+
         document.querySelectorAll('.review-star').forEach((star, index) => {
             star.addEventListener('click', () => {
                 document.querySelectorAll('.review-star').forEach((s, i) => {
@@ -163,8 +190,7 @@ input[type="submit"]:hover {
                 .then(response => response.json())
                 .then(data => {
                     alert(data.message);
-                    document.getElementById('review-form').reset();
-                    document.querySelectorAll('.review-star').forEach(star => star.classList.remove('active'));
+                    location.reload();
                 })
                 .catch(error => {
                     console.error('Error:', error);

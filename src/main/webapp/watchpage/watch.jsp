@@ -1,6 +1,5 @@
 <%@ page import="Model.Models.WatchModel" %>
 <%@ page import="Model.Beans.WatchBean" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page import="Model.Beans.ImageBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.Models.ImageModel" %>
@@ -113,6 +112,7 @@
     Collection<ImageBean> images;
     try {
         watch = watchModel.doRetrieveByKey(List.of(id));
+        // If the watch has been deleted, redirect to the index
         if(!watch.getVisible()) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         }
@@ -126,6 +126,7 @@
     <div class="slider">
         <div class="slides">
             <%
+                //Loop through the images and add them to the slider
                 for (ImageBean image : images) {
             %>
             <div class="slide">
@@ -135,28 +136,42 @@
                 }
             %>
         </div>
+        <!-- Next and previous buttons -->
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
 
+    <!-- Watch info bar -->
     <aside class="watch-infobar">
         <h2><%=watch.getName()%></h2>
         <h3><%="price: " + watch.getPrice()%></h3>
         <p><%=watch.getDescription()%></p>
+
+        <p id="average-stars"> Average stars: <%=watch.getReviews_avg()%>&bigstar;</p>
+
+        <!-- If the watch is available, show the add to cart button -->
         <% if (watch.getStock() > 0) {
+            //If the stock is greater than 10, show the available message
             if(watch.getStock() > 10) { %>
                 <p style="color: #4CAF50">Available</p>
             <% } else { %>
+                <!-- Else show the stock left -->
                 <p style="color: #ff3333"> <%="Only " + watch.getStock() + " left"%></p>
             <% } %>
             <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>" class="btn">Add to cart</a></p>
         <% } else { %>
-            <p class="btn">Out of stock</p>
+            <!-- If the watch is out of stock, show the out of stocks message -->
+            <p class="btn">Out of stocks</p>
         <% } %>
     </aside>
 </div>
+
+<!-- Reviews -->
 <%@include file="../WEB-INF/NotVisible/review.jsp"%>
-<%@include file="../footer.html"%> <!-- Footer -->
+
+<!-- Footer -->
+<%@include file="../footer.html"%>
+
 <script>
     let slideIndex = 0;
     showSlides(slideIndex);
