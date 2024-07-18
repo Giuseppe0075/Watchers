@@ -1,0 +1,82 @@
+.container h1,h2{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+.userContainer {
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.header {
+    font-size: 24px;
+    color: #333;
+}
+.detail {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #eee;
+    border-radius: 4px;
+}
+
+/* Stile per il contenitore dell'ordine */
+.order {
+    margin: 50px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Stili per la tabella degli ordini */
+.order table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.order th, .order td {
+    border-radius: 5px;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.order th {
+    background-color: #eeeeee;
+}
+
+/* Stile per il pulsante di download della fattura */
+.order button {
+    margin-top: 10px;
+    background-color: #5d9ea8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.order button:hover {
+    background-color: #498e99;
+}
+
+/* Stili aggiuntivi per dati nascosti (es. data ordine, nome utente) */
+.date, .user-name, .user-surname, .user-address {
+    display: none; /* Nasconde i dati, ma puoi scegliere di visualizzarli secondo necessità */
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .header {
+        font-size: 20px;
+    }
+}

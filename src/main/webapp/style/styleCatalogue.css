@@ -77,15 +77,19 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #f8f8f8;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: height 0.5s ease;
-    height: 0;
+    transition: height 0.5s ease-out;
+    padding: 20px 0;
+    border-bottom: 1px solid #03424e;
+    max-height: 0;
 }
 
-.filters-bar .visible {
-    height: auto;
+.filters-bar.visible {
+    max-height: 100vh;
+    padding: 20px 0;
+    transition: max-height 0.5s ease, padding 0.5s ease;
 }
 
 .filters-bar form {
@@ -119,6 +123,41 @@
     cursor: pointer;
 }
 
+/* Titoli dei filtri */
+.filters-bar h3 {
+    color: #03424e;
+    font-weight: bold;
+}
+
+/* Testo dei filtri */
+.filters-bar label, .filters-bar input[type="text"], .filters-bar select {
+    color: black;
+    margin-left: 8px;
+}
+
+/* Tasti di selezione a forma di cerchio */
+.filters-bar input[type="checkbox"], .filters-bar input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #03424e;
+    border-radius: 20%;
+    outline: none;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.filters-bar input[type="checkbox"]:checked, .filters-bar input[type="radio"]:checked {
+    background-color: #03424e; /
+}
+
+/* Stile per il focus sui tasti di selezione */
+.filters-bar input[type="checkbox"]:focus, .filters-bar input[type="radio"]:focus {
+    box-shadow: 0 0 0 2px rgba(3, 66, 78, 0.5);
+}
+
 
 
 @media screen and (max-width: 768px) {
@@ -135,16 +174,22 @@
         justify-content: center;
     }
 
-    .filters-bar{
-        height: 0;
+    .filters-bar {
+        max-height: 0;
         overflow: hidden;
+        padding: 0; /* Rimuove il padding quando è nascosta */
+        border-bottom: none; /* Rimuove il bordo inferiore se presente */
+        transition: max-height 0.5s ease, padding 0.5s ease; /* Transizione fluida per max-height e padding */
     }
 
-    .filterGroup{
+    .filters-bar form {
+        margin: 0; /* Rimuove i margini dal form */
+    }
+
+    .filterGroup {
         flex-basis: 100%;
     }
 }
-
 
 @media screen and (min-width: 769px) {
     .watches-container {
@@ -152,7 +197,6 @@
         flex-wrap: wrap;
         justify-content: space-around;
     }
-
 }
 
 

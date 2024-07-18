@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 
 body{
+    height: 100vh;
     line-height: 1.5;
     font-family: 'Poppins', sans-serif;
+    flex-direction: column;
+    display: flex;
 }
 
 .container{
@@ -21,11 +24,13 @@ ul{
 }
 
 footer{
+    margin-top: auto;
     position: relative;
+    bottom: 0;
     background-color: #c0c0c0;
-    padding: 70px 0;
+    padding: 26px 0 1px 2px;
     flex-shrink: 0;
-    margin-top: 200px;
+    width: 100%;
 }
 
 .footer-col{
@@ -106,14 +111,22 @@ footer{
     margin-bottom: 20px;
 }
 .copyrightText{
+    margin-bottom: 0;
     background-color: #03424e;
+    position: relative;
+    bottom: 0;
 }
 .copyrightText p{
+    margin-top: 30px;
     color:white;
     text-align: center;
     font-size: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 
+}
+
+i{
+    color: #03424e;
 }
 
 

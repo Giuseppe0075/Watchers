@@ -1,6 +1,7 @@
 /* homepage/style.css */
 body, html {
-    position: relative;
+    flex-direction: column;
+    display: flex;
     margin: 0;
     padding: 0;
     width: 100%;
