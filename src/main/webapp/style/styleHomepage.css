@@ -1,14 +1,4 @@
-/* homepage/style.css */
-body, html {
-    flex-direction: column;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
+
 
 #frontPage {
     position: relative;

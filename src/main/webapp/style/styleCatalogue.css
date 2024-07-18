@@ -20,6 +20,9 @@
     gap: 20px;
     padding: 20px;
 }
+.hidden {
+    display: none;
+}
 
 .watch {;
     min-height: 300px;
@@ -71,25 +74,23 @@
 }
 
 .filters-bar {
-    z-index: 50;
-    margin-top: 80px;
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: height 0.5s ease-out;
+    transition: max-height 0.5s ease-out;
     padding: 20px 0;
     border-bottom: 1px solid #03424e;
-    max-height: 0;
+}
+
+.visible {
+    transition: height 0.5s ease, padding 0.5s ease;
 }
 
 .filters-bar.visible {
-    max-height: 100vh;
-    padding: 20px 0;
-    transition: max-height 0.5s ease, padding 0.5s ease;
+    max-height: 500px; /* Esempio di altezza massima quando è visibile */
 }
 
 .filters-bar form {

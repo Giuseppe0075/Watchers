@@ -88,7 +88,7 @@
                 <select id="user" name="user" required>
                     <option value="0">ALL</option>
                     <% for(var user : users) {%>
-                    <option value="<%=user.getId()%>"><%=user.getName()%></option>
+                    <option value="<%=user.getId()%>"><%=user.getEmail()%></option>
                     <%}%>
                 </select>
             </div>

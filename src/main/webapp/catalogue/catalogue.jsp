@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.Collection" %>
-<%@ page import="utils.Security" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="Model.Models.BrandModel" %>
@@ -12,6 +11,11 @@
     <link rel="stylesheet" href="../style/styleCatalogue.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="stars.js"></script>
+    <style>
+        button{
+            border: none;
+        }
+    </style>
 </head>
 <body>
 <%!
@@ -28,7 +32,7 @@
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
 <div class="catalogue-container">
-    <button id="toggleFilters" class="toggle-filters">Filters</button>
+
 
     <div id="filters" class="filters-bar hidden">
         <button id="closeFiltersBtn">X</button>
@@ -122,6 +126,7 @@
 
         </form>
     </div>
+    <button id="toggleFilters" class="toggle-filters">Filters</button>
     <div id="catalogue" class="watches-container">
 
     </div>

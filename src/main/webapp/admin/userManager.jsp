@@ -32,15 +32,17 @@
             overflow: hidden;
         }
 
-        th, td {
-            padding: 8px;
-            text-align: left;
+        table, th, td {
             border: 1px solid #ddd;
         }
 
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
         th {
-            background-color: #5d9ea8;
-            color: white;
+            background-color: #f2f2f2;
         }
 
 
@@ -59,7 +61,7 @@
 <body>
 <%@include file="../navbar.jsp"%>
 <div class="user-container">
-    <h2>Gestione Utenti</h2>
+    <h2 style="text-align: center">Gestione Utenti</h2>
     <div>
     <div class="table-container">
         <table style="overflow-x: scroll">

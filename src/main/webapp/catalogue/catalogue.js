@@ -10,42 +10,26 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleButton.addEventListener('click', function() {
         if (filtersBar.classList.contains('hidden')) {
             filtersBar.classList.remove('hidden');
-            // Calcola l'altezza totale dei contenuti della barra dei filtri
-            const fullHeight = filtersBar.scrollHeight + 'px';
-            // Imposta l'altezza della barra dei filtri per mostrare tutto il contenuto
-            filtersBar.style.height = fullHeight;
             filtersBar.classList.add('visible');
         } else {
-            // Imposta l'altezza a 0 per nascondere la barra dei filtri
-            filtersBar.style.height = '0';
+            filtersBar.classList.add('hidden');
             filtersBar.classList.remove('visible');
-            setTimeout(() => {
-                filtersBar.classList.add('hidden');
-            }, 500);
         }
     });
-})
 
-document.addEventListener("DOMContentLoaded", function() {
     const closeFiltersBtn = document.getElementById('closeFiltersBtn');
-    const filtersBar = document.querySelector('.filters-bar');
-
     closeFiltersBtn.addEventListener('click', function() {
-        filtersBar.style.height = '0';
-        setTimeout(() => {
-            filtersBar.classList.remove('visible');
-        }, 500);
+        filtersBar.classList.add('hidden');
+        filtersBar.classList.remove('visible');
     });
 });
 
 window.onresize = function() {
     const filtersBar = document.getElementById('filters');
-    if (filtersBar.classList.contains('visible')) {
+    if (!filtersBar.classList.contains('hidden')) {
         // Rimuovi temporaneamente la classe visible per calcolare l'altezza del contenuto
         filtersBar.style.height = '0';
-        setTimeout(() => {
-            filtersBar.classList.remove('visible');
-        }, 500);
+        filtersBar.classList.remove('visible');
     }
 };
 
