@@ -68,11 +68,10 @@ const validateForm = formSelector => {
      */
     const validateSingleFormGroup = formGroup => {
         const label = formGroup.querySelector('label');
-        const input = formGroup.querySelector('input, textarea');
+        const input = formGroup.querySelector('input, textarea, select');
         const errorContainer = formGroup.querySelector('.error');
         const errorIcon = formGroup.querySelector('.error-icon');
         const successIcon = formGroup.querySelector('.success-icon');
-
         let formGroupError = false;
         for (const option of validationOptions) {
             if (input.hasAttribute(option.attribute) && !option.isValid(input)) {
@@ -121,7 +120,10 @@ const validateForm = formSelector => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector("form");
-    const formSelector = `#${form.id}`;
-    validateForm(formSelector);
+    document.querySelectorAll('form').forEach(form => {
+        const formId = form.getAttribute('id');
+        if(formId) {
+            validateForm(`#${formId}`);
+        }
+    });
 });

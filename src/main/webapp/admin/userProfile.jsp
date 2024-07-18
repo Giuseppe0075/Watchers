@@ -7,17 +7,16 @@
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="Model.Models.WatchModel" %>
 <%@ page import="java.util.Date" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>User Profile</title>
-    <script src="../utils/formValidator.js"></script>
 
     <%
         Long sessionUser = (Long) session.getAttribute("user");
         WatchModel watchModel = new WatchModel();
-        UserBean userModify = null;
-        Map<Long, List<PurchaseBean>> groupedById = null;
+        UserBean userModify;
+        Map<Long, List<PurchaseBean>> groupedById;
 
         String userIdObject = request.getParameter("id");
 
@@ -30,11 +29,10 @@
                 groupedById = purchaseModel.doRetrieveByCond("WHERE user=?", List.of(userId)).stream()
                         .collect(Collectors.groupingBy(PurchaseBean::getId));
             } catch (Exception e) {
-                throw new RuntimeException("Errore durante il recupero dei dati dell'utente o degli ordini", e);
+                throw new RuntimeException("Error while getting user or purchase data", e);
             }
-            System.out.println(groupedById);
         } else {
-            throw new RuntimeException("ID utente non fornito.");
+            throw new RuntimeException("UserID not found");
         }
     %>
     <style>
@@ -164,7 +162,7 @@
 <div class="container">
     <div class="form-container">
         <% if (userModify != null) { %>
-        <form action="${pageContext.request.contextPath}/admin/updateUser" method="post">
+        <form id="userForm" action="${pageContext.request.contextPath}/admin/updateUser" method="post">
             <input type="hidden" name="id" value="<%= userModify.getId() %>">
             <div class="form-group">
                 <label for="email">Email</label>
@@ -175,6 +173,7 @@
                 </div>
                 <div class="error"></div>
             </div>
+
             <div class="form-group">
                 <label for="name">Name</label>
                 <div class="input-container">
@@ -185,10 +184,11 @@
                 </div>
                 <div class="error"></div>
             </div>
+
             <div class="form-group">
                 <label for="surname">Surname</label>
                 <div class="input-container">
-                    <input type="text" id="surname" name="surname" required maxlength="255"
+                    <input type="text" id="surname" name="surname" required
                            value="<%=userModify.getSurname()%>" />
                     <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                     <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
@@ -208,10 +208,15 @@
             <% if (!userModify.getId().equals(sessionUser)) { %>
             <div class="form-group">
                 <label for="admin">Admin</label>
-                <select id="admin" name="admin" required>
-                    <option value="true" <%= userModify.getAdmin() ? "selected" : "" %>>Yes</option>
-                    <option value="false" <%= !userModify.getAdmin() ? "selected" : "" %>>No</option>
-                </select>
+                <div class="input-container">
+                    <select id="admin" name="admin">
+                        <option value="true" <%= userModify.getAdmin() ? "selected" : "" %>>Yes</option>
+                        <option value="false" <%= !userModify.getAdmin() ? "selected" : "" %>>No</option>
+                    </select>
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
             <% } %>
             <button type="submit" class="btn-submit">Update</button>
@@ -220,36 +225,44 @@
     </div>
 
     <div class="order-list-container">
-        <p>Ordini</p>
+        <p>Orders</p>
         <table>
             <thead>
             <tr>
-                <th>Orologio</th>
-                <th>Quantita</th>
-                <th>Prezzo</th>
+                <th>Watch</th>
+                <th>Quantity</th>
+                <th>Price</th>
             </tr>
             </thead>
             <tbody>
-            <% if (groupedById != null) {
-                for (var entry : groupedById.entrySet()) {
-                    Date dataOrdine = entry.getValue().get(0).getDate();
-                    double totalOrderPrice = entry.getValue().stream().mapToDouble(PurchaseBean::getPrice).sum(); %>
-            <tr class="order-total">
-                <td colspan="3">Ordine #<%= entry.getKey() %> - Totale Prezzo: €<%= totalOrderPrice %>  --- <%= dataOrdine %> </td>
-            </tr>
-            <% for (var el : entry.getValue()) { %>
-            <tr>
-                <td><%= watchModel.doRetrieveByKey(List.of(el.getWatch())).getName() %></td>
-                <td><%= el.getQuantity() %></td>
-                <td>€<%= el.getPrice() %></td>
-            </tr>
-            <% } %>
+            <% for (var entry : groupedById.entrySet()) {
+                Date dataOrdine = entry.getValue().getFirst().getDate();
+                double totalOrderPrice = entry.getValue().stream().mapToDouble(PurchaseBean::getPrice).sum(); %>
+        <tr class="order-total">
+            <td colspan="3">Order #<%=entry.getKey()%> - Total Price: €<%=totalOrderPrice%>  --- <%=dataOrdine%> </td>
+        </tr>
+        <% for (var el : entry.getValue()) {
+            String name;
+            try {
+                name = watchModel.doRetrieveByKey(List.of(el.getWatch())).getName();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        %>
+        <tr>
+            <td><%=name%></td>
+            <td><%=el.getQuantity()%></td>
+            <td>€<%=el.getPrice()%></td>
+        </tr>
+        <% } %>
             <% }
-            } %>
+        %>
             </tbody>
         </table>
     </div>
 </div>
 <%@include file="../footer.html"%>
+
+<script src="../utils/formValidator.js"></script>
 </body>
 </html>
