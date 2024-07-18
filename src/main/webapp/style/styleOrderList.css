@@ -1,5 +1,5 @@
 /* Stile per il container principale */
-.container {
+.order-container {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
@@ -60,7 +60,7 @@ th {
 
 
 /* Container for form and image manager */
-.container {
+.order-container {
     display: flex;
     gap: 20px;
     flex-direction: column;

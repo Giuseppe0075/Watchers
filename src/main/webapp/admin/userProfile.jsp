@@ -11,7 +11,6 @@
 <html>
 <head>
     <title>User Profile</title>
-
     <%
         Long sessionUser = (Long) session.getAttribute("user");
         WatchModel watchModel = new WatchModel();
@@ -36,6 +35,29 @@
         }
     %>
     <style>
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-group .input-container {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #cccccc;
+            border-radius: 12px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
         .form-group input:focus {
             border-color: #007BFF;
         }
@@ -71,12 +93,14 @@
         }
 
         /* Stile per il container principale */
-        .container {
+        .user-container {
             padding: 10px;
             display: flex;
             flex-wrap: wrap;
+            margin: auto;
             gap: 20px;
             justify-content: space-between;
+            width: 80%;
         }
 
         .form-container,
@@ -159,7 +183,10 @@
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
-<div class="container">
+<script src="../utils/formValidator.js"></script>
+
+
+<div class="user-container">
     <div class="form-container">
         <% if (userModify != null) { %>
         <form id="userForm" action="${pageContext.request.contextPath}/admin/updateUser" method="post">
@@ -238,31 +265,29 @@
             <% for (var entry : groupedById.entrySet()) {
                 Date dataOrdine = entry.getValue().getFirst().getDate();
                 double totalOrderPrice = entry.getValue().stream().mapToDouble(PurchaseBean::getPrice).sum(); %>
-        <tr class="order-total">
-            <td colspan="3">Order #<%=entry.getKey()%> - Total Price: €<%=totalOrderPrice%>  --- <%=dataOrdine%> </td>
-        </tr>
-        <% for (var el : entry.getValue()) {
-            String name;
-            try {
-                name = watchModel.doRetrieveByKey(List.of(el.getWatch())).getName();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        %>
-        <tr>
-            <td><%=name%></td>
-            <td><%=el.getQuantity()%></td>
-            <td>€<%=el.getPrice()%></td>
-        </tr>
-        <% } %>
+            <tr class="order-total">
+                <td colspan="3">Order #<%=entry.getKey()%> - Total Price: €<%=totalOrderPrice%>  --- <%=dataOrdine%> </td>
+            </tr>
+            <% for (var el : entry.getValue()) {
+                String name;
+                try {
+                    name = watchModel.doRetrieveByKey(List.of(el.getWatch())).getName();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            %>
+            <tr>
+                <td><%=name%></td>
+                <td><%=el.getQuantity()%></td>
+                <td>€<%=el.getPrice()%></td>
+            </tr>
+            <% } %>
             <% }
-        %>
+            %>
             </tbody>
         </table>
     </div>
 </div>
 <%@include file="../footer.html"%>
-
-<script src="../utils/formValidator.js"></script>
 </body>
 </html>

@@ -15,13 +15,12 @@
     <link rel="stylesheet" href="../style/styleUserManager.css">
     <style>
         /* Stile per il container principale */
-        .container {
+        .user-container {
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 1000px;
-            margin: 20px auto;
+            margin:auto;
         }
 
         table {
@@ -44,9 +43,7 @@
             color: white;
         }
 
-        .table-container {
-            overflow-x: auto;
-        }
+
 
     </style>
     <%
@@ -61,10 +58,11 @@
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
-<div class="container">
+<div class="user-container">
     <h2>Gestione Utenti</h2>
+    <div>
     <div class="table-container">
-        <table>
+        <table style="overflow-x: scroll">
             <thead>
             <tr>
                 <th>Email</th>
@@ -86,6 +84,7 @@
             <% } %>
             </tbody>
         </table>
+    </div>
     </div>
 </div>
 <%@include file="../footer.html"%>

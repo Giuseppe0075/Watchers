@@ -75,7 +75,7 @@
 %>
 
 <%@include file="../navbar.jsp"%>
-<div class="container">
+<div class="order-container">
     <div class="form-filter">
         <p>Ordini</p>
 
