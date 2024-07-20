@@ -1,7 +1,6 @@
 <%@ page import="Model.Models.UserModel" %>
 <%@ page import="Model.Beans.UserBean" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.tinylog.Logger" %>
 <%@ page import="Model.Models.PurchaseModel" %>
 <%@ page import="Model.Beans.PurchaseBean" %>
 <%@ page import="java.util.*" %>
@@ -96,11 +95,11 @@
             <h2>Order <%= i %></h2>
             <table>
                 <tr>
-                    <th>Prodotto</th>
-                    <th>Quantità</th>
-                    <th>Prezzo</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
                     <th>IVA</th>
-                    <th>Totale</th>
+                    <th>Total</th>
                 </tr>
                 <% for(PurchaseBean purchaseBean : purchaseBeansList) {
                     WatchBean watchBean;
@@ -131,6 +130,7 @@
         <% } %>
     </div>
 
+    <script src="orderHistory.js"></script>
     <!-- Footer -->
     <%@include file="../footer.html"%>
 </body>

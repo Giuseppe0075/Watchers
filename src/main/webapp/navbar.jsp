@@ -27,7 +27,7 @@
     </script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/navbar.css">
     <%
-        Long user =  session.getAttribute("user") == null ? 0L : (Long) session.getAttribute("user");
+        long user =  session.getAttribute("user") == null ? 0L : (long) session.getAttribute("user");
         UserModel userModel = new UserModel();
         UserBean userBean;
         try {
@@ -42,17 +42,15 @@
             <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
         </a>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a></li>
-            <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a></li>
-            <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Preferiti</a></li>
+            <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
+            <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a></li>
+            <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a></li>
             <% if (user != 0L) {%>
-            <a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
             <% }if (userBean != null && userBean.getAdmin()) { %>
-            <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
-            <li><a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a> </li>
-            <li><a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a> </li>
-            <% } if (user == 0L) {%>
-            <li><a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
+                <li><a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a> </li>
+                <li><a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a> </li>
             <% } %>
         </ul>
         <% if (userBean == null) { %>
@@ -66,17 +64,17 @@
     </nav>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogo</a>
-        <a href="${pageContext.request.contextPath}/cart/cart.jsp">Carrello</a>
-        <a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Preferiti</a>
+        <a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a>
+        <a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a>
+        <a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a>
         <% if (user != 0L) {%>
-        <a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
         <% }if (userBean != null && userBean.getAdmin()) { %>
-        <a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a>
-        <a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a>
-        <a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a>
+            <a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a>
+            <a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a>
+            <a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a>
         <% } if (user == 0L) {%>
-        <a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a>
+            <a href="${pageContext.request.contextPath}/user/login.jsp">Sign-in/Sign-up</a>
         <% } %>
     </div>
     <script>
