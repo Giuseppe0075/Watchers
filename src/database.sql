@@ -1,11 +1,6 @@
 #DROP SCHEMA watchers;
 #CREATE DATABASE watchers;
 #USE watchers;
-CREATE TABLE `Admin`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `email` VARCHAR(255) NOT NULL UNIQUE,
-    `psw` VARCHAR(255) NOT NULL
-);
 
 CREATE TABLE `User`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -17,7 +12,8 @@ CREATE TABLE `User`(
     `road` VARCHAR(255) NOT NULL,
     `civic_number` VARCHAR(255) NOT NULL,
     `city` VARCHAR(255) NOT NULL,
-    `CAP` CHAR(5) NOT NULL
+    `CAP` CHAR(5) NOT NULL,
+    `admin` BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE `Brand`(
@@ -44,13 +40,14 @@ CREATE TABLE `Watch`(
 );
 
 CREATE TABLE `Purchase`(
-    `id_order` INT UNSIGNED NOT NULL,
+    `id` INT UNSIGNED NOT NULL,
     `user` INT UNSIGNED NOT NULL,
     `watch` INT UNSIGNED NOT NULL,
     `quantity` SMALLINT UNSIGNED NOT NULL DEFAULT '1',
     `IVA` SMALLINT NOT NULL,
     `price` DOUBLE(8, 2) NOT NULL,
-    PRIMARY KEY(`id_order`, `user`, `watch`),
+    `date` DATE NOT NULL,
+    PRIMARY KEY(`id`, `user`, `watch`),
     CONSTRAINT `purchase_user_foreign` FOREIGN KEY(`user`) REFERENCES `User`(`id`),
     CONSTRAINT `purchase_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
@@ -70,16 +67,6 @@ CREATE TABLE `Cart`(
     PRIMARY KEY(`user`, `watch`),
     CONSTRAINT `cart_user_foreign` FOREIGN KEY(`user`) REFERENCES `User`(`id`),
     CONSTRAINT `cart_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
-);
-
-CREATE TABLE `Operation`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `admin` INT UNSIGNED NOT NULL,
-    `watch` INT UNSIGNED NOT NULL,
-    `operation` VARCHAR(255) NOT NULL,
-    `date` DATE NOT NULL,
-    CONSTRAINT `operation_admin_foreign` FOREIGN KEY(`admin`) REFERENCES `Admin`(`id`),
-    CONSTRAINT `operation_watch_foreign` FOREIGN KEY(`watch`) REFERENCES `Watch`(`id`)
 );
 
 CREATE TABLE `Review`(
