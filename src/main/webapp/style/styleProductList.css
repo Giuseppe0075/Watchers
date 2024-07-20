@@ -24,7 +24,7 @@ table tr:hover {
     background-color: #f1f1f1;
 }
 
-table .elimina {
+table .delete-btn {
     color: white;
     background: #03424e;
     border-radius: 3px;

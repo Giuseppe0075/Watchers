@@ -10,7 +10,7 @@
 --%>
 <html>
 <head>
-    <title>Lista Prodotti</title>
+    <title>Product Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -19,7 +19,7 @@
         WatchModel watchModel = new WatchModel();
         List<WatchBean> watches;
         try {
-            watches = (List<WatchBean>) watchModel.doRetrieveAll();
+            watches = (List<WatchBean>) watchModel.doRetrieveByCond("Order by visible DESC", List.of());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -28,13 +28,13 @@
     <div style="overflow-x: auto;">
     <table>
         <tr>
-            <th>Nome</th>
+            <th>Name</th>
             <th>Brand</th>
-            <th>Descrizione</th>
-            <th>Prezzo</th>
+            <th>Description</th>
+            <th>Price</th>
             <th>IVA</th>
-            <th>Visibile</th>
-            <th>Azione</th>
+            <th>Visible</th>
+            <th>Remove</th>
         </tr>
         <tbody>
         <% for (WatchBean watch : watches){ %>
@@ -45,7 +45,7 @@
                 <td><%=watch.getPrice()%></td>
                 <td><%=watch.getIVA()%></td>
                 <td><%=watch.getVisible()%></td>
-                <td><button class="elimina" data-id="<%= watch.getId() %>">X</button></td>
+                <td><button class="delete-btn" data-id="<%= watch.getId() %>">X</button></td>
             </tr>
         <% } %>
         </tbody>
@@ -55,15 +55,15 @@
 
     <script>
         $(document).ready(function() {
-            $(".elimina").click(function() {
+            $(".delete-btn").click(function() {
                 let watchId = $(this).data("id"); // Ottieni l'ID dall'attributo data-id
                 let button = $(this); // Riferimento al bottone cliccato
                     $.ajax({
                         url: '${pageContext.request.contextPath}/admin/deleteWatch', // URL del Servlet che gestisce l'eliminazione
                         type: 'POST',
                         data: {id: watchId}, // Dati inviati al server
-                        success: function(response) {
-                            button.closest('tr').remove(); // Rimuove la riga della tabella del bottone cliccato
+                        success: function() {
+                            button.closest('tr').find('td').eq(5).text('false');
                         },
                         error: function() {
                             // Gestisci errori di richiesta qui
@@ -74,8 +74,8 @@
             });
         });
         document.addEventListener("DOMContentLoaded", function () {
-            const columns = Array.from({ length: 7 }, (_, i) =>
-                document.querySelectorAll(`tbody td:nth-child(${i + 1})`)
+            const columns = Array.from({ length: 7 }, (_) =>
+                document.querySelectorAll(`tbody td:nth-child(${1})`)
             );
 
             columns.forEach((col, i) => {
