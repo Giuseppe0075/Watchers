@@ -12,6 +12,16 @@
     <title>Watchers</title>
     <link rel="stylesheet" href="../style/styleHomepage.css">
     <style>
+
+        h2{
+            color: #498e99;
+            font-size: xxx-large;
+        }
+
+        body{
+            background-color: #f6f5f3;
+        }
+
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -21,6 +31,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
         }
 
         .slider {
@@ -145,11 +156,11 @@
     <!-- Watch info bar -->
     <aside class="watch-infobar">
         <h2><%=watch.getName()%></h2>
-        <h3><%="price: " + watch.getPrice()%></h3>
+        <br>
         <p><%=watch.getDescription()%></p>
-
+        <br>
         <p id="average-stars"> Average stars: <%=watch.getReviews_avg()%>&bigstar;</p>
-
+        <p>price: <%=watch.getPrice()%>€</p>
         <!-- If the watch is available, show the add to cart button -->
         <% if (watch.getStock() > 0) {
             //If the stock is greater than 10, show the available message
