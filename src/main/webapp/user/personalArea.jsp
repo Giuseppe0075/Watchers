@@ -93,6 +93,7 @@
         %>
         <div class="order" style="overflow-x: scroll">
             <h2>Order <%= i %></h2>
+            <div style="overflow-x: scroll">
             <table>
                 <tr>
                     <th>Product</th>
@@ -125,7 +126,8 @@
                 </div>
                 <% } %>
             </table>
-            <button onclick="createInvoice(this)">Download Invoice</button>
+            </div>
+            <button onclick="createInvoice(this)">Scarica Fattura</button>
         </div>
         <% } %>
     </div>

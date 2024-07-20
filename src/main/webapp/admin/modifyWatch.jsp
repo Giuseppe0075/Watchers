@@ -18,11 +18,12 @@
 
     <style>
         /* Container for form and image manager */
-        .container {
+        .watch-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: space-between;
+
         }
 
         .form-container,
@@ -63,7 +64,7 @@
     }
     System.out.println(watch);
 %>
-<div class="container">
+<div class="watch-container">
     <div class="form-container">
         <form action="${pageContext.request.contextPath}/admin/updateWatch" method="post">
 
@@ -72,11 +73,18 @@
 
             <div class="form-group">
                 <label for="name">Name:</label>
+                <div class="input-container">
                 <input type="text" id="name" name="name" value="<%=watch.getName()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="brand">Brand:</label>
+                <div class="input-container">
+
                 <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
                     <option value="" disabled selected>Select a brand</option>
                     <% for (BrandBean brand : brands) { %>
@@ -85,51 +93,99 @@
                     <option value="new">Other (specify below)</option>
                 </select>
                 <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="description">Description:</label>
+                <div class="input-container">
+
                 <input type="text" id="description" name="description" value="<%=watch.getDescription()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="price">Price:</label>
+                <div class="input-container">
                 <input type="number" step="0.01" id="price" name="price" value="<%=watch.getPrice()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="material">Material:</label>
+                <div class="input-container">
                 <input type="text" id="material" name="material" value="<%=watch.getMaterial()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="stock">Stock:</label>
+                <div class="input-container">
+
                 <input type="number" id="stock" name="stock" value="<%=watch.getStock()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="dimension">Dimension (in mm):</label>
+                <div class="input-container">
+
                 <input type="number" step="0.01" id="dimension" name="dimension" value="<%=watch.getDimension()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="IVA">IVA:</label>
+                <div class="input-container">
                 <input type="number" id="IVA" name="IVA" value="<%=watch.getIVA()%>" required />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
 
             <div class="form-group">
                 <label for="sex">Sex:</label>
+                <div class="input-container">
+
                 <select id="sex" name="sex" required>
                     <option value="MAN" <% if(watch.getSex().equals("MAN")){%> selected <% } %>>MAN</option>
                     <option value="WOMEN" <% if(watch.getSex().equals("WOMAN")){%> selected <% } %>>WOMEN</option>
                     <option value="UNISEX" <% if(watch.getSex().equals("UNISEX")){%> selected <% } %>>UNISEX</option>
                 </select>
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <div class="form-group">
                 <label for="visible">Visible:</label>
+                <div class="input-container">
                 <input type="checkbox" id="visible" name="visible" <% if(watch.getVisible()){%> checked <% } %> />
+                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div class="error"></div>
             </div>
 
             <button type="submit">Update</button>
