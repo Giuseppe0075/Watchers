@@ -48,7 +48,7 @@
         <div class="form-group">
             <label for="description">Description:</label>
             <div class="input-container">
-                <textarea id="description" name="description" required></textarea><br><br>
+                <input type="text" id="description" name="description" required />
                 <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                 <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
             </div>
