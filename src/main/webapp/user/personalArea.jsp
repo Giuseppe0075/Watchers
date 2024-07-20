@@ -125,7 +125,7 @@
                 </div>
                 <% } %>
             </table>
-            <button onclick="createInvoice(this)">Scarica Fattura</button>
+            <button onclick="createInvoice(this)">Download Invoice</button>
         </div>
         <% } %>
     </div>
