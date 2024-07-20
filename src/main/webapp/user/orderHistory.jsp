@@ -15,6 +15,7 @@
 <head>
     <title>Order History</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/styleOrderHistory.css">
 </head>
 <body>
     <%@include file="/navbar.jsp" %>
@@ -49,7 +50,7 @@
         }
     %>
 
-    <div id="container">
+    <div id="purchase-container">
         <h1>Order History</h1>
         <br><br>
         <% for(long i = hid; i >= 1; i--) {
@@ -58,7 +59,7 @@
             }
             List<PurchaseBean> purchaseBeansList = orderMap.get(i);
         %>
-            <div class="order">
+            <div class="order" style="overflow-x: scroll">
                 <h2>Order <%= i %></h2>
                 <table>
                     <tr>

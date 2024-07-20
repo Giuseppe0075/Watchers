@@ -1,0 +1,65 @@
+.purchase-container {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    gap: 20px;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+
+}
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.order-total {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+.order button {
+    background-color: #498e99;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.order button:hover {
+    background-color: #36777a;
+}
+
+.order {
+    background-color: #fff; /* Colore di sfondo chiaro per la card */
+    border: 1px solid #ddd; /* Bordo sottile per definire la card */
+    border-radius: 8px; /* Angoli arrotondati per un aspetto più morbido */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera per effetto sollevato */
+    margin-bottom: 20px; /* Spazio tra le card */
+    padding: 20px; /* Spazio interno */
+    transition: box-shadow 0.3s ease-in-out; /* Transizione fluida per l'ombra */
+}
+
+.order:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più marcata al passaggio del mouse */
+}

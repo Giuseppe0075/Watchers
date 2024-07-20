@@ -44,7 +44,7 @@
     }
 
     try {
-        List<PurchaseBean> allOrders = (List<PurchaseBean>) orderModel.doRetrieveAll();
+        List<PurchaseBean> allOrders = (List<PurchaseBean>) orderModel.doRetrieveByCond("ORDER BY id DESC",List.of());
 
         // Applica il filtro per utente se selezionato
         if (userIdFilter != 0) {
