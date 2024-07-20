@@ -91,7 +91,7 @@
             }
             List<PurchaseBean> purchaseBeansList = orderMap.get(i);
         %>
-        <div class="order">
+        <div class="order" style="overflow-x: scroll">
             <h2>Order <%= i %></h2>
             <table>
                 <tr>

@@ -267,7 +267,7 @@
         }
     %>
 
-    <div id="orders-container">
+    <div class="order-list-container">
         <h1>Order History</h1>
         <% for(long i = hid; i >= 1; i--) {
             if(!orderMap.containsKey(i)) {
@@ -275,7 +275,7 @@
             }
             List<PurchaseBean> purchaseBeansList = orderMap.get(i);
         %>
-        <div class="order-list-container">
+        <div class="order" style="overflow-x: scroll">
             <h2>Order <%= i %> </h2> <h5><%= purchaseBeansList.getFirst().getDate()%></h5>
             <table>
                 <tr>
