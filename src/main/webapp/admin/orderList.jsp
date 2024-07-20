@@ -81,9 +81,7 @@
         <% for(java.util.Date i : reversedOrderMap.keySet()) {
             List<PurchaseBean> purchaseBeansList = orderMap.get(i);
 
-        %>
-        <div class="order">
-                <% for(PurchaseBean purchaseBean : purchaseBeansList) {
+            for(PurchaseBean purchaseBean : purchaseBeansList) {
                     WatchBean watchBean;
                     try {
                         watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
@@ -99,10 +97,8 @@
                     <td><%= purchaseBean.getIVA() %>%</td>
                     <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
                 </tr>
-                <% } %>
-
-        </div>
-        <% } %>
+                <% }
+            } %>
         </table>
     </div>
 </div>
