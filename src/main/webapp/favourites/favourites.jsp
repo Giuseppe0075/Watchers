@@ -73,7 +73,7 @@
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
 <div id="favourites-container">
-    <h2>Preferiti</h2>
+    <h2 style="text-align: center">Preferiti</h2>
     <div id="favourites-table-container">
         <table id="favourites-table">
             <thead>

@@ -4,13 +4,11 @@ table {
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: auto;
-    padding: 20px;
     border-radius: 10px;
 }
 
 table th,
 table td {
-    border: 1px solid #ddd;
     overflow: hidden;
     padding: 8px;
 }

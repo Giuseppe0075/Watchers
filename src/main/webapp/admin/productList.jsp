@@ -14,6 +14,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<style>
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+</style>
 <link rel="stylesheet" href="../style/styleProductList.css">
     <%
         WatchModel watchModel = new WatchModel();
@@ -25,7 +47,9 @@
         }
     %>
     <%@include file="../navbar.jsp"%>
-    <div style="overflow-x: auto;">
+<div class="product-container">
+    <div style="overflow-x: auto;" >
+        <h2 style="text-align: center">Product Manager</h2>
     <table>
         <tr>
             <th>Name</th>
@@ -51,6 +75,7 @@
         </tbody>
     </table>
     </div>
+</div>
 
 
     <script>

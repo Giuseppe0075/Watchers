@@ -41,26 +41,28 @@
         <a href="${pageContext.request.contextPath}/index.jsp" id="logo">
             <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
         </a>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
-            <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a></li>
-            <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a></li>
-            <% if (user != 0L) {%>
+        <div class="navbar-items-container">
+            <ul class="navbar-items">
+                <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
+                <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a></li>
+                <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a></li>
+                <% if (user != 0L) {%>
                 <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
-            <% }if (userBean != null && userBean.getAdmin()) { %>
+                <% }if (userBean != null && userBean.getAdmin()) { %>
                 <li><a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a> </li>
                 <li><a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a> </li>
                 <li><a href="${pageContext.request.contextPath}/admin/orderList.jsp">OrderList</a> </li>
-            <% } %>
-        </ul>
-        <% if (userBean == null) { %>
-        <a href="${pageContext.request.contextPath}/user/login.jsp" id="user">
-                <% } else { %>
-            <a href="${pageContext.request.contextPath}/user/personalArea.jsp" id="user">
                 <% } %>
-                <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
-            </a>
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="menu">&#9776;</span>
+            </ul>
+        </div>
+        <% if (userBean == null) { %>
+            <a href="${pageContext.request.contextPath}/user/login.jsp" id="user">
+        <% } else { %>
+            <a href="${pageContext.request.contextPath}/user/personalArea.jsp" id="user">
+        <% } %>
+            <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
+        </a>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="menu">&#9776;</span>
     </nav>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -68,7 +70,7 @@
         <a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a>
         <a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a>
         <% if (user != 0L) {%>
-            <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
+            <a href="${pageContext.request.contextPath}/user/logout">Logout</a>
         <% }if (userBean != null && userBean.getAdmin()) { %>
             <a href="${pageContext.request.contextPath}/admin/userManager.jsp">UserManager</a>
             <a href="${pageContext.request.contextPath}/admin/productList.jsp">ProductManager</a>
@@ -85,6 +87,8 @@
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
         }
+
+
     </script>
 </header>
 <% } %> <!-- don't delete, it's used to avoid scope problems -->

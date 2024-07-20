@@ -15,19 +15,22 @@
 <!-- Navbar -->
 <%@include file="navbar.jsp"%>
 <style>
+    a{
+        text-decoration: none;
+    }
     #mainVideo {
-        position: relative; /* Cambiato da absolute a relative per permettere agli elementi successivi di posizionarsi sotto di esso */
+        position: relative;
         top: 0;
         left: 0;
         width: 100vw;
-        height: 70vh; /* Ridotto l'altezza per lasciare spazio al carousel sotto */
+        height: 70vh;
         object-fit: cover;
         z-index: -1;
     }
 
     #frontPage {
-        position: relative; /* Assicura che il contenitore del video abbia un posizionamento relativo */
-        height: auto; /* Permette al contenitore di adattarsi all'altezza del video */
+        position: relative;
+        height: auto;
     }
 
     .glider-contain {
@@ -129,6 +132,7 @@
             ]
         });
     });
+
 </script>
 
 <%@include file="footer.html"%> <!-- Footer -->

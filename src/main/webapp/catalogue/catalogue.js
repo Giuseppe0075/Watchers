@@ -6,33 +6,37 @@ const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
 document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById('toggleFilters');
     const filtersBar = document.getElementById('filters');
+    const closeFiltersBtn = document.getElementById('closeFiltersBtn');
 
     toggleButton.addEventListener('click', function() {
         if (filtersBar.classList.contains('hidden')) {
             filtersBar.classList.remove('hidden');
             filtersBar.classList.add('visible');
+            filtersBar.style.maxHeight = filtersBar.scrollHeight + "px"; // Aggiunge l'altezza massima dinamica
         } else {
             filtersBar.classList.add('hidden');
             filtersBar.classList.remove('visible');
+            filtersBar.style.maxHeight = 0; // Riduce l'altezza massima a 0
         }
     });
 
-    const closeFiltersBtn = document.getElementById('closeFiltersBtn');
     closeFiltersBtn.addEventListener('click', function() {
         filtersBar.classList.add('hidden');
         filtersBar.classList.remove('visible');
+        filtersBar.style.maxHeight = 0; // Riduce l'altezza massima a 0
     });
 });
 
 window.onresize = function() {
     const filtersBar = document.getElementById('filters');
+    const closeFiltersBtn = document.getElementById('closeFiltersBtn');
+
     if (!filtersBar.classList.contains('hidden')) {
-        // Rimuovi temporaneamente la classe visible per calcolare l'altezza del contenuto
-        filtersBar.style.height = '0';
+        filtersBar.classList.add('hidden');
         filtersBar.classList.remove('visible');
+        filtersBar.style.maxHeight = 0; // Riduce l'altezza massima a 0
     }
 };
-
 //For the first load of the catalogue
 document.addEventListener('DOMContentLoaded', () => {
     sendForm();

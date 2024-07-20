@@ -20,7 +20,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin:auto;
+            margin:20px;
         }
 
         table {
@@ -61,10 +61,10 @@
 <body>
 <%@include file="../navbar.jsp"%>
 <div class="user-container">
-    <h2 style="text-align: center">Gestione Utenti</h2>
-    <div>
+    <h2 style="text-align: center">User Manager</h2>
+    <div style="overflow-x: scroll">
     <div class="table-container">
-        <table style="overflow-x: scroll">
+        <table >
             <thead>
             <tr>
                 <th>Email</th>
