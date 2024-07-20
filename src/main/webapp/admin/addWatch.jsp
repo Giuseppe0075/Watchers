@@ -9,16 +9,28 @@
 <html>
 <head>
     <title>Add Watch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/styleAddWatch.css">
 </head>
 <body>
 
     <%@include file="../navbar.jsp"%>
+    <div class="form-container">
     <h2>Watch Registration</h2>
     <form action="${pageContext.request.contextPath}/admin/addWatch" method="get" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter watch name" required><br><br>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <div class="input-container">
+                <input type="text" id="name" name="name" required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="brand">Brand:</label>
+        <div class="form-group">
+            <label for="brand">Brand:</label>
+            <div class="input-container">
         <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
             <option value="" disabled selected>Select a brand</option>
             <option value="brand1">Brand 1</option>
@@ -26,44 +38,116 @@
             <option value="brand3">Brand 3</option>
             <option value="new">Other (specify below)</option>
         </select>
-        <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
+        <input type="text" id="newBrandInput" name="newBrand" style="display:none;">
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" placeholder="Enter description" required></textarea><br><br>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <div class="input-container">
+                <textarea id="description" name="description" required></textarea><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="reviews_avg">Average Reviews:</label>
-        <input type="number" step="0.1" max="5" id="reviews_avg" name="reviews_avg" placeholder="Enter average reviews" required><br><br>
+        <div class="form-group">
+            <label for="reviews_avg">Average Reviews:</label>
+            <div class="input-container">
+            <input type="number" step="0.1" max="5" id="reviews_avg" name="reviews_avg" required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="price">Price:</label>
-        <input type="number" step="0.25" id="price" name="price" placeholder="Enter price" required><br><br>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <div class="input-container">
+                <input type="number" step="0.25" id="price" name="price"  required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="material">Material:</label>
-        <input type="text" id="material" name="material" placeholder="Enter material" required><br><br>
+        <div class="form-group">
+            <label for="material">Material:</label>
+            <div class="input-container">
 
-        <label for="stock">Stock:</label>
-        <input type="number" id="stock" name="stock" placeholder="Enter stock quantity" required><br><br>
+        <input type="text" id="material" name="material" required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="dimension">Dimension:</label>
-        <input type="text" id="dimension" name="dimension" placeholder="Enter dimensions" required><br><br>
+        <div class="form-group">
+            <label for="stock">Stock:</label>
+            <div class="input-container">
 
-        <label for="IVA">IVA:</label>
-        <input type="number" step="0.1" id="IVA" name="IVA" placeholder="Enter IVA" required><br><br>
+        <input type="number" id="stock" name="stock" required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
-        <label for="sex">Sex:</label>
+        <div class="form-group">
+            <label for="dimension">Dimension:</label>
+            <div class="input-container">
+        <input type="text" id="dimension" name="dimension" required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="IVA">IVA:</label>
+            <div class="input-container">
+
+        <input type="number" step="0.1" id="IVA" name="IVA" required><br><br>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="sex">Sex:</label>
+            <div class="input-container">
+
         <select id="sex" name="sex" required>
             <option value="MAN">MAN</option>
             <option value="WOMEN">WOMEN</option>
             <option value="UNISEX">UNISEX</option>
-        </select><br/><br>
+        </select>
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
 
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <div class="input-container">
         <label for="visible">Visible:</label>
-        <input type="checkbox" id="visible" name="visible"><br><br>
-
-        <input type="submit" value="Add Watch">
+        <input type="checkbox" id="visible" name="visible">
+                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+            </div>
+            <div class="error"></div>
+        </div>
+        <button type="submit" class="btn-submit">Add Watch</button>
     </form>
+    </div>
     <%@include file="../footer.html"%>
-
-<script>
+    <script>
     function toggleBrandInput(select) {
         var brandInput = document.getElementById('newBrandInput');
         if (select.value === 'new') {
@@ -75,5 +159,6 @@
         }
     }
 </script>
+<script src="../utils/formValidator.js"></script>
 </body>
 </html>
