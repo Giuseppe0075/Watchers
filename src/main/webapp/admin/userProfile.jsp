@@ -1,12 +1,10 @@
 <%@ page import="Model.Beans.UserBean" %>
 <%@ page import="Model.Models.UserModel" %>
-<%@ page import="java.util.List" %>
 <%@ page import="Model.Beans.PurchaseBean" %>
 <%@ page import="Model.Models.PurchaseModel" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.stream.Collectors" %>
 <%@ page import="Model.Models.WatchModel" %>
-<%@ page import="java.util.Date" %>
+<%@ page import="java.util.*" %>
+<%@ page import="Model.Beans.WatchBean" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -15,20 +13,15 @@
         Long sessionUser = (Long) session.getAttribute("user");
         WatchModel watchModel = new WatchModel();
         UserBean userModify;
-        Map<Long, List<PurchaseBean>> groupedById;
-
         String userIdObject = request.getParameter("id");
 
         if (userIdObject != null) {
             UserModel userModel = new UserModel();
             Long userId = Long.parseLong(userIdObject);
-            PurchaseModel purchaseModel = new PurchaseModel();
             try {
                 userModify = userModel.doRetrieveByKey(List.of(userId));
-                groupedById = purchaseModel.doRetrieveByCond("WHERE user=?", List.of(userId)).stream()
-                        .collect(Collectors.groupingBy(PurchaseBean::getId));
             } catch (Exception e) {
-                throw new RuntimeException("Error while getting user or purchase data", e);
+                throw new RuntimeException("Error while getting user data", e);
             }
         } else {
             throw new RuntimeException("UserID not found");
@@ -174,11 +167,6 @@
         th {
             background-color: #f2f2f2;
         }
-
-        .order-total {
-            font-weight: bold;
-            background-color: #f9f9f9;
-        }
     </style>
 </head>
 <body>
@@ -251,43 +239,81 @@
         <% } %>
     </div>
 
-    <div class="order-list-container">
-        <p>Orders</p>
-        <table>
-            <thead>
-            <tr>
-                <th>Watch</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for (var entry : groupedById.entrySet()) {
-                Date dataOrdine = entry.getValue().getFirst().getDate();
-                double totalOrderPrice = entry.getValue().stream().mapToDouble(PurchaseBean::getPrice).sum(); %>
-            <tr class="order-total">
-                <td colspan="3">Order #<%=entry.getKey()%> - Total Price: €<%=totalOrderPrice%>  --- <%=dataOrdine%> </td>
-            </tr>
-            <% for (var el : entry.getValue()) {
-                String name;
-                try {
-                    name = watchModel.doRetrieveByKey(List.of(el.getWatch())).getName();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            %>
-            <tr>
-                <td><%=name%></td>
-                <td><%=el.getQuantity()%></td>
-                <td>€<%=el.getPrice()%></td>
-            </tr>
-            <% } %>
-            <% }
-            %>
-            </tbody>
-        </table>
+    <%
+        PurchaseModel purchaseModel = new PurchaseModel();
+        Collection<PurchaseBean> purchaseBeans;
+        UserModel userModel = new UserModel();
+        UserBean userBean;
+
+        try {
+            purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? ORDER BY id DESC", List.of(userIdObject));
+            userBean = userModel.doRetrieveByKey(List.of(userIdObject));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        long hid = purchaseBeans.iterator().next().getId();
+
+        //Division of the purchases by order
+        java.util.HashMap<Long, List<PurchaseBean>> orderMap = new HashMap<>();
+        for(PurchaseBean purchaseBean : purchaseBeans) {
+            if(orderMap.containsKey(purchaseBean.getId())) {
+                orderMap.get(purchaseBean.getId()).add(purchaseBean);
+            } else {
+                List<PurchaseBean> list = new ArrayList<>();
+                list.add(purchaseBean);
+                orderMap.put(purchaseBean.getId(), list);
+            }
+        }
+    %>
+
+    <div id="orders-container">
+        <h1>Order History</h1>
+        <% for(long i = hid; i >= 1; i--) {
+            if(!orderMap.containsKey(i)) {
+                continue;
+            }
+            List<PurchaseBean> purchaseBeansList = orderMap.get(i);
+        %>
+        <div class="order-list-container">
+            <h2>Order <%= i %> </h2> <h5><%= purchaseBeansList.getFirst().getDate()%></h5>
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>IVA</th>
+                    <th>Total</th>
+                </tr>
+                <% for(PurchaseBean purchaseBean : purchaseBeansList) {
+                    WatchBean watchBean;
+                    try {
+                        watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                %>
+                <tr>
+                    <td><%= watchBean.getName() %></td>
+                    <td><%= purchaseBean.getQuantity() %></td>
+                    <td><%= purchaseBean.getPrice() %>€</td>
+                    <td><%= purchaseBean.getIVA() %>%</td>
+                    <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
+                </tr>
+
+                <div id="hidden-data-for-<%=i%>" hidden>
+                    <div class="date"><%=purchaseBean.getDate()%></div>
+                    <div class="user-name"><%=userBean.getName()%></div>
+                    <div class="user-surname"><%=userBean.getSurname()%></div>
+                    <div class="user-address"><%=userBean.getRoad()%>,<%=userBean.getCivic_number()%></div>
+                </div>
+                <% } %>
+            </table>
+        </div>
+        <% } %>
     </div>
 </div>
+
 <%@include file="../footer.html"%>
 </body>
 </html>
