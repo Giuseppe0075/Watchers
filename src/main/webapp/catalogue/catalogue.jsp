@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.Collection" %>
-<%@ page import="java.util.HashSet" %>
-<%@ page import="java.util.Set" %>
 <%@ page import="Model.Models.BrandModel" %>
 <%@ page import="Model.Beans.BrandBean" %>
 <html>
@@ -88,10 +86,8 @@
             <div class="filterGroup">
                 <h3>Material:</h3>
 
-                <div class="filterOption">
-                    <label>
-                        <input type="checkbox" name="material" value=""><br>
-                    </label>
+                <div class="filterOption" id="filter-materials">
+
                 </div>
 
             </div>

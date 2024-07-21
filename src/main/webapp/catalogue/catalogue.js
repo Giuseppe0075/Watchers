@@ -1,6 +1,7 @@
 const filterForm = document.getElementById('filterForm');
 const catalogue = document.getElementById('catalogue');
 const filterFormGroup = filterForm.querySelectorAll('.filterGroup');
+let materials = new Set();
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -29,12 +30,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 window.onresize = function() {
     const filtersBar = document.getElementById('filters');
-    const closeFiltersBtn = document.getElementById('closeFiltersBtn');
 
     if (!filtersBar.classList.contains('hidden')) {
         filtersBar.classList.add('hidden');
         filtersBar.classList.remove('visible');
-        filtersBar.style.maxHeight = 0; // Riduce l'altezza massima a 0
+        filtersBar.style.maxHeight = "0"; // Riduce l'altezza massima a 0
     }
 };
 //For the first load of the catalogue
@@ -63,6 +63,28 @@ function sendForm() {
             // Clear the current catalog
             while (catalogue.firstChild) {
                 catalogue.removeChild(catalogue.firstChild);
+            }
+
+            if(materials.size === 0){
+                const filterMaterials = document.getElementById('filter-materials');
+                for(const watch of JSON.parse(this.responseText)){
+                    materials.add(watch.material);
+                }
+                for(const material of materials){
+                    // Create a new label
+                    const label = document.createElement('label');
+                    // Create a new input
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.name = 'material';
+                    input.value = material;
+                    // Add the input to the label
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(material));
+                    // Add the label to the filter materials
+                    filterMaterials.appendChild(label);
+                    filterMaterials.appendChild(document.createElement('br'));
+                }
             }
 
             // Assume `watch` and `image` are objects with the necessary properties
@@ -97,6 +119,8 @@ function changeFavourite(watchId, button){
 
 //Creates a watch card for the catalogue
 function createWatchCard(watch){
+
+    console.log(watch);
     // Create the outer div
     const watchElement = document.createElement('div');
     watchElement.className = 'watch';
@@ -121,6 +145,14 @@ function createWatchCard(watch){
     const brandElement = document.createElement('p');
     brandElement.textContent = `Brand: ${watch.brand}`;
     anchorElement.appendChild(brandElement);
+
+    //Create review element
+    const reviewElement = document.createElement('p');
+    if(watch.reviews_avg === 0)
+        reviewElement.textContent = `No reviews yet`;
+    else
+        reviewElement.textContent = `${watch.reviews_avg}★`;
+    anchorElement.appendChild(reviewElement);
 
     // Create the price p element
     const priceElement = document.createElement('p');

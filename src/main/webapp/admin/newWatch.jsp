@@ -1,3 +1,6 @@
+<%@ page import="Model.Models.BrandModel" %>
+<%@ page import="Model.Beans.BrandBean" %>
+<%@ page import="java.util.Collection" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%--
   Created by IntelliJ IDEA.
@@ -15,6 +18,18 @@
 <body>
 
     <%@include file="../navbar.jsp"%>
+
+
+    <%
+        BrandModel brandModel = new BrandModel();
+        Collection<BrandBean> brands;
+        try {
+             brands = brandModel.doRetrieveAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    %>
+
     <div class="form-container">
     <h2>Watch Registration</h2>
     <form id="new-watch-form" action="${pageContext.request.contextPath}/admin/addWatch" method="get" enctype="multipart/form-data">
@@ -33,9 +48,9 @@
             <div class="input-container">
                 <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
                     <option value="" disabled selected>Select a brand</option>
-                    <option value="brand1">Brand 1</option>
-                    <option value="brand2">Brand 2</option>
-                    <option value="brand3">Brand 3</option>
+                    <% for (BrandBean brand : brands) { %>
+                        <option value="<%= brand.getName() %>"><%= brand.getName() %></option>
+                    <% } %>
                     <option value="new">Other (specify below)</option>
                 </select>
                 <label for="newBrandInput" style="display:none;">New Brand:</label>
@@ -50,16 +65,6 @@
             <label for="description">Description:</label>
             <div class="input-container">
                 <input type="text" id="description" name="description" required />
-                <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
-                <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
-            </div>
-            <div class="error"></div>
-        </div>
-
-        <div class="form-group">
-            <label for="reviews_avg">Average Reviews:</label>
-            <div class="input-container">
-            <input type="number" step="0.1" max="5" id="reviews_avg" name="reviews_avg" required>
                 <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                 <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
             </div>
