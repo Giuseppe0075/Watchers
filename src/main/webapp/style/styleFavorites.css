@@ -1,3 +1,35 @@
+/* Stile per il container principale */
+#favourites-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+#favourites-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#favourites-table th, #favourites-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+#favourites-table th {
+    background-color: #f2f2f2;
+}
+
+#favourites-table-container {
+    overflow-x: auto;
+}
 .favourites-container {
     margin: 20px auto;
     padding: 30px;
