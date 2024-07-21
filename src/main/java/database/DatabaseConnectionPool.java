@@ -24,7 +24,10 @@ public class DatabaseConnectionPool {
 
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
-                pool.add(new Connection(DriverManager.getConnection(uri, username, password)));
+                pool.add(new Connection(DriverManager.getConnection(
+                        "jdbc:mysql://uvkau7wy98snlgqm:oSLixuDHYthrPI6ZHPer@bcvrujqustmrsee1qise-mysql.services.clever-cloud.com:3306/bcvrujqustmrsee1qise?autoReconnect=true",
+                        "uvkau7wy98snlgqm",
+                        "oSLixuDHYthrPI6ZHPer")));
             }catch (Exception e){
                 Logger.error(e, "failed to create the connection to the database");
             }

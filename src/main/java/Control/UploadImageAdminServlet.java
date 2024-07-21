@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/admin/uploadImage")
@@ -52,26 +53,30 @@ public class UploadImageAdminServlet extends HttpServlet {
             long imageId = 1L;
             try {
                 imageBean.setImage(imageBlob.getBytes(1, (int) imageBlob.length()));
-                Collection<ImageBean> images = imageModel.doRetrieveByCond("WHERE watch = ?\nORDER BY watch DESC", List.of(watchId));
+                Collection<ImageBean> images = imageModel.doRetrieveByCond("WHERE watch = ? ORDER BY id ASC", List.of(watchId));
+                // Determine the next available ID
                 if (!images.isEmpty()) {
-                    imageId = images.iterator().next().getId() + 1;
+                    ImageBean lastImage = images.stream().max(Comparator.comparingLong(ImageBean::getId)).orElse(null);
+                    if (lastImage != null) {
+                        imageId = lastImage.getId();
+                    }
                 }
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            imageBean.setId(imageId);
+            imageBean.setId(imageId+1);
 
-            // Save the image to the database
+         // Save the image to the database
             try {
                 imageModel.doSave(imageBean);
 
             } catch (Exception e) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save image");
+                e.printStackTrace();
             }
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No file uploaded");
         }
-        response.sendRedirect("/admin/modifyWatch.jsp?id=" + watchId);
+        response.sendRedirect(request.getContextPath()+"/admin/modifyWatch.jsp?id=" + watchId);
     }
 }
