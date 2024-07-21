@@ -1,5 +1,7 @@
 package Control;
 
+import Model.Beans.ImageBean;
+import Model.Models.ImageModel;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -12,9 +14,7 @@ import Model.Models.WatchModel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @WebServlet(name = "GetWatchesServlet", value = "/get-watches")
 @MultipartConfig
@@ -76,15 +76,38 @@ public class GetWatchesServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        // Convert the collection of watches to JSON
-        Gson gson = new Gson();
-        String json = gson.toJson(watches);
+        List<Map<String, Object>> watchesWithMainImage = new ArrayList<>();
+        ImageModel imageModel = new ImageModel();
 
-        // Set the response content type to JSON
+        for(WatchBean watch : watches){
+            Map<String, Object> watchWithImage = new HashMap<>();
+            watchWithImage.put("id", watch.getId());
+            watchWithImage.put("name", watch.getName());
+            watchWithImage.put("brand", watch.getBrand());
+            watchWithImage.put("price", watch.getPrice());
+            watchWithImage.put("dimension", watch.getDimension());
+            watchWithImage.put("material", watch.getMaterial());
+            watchWithImage.put("sex", watch.getSex());
+            watchWithImage.put("reviews_avg", watch.getReviews_avg());
+            watchWithImage.put("visible", watch.getVisible());
+            try {
+                ImageBean mainImage = imageModel.doRetrieveByCond("WHERE watch = ? ORDER BY id ASC LIMIT 1", List.of(watch.getId())).iterator().next();
+                watchWithImage.put("mainImageId", mainImage.getId());
+            } catch (Exception e) {
+                watchWithImage.put("mainImageId", 0);
+            }
+            watchesWithMainImage.add(watchWithImage);
+        }
+
+        // Convert Java object to JSON string
+        Gson gson = new Gson();
+        String json = gson.toJson(watchesWithMainImage);
+
+        // Set content type
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        // Write the JSON to the response
+        // Write JSON string to response body
         PrintWriter out = resp.getWriter();
         out.print(json);
         out.flush();

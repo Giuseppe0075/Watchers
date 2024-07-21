@@ -108,7 +108,7 @@ function createWatchCard(watch){
 
     // Create the img element
     const imgElement = document.createElement('img');
-    imgElement.src = `../getImage?id=1&watch=${watch.id}`;
+    imgElement.src = `../getImage?id=${watch.mainImageId}&watch=${watch.id}`;
     imgElement.alt = 'no images';
     anchorElement.appendChild(imgElement);
 
