@@ -199,7 +199,7 @@
 
     <div class="image-manager-container">
         <jsp:include page="/WEB-INF/NotVisible/imageManager.jsp">
-            <jsp:param name="watchId" value="${id}" />
+            <jsp:param name="watchId" value="<%=watch.getId()%>" />
         </jsp:include>
     </div>
 </div>
