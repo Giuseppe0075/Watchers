@@ -36,7 +36,7 @@ public class UpdateWatchAdminServlet extends HttpServlet {
             String description = request.getParameter("description");
             Double reviews_avg = Double.parseDouble(request.getParameter("reviews_avg"));
             Double price = Double.parseDouble(request.getParameter("price"));
-            String material = request.getParameter("material");
+            String material = request.getParameter("material").toLowerCase();
             Integer stock = Integer.parseInt(request.getParameter("stock"));
             Double dimension = Double.parseDouble(request.getParameter("dimension"));
             Integer IVA = Integer.parseInt(request.getParameter("IVA"));

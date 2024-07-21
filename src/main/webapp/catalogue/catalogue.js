@@ -148,7 +148,10 @@ function createWatchCard(watch){
 
     //Create review element
     const reviewElement = document.createElement('p');
-    reviewElement.textContent = `${watch.reviews_avg}★`;
+    if(watch.reviews_avg === 0)
+        reviewElement.textContent = `No reviews yet`;
+    else
+        reviewElement.textContent = `${watch.reviews_avg}★`;
     anchorElement.appendChild(reviewElement);
 
     // Create the price p element
