@@ -57,9 +57,7 @@ public class UploadImageAdminServlet extends HttpServlet {
                 // Determine the next available ID
                 if (!images.isEmpty()) {
                     ImageBean lastImage = images.stream().max(Comparator.comparingLong(ImageBean::getId)).orElse(null);
-                    if (lastImage != null) {
-                        imageId = lastImage.getId();
-                    }
+                    imageId = lastImage.getId();
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -72,7 +70,6 @@ public class UploadImageAdminServlet extends HttpServlet {
 
             } catch (Exception e) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to save image");
-                e.printStackTrace();
             }
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No file uploaded");
