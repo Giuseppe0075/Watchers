@@ -140,7 +140,6 @@
         });
 
         function fetchResults(query) {
-            console.log(query)
             fetch('<%= request.getContextPath() %>/search', {
                 method: 'POST',
                 headers: {
@@ -156,7 +155,6 @@
         }
 
         function displayResults(results) {
-            console.log(results);
             const resultsContainer = document.getElementById('search-results');
             resultsContainer.innerHTML = '';
 
