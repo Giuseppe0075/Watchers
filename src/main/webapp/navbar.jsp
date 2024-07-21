@@ -2,6 +2,32 @@
 <%@ page import="Model.Models.UserModel" %>
 <%@ page import="java.util.List" %>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    /* Stili di base */
+    .search-container {
+        position: relative;
+        width: 300px;
+        margin: 0 auto;
+    }
+    .search-results {
+        position: absolute;
+        width: 100%;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: #fff;
+        z-index: 1000;
+    }
+    .search-result {
+        padding: 10px;
+        cursor: pointer;
+    }
+    .search-result:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+
 <script>
     toastr.options = {
         "closeButton": true,
@@ -19,6 +45,35 @@
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
+    }
+
+    function fetchResults(input) {
+        fetch(`/search?input=${input}`)
+                .then(response => response.json())
+                .then(results => displayResults(results))
+                .catch(error => console.error('Error:', error));
+
+        displayResults(results);
+    }
+
+    function displayResults(results) {
+        const resultsContainer = document.getElementById('search-results');
+        resultsContainer.innerHTML = '';
+
+        if (results.length === 0) {
+            resultsContainer.innerHTML = '<div class="search-result">No results found</div>';
+            return;
+        }
+
+        results.forEach(result => {
+            let div = document.createElement('div');
+            div.classList.add('search-result');
+            div.textContent = result.name;
+            div.addEventListener('click', () => {
+                window.location.href = `watch.jsp?id=${encodeURIComponent(result.id)}`;
+            });
+            resultsContainer.appendChild(div);
+        });
     }
 </script>
 <% { %><!-- don't delete, it's used to avoid scope problems -->
@@ -46,6 +101,14 @@
                 <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
                 <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a></li>
                 <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a></li>
+                <li>
+                    <div class="search-container">
+                        <label for="search-input"></label>
+                        <input type="text" id="search-input" placeholder="Search...">
+                        <div id="search-results" class="search-results"></div>
+                    </div>
+                </li>
+
                 <% if (user != 0L) {%>
                 <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
                 <% }if (userBean != null && userBean.getAdmin()) { %>
