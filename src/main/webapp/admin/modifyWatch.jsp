@@ -9,10 +9,10 @@
   Time: 19:42
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Modifica Prodotto</title>
+    <title>Modify Watch</title>
     <link rel="stylesheet" href="../style/styleModifyWatch.css">
     <link rel="stylesheet" href="../style/styleImageManager.css">
 
@@ -53,20 +53,24 @@
 <%@include file="../navbar.jsp"%>
 <%
     BrandModel brandModel = new BrandModel();
-    List<BrandBean> brands = (List<BrandBean>) brandModel.doRetrieveAll();
+    List<BrandBean> brands;
+    try {
+        brands = (List<BrandBean>) brandModel.doRetrieveAll();
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
     Long id = Long.valueOf(request.getParameter("id"));
     WatchModel wm = new WatchModel();
-    WatchBean watch = null;
+    WatchBean watch;
     try {
         watch = wm.doRetrieveByKey(List.of(id));
     } catch (Exception e) {
         throw new RuntimeException(e);
     }
-    System.out.println(watch);
 %>
 <div class="watch-container">
     <div class="form-container">
-        <form action="${pageContext.request.contextPath}/admin/updateWatch" method="post">
+        <form id="modify-watch-form" action="${pageContext.request.contextPath}/admin/updateWatch" method="post">
 
             <input type="hidden" id="id" name="id" value="<%=watch.getId()%>"/><br/>
             <input type="hidden" id="reviews_avg" name="reviews_avg" value="<%=watch.getReviews_avg()%>">
@@ -85,14 +89,15 @@
                 <label for="brand">Brand:</label>
                 <div class="input-container">
 
-                <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
-                    <option value="" disabled selected>Select a brand</option>
-                    <% for (BrandBean brand : brands) { %>
-                    <option value="<%=brand.getBusiness_name()%>" <%= brand.getBusiness_name().equals(watch.getBrand()) ? "selected" : "" %>><%=brand.getName()%></option>
-                    <% } %>
-                    <option value="new">Other (specify below)</option>
-                </select>
-                <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
+                    <select id="brand" name="brand" required onchange="toggleBrandInput(this)">
+                        <option value="" disabled selected>Select a brand</option>
+                        <% for (BrandBean brand : brands) { %>
+                        <option value="<%=brand.getBusiness_name()%>" <%= brand.getBusiness_name().equals(watch.getBrand()) ? "selected" : "" %>><%=brand.getName()%></option>
+                        <% } %>
+                        <option value="new">Other (specify below)</option>
+                    </select>
+                    <label for="newBrandInput" style="display:none;">New brand:</label>
+                    <input type="text" id="newBrandInput" name="newBrand" placeholder="Enter new brand" style="display:none;">
                     <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                     <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
                 </div>
@@ -201,7 +206,7 @@
 
 <script>
     function toggleBrandInput(select) {
-        var brandInput = document.getElementById('newBrandInput');
+        let brandInput = document.getElementById('newBrandInput');
         if (select.value === 'new') {
             brandInput.style.display = 'inline';
             brandInput.required = true;
@@ -211,7 +216,7 @@
         }
     }
 </script>
-
 <%@include file="../footer.html"%> <!-- Footer -->
+<script src="../utils/formValidator.js"></script>
 </body>
 </html>

@@ -39,6 +39,15 @@ table .delete-btn {
     height: 30px;
 }
 
+.new-watch-btn {
+    background-color: #03424e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
     table th, table td {
         padding: 8px;

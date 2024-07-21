@@ -50,6 +50,8 @@
 <div class="product-container">
     <div style="overflow-x: auto;" >
         <h2 style="text-align: center">Product Manager</h2>
+
+        <a href="newWatch.jsp" class="new-watch-btn">Add a new watch</a><br><br>
     <table>
         <tr>
             <th>Name</th>
