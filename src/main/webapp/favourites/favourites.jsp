@@ -8,14 +8,15 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="FavouritesCart.FavouritesCart" %>
-<%@ page import="org.tinylog.Logger" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Model.Beans.FavouriteBean" %>
 <%@ page import="Model.Beans.WatchBean" %>
 <%@ page import="Model.Models.WatchModel" %>
+<%@ page import="Model.Models.ImageModel" %>
+<%@ page import="Model.Beans.ImageBean" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Favourites</title>
@@ -26,8 +27,9 @@
 <%
     FavouritesCart favouritesCart = new FavouritesCart(request.getSession(false));
     Set<FavouriteBean> t = favouritesCart.getFavourites();
-
-    List<WatchBean> list = new ArrayList<WatchBean>();
+    ImageModel imageModel = new ImageModel();
+    ImageBean image;
+    List<WatchBean> list = new ArrayList<>();
     t.forEach(favouriteBean -> {
         try {
             list.add(new WatchModel().doRetrieveByKey(List.of(favouriteBean.getWatch())));
@@ -44,7 +46,16 @@
 
             <% for (WatchBean element : list) { %>
             <div class="details-favorite">
-                <img src=""   alt="watch">
+                <%
+                    try {
+                        image = imageModel.doRetrieveByCond("WHERE watch = ? ORDER BY id ASC", List.of(element.getId())).iterator().next();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                %>
+                <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=element.getId()%>">
+                    <img src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=element.getId()%>" alt="watch" class="Image not available">
+                </a>
                     <div>
                         <%= element.getName() %>
                         <%= element.getBrand() %>
