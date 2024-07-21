@@ -38,7 +38,7 @@
     %>
 
     <nav>
-        <a href="${pageContext.request.contextPath}/index.jsp" id="logo">
+        <a href="${pageContext.request.contextPath}/homepage.jsp" id="logo">
             <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
         </a>
         <div class="navbar-items-container">
