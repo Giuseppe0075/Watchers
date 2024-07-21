@@ -71,6 +71,12 @@ th {
     flex: 1 1 45%;
     box-sizing: border-box;
 }
+select{
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 10px;
+}
 
 /* Ensure form and image manager stack vertically on small screens */
 @media (max-width: 768px) {
