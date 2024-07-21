@@ -62,7 +62,7 @@
 }
 
 input[name="action"] {
-    background-color: #ff4d4d;
+    background-color: #a52727;
     color: white;
     border: none;
     border-radius: 5px;
@@ -71,7 +71,7 @@ input[name="action"] {
 }
 
 input[name="action"]:hover {
-    background-color: #ff3333;
+    background-color: #881717;
 }
 
 @media (min-width: 769px) {

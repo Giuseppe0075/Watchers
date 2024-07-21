@@ -13,12 +13,6 @@
 <head>
     <title>User Manager</title>
     <link rel="stylesheet" href="../style/styleUserManager.css">
-    <style>
-
-
-
-
-    </style>
     <%
         UserModel um = new UserModel();
         List<UserBean> users;
@@ -31,35 +25,42 @@
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
-<div class="user-container">
-    <h2 style="text-align: center">User Manager</h2>
-    <div style="overflow-x: scroll">
-    <div class="table-container">
-        <table >
-            <thead>
-            <tr>
-                <th>Email</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>CAP</th>
-                <th>Admin</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for(UserBean userr : users) { %>
-            <tr>
-                <td><a href="${pageContext.request.contextPath}/admin/userProfile.jsp?id=<%=userr.getId()%>"><%= userr.getEmail()%></a></td>
-                <td><%= userr.getName()%></td>
-                <td><%= userr.getSurname()%></td>
-                <td><%= userr.getCAP()%></td>
-                <td><%= userr.getAdmin()%></td>
-            </tr>
-            <% } %>
-            </tbody>
-        </table>
+
+<div class="flex-container">
+    <div class="flex-content">
+        <!-- Contenuto della pagina -->
+        <div class="user-container">
+            <h2 style="text-align: center">User Manager</h2>
+            <div style="overflow-x: scroll">
+                <div class="table-container">
+                    <table >
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>CAP</th>
+                            <th>Admin</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for(UserBean userr : users) { %>
+                        <tr>
+                            <td><a href="${pageContext.request.contextPath}/admin/userProfile.jsp?id=<%=userr.getId()%>"><%= userr.getEmail()%></a></td>
+                            <td><%= userr.getName()%></td>
+                            <td><%= userr.getSurname()%></td>
+                            <td><%= userr.getCAP()%></td>
+                            <td><%= userr.getAdmin()%></td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-</div>
+
+
 <%@include file="../footer.html"%>
 </body>
 </html>

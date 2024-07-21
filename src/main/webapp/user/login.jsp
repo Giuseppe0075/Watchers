@@ -29,51 +29,59 @@
 
 <%@include file="../navbar.jsp"%>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        if("<%= request.getParameter("success")%>" === "true"){
-            toastr["success"]("You have successfully signed up");
-        }
-    });
-</script>
-<video autoplay muted loop id="myVideo">
-    <source src="../homepage/home.webm" type="video/mp4">
-</video>
-<div class="form-container">
-    <div class="form-column side">
-        <h2 class="form-title">Watchers</h2>
-    </div>
-    <div class="form-column">
-        <h2 class="form-title">Login</h2>
-        <p>Don't have an account? <a class="text-blue-700" href="${pageContext.request.contextPath}/user/signup.jsp">Sign-up here </a></p>
-        <form id="loginForm" method="POST" action="${pageContext.request.contextPath}/login">
-            <%-- Email --%>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <div class="input-container">
-                    <input type="email" id="email" name="email" required pattern="^\w((\.)?\w+)*@\w+\.{1}[a-z]+(\.{1}\w+)*$"/>
-                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
-                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
-                </div>
-                <div class="error"></div>
+<div class="flex-container">
+    <div class="flex-content">
+        <!-- Contenuto della pagina -->
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                if("<%= request.getParameter("success")%>" === "true"){
+                    toastr["success"]("You have successfully signed up");
+                }
+            });
+        </script>
+        <video autoplay muted loop id="myVideo">
+            <source src="../homepage/home.webm" type="video/mp4">
+        </video>
+        <div class="form-container">
+            <div class="form-column side">
+                <h2 class="form-title">Watchers</h2>
             </div>
-            <%-- Password --%>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="input-container">
-                    <input type="password" id="password" name="password" required />
-                    <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
-                    <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
-                </div>
-                <div class="error"></div>
+            <div class="form-column">
+                <h2 class="form-title">Login</h2>
+                <p>Don't have an account? <a class="text-blue-700" href="${pageContext.request.contextPath}/user/signup.jsp">Sign-up here </a></p>
+                <form id="loginForm" method="POST" action="${pageContext.request.contextPath}/login">
+                    <%-- Email --%>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-container">
+                            <input type="email" id="email" name="email" required pattern="^\w((\.)?\w+)*@\w+\.{1}[a-z]+(\.{1}\w+)*$"/>
+                            <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                            <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                        </div>
+                        <div class="error"></div>
+                    </div>
+                    <%-- Password --%>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-container">
+                            <input type="password" id="password" name="password" required />
+                            <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                            <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
+                        </div>
+                        <div class="error"></div>
+                    </div>
+                    <% if (request.getAttribute("loginError") != null) { %>
+                    <div class="error-message">Email/Password are wrong</div>
+                    <% } %>
+                    <button type="submit" class="btn-submit">Login</button>
+                </form>
             </div>
-            <% if (request.getAttribute("loginError") != null) { %>
-            <div class="error-message">Email/Password are wrong</div>
-            <% } %>
-            <button type="submit" class="btn-submit">Login</button>
-        </form>
+        </div>
+
     </div>
-</div>
+
 <script src="../utils/formValidator.js"></script>
 <%@include file="../footer.html"%> <!-- Footer -->
 </body>

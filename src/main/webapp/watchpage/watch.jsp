@@ -139,50 +139,58 @@
 %>
 <%@include file="../navbar.jsp"%>
 <br>
-<div class="container">
-    <div class="slider">
-        <div class="slides">
-            <%
-                //Loop through the images and add them to the slider
-                for (ImageBean image : images) {
-            %>
-            <div class="slide">
-                <img src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Image not available">
-            </div>
-            <%
-                }
-            %>
-        </div>
-        <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
 
-    <!-- Watch info bar -->
-    <aside class="watch-infobar">
-        <h2><%=watch.getName()%></h2>
-        <h3><%=watch.getBrand()%></h3>
-        <br>
-        <p><%=watch.getDescription()%></p>
-        <br>
-        <p id="average-stars"> Average stars: <%=watch.getReviews_avg() != 0 ? watch.getReviews_avg() : "None"%>&bigstar;</p>
-        <p>price: <%=watch.getPrice()%>€</p>
-        <!-- If the watch is available, show the add to cart button -->
-        <% if (watch.getStock() > 0) {
-            //If the stock is greater than 10, show the available message
-            if(watch.getStock() > 10) { %>
+<div class="flex-container">
+    <div class="flex-content">
+        <!-- Contenuto della pagina -->
+
+        <div class="container">
+            <div class="slider">
+                <div class="slides">
+                    <%
+                        //Loop through the images and add them to the slider
+                        for (ImageBean image : images) {
+                    %>
+                    <div class="slide">
+                        <img src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Image not available">
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+                <!-- Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+
+            <!-- Watch info bar -->
+            <aside class="watch-infobar">
+                <h2><%=watch.getName()%></h2>
+                <h3><%=watch.getBrand()%></h3>
+                <br>
+                <p><%=watch.getDescription()%></p>
+                <br>
+                <p id="average-stars"> Average stars: <%=watch.getReviews_avg() != 0 ? watch.getReviews_avg() : "None"%>&bigstar;</p>
+                <p>price: <%=watch.getPrice()%>€</p>
+                <!-- If the watch is available, show the add to cart button -->
+                <% if (watch.getStock() > 0) {
+                    //If the stock is greater than 10, show the available message
+                    if(watch.getStock() > 10) { %>
                 <p style="color: #4CAF50">Available</p>
-            <% } else { %>
+                <% } else { %>
                 <!-- Else show the stock left -->
                 <p style="color: #ff3333"> <%="Only " + watch.getStock() + " left"%></p>
-            <% } %>
-            <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>" class="btn">Add to cart</a></p>
-        <% } else { %>
-            <!-- If the watch is out of stock, show the out of stocks message -->
-            <p class="btn">Out of stocks</p>
-        <% } %>
-    </aside>
-</div>
+                <% } %>
+                <p><a href="${pageContext.request.contextPath}/cart-servlet?action=add&watch=<%=watch.getId()%>" class="btn">Add to cart</a></p>
+                <% } else { %>
+                <!-- If the watch is out of stock, show the out of stocks message -->
+                <p class="btn">Out of stocks</p>
+                <% } %>
+            </aside>
+        </div>
+
+    </div>
+
 
 <!-- Reviews -->
 <%@include file="../WEB-INF/NotVisible/review.jsp"%>

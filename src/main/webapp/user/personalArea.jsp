@@ -23,118 +23,126 @@
     <!-- Navbar -->
     <%@include file="../navbar.jsp"%>
 
-    <%
-        UserBean user;
-        try {
-            Long userId = Long.parseUnsignedLong(String.valueOf(session.getAttribute("user")));
-            UserModel userModel = new UserModel();
-            user = userModel.doRetrieveByKey(List.of(userId));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    <div class="flex-container">
+        <div class="flex-content">
+            <!-- Contenuto della pagina -->
 
-    %>
+            <%
+                UserBean user;
+                try {
+                    Long userId = Long.parseUnsignedLong(String.valueOf(session.getAttribute("user")));
+                    UserModel userModel = new UserModel();
+                    user = userModel.doRetrieveByKey(List.of(userId));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
 
-    <div class="userContainer">
-        <h1 style="text-align: center">User Details</h1>
-        <div class="mainDetails">
-            <div class="header"> <%=user.getName()%> <%=user.getSurname()%></div>
-        </div>
-        <div class="details">
-            <div class="detail"> <%=user.getEmail()%> </div>
-            <div class="detail"> <%=user.getBirthday()%> </div>
-            <div class="detail"> <%=user.getRoad()%>, <%=user.getCivic_number()%>, <%=user.getCAP()%> </div>
-            <div class="detail"> <%=user.getCity()%> </div>
-        </div>
+            %>
 
-
-        <button onclick="makeEditable()">Modifica</button>
-
-    </div>
-
+            <div class="userContainer">
+                <h1 style="text-align: center">User Details</h1>
+                <div class="mainDetails">
+                    <div class="header"> <%=user.getName()%> <%=user.getSurname()%></div>
+                </div>
+                <div class="details">
+                    <div class="detail"> <%=user.getEmail()%> </div>
+                    <div class="detail"> <%=user.getBirthday()%> </div>
+                    <div class="detail"> <%=user.getRoad()%>, <%=user.getCivic_number()%>, <%=user.getCAP()%> </div>
+                    <div class="detail"> <%=user.getCity()%> </div>
+                </div>
 
 
-    <%
-        Long userId = Long.parseUnsignedLong(String.valueOf(session.getAttribute("user")));
-        PurchaseModel purchaseModel = new PurchaseModel();
-        WatchModel watchModel = new WatchModel();
-        Collection<PurchaseBean> purchaseBeans;
-        UserModel userModel = new UserModel();
-        UserBean userBean;
+                <button onclick="makeEditable()">Modifica</button>
 
-        try {
-            purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? ORDER BY id DESC", List.of(userId));
-            userBean = userModel.doRetrieveByKey(List.of(userId));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        long hid = 0;
-        if(!purchaseBeans.isEmpty()) {
-            hid = purchaseBeans.iterator().next().getId();
-        }
+            </div>
 
-        //Division of the purchases by order
-        HashMap<Long, List<PurchaseBean>> orderMap = new HashMap<>();
-        for(PurchaseBean purchaseBean : purchaseBeans) {
-            if(orderMap.containsKey(purchaseBean.getId())) {
-                orderMap.get(purchaseBean.getId()).add(purchaseBean);
-            } else {
-                List<PurchaseBean> list = new ArrayList<>();
-                list.add(purchaseBean);
-                orderMap.put(purchaseBean.getId(), list);
-            }
-        }
-    %>
 
-    <div id="container">
-        <h1>Order History</h1>
-        <% for(long i = hid; i >= 1; i--) {
-            if(!orderMap.containsKey(i)) {
-                continue;
-            }
-            List<PurchaseBean> purchaseBeansList = orderMap.get(i);
-        %>
-        <div class="order" style="overflow-x: scroll">
-            <h2>Order <%= i %></h2>
-            <div style="overflow-x: scroll">
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>IVA</th>
-                    <th>Total</th>
-                </tr>
-                <% for(PurchaseBean purchaseBean : purchaseBeansList) {
-                    WatchBean watchBean;
-                    try {
-                        watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+
+            <%
+                Long userId = Long.parseUnsignedLong(String.valueOf(session.getAttribute("user")));
+                PurchaseModel purchaseModel = new PurchaseModel();
+                WatchModel watchModel = new WatchModel();
+                Collection<PurchaseBean> purchaseBeans;
+                UserModel userModel = new UserModel();
+                UserBean userBean;
+
+                try {
+                    purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? ORDER BY id DESC", List.of(userId));
+                    userBean = userModel.doRetrieveByKey(List.of(userId));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                long hid = 0;
+                if(!purchaseBeans.isEmpty()) {
+                    hid = purchaseBeans.iterator().next().getId();
+                }
+
+                //Division of the purchases by order
+                HashMap<Long, List<PurchaseBean>> orderMap = new HashMap<>();
+                for(PurchaseBean purchaseBean : purchaseBeans) {
+                    if(orderMap.containsKey(purchaseBean.getId())) {
+                        orderMap.get(purchaseBean.getId()).add(purchaseBean);
+                    } else {
+                        List<PurchaseBean> list = new ArrayList<>();
+                        list.add(purchaseBean);
+                        orderMap.put(purchaseBean.getId(), list);
                     }
+                }
+            %>
+
+            <div id="container">
+                <h1>Order History</h1>
+                <% for(long i = hid; i >= 1; i--) {
+                    if(!orderMap.containsKey(i)) {
+                        continue;
+                    }
+                    List<PurchaseBean> purchaseBeansList = orderMap.get(i);
                 %>
+                <div class="order" style="overflow-x: scroll">
+                    <h2>Order <%= i %></h2>
+                    <div style="overflow-x: scroll">
+                        <table>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>IVA</th>
+                                <th>Total</th>
+                            </tr>
+                            <% for(PurchaseBean purchaseBean : purchaseBeansList) {
+                                WatchBean watchBean;
+                                try {
+                                    watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            %>
 
-                <tr>
-                    <td><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watchBean.getId()%>"><%= watchBean.getName() %></a></td>
-                    <td><%= purchaseBean.getQuantity() %></td>
-                    <td><%= purchaseBean.getPrice() %>€</td>
-                    <td><%= purchaseBean.getIVA() %>%</td>
-                    <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
-                </tr>
+                            <tr>
+                                <td><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watchBean.getId()%>"><%= watchBean.getName() %></a></td>
+                                <td><%= purchaseBean.getQuantity() %></td>
+                                <td><%= purchaseBean.getPrice() %>€</td>
+                                <td><%= purchaseBean.getIVA() %>%</td>
+                                <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
+                            </tr>
 
-                <div id="hidden-data-for-<%=i%>" hidden>
-                    <div class="date"><%=purchaseBean.getDate()%></div>
-                    <div class="user-name"><%=userBean.getName()%></div>
-                    <div class="user-surname"><%=userBean.getSurname()%></div>
-                    <div class="user-address"><%=userBean.getRoad()%>,<%=userBean.getCivic_number()%></div>
+                            <div id="hidden-data-for-<%=i%>" hidden>
+                                <div class="date"><%=purchaseBean.getDate()%></div>
+                                <div class="user-name"><%=userBean.getName()%></div>
+                                <div class="user-surname"><%=userBean.getSurname()%></div>
+                                <div class="user-address"><%=userBean.getRoad()%>,<%=userBean.getCivic_number()%></div>
+                            </div>
+                            <% } %>
+                        </table>
+                    </div>
+                    <button onclick="createInvoice(this)">Download Invoice</button>
                 </div>
                 <% } %>
-            </table>
             </div>
-            <button onclick="createInvoice(this)">Download Invoice</button>
+
         </div>
-        <% } %>
-    </div>
+
+
 
     <script src="orderHistory.js"></script>
     <!-- Footer -->
