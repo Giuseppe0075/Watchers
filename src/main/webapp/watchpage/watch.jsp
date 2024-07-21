@@ -18,6 +18,11 @@
             font-size: xxx-large;
         }
 
+        h3{
+            color: #03424e;
+            font-size: x-large;
+        }
+
         body{
             background-color: #f6f5f3;
         }
@@ -142,7 +147,7 @@
                 for (ImageBean image : images) {
             %>
             <div class="slide">
-                <img src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
+                <img src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Image not available">
             </div>
             <%
                 }
@@ -156,10 +161,11 @@
     <!-- Watch info bar -->
     <aside class="watch-infobar">
         <h2><%=watch.getName()%></h2>
+        <h3><%=watch.getBrand()%></h3>
         <br>
         <p><%=watch.getDescription()%></p>
         <br>
-        <p id="average-stars"> Average stars: <%=watch.getReviews_avg()%>&bigstar;</p>
+        <p id="average-stars"> Average stars: <%=watch.getReviews_avg() != 0 ? watch.getReviews_avg() : "None"%>&bigstar;</p>
         <p>price: <%=watch.getPrice()%>€</p>
         <!-- If the watch is available, show the add to cart button -->
         <% if (watch.getStock() > 0) {

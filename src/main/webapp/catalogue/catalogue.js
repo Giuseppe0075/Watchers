@@ -34,7 +34,7 @@ window.onresize = function() {
     if (!filtersBar.classList.contains('hidden')) {
         filtersBar.classList.add('hidden');
         filtersBar.classList.remove('visible');
-        filtersBar.style.maxHeight = 0; // Riduce l'altezza massima a 0
+        filtersBar.style.maxHeight = "0"; // Riduce l'altezza massima a 0
     }
 };
 //For the first load of the catalogue

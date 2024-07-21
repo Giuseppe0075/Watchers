@@ -1,6 +1,5 @@
 package Control;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import org.tinylog.Logger;
 import Model.Beans.BrandBean;
 import Model.Beans.WatchBean;
 import Model.Models.BrandModel;
-import Model.Models.ImageModel;
 import Model.Models.WatchModel;
 
 import java.io.IOException;
@@ -21,10 +19,9 @@ import java.util.List;
 public class AddWatchAdminServlet extends HttpServlet {
     private final WatchModel watchModel = new WatchModel();
     private final BrandModel brandModel = new BrandModel();
-    private final ImageModel imageModel = new ImageModel();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         try {
             String name = request.getParameter("name");
             String brand = request.getParameter("brand");
@@ -38,7 +35,7 @@ public class AddWatchAdminServlet extends HttpServlet {
                 }
             }
             String description = request.getParameter("description");
-            Double reviews_avg = Double.parseDouble(request.getParameter("reviews_avg"));
+            Double reviews_avg = 0.0;
             Double price = Double.parseDouble(request.getParameter("price"));
             String material = request.getParameter("material");
             Integer stock = Integer.parseInt(request.getParameter("stock"));
