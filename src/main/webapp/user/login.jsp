@@ -28,6 +28,14 @@
 %>
 
 <%@include file="../navbar.jsp"%>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if("<%= request.getParameter("success")%>" === "true"){
+            toastr["success"]("You have successfully signed up");
+        }
+    });
+</script>
 <video autoplay muted loop id="myVideo">
     <source src="../homepage/home.webm" type="video/mp4">
 </video>
