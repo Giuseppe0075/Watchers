@@ -64,8 +64,10 @@
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        long hid = purchaseBeans.iterator().next().getId();
+        long hid = 0;
+        if(!purchaseBeans.isEmpty()) {
+            hid = purchaseBeans.iterator().next().getId();
+        }
 
         //Division of the purchases by order
         HashMap<Long, List<PurchaseBean>> orderMap = new HashMap<>();
