@@ -17,7 +17,7 @@
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="../style/styleCart.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleCart.css">
   </head>
   <body>
   <%@include file="../navbar.jsp"%>

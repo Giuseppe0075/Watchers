@@ -17,7 +17,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Area</title>
-    <link rel="stylesheet" type="text/css" href="../style/stylePersonalArea.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/stylePersonalArea.css">
 </head>
 <body>
     <!-- Navbar -->

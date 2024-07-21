@@ -17,7 +17,7 @@
 <html>
 <head>
     <title>Orders</title>
-    <link rel="stylesheet" href="../style/styleOrderList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleOrderList.css">
 </head>
 <body>
 <%@include file="../navbar.jsp"%>

@@ -10,7 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watchers</title>
-    <link rel="stylesheet" href="../style/styleHomepage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleHomepage.css">
     <style>
 
         h2{

@@ -22,7 +22,7 @@
             }
         });
     </script>
-    <link rel="stylesheet" href="../../style/styleCheckout.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleCheckout.css">
 </head>
 <body>
     <%@include file="../../navbar.jsp"%> <!-- Navabar -->

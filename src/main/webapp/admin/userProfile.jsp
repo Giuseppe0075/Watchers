@@ -27,7 +27,7 @@
             throw new RuntimeException("UserID not found");
         }
     %>
-    <link rel="stylesheet" type="text/css" href="../style/styleUserProfile.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/styleUserProfile.css">
 </head>
 <body>
 <%@include file="../navbar.jsp"%>
@@ -36,7 +36,7 @@
     <div class="flex-content">
         <!-- Contenuto della pagina -->
 
-        <script src="../utils/formValidator.js"></script>
+        <script src="${pageContext.request.contextPath}/utils/formValidator.js"></script>
 
 
         <div class="user-container">

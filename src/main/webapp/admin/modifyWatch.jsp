@@ -13,8 +13,8 @@
 <html>
 <head>
     <title>Modify Watch</title>
-    <link rel="stylesheet" href="../style/styleModifyWatch.css">
-    <link rel="stylesheet" href="../style/styleImageManager.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleModifyWatch.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleImageManager.css">
 
     <style>
         /* Container for form and image manager */
@@ -226,6 +226,6 @@
 
 
 <%@include file="../footer.html"%> <!-- Footer -->
-<script src="../utils/formValidator.js"></script>
+<script src="${pageContext.request.contextPath}/utils/formValidator.js"></script>
 </body>
 </html>

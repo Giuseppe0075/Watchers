@@ -12,7 +12,7 @@
 <head>
     <title>Product Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/styleProductList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleProductList.css">
 </head>
 <body>
 <%

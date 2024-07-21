@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>User Manager</title>
-    <link rel="stylesheet" href="../style/styleUserManager.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleUserManager.css">
     <%
         UserModel um = new UserModel();
         List<UserBean> users;

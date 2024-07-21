@@ -13,7 +13,7 @@
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous"
           referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../style/styleLoginSignup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/styleLoginSignup.css">
 
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@
             });
         </script>
         <video autoplay muted loop id="myVideo">
-            <source src="../homepage/home.webm" type="video/mp4">
+            <source src="${pageContext.request.contextPath}/homepage/home.webm" type="video/mp4">
         </video>
         <div class="form-container">
             <div class="form-column side">
@@ -82,7 +82,7 @@
 
     </div>
 
-<script src="../utils/formValidator.js"></script>
+<script src="${pageContext.request.contextPath}/utils/formValidator.js"></script>
 <%@include file="../footer.html"%> <!-- Footer -->
 </body>
 </html>
