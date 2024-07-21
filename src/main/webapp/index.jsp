@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.9/glider.css" integrity="sha512-nfkkRjU7urjt0UPiMZpiFlK1SAy657MtPOG1DdM9kvBbwdspZ4dH+Gsu43U3Kry8UsF8eyjqjBppcw2wx7TU3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const message = <%=request.getParameter("message")%>;
+            const message = "<%=request.getParameter("message")%>";
             if("<%= request.getParameter("error")%>" === "1"){
                 toastr["error"](message!==""?message:"An error occurred");
             }
@@ -92,21 +92,24 @@
     </video>
 </div>
 <div class="glider-contain">
+    <%
+        WatchModel watchModel = new WatchModel();
+        ImageModel imageModel = new ImageModel();
+        List<WatchBean> watches;
+    %>
     <button class="glider-prev">&#10094;</button>
     <div class="glider">
         <%
-            WatchModel watchModel = new WatchModel();
-            ImageModel imageModel = new ImageModel();
-            List<WatchBean> watches;
             try {
-                watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE visible=?", List.of(true));
+                watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE visible=? AND sex=? LIMIT ?", List.of(true,"MAN",6));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+
             for(var watch : watches) {
                 List<ImageBean> images;
                 try {
-                    images = (List<ImageBean>) imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
+                    images = (List<ImageBean>) imageModel.doRetrieveByCond("WHERE watch=?", List.of(watch.getId()));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

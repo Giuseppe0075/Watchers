@@ -15,19 +15,20 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>Shopping Cart</title>
     <link rel="stylesheet" href="../style/styleCart.css">
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const message = <%=request.getParameter("message")%>;
-        if("<%= request.getParameter("error")%>" === "1"){
-          toastr["error"](message!==""?message:"An error occurred");
-        }
-      });
-    </script>
   </head>
   <body>
   <%@include file="../navbar.jsp"%>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const message = "<%=request.getParameter("message")%>";
+      if("<%= request.getParameter("error")%>" === "1"){
+        toastr["error"](message!==""?message:"An error occurred");
+      }
+    });
+  </script>
   <%
     List<CartElementBean> cart = new ShoppingCart(session).getCart();
     Long userId = session.getAttribute("user") != null ? Long.parseUnsignedLong(String.valueOf(session.getAttribute("user"))) : 0;
