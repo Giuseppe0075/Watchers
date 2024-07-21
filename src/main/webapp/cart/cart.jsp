@@ -74,7 +74,7 @@
           </label>
 
 
-          <img class="photo" src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
+          <img class="photo" src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watch.getId()%>" alt="Image not available">
 
           <div>
             <div><strong><%=watch.getName()%></strong></div>
