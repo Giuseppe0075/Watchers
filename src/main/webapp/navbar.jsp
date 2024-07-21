@@ -169,7 +169,7 @@
                 let div = document.createElement('div');
                 div.classList.add('search-result');
                 // Aggiornato per visualizzare il nome dell'orologio
-                div.textContent = result.name; // Usa la proprietà 'name' dell'oggetto risultato
+                div.textContent = result.brand + "-" +result.name; // Usa la proprietà 'name' dell'oggetto risultato
                 div.addEventListener('click', function() {
                     window.location.href = '<%= request.getContextPath() %>/watchpage/watch.jsp?id=' + result.id;
                 });

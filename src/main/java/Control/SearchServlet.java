@@ -45,6 +45,7 @@ public class SearchServlet  extends HttpServlet {
                 Map<String, Object> watchRes = new HashMap<>();
                 watchRes.put("id", watch.getId());
                 watchRes.put("name", watch.getName());
+                watchRes.put("brand", watch.getBrand());
 
                 watchesResult.add(watchRes);
             }
@@ -62,7 +63,6 @@ public class SearchServlet  extends HttpServlet {
             out.flush();
         }
         catch(Exception e){
-            e.printStackTrace();
             throw new ServletException("Error during search", e);
         }
     }
