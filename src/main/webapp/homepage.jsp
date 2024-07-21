@@ -17,12 +17,74 @@
             }
         });
     </script>
-    <link rel="stylesheet" type="text/css" href="/style/styleHomepage.css">
 </head>
 <body>
 <!-- Navbar -->
 <%@include file="navbar.jsp"%>
 <style>
+
+    body{
+        background-color: #f6f5f3;
+    }
+
+    a{
+        text-decoration: none;
+    }
+    #mainVideo {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 70vh;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    #frontPage {
+        position: relative;
+        height: auto;
+    }
+
+    .glider-contain {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .glider-prev, .glider-next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: #498e99;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+
+        user-select: none;
+    }
+
+    .glider-prev {
+        border-radius: 3px 0 0 3px;
+    }
+
+    .glider-next{
+        right: 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .glider-prev:hover, .glider-next:hover {
+        background-color: #35757d;
+        color: white;
+    }
+
+    .slider img {
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+    }
+
 
 
 </style>

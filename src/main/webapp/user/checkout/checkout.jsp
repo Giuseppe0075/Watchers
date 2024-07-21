@@ -22,6 +22,7 @@
             }
         });
     </script>
+    <link rel="stylesheet" href="../../style/styleCheckout.css">
 </head>
 <body>
     <%@include file="../../navbar.jsp"%> <!-- Navabar -->
@@ -38,7 +39,7 @@
         WatchModel watchModel = new WatchModel();
         ImageModel imageModel = new ImageModel();
     %>
-    <div class="container">
+    <div class="container-cart">
         <h2> Checkout </h2><br>
         <form action="${pageContext.request.contextPath}/checkout" method="post">
             <button type="submit">Order</button>
@@ -55,6 +56,7 @@
                         }
                         Double price = watchBean.getPrice();
                         String name = watchBean.getName();
+                        String brand = watchBean.getBrand();
                         Collection<ImageBean> images = imageModel.doRetrieveByCond("WHERE watch=?",List.of(watchId));
                         // Get the first image
                         ImageBean image = images.stream().findFirst().orElse(null);
@@ -79,7 +81,10 @@
                             <div class="details">
                                 <img class="photo" src="${pageContext.request.contextPath}/getImage?id=<%=image.getId()%>&watch=<%=watchId%>" alt="Immagine al momento non disponibile">
 
-                                <div> <%=name%> </div>
+                                <div>
+                                    <div><strong><%=watchBean.getName()%></strong></div>
+                                    <div><%=watchBean.getBrand()%></div>
+                                </div>
                             </div>
                             <div>
                                 <label>
@@ -88,7 +93,7 @@
                                 <div class="quantity"> <%=quantity%> </div>
                                 <div class="price" data-single-price="<%=price%>"> <%=price * quantity%> € </div>
                             </div>
-                            <button type="button" onclick="removeItem(<%=watchId%>)">Remove</button>
+                            <button type="button" name ="remove" onclick="removeItem(<%=watchId%>)">Remove</button>
                         </div><br>
             <%
                     } catch (Exception e) {

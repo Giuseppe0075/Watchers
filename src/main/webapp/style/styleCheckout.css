@@ -1,0 +1,162 @@
+.container-cart {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.element {
+    gap: 1px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f6f5f3;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.details {
+    display: flex;
+}
+
+.details img {
+    width: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.details div {
+    margin-right: 10px;
+}
+
+.quantity {
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    text-align: center;
+    padding: 8px 12px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.quantity:focus {
+    border-color: #4CAF50;
+    box-shadow: 0px 0px 8px rgba(76, 175, 80, 0.5);
+}
+
+.quantity:hover {
+    background-color: #e9e9e9;
+}
+
+.quantity, button[name="remove"] {
+    min-width: 100px;
+}
+
+button[name="remove"] {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button[name="remove"]:hover {
+    background-color: #ff3333;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.priceForOne{
+    display: none;
+}
+label{
+    display: none;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+@media (min-width: 769px) {
+    .container-cart {
+        margin: 20px auto; /* Centra il contenitore e aggiunge margini per respirare */
+        padding: 30px; /* Più spazio interno */
+        max-width: 1200px; /* Allarga il contenitore per sfruttare più spazio */
+    }
+
+    .element {
+        padding: 20px; /* Aumenta il padding per ogni elemento */
+        margin-bottom: 30px; /* Più spazio tra gli elementi */
+        width: 100%;
+    }
+
+    .details img {
+        width: 150px; /* Aumenta la dimensione dell'immagine */
+        margin-right: 30px; /* Più spazio tra l'immagine e il testo */
+    }
+
+    .details div, .quantity, button[name="remove"], button[type="submit"] {
+        font-size: 18px; /* Aumenta la dimensione del testo per migliorare la leggibilità */
+    }
+
+    .details {
+        width: 300px; /* Imposta una larghezza fissa */
+        height: auto; /* Imposta un'altezza fissa */
+    }
+}
+
+@media (max-width: 768px) {
+
+    .details, .quantity, button[name="remove"] {
+        width: auto; /* Permette ai componenti di adattarsi ma mantiene le dimensioni fisse dove specificato */
+    }
+
+    .container-cart {
+        margin: 5px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+
+    .element {
+        flex-direction: column; /* Mantenuto in column per coerenza con il breakpoint precedente */
+        align-items: center;
+        margin-bottom: 40px;
+        gap: 10px;
+    }
+
+    .details{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+    .details img {
+        width: 100%; /* Mantenuto al 100% per massimizzare la visibilità dell'immagine */
+        height: auto;
+    }
+
+    #checkout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details div, .quantity, button[name="remove"], button[type="submit"] {
+        font-size: 18px; /* Aumenta la dimensione del testo per migliorare la leggibilità */
+    }
+}
