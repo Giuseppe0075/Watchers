@@ -41,9 +41,9 @@
 
 <%@include file="../navbar.jsp"%> <!-- Navabar -->
 
-<h2 style="text-align: center">Preferiti</h2>
-<div class="favourites-container">
 
+<div class="favourites-container">
+    <h1>Preferiti</h1>
             <% for (WatchBean element : list) { %>
             <div class="details-favorite">
                 <%
