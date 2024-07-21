@@ -23,16 +23,25 @@
 <%@include file="../navbar.jsp"%>
 
     <%
+        UserModel userModel = new UserModel();
         PurchaseModel purchaseModel = new PurchaseModel();
         WatchModel watchModel = new WatchModel();
         java.util.Collection<PurchaseBean> purchaseBeans;
+        List<UserBean> userBeans= new ArrayList<>();
         String minDateString = request.getParameter("minDate");
         String maxDateString = request.getParameter("maxDate");
         Date minDate = minDateString != null && !minDateString.isEmpty() ? Date.valueOf(minDateString) : Date.valueOf("1970-01-01");
         Date maxDate = maxDateString != null && !maxDateString.isEmpty() ? Date.valueOf(maxDateString) : Date.valueOf("2100-01-01");
+        Long userId = request.getParameter("user") != null ? Long.parseLong(request.getParameter("user")) : 0L;
+
+
 
         try {
-            purchaseBeans = purchaseModel.doRetrieveByCond("WHERE date >= ? AND date <= ? ORDER BY date DESC", List.of(minDate, maxDate));
+            userBeans = (List<UserBean>) userModel.doRetrieveAll();
+            if(userId != 0L)
+                purchaseBeans = purchaseModel.doRetrieveByCond("WHERE user = ? AND date >= ? AND date <= ? ORDER BY date DESC", List.of(userId, minDate, maxDate));
+            else
+                purchaseBeans = purchaseModel.doRetrieveByCond("WHERE date >= ? AND date <= ? ORDER BY date DESC", List.of(minDate, maxDate));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -62,6 +71,13 @@
             <input type="date" id="minDate" name="minDate" value="<%=minDateString != null ? minDateString : ""%>">
             <label for="maxDate">To: </label>
             <input type="date" id="maxDate" name="maxDate" value="<%=maxDateString != null ? maxDateString : ""%>">
+            <label for="user">User</label>
+            <select id="user" name="user">
+                <option selected>All</option>
+                <% for(var user : userBeans){ %>
+                    <option value="<%=user.getId()%>"><%=user.getEmail()%></option>
+                <% } %>
+            </select>
 
             <input type="submit" value="Filter">
         </form>

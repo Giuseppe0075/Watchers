@@ -1,3 +1,4 @@
+
 body{
     background-color: #f6f5f3;
 }
@@ -13,6 +14,21 @@ a{
     height: 70vh;
     object-fit: cover;
     z-index: -1;
+}
+
+.video-text-overlay {
+    width: 40%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    max-width: 40%;
+    z-index: 2;
+    border-radius: 5px;
 }
 
 #frontPage {
@@ -60,4 +76,189 @@ a{
     object-fit: contain;
 }
 
+.aboutus-container{
+    opacity: 1;
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
 
+.about-us {
+    background: #fff;
+    padding: 50px 0;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.about-us h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.about-us h3 {
+    animation: slideInRight 2s ease-out forwards;
+    animation-delay: 0.5s;
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #555;
+}
+
+.about-us p {
+    animation: slideInLeft 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+
+.about-us h2:hover {
+    color: #35757d;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Stili per la sezione Testimonianze */
+.testimonials-section {
+    background-color: #e9e9e9;
+    padding: 40px;
+    text-align: center;
+}
+
+.testimonials-inner {
+    display: inline-block;
+    border-top: 2px solid #03424e;
+    border-bottom: 2px solid #03424e;
+    padding: 20px;
+    margin: auto;
+}
+
+.testimonial {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: scale(1);
+    opacity: 1;
+    background-color: #f6f5f3;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.testimonial:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* Effetti hover per tutti i bottoni */
+button:hover, .glider-prev:hover, .glider-next:hover {
+    background-color: #35757d;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Stili per le card dei prodotti (esempio) */
+.product-card {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card .description {
+    padding: 15px;
+}
+
+.product-card button {
+    margin-bottom: 15px;
+}
+
+/* Keyframes per fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px)}
+    to { opacity: 1; transform: translateY(0) }
+}
+
+.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Keyframes per slide-in da sinistra */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes per slide-in da destra */
+@keyframes slideInRight {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes per l'animazione di fade-in con movimento */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media query per schermi fino a 600px */
+@media (max-width: 600px) {
+    .video-text-overlay {
+        font-size: 14px; /* Riduci la dimensione del testo */
+        padding: 5px; /* Riduci il padding */
+        left: 5%; /* Riduci la distanza dal margine */
+        max-width: 80%; /* Aumenta la larghezza massima per occupare più spazio */
+    }
+}
+
+/* Media query per schermi medi (da 601px a 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+    .video-text-overlay {
+        font-size: 16px;
+        padding: 10px;
+        left: 8%;
+        max-width: 60%;
+    }
+}

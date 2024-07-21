@@ -72,7 +72,7 @@ button[name="remove"]:hover {
 }
 
 button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #35757d;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -80,7 +80,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #03424e;
 }
 
 @media (min-width: 769px) {
