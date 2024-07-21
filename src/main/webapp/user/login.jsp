@@ -23,11 +23,19 @@
 <%
     //check if user is already logged in
     if (session.getAttribute("user") != null) {
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        response.sendRedirect(request.getContextPath() + "/homepage.jsp");
     }
 %>
 
 <%@include file="../navbar.jsp"%>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if("<%= request.getParameter("success")%>" === "true"){
+            toastr["success"]("You have successfully signed up");
+        }
+    });
+</script>
 <video autoplay muted loop id="myVideo">
     <source src="../homepage/home.webm" type="video/mp4">
 </video>

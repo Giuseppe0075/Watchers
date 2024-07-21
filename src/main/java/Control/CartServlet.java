@@ -32,7 +32,7 @@ public class CartServlet extends HttpServlet {
                 if(user != 0) {
                     shoppingCart.mergeCarts(user);
                 }
-                resp.sendRedirect(req.getContextPath() + "/index.jsp");
+                resp.sendRedirect(req.getContextPath() + "/homepage.jsp");
                 return;
             //Called to add one quantity of a watch in the cart
             case "add": {

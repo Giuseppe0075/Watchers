@@ -130,7 +130,7 @@
         watch = watchModel.doRetrieveByKey(List.of(id));
         // If the watch has been deleted, redirect to the index
         if(!watch.getVisible()) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/homepage.jsp");
         }
         images = imageModel.doRetrieveByCond("WHERE watch=?", List.of(id));
     } catch (Exception e) {

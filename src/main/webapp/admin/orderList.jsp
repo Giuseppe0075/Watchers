@@ -28,8 +28,8 @@
         java.util.Collection<PurchaseBean> purchaseBeans;
         String minDateString = request.getParameter("minDate");
         String maxDateString = request.getParameter("maxDate");
-        Date minDate = minDateString != null ? Date.valueOf(minDateString) : Date.valueOf("1970-01-01");
-        Date maxDate = maxDateString != null ? Date.valueOf(maxDateString) : Date.valueOf("2100-01-01");
+        Date minDate = minDateString != null && !minDateString.isEmpty() ? Date.valueOf(minDateString) : Date.valueOf("1970-01-01");
+        Date maxDate = maxDateString != null && !maxDateString.isEmpty() ? Date.valueOf(maxDateString) : Date.valueOf("2100-01-01");
 
         try {
             purchaseBeans = purchaseModel.doRetrieveByCond("WHERE date >= ? AND date <= ? ORDER BY date DESC", List.of(minDate, maxDate));

@@ -29,7 +29,7 @@ public class CheckoutServlet extends HttpServlet {
 
         if(req.getParameterValues("watchId") == null || req.getParameterValues("quantity") == null) {
             String message = "Can't checkout on an empty cart";
-            resp.sendRedirect("../index.jsp?error=1&message="+message);
+            resp.sendRedirect("../homepage.jsp?error=1&message="+message);
             return;
         }
 
@@ -90,6 +90,6 @@ public class CheckoutServlet extends HttpServlet {
             }
         }
 
-        resp.sendRedirect("../index.jsp");
+        resp.sendRedirect("../homepage.jsp");
     }
 }

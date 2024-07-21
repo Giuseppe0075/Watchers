@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
             }
             else {
                 userModel.doSave(user);
-                response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+                response.sendRedirect(request.getContextPath() + "/user/login.jsp?success=true");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

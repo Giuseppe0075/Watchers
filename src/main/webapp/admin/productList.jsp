@@ -15,25 +15,7 @@
 </head>
 <body>
 <style>
-    table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-    }
 
-
-
-    th, td {
-        padding: 8px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
 
 </style>
 <link rel="stylesheet" href="../style/styleProductList.css">
@@ -68,8 +50,8 @@
                     <td><a href="${pageContext.request.contextPath}/admin/modifyWatch.jsp?id=<%=watch.getId()%>"><%=watch.getName()%></a></td>
                     <td><%=watch.getBrand()%></td>
                     <td><%=watch.getDescription()%></td>
-                    <td><%=watch.getPrice()%></td>
-                    <td><%=watch.getIVA()%></td>
+                    <td><%=watch.getPrice()%>€</td>
+                    <td><%=watch.getIVA()%>%</td>
                     <td><%=watch.getVisible()%></td>
                     <td><button class="delete-btn" data-id="<%= watch.getId() %>">X</button></td>
                 </tr>
