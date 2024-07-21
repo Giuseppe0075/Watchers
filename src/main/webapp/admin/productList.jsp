@@ -49,33 +49,33 @@
     <%@include file="../navbar.jsp"%>
 <div class="product-container">
     <div style="overflow-x: auto;" >
-        <h2 style="text-align: center">Product Manager</h2>
+        <h2 style="text-align: center">Product Manager</h2><br><br>
 
         <a href="newWatch.jsp" class="new-watch-btn">Add a new watch</a><br><br>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>IVA</th>
-            <th>Visible</th>
-            <th>Remove</th>
-        </tr>
-        <tbody>
-        <% for (WatchBean watch : watches){ %>
+        <table>
             <tr>
-                <td><a href="${pageContext.request.contextPath}/admin/modifyWatch.jsp?id=<%=watch.getId()%>"><%=watch.getName()%></a></td>
-                <td><%=watch.getBrand()%></td>
-                <td><%=watch.getDescription()%></td>
-                <td><%=watch.getPrice()%></td>
-                <td><%=watch.getIVA()%></td>
-                <td><%=watch.getVisible()%></td>
-                <td><button class="delete-btn" data-id="<%= watch.getId() %>">X</button></td>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>IVA</th>
+                <th>Visible</th>
+                <th>Remove</th>
             </tr>
-        <% } %>
-        </tbody>
-    </table>
+            <tbody>
+            <% for (WatchBean watch : watches){ %>
+                <tr>
+                    <td><a href="${pageContext.request.contextPath}/admin/modifyWatch.jsp?id=<%=watch.getId()%>"><%=watch.getName()%></a></td>
+                    <td><%=watch.getBrand()%></td>
+                    <td><%=watch.getDescription()%></td>
+                    <td><%=watch.getPrice()%></td>
+                    <td><%=watch.getIVA()%></td>
+                    <td><%=watch.getVisible()%></td>
+                    <td><button class="delete-btn" data-id="<%= watch.getId() %>">X</button></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
     </div>
 </div>
 
