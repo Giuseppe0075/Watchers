@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.tinylog.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,11 +32,7 @@ public class NewReviewServlet extends HttpServlet {
         // Verify user session
         HttpSession session = req.getSession();
         if (session.getAttribute("user") == null || session.getAttribute("user").equals("0")){
-            resp.setContentType("application/json");
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            JsonObject errorResponse = new JsonObject();
-            errorResponse.addProperty("message", "User not authenticated");
-            resp.getWriter().write(gson.toJson(errorResponse));
+            sendErrorMessage(resp, "You must be logged in to leave a review");
             return;
         }
 
@@ -63,15 +60,17 @@ public class NewReviewServlet extends HttpServlet {
         try {
             Collection<PurchaseBean> purchase = purchaseModel.doRetrieveByCond("WHERE watch = ? AND user = ?", List.of(watchID, userID));
             if (purchase.isEmpty()) {
-                resp.setContentType("application/json");
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                JsonObject errorResponse = new JsonObject();
-                errorResponse.addProperty("message", "You must have bought the watch to leave a review");
-                resp.getWriter().write(gson.toJson(errorResponse));
+                sendErrorMessage(resp, "You must have bought the watch to leave a review");
                 return;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+
+        // Check if the user has selected a rating
+        if (rating < 1 || rating > 5) {
+            sendErrorMessage(resp, "Invalid rating value. Please select a rating");
+            return;
         }
 
         // Save the review in the database
@@ -79,11 +78,7 @@ public class NewReviewServlet extends HttpServlet {
         try {
             reviewModel.doSaveOrUpdate(review);
         } catch (Exception e) {
-            resp.setContentType("application/json");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            JsonObject errorResponse = new JsonObject();
-            errorResponse.addProperty("message", "An error occurred while saving the review. Please try again later.");
-            resp.getWriter().write(gson.toJson(errorResponse));
+            sendErrorMessage(resp, "An error occurred while saving the review. Please try again later.");
             return;
         }
 
@@ -99,20 +94,28 @@ public class NewReviewServlet extends HttpServlet {
             watch.setReviews_avg((double) totalRating / (double)reviews.size());
             watchModel.doSaveOrUpdate(watch);
         }catch (Exception e) {
-            resp.setContentType("application/json");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            JsonObject errorResponse = new JsonObject();
-            errorResponse.addProperty("message", "Review saved successfully");
-            resp.getWriter().write(gson.toJson(errorResponse));
-            return;
+            Logger.error(e, "Error updating watch rating");
         }
 
         // Successful response
+        sendSuccessMessage(resp);
+    }
+
+    private void sendErrorMessage(HttpServletResponse resp, String message) throws IOException {
+        resp.setContentType("application/json");
+        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        JsonObject errorResponse = new JsonObject();
+        errorResponse.addProperty("status", "error");
+        errorResponse.addProperty("message", message);
+        resp.getWriter().write(gson.toJson(errorResponse));
+    }
+
+    private void sendSuccessMessage(HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
         resp.setStatus(HttpServletResponse.SC_OK);
-        JsonObject successResponse = new JsonObject();
-        successResponse.addProperty("status", "success");
-        successResponse.addProperty("message", "Review saved successfully");
-        resp.getWriter().write(gson.toJson(successResponse));
+        JsonObject errorResponse = new JsonObject();
+        errorResponse.addProperty("status", "success");
+        errorResponse.addProperty("message", "Review saved successfully");
+        resp.getWriter().write(gson.toJson(errorResponse));
     }
 }
