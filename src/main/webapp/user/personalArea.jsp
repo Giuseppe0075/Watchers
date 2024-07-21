@@ -107,8 +107,9 @@
                         throw new RuntimeException(e);
                     }
                 %>
+
                 <tr>
-                    <td><%= watchBean.getName() %></td>
+                    <td><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watchBean.getId()%>"><%= watchBean.getName() %></a></td>
                     <td><%= purchaseBean.getQuantity() %></td>
                     <td><%= purchaseBean.getPrice() %>€</td>
                     <td><%= purchaseBean.getIVA() %>%</td>

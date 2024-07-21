@@ -17,6 +17,14 @@
   <head>
     <title>Shopping Cart</title>
     <link rel="stylesheet" href="../style/styleCart.css">
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const message = <%=request.getParameter("message")%>;
+        if("<%= request.getParameter("error")%>" === "1"){
+          toastr["error"](message!==""?message:"An error occurred");
+        }
+      });
+    </script>
   </head>
   <body>
   <%@include file="../navbar.jsp"%>
