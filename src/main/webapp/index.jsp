@@ -9,12 +9,24 @@
     <title>Watchers</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.9/glider.js" integrity="sha512-iBTjquFGC3DUyi04utYzS9qZNPVTpUkWNX2ubbbXPeD9UF86QN9M8vrPdvKydHb8qlVfzBtQnLDNPXqT40z0+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glider-js/1.7.9/glider.css" integrity="sha512-nfkkRjU7urjt0UPiMZpiFlK1SAy657MtPOG1DdM9kvBbwdspZ4dH+Gsu43U3Kry8UsF8eyjqjBppcw2wx7TU3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const message = <%=request.getParameter("message")%>;
+            if("<%= request.getParameter("error")%>" === "1"){
+                toastr["error"](message!==""?message:"An error occurred");
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- Navbar -->
 <%@include file="navbar.jsp"%>
 <style>
+
+    body{
+        background-color: #f6f5f3;
+    }
+
     a{
         text-decoration: none;
     }
@@ -34,7 +46,7 @@
     }
 
     .glider-contain {
-        width: 90%;
+        width: 80%;
         margin: 0 auto;
     }
 
@@ -85,14 +97,14 @@
         <%
             WatchModel watchModel = new WatchModel();
             ImageModel imageModel = new ImageModel();
-            List<WatchBean> watches = null;
+            List<WatchBean> watches;
             try {
                 watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE visible=?", List.of(true));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             for(var watch : watches) {
-                List<ImageBean> images = null;
+                List<ImageBean> images;
                 try {
                     images = (List<ImageBean>) imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
                 } catch (Exception e) {

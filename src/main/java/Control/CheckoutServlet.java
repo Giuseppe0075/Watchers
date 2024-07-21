@@ -28,7 +28,8 @@ public class CheckoutServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         if(req.getParameterValues("watchId") == null || req.getParameterValues("quantity") == null) {
-            resp.sendRedirect("../index.jsp");
+            String message = "Can't checkout on an empty cart";
+            resp.sendRedirect("../index.jsp?error=1&message="+message);
             return;
         }
 
@@ -77,7 +78,7 @@ public class CheckoutServlet extends HttpServlet {
                 Date date = new Date();
 
                 //Save the purchase
-                PurchaseBean purchaseBean = new PurchaseBean(id_order, userId, watchIds[i], quantities[i], 21, watchBeans.get(i).getPrice(), date);
+                PurchaseBean purchaseBean = new PurchaseBean(id_order, userId, watchIds[i], quantities[i], watchBeans.get(i).getIVA(), watchBeans.get(i).getPrice(), date);
                 purchaseModel.doSave(purchaseBean);
 
                 //Remove the watch from the cart
