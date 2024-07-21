@@ -34,10 +34,11 @@
         }
 
     %>
+
     <div class="userContainer">
+        <h1 style="text-align: center">User Details</h1>
         <div class="mainDetails">
-            <div class="header"> <%=user.getName()%></div>
-            <div class="header"> <%=user.getSurname()%></div>
+            <div class="header"> <%=user.getName()%> <%=user.getSurname()%></div>
         </div>
         <div class="details">
             <div class="detail"> <%=user.getEmail()%> </div>
@@ -45,10 +46,6 @@
             <div class="detail"> <%=user.getRoad()%>, <%=user.getCivic_number()%>, <%=user.getCAP()%> </div>
             <div class="detail"> <%=user.getCity()%> </div>
         </div>
-
-
-        <button onclick="makeEditable()">Modifica</button>
-
     </div>
 
 
@@ -84,7 +81,7 @@
     %>
 
     <div id="container">
-        <h1>Order History</h1>
+        <h1 style="text-align: center">Order History</h1>
         <% for(long i = hid; i >= 1; i--) {
             if(!orderMap.containsKey(i)) {
                 continue;
@@ -127,7 +124,7 @@
                 <% } %>
             </table>
             </div>
-            <button onclick="createInvoice(this)">Scarica Fattura</button>
+            <button onclick="createInvoice(this)">Download Invoice</button>
         </div>
         <% } %>
     </div>

@@ -7,14 +7,15 @@
 .userContainer {
     max-width: 800px;
     margin: 50px auto;
-    background: white;
+    background: #f6f5f3;
     padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .header {
-    font-size: 24px;
-    color: #333;
+    font-size: xx-large;
+    color: #03424e;
 }
 .detail {
     display: block;
@@ -31,6 +32,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f6f5f3;
 }
 
 /* Stili per la tabella degli ordini */
@@ -71,6 +73,7 @@
 .date, .user-name, .user-surname, .user-address {
     display: none; /* Nasconde i dati, ma puoi scegliere di visualizzarli secondo necessità */
 }
+
 
 @media (max-width: 768px) {
     .container {
