@@ -34,10 +34,11 @@
         }
 
     %>
+
     <div class="userContainer">
+        <h1 style="text-align: center">User Details</h1>
         <div class="mainDetails">
-            <div class="header"> <%=user.getName()%></div>
-            <div class="header"> <%=user.getSurname()%></div>
+            <div class="header"> <%=user.getName()%> <%=user.getSurname()%></div>
         </div>
         <div class="details">
             <div class="detail"> <%=user.getEmail()%> </div>
@@ -84,7 +85,7 @@
     %>
 
     <div id="container">
-        <h1 id="prova">Order History</h1>
+        <h1>Order History</h1>
         <% for(long i = hid; i >= 1; i--) {
             if(!orderMap.containsKey(i)) {
                 continue;
@@ -110,8 +111,9 @@
                         throw new RuntimeException(e);
                     }
                 %>
+
                 <tr>
-                    <td><%= watchBean.getName() %></td>
+                    <td><a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watchBean.getId()%>"><%= watchBean.getName() %></a></td>
                     <td><%= purchaseBean.getQuantity() %></td>
                     <td><%= purchaseBean.getPrice() %>€</td>
                     <td><%= purchaseBean.getIVA() %>%</td>
@@ -127,7 +129,7 @@
                 <% } %>
             </table>
             </div>
-            <button onclick="createInvoice(this)">Scarica Fattura</button>
+            <button onclick="createInvoice(this)">Download Invoice</button>
         </div>
         <% } %>
     </div>

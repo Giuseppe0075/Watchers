@@ -44,9 +44,13 @@ public class CartServlet extends HttpServlet {
             //Called to update the quantity of a watch in the cart
             case "update": {
                 Long watch = Long.parseUnsignedLong(req.getParameter("watch"));
-                Integer quantity = Integer.parseInt(req.getParameter("quantity"));
+                int quantity = Integer.parseInt(req.getParameter("quantity"));
                 CartElementBean cartElementBean = new CartElementBean(user, watch, quantity);
-                shoppingCart.updateCartElementQuantity(cartElementBean);
+                if(quantity == 0) {
+                    shoppingCart.removeFromCart(cartElementBean);
+                }else{
+                    shoppingCart.updateCartElementQuantity(cartElementBean);
+                }
                 break;
             }
             //Called to remove a watch from the cart

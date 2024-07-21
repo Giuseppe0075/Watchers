@@ -231,7 +231,8 @@
             })
             .then(response => response.json())
             .then(data => {
-                toastr["success"](data.message)
+                console.log(data.status);
+                toastr[data.status](data.message)
                 //location.reload();
             })
             .catch(error => {

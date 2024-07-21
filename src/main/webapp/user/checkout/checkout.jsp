@@ -14,6 +14,14 @@
 <html>
 <head>
     <title>Checkout</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const message = <%=request.getParameter("message")%>;
+            if("<%= request.getParameter("error")%>" === "1"){
+                toastr["error"](message!==""?message:"An error occurred");
+            }
+        });
+    </script>
 </head>
 <body>
     <%@include file="../../navbar.jsp"%> <!-- Navabar -->
@@ -21,6 +29,11 @@
     <%
         String[] watches = request.getParameterValues("watch");
         String[] quantities = request.getParameterValues("quantity");
+        if(watches == null || quantities == null){
+            String message = "No watches to checkout";
+            response.sendRedirect("/cart/cart.jsp?error=1&message="+message);
+            return;
+        }
         int n = watches.length;
         WatchModel watchModel = new WatchModel();
         ImageModel imageModel = new ImageModel();
@@ -50,7 +63,8 @@
                         }
 
                         if(quantity == 0){
-                            response.sendRedirect("/cart/cart.jsp");
+                            String message = "The watch " + name + " is not available in the quantity requested";
+                            response.sendRedirect("/cart/cart.jsp?error=1&message="+message);
                             return;
                         }
             %>

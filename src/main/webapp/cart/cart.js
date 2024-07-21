@@ -4,16 +4,11 @@ let quantities = document.getElementsByClassName('quantity');
 for(let quantity of quantities) {
     quantity.addEventListener('change', function () {
         let watch = quantity.parentElement.parentElement.parentElement.getElementsByClassName('watch')[0];
-        if (quantity.value < 0) {
-            quantity.value = 0;
+        if (quantity.value <= 0) {
+            removeItem(watch.value);
+            return;
         } else if (quantity.value > quantity.max.value) {
             quantity.value = quantity.max.value;
-        }
-
-        request.onreadystatechange = function () {
-            if (request.status === 200 && request.readyState === 4) {
-                console.log("Quantity updated successfully");
-            }
         }
 
         request.open('GET', `../cart-servlet?watch=${watch.value}&action=update&quantity=${quantity.value}`, true);
@@ -52,7 +47,7 @@ form.addEventListener('submit', function (event) {
     event.preventDefault();
     for(let quantity of quantities){
         if(quantity.value === "0"){
-            alert("Cannot checkout an out of stock watch.");
+            toastr.error("You can't checkout with \"out of stock\" items in the cart");
             return;
         }
     }

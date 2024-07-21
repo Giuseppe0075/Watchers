@@ -119,8 +119,6 @@ function changeFavourite(watchId, button){
 
 //Creates a watch card for the catalogue
 function createWatchCard(watch){
-
-    console.log(watch);
     // Create the outer div
     const watchElement = document.createElement('div');
     watchElement.className = 'watch';
@@ -156,7 +154,7 @@ function createWatchCard(watch){
 
     // Create the price p element
     const priceElement = document.createElement('p');
-    priceElement.textContent = `${watch.price} $`;
+    priceElement.textContent = `${watch.price} €`;
     anchorElement.appendChild(priceElement);
 
     // Append the anchor element to the outer div
