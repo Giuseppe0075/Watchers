@@ -50,8 +50,8 @@
                     <td><a href="${pageContext.request.contextPath}/admin/modifyWatch.jsp?id=<%=watch.getId()%>"><%=watch.getName()%></a></td>
                     <td><%=watch.getBrand()%></td>
                     <td><%=watch.getDescription()%></td>
-                    <td><%=watch.getPrice()%></td>
-                    <td><%=watch.getIVA()%></td>
+                    <td><%=watch.getPrice()%>€</td>
+                    <td><%=watch.getIVA()%>%</td>
                     <td><%=watch.getVisible()%></td>
                     <td><button class="delete-btn" data-id="<%= watch.getId() %>">X</button></td>
                 </tr>
