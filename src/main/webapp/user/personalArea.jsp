@@ -84,7 +84,7 @@
     %>
 
     <div id="container">
-        <h1>Order History</h1>
+        <h1 id="prova">Order History</h1>
         <% for(long i = hid; i >= 1; i--) {
             if(!orderMap.containsKey(i)) {
                 continue;

@@ -1,0 +1,136 @@
+.favourites-container {
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    background-color: #f9f9f9;
+
+}
+
+.details-favorite {
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f6f5f3;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    gap: 20px; /* Aumenta lo spazio tra gli elementi */
+}
+
+.details-favorite img {
+    width: 150px; /* Aumenta la dimensione dell'immagine */
+    margin-right: 30px; /* Più spazio tra l'immagine e il testo */
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.details-favorite div, button[name="action"] {
+    font-size: 18px; /* Aumenta la dimensione del testo per migliorare la leggibilità */
+}
+
+input[name="action"] {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input[name="action"]:hover {
+    background-color: #ff3333;
+}
+
+@media (min-width: 769px) {
+    .container-cart {
+        margin: 20px auto; /* Centra il contenitore e aggiunge margini per respirare */
+        padding: 30px; /* Più spazio interno */
+        max-width: 1200px; /* Allarga il contenitore per sfruttare più spazio */
+    }
+
+    .element {
+        padding: 20px; /* Aumenta il padding per ogni elemento */
+        margin-bottom: 30px; /* Più spazio tra gli elementi */
+        width: 100%;
+    }
+
+    .details img {
+        width: 150px; /* Aumenta la dimensione dell'immagine */
+        margin-right: 30px; /* Più spazio tra l'immagine e il testo */
+    }
+
+    .details div, .quantity, button[name="remove"], button[type="submit"] {
+        font-size: 18px; /* Aumenta la dimensione del testo per migliorare la leggibilità */
+    }
+
+    .details {
+        width: 300px; /* Imposta una larghezza fissa */
+        height: auto; /* Imposta un'altezza fissa */
+    }
+}
+
+@media (max-width: 768px) {
+
+    .details, input[name="action"] {
+        width: auto; /* Permette ai componenti di adattarsi ma mantiene le dimensioni fisse dove specificato */
+    }
+
+    .favourites-container {
+        margin: 5px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+
+    .details-favorite {
+        display: flex;
+        flex-direction: column; /* Mantenuto in column per coerenza con il breakpoint precedente */
+        align-items: center;
+        margin-bottom: 40px;
+        gap: 10px;
+        width: 300px;
+    }
+
+
+    .details-favorite img {
+        width: 100%; /* Mantenuto al 100% per massimizzare la visibilità dell'immagine */
+        height: auto;
+    }
+
+    .details div, .quantity, input[name="action"] {
+        font-size: 18px; /* Aumenta la dimensione del testo per migliorare la leggibilità */
+    }
+}
+
+@media (max-width: 768px) {
+    .favourites-container {
+        margin: 5px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+
+    .details-favorite {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+        gap: 10px;
+    }
+
+    .details-favorite img {
+        width: 100%; /* Mantenuto al 100% per massimizzare la visibilità dell'immagine */
+        height: auto;
+    }
+
+    .details-favorite div, input[name="action"] {
+        font-size: 18px; /* Aumenta la dimensione del testo per migliorare la leggibilità */
+    }
+}
