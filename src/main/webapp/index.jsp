@@ -100,7 +100,9 @@
                 }
         %>
         <div>
-            <img src="${pageContext.request.contextPath}/getImage?id=<%=images.getFirst().getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
+            <a href="${pageContext.request.contextPath}/watchpage/watch.jsp?id=<%=watch.getId()%>">
+                <img src="${pageContext.request.contextPath}/getImage?id=<%=images.getFirst().getId()%>&watch=<%=watch.getId()%>" alt="Image not available">
+            </a>
         </div>
         <%
             }
