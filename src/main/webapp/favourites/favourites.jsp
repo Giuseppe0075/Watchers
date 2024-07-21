@@ -43,7 +43,7 @@
 
 
 <div class="favourites-container">
-    <h1>Preferiti</h1>
+    <h1>Favorites</h1>
             <% for (WatchBean element : list) { %>
             <div class="details-favorite">
                 <%
@@ -63,7 +63,7 @@
                 <div>
                     <form action="${pageContext.request.contextPath}/favourites-servlet" method="post">
                         <input type="hidden" name="watch" value="<%= element.getId() %>">
-                        <input type="submit" name="action" value="remove">
+                        <input type="submit" name="action" value="Remove">
                     </form>
                 </div>
             </div>
