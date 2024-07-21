@@ -92,10 +92,15 @@
                 throw new RuntimeException(e);
             }
             for(var watch : watches) {
-                List<ImageBean> images = (List<ImageBean>) imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
+                List<ImageBean> images = null;
+                try {
+                    images = (List<ImageBean>) imageModel.doRetrieveByCond("WHERE watch=? ", List.of(watch.getId()));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
         %>
         <div>
-            <img src="${pageContext.request.contextPath}/getImage?id=<%=images.get(0).getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
+            <img src="${pageContext.request.contextPath}/getImage?id=<%=images.getFirst().getId()%>&watch=<%=watch.getId()%>" alt="Immagine al momento non disponibile">
         </div>
         <%
             }
