@@ -5,11 +5,21 @@
 
 <style>
     /* Stili di base */
+
+    #search-input{
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
     .search-container {
         position: relative;
-        width: 300px;
-        margin: 0 auto;
+        width: 200px;
+        margin: 0;
     }
+
     .search-results {
         position: absolute;
         width: 100%;
@@ -46,35 +56,6 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
-
-    function fetchResults(input) {
-        fetch(`/search?input=${input}`)
-                .then(response => response.json())
-                .then(results => displayResults(results))
-                .catch(error => console.error('Error:', error));
-
-        displayResults(results);
-    }
-
-    function displayResults(results) {
-        const resultsContainer = document.getElementById('search-results');
-        resultsContainer.innerHTML = '';
-
-        if (results.length === 0) {
-            resultsContainer.innerHTML = '<div class="search-result">No results found</div>';
-            return;
-        }
-
-        results.forEach(result => {
-            let div = document.createElement('div');
-            div.classList.add('search-result');
-            div.textContent = result.name;
-            div.addEventListener('click', () => {
-                window.location.href = `watch.jsp?id=${encodeURIComponent(result.id)}`;
-            });
-            resultsContainer.appendChild(div);
-        });
-    }
 </script>
 <% { %><!-- don't delete, it's used to avoid scope problems -->
 <header>
@@ -96,18 +77,16 @@
         <a href="${pageContext.request.contextPath}/homepage.jsp" id="logo">
             <img src="${pageContext.request.contextPath}/homepage/LOGO.png" alt="Logo">
         </a>
+        <div class="search-container">
+            <label for="search-input"></label>
+            <input type="text" id="search-input" placeholder="Search...">
+            <div id="search-results" class="search-results"></div>
+        </div>
         <div class="navbar-items-container">
             <ul class="navbar-items">
                 <li><a href="${pageContext.request.contextPath}/catalogue/catalogue.jsp">Catalogue</a></li>
                 <li><a href="${pageContext.request.contextPath}/cart/cart.jsp">Cart</a></li>
                 <li><a href="${pageContext.request.contextPath}/favourites/favourites.jsp">Favourites</a></li>
-                <li>
-                    <div class="search-container">
-                        <label for="search-input"></label>
-                        <input type="text" id="search-input" placeholder="Search...">
-                        <div id="search-results" class="search-results"></div>
-                    </div>
-                </li>
 
                 <% if (user != 0L) {%>
                 <li><a href="${pageContext.request.contextPath}/user/logout">Logout</a></li>
@@ -125,11 +104,6 @@
         <% } %>
             <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
         </a>
-
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search...">
-                <div id="search-results" class="search-results"></div>
-            </div>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="menu">&#9776;</span>
     </nav>
     <div id="mySidenav" class="sidenav">
@@ -157,7 +131,6 @@
         }
 
         document.getElementById('search-input').addEventListener('input', function() {
-            console.log(this.value)
             let query = this.value;
             if (query.length > 2) { // Esegui la ricerca solo se la query è più lunga di 2 caratteri
                 fetchResults(query);
@@ -167,20 +140,23 @@
         });
 
         function fetchResults(query) {
-            console.log("query"+query)
+            console.log(query)
             fetch('<%= request.getContextPath() %>/search', {
                 method: 'POST',
-                body: {
-                    query: query
-                }
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'query': query
+                })
             })
-            .then(response => response.json())
-            .then(results => displayResults(results))
-            .catch(error => console.error('Error:', error));
-
+                .then(response => response.json())
+                .then(results => displayResults(results))
+                .catch(error => console.error('Error:', error));
         }
 
         function displayResults(results) {
+            console.log(results);
             const resultsContainer = document.getElementById('search-results');
             resultsContainer.innerHTML = '';
 
@@ -192,9 +168,10 @@
             results.forEach(result => {
                 let div = document.createElement('div');
                 div.classList.add('search-result');
-                div.textContent = result;
-                div.addEventListener('click', () => {
-                    window.location.href = 'watch.jsp?query=${result}';
+                // Aggiornato per visualizzare il nome dell'orologio
+                div.textContent = result.name; // Usa la proprietà 'name' dell'oggetto risultato
+                div.addEventListener('click', function() {
+                    window.location.href = '<%= request.getContextPath() %>/watchpage/watch.jsp?id=' + result.id;
                 });
                 resultsContainer.appendChild(div);
             });

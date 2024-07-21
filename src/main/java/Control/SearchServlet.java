@@ -5,12 +5,14 @@ import Model.Beans.WatchBean;
 import Model.Models.ImageModel;
 import Model.Models.WatchModel;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,11 +22,22 @@ import java.util.Map;
 
 @WebServlet(name = "Search", value = "/search")
 public class SearchServlet  extends HttpServlet {
+    private final Gson gson = new Gson(); // Gson instance for JSON parsing
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WatchModel watchModel = new WatchModel();
+        // Read JSON from the request
+        StringBuilder jsonBuffer = new StringBuilder();
+        String line;
+        try (BufferedReader reader = req.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                jsonBuffer.append(line);
+            }
+        }
+        JsonObject jsonRequest = gson.fromJson(jsonBuffer.toString(), JsonObject.class);
+
+        String text = jsonRequest.get("query").getAsString();
         try{
-            String text = req.getParameter("query") == null ? "" : req.getParameter("query");
             List<WatchBean> watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE name LIKE '%"+text+"%' OR brand LIKE '%"+text+"%'", List.of());
             List<Map<String, Object>> watchesResult = new ArrayList<>();
 
@@ -37,7 +50,6 @@ public class SearchServlet  extends HttpServlet {
             }
 
             // Convert Java object to JSON string
-            Gson gson = new Gson();
             String json = gson.toJson(watchesResult);
 
             // Set content type
