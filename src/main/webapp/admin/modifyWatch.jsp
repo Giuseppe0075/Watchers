@@ -173,9 +173,9 @@
                 <div class="input-container">
 
                 <select id="sex" name="sex" required>
-                    <option value="MAN" <% if(watch.getSex().equals("MAN")){%> selected <% } %>>MAN</option>
-                    <option value="WOMEN" <% if(watch.getSex().equals("WOMAN")){%> selected <% } %>>WOMEN</option>
-                    <option value="UNISEX" <% if(watch.getSex().equals("UNISEX")){%> selected <% } %>>UNISEX</option>
+                    <option value="MAN" <%= watch.getSex().equals("MAN") ? "selected" : "" %>>MAN</option>
+                    <option value="WOMEN" <%= watch.getSex().equals("WOMEN") ? "selected" : "" %>>WOMEN</option>
+                    <option value="UNISEX" <%= watch.getSex().equals("UNISEX") ? "selected" : "" %>>UNISEX</option>
                 </select>
                     <span class="error-icon"><i class="fa-solid fa-circle-exclamation"></i></span>
                     <span class="success-icon"><i class="fa-solid fa-circle-check"></i></span>
