@@ -125,6 +125,11 @@
         <% } %>
             <img class="omino" src="${pageContext.request.contextPath}/homepage/lalal.png" alt="Omino" id="user">
         </a>
+
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search...">
+                <div id="search-results" class="search-results"></div>
+            </div>
         <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="menu">&#9776;</span>
     </nav>
     <div id="mySidenav" class="sidenav">
@@ -151,7 +156,49 @@
             document.getElementById("mySidenav").style.width = "0";
         }
 
+        document.getElementById('search-input').addEventListener('input', function() {
+            console.log(this.value)
+            let query = this.value;
+            if (query.length > 2) { // Esegui la ricerca solo se la query è più lunga di 2 caratteri
+                fetchResults(query);
+            } else {
+                document.getElementById('search-results').innerHTML = '';
+            }
+        });
 
+        function fetchResults(query) {
+            console.log("query"+query)
+            fetch('<%= request.getContextPath() %>/search', {
+                method: 'POST',
+                body: {
+                    query: query
+                }
+            })
+            .then(response => response.json())
+            .then(results => displayResults(results))
+            .catch(error => console.error('Error:', error));
+
+        }
+
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = '';
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-result">No results found</div>';
+                return;
+            }
+
+            results.forEach(result => {
+                let div = document.createElement('div');
+                div.classList.add('search-result');
+                div.textContent = result;
+                div.addEventListener('click', () => {
+                    window.location.href = 'watch.jsp?query=${result}';
+                });
+                resultsContainer.appendChild(div);
+            });
+        }
     </script>
 </header>
 <% } %> <!-- don't delete, it's used to avoid scope problems -->

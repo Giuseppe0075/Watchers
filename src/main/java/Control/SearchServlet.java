@@ -21,11 +21,11 @@ import java.util.Map;
 @WebServlet(name = "Search", value = "/search")
 public class SearchServlet  extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WatchModel watchModel = new WatchModel();
         try{
-            String text = req.getParameter("search-input");
-            List<WatchBean> watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE name LIKE '%"+text+"%' OR brand LIKE '%"+text+"%'", List.of(text,text));
+            String text = req.getParameter("query") == null ? "" : req.getParameter("query");
+            List<WatchBean> watches = (List<WatchBean>) watchModel.doRetrieveByCond("WHERE name LIKE '%"+text+"%' OR brand LIKE '%"+text+"%'", List.of());
             List<Map<String, Object>> watchesResult = new ArrayList<>();
 
             for(WatchBean watch : watches){
@@ -50,6 +50,7 @@ public class SearchServlet  extends HttpServlet {
             out.flush();
         }
         catch(Exception e){
+            e.printStackTrace();
             throw new ServletException("Error during search", e);
         }
     }
