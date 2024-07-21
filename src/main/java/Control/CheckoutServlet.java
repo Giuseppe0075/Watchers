@@ -90,6 +90,6 @@ public class CheckoutServlet extends HttpServlet {
             }
         }
 
-        resp.sendRedirect("../homepage.jsp");
+        resp.sendRedirect(req.getContextPath()+"/homepage.jsp?message=Checkout successful!&success=1");
     }
 }

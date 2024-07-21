@@ -16,6 +16,9 @@
             if("<%= request.getParameter("error")%>" === "1"){
                 toastr["error"](message!==""?message:"An error occurred");
             }
+            if("<%= request.getParameter("success")%>" === "1"){
+                toastr["success"](message!==""?message:"Operation completed successfully");
+            }
         });
     </script>
 </head>
