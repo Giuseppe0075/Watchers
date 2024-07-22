@@ -52,8 +52,6 @@
                 </div>
 
 
-                <button onclick="makeEditable()">Modifica</button>
-
             </div>
 
 

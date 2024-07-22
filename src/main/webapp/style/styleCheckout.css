@@ -59,7 +59,7 @@
 }
 
 button[name="remove"] {
-    background-color: #ff4d4d;
+    background-color: #a52727;
     color: white;
     border: none;
     border-radius: 5px;
@@ -68,11 +68,11 @@ button[name="remove"] {
 }
 
 button[name="remove"]:hover {
-    background-color: #ff3333;
+    background-color: #881717;
 }
 
 button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #35757d;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -87,7 +87,7 @@ label{
 }
 
 button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #03424e;
 }
 
 @media (min-width: 769px) {

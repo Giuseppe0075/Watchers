@@ -29,11 +29,6 @@
 
 <%@include file="../navbar.jsp"%>
 
-<div class="flex-container">
-    <div class="flex-content">
-        <!-- Contenuto della pagina -->
-
-
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 if("<%= request.getParameter("success")%>" === "true"){
@@ -80,7 +75,6 @@
             </div>
         </div>
 
-    </div>
 
 <script src="${pageContext.request.contextPath}/utils/formValidator.js"></script>
 <%@include file="../footer.html"%> <!-- Footer -->
@@ -91,7 +85,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100vw;
+        width: 100%;
         height: 100vh;
         object-fit: cover;
         z-index: -1;
