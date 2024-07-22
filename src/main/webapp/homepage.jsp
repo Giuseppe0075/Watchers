@@ -26,11 +26,6 @@
 <!-- Navbar -->
 <%@include file="navbar.jsp"%>
 
-<div class="flex-container">
-    <div class="flex-content">
-        <!-- Contenuto della pagina -->
-    </div>
-
 <style>
 
     body{

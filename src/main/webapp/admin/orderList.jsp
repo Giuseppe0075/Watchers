@@ -61,65 +61,72 @@
     // Reverse the order of the TreeMap using descendingMap()
     NavigableMap<java.util.Date, List<PurchaseBean>> reversedOrderMap = orderMap.descendingMap();
 %>
-<div class="order-container">
-    <div class="form-filter">
-        <h1>Orders</h1>
 
-        <!-- Form per selezionare la data -->
-        <form method="GET" action="orderList.jsp" class="filter-form">
-            <label for="minDate">From: </label>
-            <input type="date" id="minDate" name="minDate" value="<%=minDateString != null ? minDateString : ""%>">
-            <label for="maxDate">To: </label>
-            <input type="date" id="maxDate" name="maxDate" value="<%=maxDateString != null ? maxDateString : ""%>">
-            <label for="user">User</label>
-            <select id="user" name="user">
-                <option selected>All</option>
-                <% for(var user : userBeans){ %>
-                <option value="<%=user.getId()%>"><%=user.getEmail()%></option>
-                <% } %>
-            </select>
+<div class="flex-container">
+    <div class="flex-content">
+        <!-- Contenuto della pagina -->
+        <div class="order-container">
+            <div class="form-filter">
+                <h1>Orders</h1>
 
-            <input type="submit" value="Filter">
-        </form>
+                <!-- Form per selezionare la data -->
+                <form method="GET" action="orderList.jsp" class="filter-form">
+                    <label for="minDate">From: </label>
+                    <input type="date" id="minDate" name="minDate" value="<%=minDateString != null ? minDateString : ""%>">
+                    <label for="maxDate">To: </label>
+                    <input type="date" id="maxDate" name="maxDate" value="<%=maxDateString != null ? maxDateString : ""%>">
+                    <label for="user">User</label>
+                    <select id="user" name="user">
+                        <option selected>All</option>
+                        <% for(var user : userBeans){ %>
+                        <option value="<%=user.getId()%>"><%=user.getEmail()%></option>
+                        <% } %>
+                    </select>
+
+                    <input type="submit" value="Filter">
+                </form>
+            </div>
+
+            <div id="container" style="overflow-x: scroll">
+                <h1>Order History</h1>
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Date </th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>IVA</th>
+                        <th>Total</th>
+                    </tr>
+                    <% for(java.util.Date i : reversedOrderMap.keySet()) {
+                        List<PurchaseBean> purchaseBeansList = orderMap.get(i);
+
+                        for(PurchaseBean purchaseBean : purchaseBeansList) {
+                            WatchBean watchBean;
+                            try {
+                                watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                    %>
+                    <tr>
+                        <td><%= watchBean.getName() %></td>
+                        <td><%= purchaseBean.getDate() %></td>
+                        <td><%= purchaseBean.getQuantity() %></td>
+                        <td><%= purchaseBean.getPrice() %>€</td>
+                        <td><%= purchaseBean.getIVA() %>%</td>
+                        <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
+                    </tr>
+                    <% }
+                    } %>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div id="container" style="overflow-x: scroll">
-        <h1>Order History</h1>
-        <table>
-            <tr>
-                <th>Product</th>
-                <th>Date </th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>IVA</th>
-                <th>Total</th>
-            </tr>
-            <% for(java.util.Date i : reversedOrderMap.keySet()) {
-                List<PurchaseBean> purchaseBeansList = orderMap.get(i);
-
-                for(PurchaseBean purchaseBean : purchaseBeansList) {
-                    WatchBean watchBean;
-                    try {
-                        watchBean = watchModel.doRetrieveByKey(List.of(purchaseBean.getWatch()));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-            %>
-            <tr>
-                <td><%= watchBean.getName() %></td>
-                <td><%= purchaseBean.getDate() %></td>
-                <td><%= purchaseBean.getQuantity() %></td>
-                <td><%= purchaseBean.getPrice() %>€</td>
-                <td><%= purchaseBean.getIVA() %>%</td>
-                <td><%= purchaseBean.getQuantity() * purchaseBean.getPrice() %>€</td>
-            </tr>
-            <% }
-            } %>
-        </table>
-    </div>
-</div>
 
 <%@include file="../footer.html"%> <!-- Footer -->
+</div>
 
 </body>
 </html>
